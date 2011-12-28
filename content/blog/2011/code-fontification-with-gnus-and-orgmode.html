@@ -1,0 +1,18 @@
+---
+title: Code fontification with Gnus and Org-mode
+created: !!timestamp '2011-01-20 14:45:00'
+tags:
+    - gnus
+    - emacs
+    - orgmode
+---
+I've added code fontification using [Org src blocks](http://orgmode.org/manual/Working-With-Source-Code.html#Working-With-Source-Code)
+inside [Gnus](http://gnus.org).
+
+![Screenshot of Gnus fontification]({{site.url}}/media/images/blog/2011/gnus-org-buffer-fontification.png)
+
+This interprets the block as an Org buffer and fontify it accordingly if
+*org-src-fontify-natively* it set to *t*.
+
+Thanks to [Sébastien Vauban for the original idea](http://news.gmane.org/find-root.php?message_id=%3c80k4lj78ui.fsf%40mundaneum.com%3e) and implementation. Now it
+works out of the box without any customization.

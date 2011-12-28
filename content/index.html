@@ -1,0 +1,45 @@
+---
+title: jd's homepage
+---
+
+{% block starthead %}
+<link href="https://plus.google.com/107513391728776207155" rel="publisher" />
+{% endblock %}
+
+<div class="social-logo">
+  <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
+    <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
+  </a>
+  <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
+    <img src="media/images/twitter.png" alt="Twitter logo"/>
+  </a>
+  <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
+    <img src="media/images/linkedin.jpg" alt="LinkedIn logo"/>
+  </a>
+  <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
+    <img src="media/images/viadeo.png" alt="Viadeo logo"/>
+  </a>
+  <a href="https://flattr.com/profile/jd" title="jd on Flattr">
+    <img src="media/images/flattr.png" alt="Flattr logo"/>
+  </a>
+</div>
+
+{% markdown %}
+My name is Julien Danjou, a.k.a. **jd**. I'm 28 years old and live in Paris,
+France. I am currently involved in several Free Software
+[projects](/projects) and [development](/software).
+
+
+# Contacting me
+
+You can, of course, contact me by e-mail. This is usually faster than phone.
+Simply write to [julien@danjou.info](mailto:julien@danjou.info). I use to
+read my e-mail once a day, but it could take me more time to answer if I am
+busy or away.
+
+# Recent blog posts
+
+{% endmarkdown %}
+
+{% from "macros.j2" import render_blog_listing with context %}
+{{ render_blog_listing(site.content.walk_resources_sorted_by_time()[:3]) }}

@@ -1,0 +1,35 @@
+---
+title: "Offlineimap for Emacs"
+---
+{% mark excerpt %}
+
+The **offlineimap** [Emacs](http://www.gnu.org/software/emacs/) extension
+allows to run [OfflineIMAP](https://github.com/nicolas33/offlineimap) inside
+Emacs.
+
+{% endmark %}
+
+![offlineimap.el example screenshot](/media/images/offlineimap.el/offlineimap.el.png)
+
+# Download
+
+It is available from [the Git
+repository](http://git.naquadah.org/?p=offlineimap-el.git;a=summary).
+
+There's no tagged release for now.
+
+# Manual
+The easiest way to use it is to load it from your *.emacs*:
+<pre clsas="prettify lang-lisp">
+(require 'offlineimap)
+</pre>
+
+You can then use **M-x offlineimap**. It will launch offlineimap in a
+background buffer.
+
+If you want to run offlineimap when you launch [Gnus](http://gnus.org), you
+can add the following to your **.emacs**:
+
+<pre clsas="prettify lang-lisp">
+(add-hook 'gnus-before-startup-hook 'offlineimap)
+</pre>

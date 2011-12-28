@@ -1,0 +1,110 @@
+---
+title: "Contacts for Org-mode"
+---
+{% mark excerpt %}
+
+The **org-contacts** [Emacs](http://www.gnu.org/software/emacs/) extension
+allows to manage your contacts using [Org-mode](http://orgmode.org).
+
+{% endmark %}
+
+It can be a replacement to [BBDB](http://bbdb.sourceforge.net) for people
+using Org.
+
+# Download
+It is available in the contrib directory of [Orgmode](http://orgmode.org) (version > 7.5).
+
+# Manual
+## Basics
+Just load the file from your .emacs:
+
+<pre class="prettify lang-lisp">
+(require 'org-contacts)
+</pre>
+
+There's a few variables you can customize. The main one is
+*org-contacts-files* which determines which file(s) will be used to get your
+contacts. If set to *nil*, all your Org agenda files will be used. If you set
+it to a list of files, they will be used to look for contacts. Specifying
+the list of files where contacts are rather than searching in all your Org
+files will speed-up *org-contacts*.
+
+What a contact is is determined by the matching rule in
+*org-contacts-matcher*. By default, contacts are Org entry which have a **EMAIL**
+property set.
+
+<pre class="prettify">
+#+STARTUP: showeverything
+* Friends
+** Dave Null
+:PROPERTIES:
+:EMAIL: dave@null.com
+:END:
+This is one of my friend.
+*** TODO Call him for the party
+</pre>
+
+Now, if you do *M-x org-contacts* and search *Dave* you'll find Dave.
+
+## Gnus integration
+*Org-contacts* support [Gnus](http://www.gnus.org). You can use completion in *message-mode* in the To,
+Cc, etc headers. You can also complete with tags. For example:
+
+<pre class="prettify">
+#+STARTUP: showeverything
+* Friends
+** Dave Null                               :dumb:
+:PROPERTIES:
+:EMAIL: dave@null.com
+:END:
+This is one of my friend.
+** Slash Bin                             :school:
+:PROPERTIES:
+:EMAIL: slash@localhost.com
+:END:
+That good old Slash.
+* Family
+** Exam Pelle                              :dumb:
+:PROPERTIES:
+:EMAIL: exam@pelle.com
+:END:
+</pre>
+
+If you type *+* in the **To** field and press *<TAB>* to complete, you'll get a
+list of tags. Finishing the completion using a tag will expand the
+completion to all the people having this tag. Therefore, typing *+dumb* and
+pressing <TAB> will expand to *Dave Null \<dave@null.com>, Exam Pelle
+\<exam@pelle.com>*.
+
+When using Gnus, you'll also get a link to the last mail you read from your
+contact. A link to the email will be placed in the
+*org-contacts-last-read-mail-property* (default to *LAST_READ_MAIL*).
+
+## Capture
+To add new contact, you can use **org-capture**. Here is an entry example for
+it:
+
+<pre class="prettify lang-lisp">
+        ("c" "Contacts" entry (file "~/Org/contacts.org")
+         "* %(org-contacts-template-name)
+:PROPERTIES:
+:EMAIL: %(org-contacts-template-email)
+:END:")
+</pre>
+
+The *org-contacts-template-name* and *org-contacts-template-email* functions
+will try to determine the name and email of your new contact, using the mail
+you are reading in Gnus, if possible.
+
+## Anniversaries
+*Org-contacts* handles anniversaries as well. The default is birthday. Just
+press *C-c C-x p* to set a property and type *BIRTHDAY*. Chose date.
+
+To see the birthday in your agenda, put such a line in one of you agenda
+file:
+
+<pre class="prettify">
+#+STARTUP: showeverything
+* Birthdays
+%%(org-contacts-anniversaries)
+</pre>

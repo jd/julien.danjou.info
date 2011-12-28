@@ -1,0 +1,25 @@
+{% macro render_software_excerpt(res, class=None) %}
+{% refer to res.url as soft %}
+<article {{'class='~class if class }}>
+<h2><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h2>
+<a href="{{ content_url(res.url) }}">{{ soft.image|markdown|typogrify }}</a>
+{{ soft.excerpt|markdown|typogrify }}
+</article>
+{% endmacro %}
+
+{% macro render_blog_listing(walker) %}
+<ul class="listing clear">
+{% for res in walker %}
+<li class="post-summary">
+<article>
+<time datetime="{{ res.meta.created.strftime('%Y-%m-%d') }}">
+{{ res.meta.created.strftime('%d %b %Y') }}
+</time>
+<h3><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h3>
+{% refer to res.url as post %}
+{{ post.excerpt|markdown|typogrify }}
+</article>
+</li>
+{% endfor %}
+</ul>
+{% endmacro %}

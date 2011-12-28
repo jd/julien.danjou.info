@@ -1,0 +1,38 @@
+---
+title: My OpenStack work
+created: !!timestamp '2011-12-16 17:34:00'
+tags:
+    - openstack
+    - debian
+---
+
+{% mark excerpt %}
+
+Like I already wrote here last week, I've been heavily working on
+[OpenStack](http://openstack.org) for the last weeks.
+
+{% endmark %}
+
+My first assignment was to package OpenStack for Debian. The packages
+already present in unstable were mainly done by [Thomas
+Goirand](http://thomas.goirand.fr/), who based its work on the one done in
+[Ubuntu](http://ubuntu.com). Therefore, the packages where not in a very
+good shape for Debian.
+
+Today Ghe Rivero and I (members of the [OpenStack Debian packaging
+team](https://alioth.debian.org/projects/openstack)) managed to push the
+[OpenStack Essex 2
+milestone](https://launchpad.net/openstack/+milestone/essex-2) into unstable
+with great success. You can now test and deploy OpenStack Essex 2 very easily!
+
+Packaging OpenStack [made me write several
+patches](https://review.openstack.org/#dashboard,1669), mainly related to
+packaging, patches which were all accepted and merged by upstream. This is
+nice because most of the OpenStack Debian packages lost their
+*debian/patches* directories now!
+
+Finally, I've finished to implement one blueprint I really missed: the
+[ability to boot from an ISO
+image](https://blueprints.launchpad.net/nova/+spec/support-kvm-boot-from-iso)
+using [libvirt](http://libvirt.org). The code still needs a review, but it
+should be included in the Essex 3 milestone if everything's right.

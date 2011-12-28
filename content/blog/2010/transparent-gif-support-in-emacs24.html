@@ -1,0 +1,20 @@
+---
+title: Transparent GIF support in Emacs 24
+created: !!timestamp '2010-11-02 11:43:00'
+tags:
+    - gif
+    - emacs
+---
+{% mark excerpt %}
+
+Last week, I wrote a [couple of patches](http://lists.gnu.org/archive/html/emacs-devel/2010-10/msg01009.html) to add support for transparency when Emacs is displaying [GIF](http://en.wikipedia.org/wiki/Graphics_Interchange_Format) images.
+
+{% endmark %}
+
+Until now, it was displaying the color used to define transparency in the
+file data. Now it displays the image correctly by using the frame color as
+the transparency color, like it's done for other image formats.
+
+![Emacs 24 displaying a GIF image]({{site.url}}/media/images/blog/2010/emacs-gif-transparent.png)
+
+The patches have not been merged yet, but will probably be soon.

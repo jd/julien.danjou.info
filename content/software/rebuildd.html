@@ -1,0 +1,146 @@
+---
+title: "rebuildd"
+---
+{% mark excerpt %}
+
+*rebuildd* is a build daemon to rebuild Debian packages.
+
+{% endmark %}
+
+# A bit of history
+## Once upon a time
+
+During the release cycle of
+[the Debian 4.0 (etch) version](http://www.debian.org/releases/etch/), I
+decided to rebuild several times the Debian archive on my idle sparc and
+i386 boxes. The main goal of this action was to find
+[FTBFS](http://en.wikipedia.org/wiki/FTBFS) bugs.
+
+Currently, rebuilding the whole packages archive implies to set-up a
+[buildd](http://www.debian.org/devel/buildd/), which is kind of complicated
+stuff.
+
+I already wrote up a bit of documentation about this process, but I was not
+totaly convinced.
+
+*buildd* was not made for what I wanted to do. The database is ugly, it's
+old tech and it's Perl. Furthermore,
+[sbuildd](http://packages.debian.org/unstable/devel/sbuild), is easily
+breakable by a *postinst* problem or whatever, leaving your chroot broken
+and unusable. [schroot](http://packages.debian.org/unstable/admin/schroot)
+support has never really worked, and looking at the code (some months
+before) about this feature, I think it was a
+
+## First idea
+My first idea was to rewrite some kind of buildd in a better way, I mean in
+a way that works.
+
+Rewriting the build process was not one of my goal, and I succeeded in that
+by choosing
+[pbuilder](http://www.netfort.gr.jp/~dancer/software/pbuilder.html) (or
+cowbuilder, or whatever you want) to build things.
+
+That gave me a better idea on what to focus on: the build management.
+
+I chose to use [Python](http://www.python.org) as programming language,
+mainly because I never heavily used it.
+
+
+## Overview
+Here is the diagram of what 5 days of coding gave, giving the first 0.1.0
+release:
+![rebuildd UML diagram](/media/images/rebuildd/rebuildd_uml.jpg)
+
+The main specifications of *rebuildd* is multi-threading, and probably, a
+small design. Beware: I'm not a Python-guru yet, so some kind of stuff may
+appear to be tricky or inefficient, mainly because I am not comfortable with
+the language yet. However, I welcome patches. Lucky you. However becoming
+with 0.2.0, things are better.
+
+All data are stored in a SQL backend. You can use any SQL engine, I really
+don't care, since all the job is not done by me. By default, *rebuildd* uses
+*SQLite*, which may be a poor choice.
+
+
+## Future
+I think there's a lot of things to add, but it's functional for me right
+now. I'd like to add Web 2.0 feature, like using AJAX to refresh build logs
+in realtime on the webpage. That would be SO GREAT LOL.
+
+# Download
+## Packages
+*rebuildd* is available in Debian.
+
+ - [rebuildd packages]([http://packages.debian.org/rebuildd)
+ - [PTS page for rebuildd](http://packages.qa.debian.org/r/rebuildd.html)
+
+## Git
+
+The
+[Git repository](http://git.debian.org/?p=rebuildd/rebuildd.git;a=summary)
+is available on [Alioth](http://alioth.debian.org).
+
+# How it works
+
+Just install the Debian package. You will need at least Python 2.5,
+[Webpy](http://www.webpy.org/) (python-webpy) and
+[SQLObject](http://www.sqlobject.org/) (python-sqlobject).
+
+I advise you to run *rebuildd* in a chroot (use *debootstrap* to create
+one).
+
+Then run it as root, so you will be able to use *pbuilder*. (If you don't want
+to run it as root, you can use *sudo*, but you will run into trouble when
+you'll want to cancel and halt build jobs)
+
+A network server will be launched: a telnet server on port 9999.
+
+Juste telnet to the first one, and enjoy. Here's an example session on what
+you can do. Please remember to type *help* for getting help.
+
+<pre class="prettify">
+% telnet localhost 9999
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+Connected on rebuildd on abydos.adm.naquadah.org
+rebuildd@abydos-> status
+rebuildd@abydos-> help
+config -- Manipulate configuration file
+help -- Show help
+job -- Manipulate jobs
+job add -- Add job
+job cancel -- Cancel job
+job reload -- Load new jobs
+job start -- Start jobs
+status -- Show current jobs status
+version -- Show version
+rebuildd@abydos-> job add telak 0.5-1 sid
+I: job added
+rebuildd@abydos-> job reload
+I: 1 new jobs added
+rebuildd@abydos-> job start
+I: 1 jobs started
+rebuildd@abydos-> status
+I: Job 100 for telak_0.5-1 is status BUILDING on sid/i386 for None
+rebuildd@abydos-> job add telak 0.5-1 sid i386 acid@debian.org
+I: job added
+rebuildd@abydos-> job reload
+I: 1 new jobs added
+rebuildd@abydos-> status
+I: Job 100 for telak_0.5-1 is status BUILDING on sid/i386 for None
+I: Job 101 for telak_0.5-1 is status WAIT_LOCKED on sid/i386 for acid@debian.org
+</pre>
+
+Note that *rebuildd* will do a *job reload* by itself every *check_every* seconds.
+
+You can check what's going on by opening the rebuildd log, located by
+default on */var/log/rebuildd/rebuildd.log*.
+
+You can also view builds status and logs in live by pointing your Web browser to port 9998 of your server.
+This only works if you start rebuildd-httpd. You'll see something like that:
+
+![rebuildd HTTP interface](/media/images/rebuildd/rebuildd_http.jpg)
+
+There's also a command line tool which can manipulate database, called
+rebuildd-job.

@@ -1,0 +1,6 @@
+---
+extends:
+---
+RewriteEngine On 
+RewriteCond %{REQUEST_FILENAME}.html -f  
+RewriteRule ^.*$ %{REQUEST_FILENAME}.html 

@@ -1,0 +1,33 @@
+---
+title: Kicking out Web spammers with DNSBL
+created: !!timestamp '2007-01-15 11:33:00'
+tags:
+    - apache
+    - dnsbl
+    - mod_defensible
+    - security
+---
+
+{% mark excerpt %}
+
+Every project has its story. Every war has its winner, and its
+casualties. They were 20 millions men, fighting for their freedom.
+
+And you'll never know their story.
+
+{% endmark %}
+
+Because during last week, I was looking why my Web server was so heavily
+loaded. And I discovered that my blog was attacked by spammers trying to
+post comments. They were stopped by a great plug-in named *spamplemousse*,
+which use spam keywords and DNSBL to drop spam comments. However, this
+plug-in is written in PHP, like the rest of my blog, so it loads Apache and
+MySQL in a way that is no more acceptable: the page have still to be
+rendered for this !@#$ spammers.
+
+Consequently, I decided to write a Apache 2.x module which will just drop a
+*403 Forbidden* error page in the spammers' head using DNSBL servers. Here it
+is, and it is called [mod_defensible]({{site.url}}/software/mod_defensible).
+
+I'm using it since 3 days now, and I got some pretty interesting result and
+less load on my Web server, so *c'est tout bon*.

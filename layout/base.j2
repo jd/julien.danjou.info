@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block starthead %}{% endblock starthead %}
+    <meta charset="{{ resource.meta.charset }}">
+    <title>{% block title %}{{ resource.meta.title }}{% endblock %} | {{ site_title }}</title>
+    <meta name="author" content="{{ resource.meta.author }}">
+
+    <link type="application/atom+xml" rel="alternate" href="/blog/index.xml"/>
+
+    {% block basecss %}
+    <link href="{{ media_url('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ media_url('css/style.css') }}" rel="stylesheet">
+    <link href="{{ media_url('js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+    {% endblock basecss %}
+    {% block css %}{% endblock %}
+
+    {% block headjs %}
+    {% endblock headjs %}
+
+    {% if resource.next_by_time %}
+    <link href="{{ resource.next_by_time.full_url }}" rel="prev">
+    {% endif %}
+
+    {% if resource.prev_by_time %}
+    <link href="{{ resource.prev_by_time.full_url }}" rel="next">
+    {% endif %}
+
+
+    {% block endhead %}{% endblock endhead %}
+  </head>
+
+  <body onload="prettyPrint()">
+
+    {% block body %}
+
+    <div class="topbar">
+      {% block topbar %}
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="{{ home_url }}">{{ site_title }}</a>
+          <ul class="nav">
+            {% for menu_item in site.content.child_nodes %}
+            {% if menu_item.name == "software" %}
+            <li data-dropdown="dropdown" {% if resource.node == menu_item or resource.full_url == menu_item.full_url %} class="active"{% endif %}>
+              <a href="{{menu_item.full_url}}" {% if resource.node == menu_item or menu_item.full_url == resource.full_url %} class="dropdown-toggle"{% endif %}>
+                {{menu_item.name|capitalize}}
+              </a>
+              <ul class="dropdown-menu">
+                {% for page in menu_item.walk_resources_sorted_by_name() %}
+                {% if page.name != "index.html" %}
+                <li{% if page.full_url == resource.full_url %} class="active" {% endif %}>
+                  <a href="{{page.full_url}}">{{page.slug}}</a></li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </li>
+            {% elif menu_item.name != "media" %}
+            <li{% if menu_item.full_url == resource.full_url %} class="active"{% endif %}>
+              <a href="{{ menu_item.full_url }}">{{ menu_item.name|capitalize }}</a>
+            </li>
+            {% endif %}
+            {%- endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endblock topbar %}
+    </div>
+
+    <div class="container" id="top">
+      {% block container %}
+
+      <div class="content">
+        {# This is where the bulk of the content will go #}
+        {% block content %}
+        {% endblock %}
+      </div>
+
+      <footer>
+        {% block footer %}
+        <p>Created by <a href="{{ author.url }}">{{ author.name }}</a></p>
+        {% endblock footer %}
+      </footer>
+
+      {% endblock container %}
+    </div> <!-- /container -->
+
+    {% endblock body %}
+
+    {% block js %}
+    <!-- Javascript at the bottom for fast page loading -->
+    {% block jquery %}
+    <script src="{{ media_url('js/jquery-1.7.1.min.js') }}"></script>
+    {% endblock jquery %}
+
+    {% block bootstrap_scripts %}
+    <script src="{{ media_url('js/bootstrap-dropdown.js') }}"></script>
+    {% endblock bootstrap_scripts %}
+
+    {% block scripts %}
+    <script src="{{ media_url('js/google-code-prettify/prettify.js') }}"></script>
+    <script src="{{ media_url('js/google-code-prettify/lang-lua.js') }}"></script>
+    <script src="{{ media_url('js/google-code-prettify/lang-lisp.js') }}"></script>
+    <script src="{{ media_url('js/socialite/socialite-1.0.js') }}"></script>
+    <script>$(Socialite.load);</script>
+    {% endblock scripts %}
+
+    {% block analytics %}
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '{{ google_analytics_id }}']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    {% endblock analytics %}
+
+    {% endblock js %}
+  </body>
+</html>

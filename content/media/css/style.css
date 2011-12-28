@@ -1,0 +1,111 @@
+blockquote {
+    font-style: italic;
+}
+
+blockquote > p {
+    font-style: italic;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.page-content {
+    clear: both;
+}
+
+time {
+    float: right;
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    font-weight: normal;
+    font-style: italic;
+    text-align: center;
+    padding: 6px;
+    background-color: #333;
+    color: white;
+    font-size: 0.9em;
+    border-radius: 1em;
+    box-shadow: 2px 2px 4px #aaa;
+    line-height: 1.3em;
+    clear: both;
+}
+
+.socialised {
+    display: inline-block;
+    width: 120px;
+}
+
+.socialised > .FlattrButton {
+    display: inline-block;
+    width: 120px;
+}
+
+.post-summary p {
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.context-nav {
+    height: 3em;
+}
+
+.context-nav-prev {
+    float: left;
+}
+
+.context-nav-next {
+    float: right;
+}
+
+h1, #projects > h2, #projects > h3 {
+    clear: both;
+}
+
+.page-content img, .page-content video {
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-logo {
+    float: right;
+    margin: 10px;
+}
+
+.social {
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+
+footer {
+    clear: both
+}
+
+#BigFlattrButton {
+    float: right
+}
+
+.rss-logo {
+    float: right
+}
+
+.social-logo {
+    display: inline-block;
+    float: right;
+    width: auto;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.social-logo img {
+    display: inline;
+}

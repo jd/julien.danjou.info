@@ -1,0 +1,27 @@
+---
+title: ATL1E support in 2.6.26-1
+created: !!timestamp '2008-07-31 11:59:00'
+tags:
+    - linux
+    - debian
+---
+
+{% mark excerpt %}
+
+Ben Armstrong opened an [ITP for the ATL1E NIC
+driver](http://bugs.debian.org/492029), which is found on some Asus EeePC
+laptops. So, as suggested by Maximilian Attems, [I provided a clean patch
+for this
+driver](http://lists.debian.org/debian-kernel/2008/07/msg00638.html), made
+from a cherry-pick from the linux-netdev 2.6.27 tree. It has been committed
+into the 2.6.26-1 Debian kernel, which will be furnished with Lenny.
+
+{% endmark %}
+
+What's fun, is that in the mean time, I got a new computer at work. Wait,
+it's not fun yet. Because what I did not know is that it's made of an
+[Asus P5Q motherboard](http://asus.com/products.aspx?l1=3&l2=11&l3=709&l4=0&model=2164&modelmenu=1)
+which runs a NIC needing the ATL1E driver (and now you see why it's fun).
+
+So I've just upgraded to 2.6.26-1-amd64 and I'm glad that my own work is
+useful to me (and will be probably be to others as well). :-)

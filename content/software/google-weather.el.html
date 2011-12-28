@@ -1,0 +1,54 @@
+---
+title: "Google Weather for Emacs"
+----
+{% mark excerpt %}
+
+The *google-weather* [Emacs](http://www.gnu.org/software/emacs/) extension
+allows to run access the Google Weather API from Emacs.
+
+{% endmark %}
+
+It includes **org-google-weather**, which can be used to add weather forecast in
+your [Org](http://orgmode.org) agenda.
+
+![org-google-weather.el screenshot]({{site.url}}/media/images/google-weather.el/org-google-weather.png)
+
+# Download
+
+It is available from [the Git repository](http://git.naquadah.org/?p=google-weather-el.git;a=summary).
+
+There's no tagged release for now.
+
+# Manual
+The easiest way to use it is to load it from your *.emacs*:
+
+<pre class="prettyprint lang-lisp">
+(require 'google-weather)
+</pre>
+
+The function are documented, therefore you should not have any difficulty to
+use them.
+
+If you want to use **org-google-weather** to add weather forecasts in your
+agenda, just add the following in your *.emacs.*
+
+<pre class="prettyprint lang-lisp">
+(require 'org-google-weather)
+</pre>
+
+Then, add the following in one of your Org file.
+
+<pre class="prettyprint">
+* Weather
+%%(org-google-weather "New York")
+</pre>
+
+You can set the language as second argument. You should know that the unit
+system used is language dependent. By default, American English is used,
+therefore with Fahrenheit degrees, but if you want to have English with
+Celsius degrees, you can use "en-gb".
+
+<pre class="prettyprint">
+* Weather
+%%(org-google-weather "Paris 14" "en-gb")
+</pre>

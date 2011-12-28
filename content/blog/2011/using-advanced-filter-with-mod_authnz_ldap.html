@@ -1,0 +1,35 @@
+---
+title: Using advanced filter with mod_authnz_ldap
+created: !!timestamp '2011-04-04 14:02:00'
+tags:
+    - ldap
+    - apache
+---
+{% mark excerpt %}
+
+As you may know, Apache's [mod_authzn_ldap](http://httpd.apache.org/docs/2.2/mod/mod_authnz_ldap.html) allows to authenticate users in
+Apache HTTP server using an LDAP server. Unfortunately, it has a little
+implementation flaw.
+
+{% endmark %}
+
+The filter used to authenticate the user is built by abusing the [RFC 2255](http://www.ietf.org/rfc/rfc2255.txt)
+which specifies the LDAP URL format. This format has an "attribute" field
+which is normally used to specify which attributes should be returned. But
+*mod_authzn_ldap* uses this attribute to compare with the username given by
+the client. That means that you have to have an attribute in your LDAP
+entries which matches the username, and you have to use it in the
+"attribute" part of the URL to get things working.
+
+Therefore, I wrote a patch to add a format string in the LDAP URL in order
+to user the provided username in the filter, and ignore the attribute part
+of the URL, which has no use in such a context anyway.
+
+The bug has been opened in ASF Bugzilla and has number [#51005](https://issues.apache.org/bugzilla/show_bug.cgi?id=51005), with the
+patch. The patch is backward compatible with the current configuration
+format, which is not the best choice in theory, but probably the more
+pragmatic.
+
+I've no clue on the typical delay for patches in clusion in Apache HTTP
+server, so le
+t's just wait'n see.

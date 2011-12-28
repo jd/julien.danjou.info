@@ -1,0 +1,252 @@
+---
+title: Thoughts and rambling on the X protocol
+created: !!timestamp '2010-06-01 00:00:00'
+tags:
+    - x11
+    - ewmh
+---
+{% mark excerpt %}
+
+Two years ago, while working on [awesome](http://awesome.naquadah.org), I joined the [Freedesktop](http://www.freedesktop.org) initiative
+to work on [XCB](http://xcb.freedesktop.org). I had to learn the arcane of the X11 protocol and all the
+mysterious and old world that goes with it.
+
+{% endmark %}
+
+Now that I've swum all this months in this mud, I just feel like I need to
+share my thoughts about what become a mess over the decades.
+
+# When I was unborn…
+…the [Toto](http://en.wikipedia.org/wiki/Toto_(band)) band were releasing their [song "Africa"](http://en.wikipedia.org/wiki/Africa_(Toto_song)) and some smart guys were
+working on a windowing system: the X Window System (this is its full name)
+which therefore has a (too) long history. The latest version of its
+protocol, the 11th one, has been designed in the 80's. You can learn more
+about the history in the [Wikipedia article about X](http://en.wikipedia.org/wiki/X_Window_System).
+
+In 2010, we still listen disco music and we still use various protocols
+designed in the 80's and even before X. Music have evolved, protocols have
+evolved, and so did X11.
+
+The problem is that X11 did not evolve that well. The guys at MIT-and-some
+other-places-with-very-smart-people-in-it created X version 1 in 1984, and
+updated it until X version 11 (the one we're still using) in 1987. Eleven
+version in 3 years, that was following the "release early, release often"
+model. But I don't know why, it just stopped to happen for the last 23 years
+(that's not totally true: they added (and then deprecated) many extensions.)
+
+I don't know what changes have been made in the first 11 major versions of
+the X protocol, but I'm rather sure we should have deserve a couple of major
+version updates this last 2 decades.
+
+In my humble opinion, X11 was not designed to live 23 years. But hey, I'm
+not blaming anyone here: I was 4 years old and playing Lego ® when they
+released this latest version of the X protocol, so there is little chance
+I'd have done something better.
+
+
+# We won't fix. We'll work-around.
+That is probably one of the guideline of the X protocol for the last
+years. And don't misread me: I'm not bashing anyone thereafter.
+
+Since the X11 protocol was aging, the X guys started to add [extensions](http://en.wikipedia.org/wiki/X_Window_System_protocols_and_architecture#Extensions). They
+added tons of them over the years. This, in application of one of
+[the early principles of X](http://en.wikipedia.org/wiki/X_Window_System_protocols_and_architecture#Design_principles):
+
+ It is as important to decide what a system is not as to decide what it
+ is. Do not serve all the world's needs; rather, make the system extensible
+ so that additional needs can be met in an upwardly compatible fashion.
+
+All of them with no exception were added because, bad luck, the X11 protocol
+did not anticipated the things that happened in the last 23 years, like
+video, OpenGL, multiple monitors, or the pleasure to draw oval windows. Some
+of this extensions are still in use, while some of them have been dropped.
+
+While this is not a bad thing to extends the protocol, it seems like a bad
+thing to try to fix the protocol with for example the [XFixes extension](http://en.wikipedia.org/wiki/XFixes), even
+with all the good intentions Keith Packard might have in his greatness.
+
+# Actually it's even worst than you think
+The X11 protocol (without extensions) defines about 120 types of requests:
+create a window, move a window, etc.
+
+Nowadays, there's at least 25 % of them which are useless: usage of
+server-side font, or the drawing of squares and polygon, are unused by any
+modern application or toolkit. All of this is superseded by requests from
+extensions, like the [XRender](http://en.wikipedia.org/wiki/XRender) one.
+
+The handling of multiple monitors displays has totally been screwed up. X11
+has been designed to work in [Zaphod](http://en.wikipedia.org/wiki/Zaphod_Beeblebrox#Cultural_references) mode (independent monitors). But
+[Xinerama](http://en.wikipedia.org/wiki/Xinerama), and nowadays [XRandR](http://en.wikipedia.org/wiki/XRandR) have replaced it up: recent X servers
+(released after ~2007) does not support Zaphod mode anymore, even if it's a
+core piece of the X11 protocol.
+
+Worst: on many requests, there's limitation or design flaws, like described
+in this document: [Why X Is Not Our Ideal Window System](http://www.std.org/~msm/common/protocol.pdf) by DEC researchers.
+
+# We'll add more broken standard on top of that
+Following [its early principle](http://en.wikipedia.org/wiki/X_Window_System_protocols_and_architecture#Design_principles), X does not define policies but only
+mechanisms, which seems like a good thing,
+
+Consequently, people started writing specifications to determine a number of
+stuff and dogmas: [ICCCM](http://en.wikipedia.org/wiki/ICCCM). That was 22 years ago in 1988. It's useless to add
+that many things in this specification are now obsolete, useless, or that it
+misses many modern stuff.
+
+I was not the only one to think that. The people from what will be the major
+desktop environments, [KDE](http://www.kde.org) and [GNOME](http://www.gnome.org), saw that too in the 90's while I was
+learning to count. So they wrote [EWMH](http://en.wikipedia.org/wiki/Extended_Window_Manager_Hints), another standard that comes on top of
+ICCCM and extends it with nifty features like maximization, full screen
+mode, etc.
+
+The problem is that this standard has also been written by narrow-minded
+people who at that time, were working on GNOME or KDE (and maybe
+others). This desktop environments were having and still have some strong
+concepts of how should work a desktop: "it should have work-spaces", "a
+window is only on one workspace", "we only see a workspace at a time", "you
+do not have multiple screens", etc.
+
+# Dude, we don't care: we have toolkits!
+This vision of how the desktop should work have now been written in marble
+in all applications and libraries implementing EWMH, like [GTK+](http://www.gtk.org) or [Qt](http://qt.nokia.com).
+
+Nowadays, everybody forgot about all of this standards. Toolkits have
+implemented this, circumvented the X11 protocol limitation and flaws, and
+nobody wants to look back.
+
+Like all standards, obviously some people implemented them badly. This had
+some side effects, like [OpenOffice acting like a pager].
+
+
+# We don't look back? Worst, we forgot where we came from!
+With all these layers of bad designed standards, the desktop continued to
+evolve for more than a decade. They continued to add more standard, the more
+recent ones being based on D-Bus like the [Desktop Notification Specification](http://www.galago-project.org/specs/notification/)
+or the latest [Status Notifier Specification](http://www.notmart.org/misc/statusnotifieritem/index.html) developed by KDE.
+
+The Status Notifier is a new implementation of the good old system tray
+based on [D-Bus](http://en.wikipedia.org/wiki/XEmbed][XEmbed]], using [[http://en.wikipedia.org/wiki/D-Bus) instead of the X11 mechanisms, and adding the
+possibility to show the system tray with something else than icons.
+
+This specification draft saw an important issue and design flaw raised by
+Wolfgang Draxinger in [this thread on the XDG mailing-list](http://lists.freedesktop.org/archives/xdg/2010-May/011516.html). What Wolfgang
+points out, is that X is network-oriented, and D-Bus is not. Therefore,
+making the Status Notifier specification to use D-Bus to pass system tray
+messages around is a bad idea, since running a X application from host A on
+host B will draw the system tray on the wrong host!
+
+Apparently, reading the thread, this [does not fear some of the KDE people](http://lists.freedesktop.org/archives/xdg/2010-May/011531.html):
+
+ of course this is a bizarre corner case not worth much thought. at least
+ that's what you'll think until you actually run into it yourself (be it
+ because you are testing something or because you are setting up some
+ weird kiosk environment).
+
+What Oswald describes as a corner case is an actual common use case for many
+of us. Of course, YMMV.
+
+From my point of view, this is a step back in the wrong direction. But we
+can conclude that the network part of X is now worthless, to at least KDE.
+
+# I used to believe in XCB
+When I joined Freedesktop, it was to work on XCB, the X C Binding. XCB is a
+nice, clean, 21st century technology based API to play with the X11
+protocol. Its code is auto generated based on XML file describing the
+protocol.
+
+In comparison, Xlib is 80's obfuscated code with almost no comments and
+hard-coded things. Only a few people can understand some of its corner like
+its i18n or XKB implementations. And all its code is *synchronous*.
+
+For people not knowing it yet, X is a network protocol where you send
+request (like a GET in HTTP) and then get a response. Xlib forces the
+application to wait for the reply to its request, so the application is
+blocked until the X server sends the reply to the request. XCB on the other
+hand does not block and allows the application to send a batch of requests,
+do some other stuff in the mean time, and then gets the replies.
+
+It's like your Web browser would send one request at a time to a Web server,
+and would wait until you downloaded all the images one by one to display the
+page.
+
+In cases where X and all its clients are on the same host, the latency is
+small and not really visible, therefore the gain for XCB to be asynchronous
+is small. On slow network however, the gain can be huge, as proved in the
+[rewrite of xlsclients with XCB by Peter Harris](http://bugs.freedesktop.org/show_bug.cgi?id=4232).
+
+One of the long standing goal of the XCB folks is to kick-out Xlib, to
+increase speed and hides latency in X11 applications. That requires to port
+many libraries, because almost none of them ([Cairo](http://www.cairographics.org) being an exception)
+supports XCB.
+
+From where I stand, I don't really see if the work is worth it now. The
+desktop world is trusted by GNOME and KDE, meaning GTK+ and Qt. It seems
+none of this toolkits are interested to work on XCB, neither on the X
+protocol. They probably put hard effort in bypassing X limitation and flaws,
+and they now sit on top of crap of workarounds and broken-by-design-standard
+implementation. It seems to me they don't want to go back in the layers and
+improves things.
+
+They're too high to go back down and they don't see what the gain would be.
+
+[EFL](http://www.enlightenment.org/][Enlightenment]] with its [[http://www.enlightenment.org/p.php?p=about&l=en) was the first toolkit to have an XCB back-end
+with the work of Vincent Torri. Unfortunately, the back-end is not
+maintained and nobody cares about it. Last time I tried it, it did not
+compile at all.
+
+# X12 ?
+There's a page called [X12](http://www.x.org/wiki/Development/X12) on the Freedesktop wiki, listing all the things
+that should be fixed some days. Unfortunately, the list continues to grow up
+an no one talks about working on X12.
+
+On the other hand, there's a handset of people trying to work when they will
+have time on [XKB2](http://www.freedesktop.org/wiki/Software/XKeyboardConfig/XKB2Dreams), the second version of the "let's-try-to-fix-up-the
+keyboard-part-of-the-protocol-we-wrote-23-years-ago-a-second-time"
+extension.
+
+To me, it does not seem X12 will happen in the next decade neither.
+
+# Alternative ?
+Do we got alternative to X ? There's [Wayland](http://en.wikipedia.org/wiki/Wayland_(display_server)), but it's far from being
+usable. There's [DirectFB](http://www.directfb.org/), but that's not very portable. None seems candidate
+to replace X some days to me.
+
+Anyhow, none of the main toolkits around support this alternative. GTK+
+once supported DirectFB, but as far as I know, it is not supported nor works
+nowadays, as stated by [Josselin Mouette](http://np237.livejournal.com/27459.html). This is why recent versions of the
+Debian installer have migrated to X for the graphic part, thanks to Cyril
+Brulebois work.
+
+# Conclusion
+XCB has been around for more than half-a-decade, and very few people showed
+interested in it. As far as I can see, nobody is interested to use the X
+protocol and everybody tries to encapsulate it in some higher-level API as
+soon as possible to stop seeing it. This leads to poorly written application
+and toolkits, with a lot of ugly hack.
+
+All of that also means that starting to write applications and graphical
+toolkits based on XCB would be a very interesting project, but that would
+lead to spend too much time learning to circumvent the X protocol flaws,
+things that have been done in years by predecessors like Qt and GTK+.
+
+Major toolkits implementations have almost nothing to win in going back in
+the dark water of X. I guess most of their folks prefer to work on shiny 3D
+effects based on your GPS location, rather than redefining better basis for
+everyone.
+
+The manpower available in the X world is very small. Debian lacking of X
+maintainers is just the summit of that. There is very smart and very
+competent and skilled guys in the X world, as you can see by simply reading
+blog posts on [Planet Freedesktop](http://planet.freedesktop.org) for example (me excluded). Unfortunately,
+there's not enough of them to cover all the things involved in X: input
+devices, graphics devices, new protocol extension specification and so
+on. The X server is really late, and it seems most of the developers prefers
+to work on the server itself than on the protocol behalf. Which is
+understandable.
+
+I'm curious to see where all of that will lead in the upcoming years. I've
+been walking in the X world hallways for about 3 years now, and I feel
+desktop alternatives to KDE and GNOME will all die sooner or later. The time
+were you could choose between a dozen "modern" window managers has passed
+away.
+
+After all, maybe that is simply Darwinism applied to computer software.

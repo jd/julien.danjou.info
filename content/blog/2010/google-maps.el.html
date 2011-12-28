@@ -1,0 +1,30 @@
+---
+title: M-x google-maps
+created: !!timestamp '2010-06-28 00:00:00'
+tags:
+    - emacs
+    - orgmode
+    - googlemaps
+---
+{% mark excerpt %}
+
+Since I have started to use [Org-mode](http://www.orgmode.org), I though it was missing something to
+have appointment locations on a map. Of course, it's easy to get a *LOCATION*
+property from an entry, and then *browse-url* on [Google Maps](http://maps.google.com).
+
+{% endmark %}
+
+But it is **too** easy for me, so once again I said: challenge accepted! I will
+bring Google Maps into Emacs!
+
+After several hours of work, the [google-maps.el project](http://julien.danjou.info/software/google-maps.el) shows a map!
+
+It fully implements the [Google Static Maps API](http://code.google.com/apis/maps/documentation/staticmaps/) and the
+[Google Maps Geocoding API](http://code.google.com/apis/maps/documentation/geocoding/).
+
+You can type **M-x google-maps** and type some place to see it marked on map. Of
+course you can do much more, as seen in the screen shot above.
+
+I've also completed all of this with a small *org-location-google-maps.el* which
+simply show a Google Maps' map for the location of an event in *Org mode* by
+pressing C-c M-l in an Org buffer or in the Org agenda.

@@ -1,0 +1,3 @@
+[submodule "content/media/js/socialite"]
+	path = content/media/js/socialite
+	url = https://github.com/dbushell/Socialite.git

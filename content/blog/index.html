@@ -1,0 +1,23 @@
+---
+extends: columns.j2
+title: jd:/dev/blog
+subtitle: <div class="rss-logo"><a href="/blog/index.xml"><img alt="RSS" src="/media/images/blog/rss.png"></a></div>
+default_block:
+---
+{% block sidebar %}
+
+{% for tag, meta in site.tagger.tags %}
+<span style="font-size: {{ 9 + (meta.resources|length) / 1.5 }}px;">
+<a href="/blog/tags/{{tag}}.html">{{tag}} ({{(meta.resources|length)}})</a>
+</span>
+{% endfor %}
+
+{% endblock %}
+
+
+{% block main %}
+
+{% from "macros.j2" import render_blog_listing with context %}
+{{ render_blog_listing(site.content.walk_resources_sorted_by_time()) }}
+
+{% endblock %}

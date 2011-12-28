@@ -1,0 +1,209 @@
+---
+title: Why not Lua
+created: !!timestamp '2011-04-26 18:53:00'
+tags:
+    - lua
+---
+{% mark excerpt %}
+
+Since my latest announcement of the [Lua workshop]({{site.url}}/blog/2011/lua-workshop-at-Fabelier-tmplab), I received a couple of
+emails asking why I discourage the use of [Lua](http://lua.org).
+
+{% endmark %}
+
+Actually, I already wrote out many of [the things I dislike about Lua]({{site.url}}/blog/2008/rants-about-lua). I
+won't come back on this technical issues here, but since Lua 5.2 is not yet
+released (it's still at alpha stage), they are still relevant nowadays.
+
+# Stack based API is harder
+The ease of integration of Lua into a C program is one of the point of Lua.
+They claim it's very easy to integrate Lua into your C application, because
+it does not use pointer, nor reference counting, nor anything that requires
+a minimum amount of skills to be used.
+
+It uses a virtual stack based approach. You push or pop things on a stack,
+and refers to them using a relative or absolute index.
+
+In order to people who never wrote Lua code to understand, here's a quick
+example on how this work. The *L* pointer is a Lua environment.
+
+<pre class="prettyprint lang-c">
+/* Create a table on the stack: index 1 */
+lua_newtable(L);
+/* Push a string on the stack: index 2 */
+lua_pushstring(L, "hello");
+/* Push a number on the stack: index 3 */
+lua_pushnumber(L, 123);
+/* Set newtable["hello"] = 123 */
+lua_settable(L, -3);
+</pre>
+
+You first push a table (in Lua, a table is almost equivalent to what you'd
+call a hash table in other language), then push the key, the value, and do
+the assignment operation. In the settable, we use -3 as index, meaning the
+"3rd item on the stack counting from top". We could also have written
+*lua_settable(L, 1)*, since the table is also the first item on the stack from
+the bottom.
+
+So far, so good.
+
+Problems arise when you do more complicated stuff. My previous example is
+what you would typically find in a tutorial, but of course, real life is
+different, and usually more complex. If you cut the things in different
+parts, it can start to be more complicated.
+
+Let's take a look at the following:
+
+<pre class="prettyprint lang-c">
+/* Create a table on the stack: index 1 */
+lua_newtable(L);
+/* Push a string on the stack: index 2 */
+lua_pushstring(L, "hello");
+/* Push a number on the stack: index 3 */
+lua_pushnumbe(L, mycomputingfunction());
+/* Set newtable["hello"] = 123 */
+lua_settable(L, -3);
+</pre>
+
+Here, we do exactly the same thing, but we do not push *123* directly: we
+compute it.
+
+And here's the trick: if your computing function is also using the Lua
+stack, things can become *very* messy. As long as your computing function use
+the stack cleanly by pushing and poping all its item, and returning the
+stack **in the same state it was before**, you're safe. The problem is that in a
+complex program, you also write bugs. You do not chose to, but you do. And
+sometimes, you forget to pop one of the item you fetched from a table.
+
+Imagine that *mycomputingfunction* is:
+
+<pre class="prettyprint lang-c">
+int
+mycomputingfunctiong(void)
+{
+  /* Just push the table we want to fetch
+     the number from on the stack */
+  pushatableonstack(L);
+  lua_pushstring(L, "mykey");
+  lua_gettable(L, -2);
+  return lua_tonumber(L, -1);
+}
+</pre>
+
+This function works perfectly. It pushes a table, then a key (*"mykey"*), then
+fetches mytable["mykey"] and pops the key (lua_gettable does push value/pop
+key itself), and then returns the numeric value of the last item (the
+fetched one) of the stack.
+
+However, this function has a bug: it does not pop the table! This does not
+prevent the function to work. It does not raise a segmentation fault. It
+does not show any problem under [gdb](http://www.gnu.org/software/gdb/). It does not show any leak under
+[Valgrind](http://valgrind.org/). It does now show any problem under **any standard C debugging tool**.
+
+But when you'll start using it, your program will start to do weird things,
+and you'll have to spend a huge amount of time debugging it manually,
+dumping the stack content at each step of your program to watch out what's
+wrong.
+
+Another bad thing, that can happen, is some code poping accidentally an item
+from the stack, or worst, from an empty stack. This does not raise any error
+on the Lua side, but will break your program in very unfunny way.
+
+Even if I've been very meticulous writing [awesome](http://awesome.naquadah.org), but we hit that problem
+regularly.
+
+The easiest workaround is to use *lua_settop(L, 0)* to reset the stack to 0
+element. Doing this regularly (like after each program event or treatment)
+can remove left-over items and avoid the never ending stack grow you may
+experience if your left-over items continue to pile up. Did I tell you I
+dislike work-around?
+
+You could also use *lua_call()*, which would avoid such an error, but this
+would require a huge amount of indirection, and would make write more
+(useless) code.
+
+This kind of problem does not exists with pointer based API. If you screw
+things up, the problem will cause a segmentation fault or leak memory, or
+cause things you can (easily) debug with standard tools like gdb or
+Valgrind.
+
+# No reference counting is a pain in the ass
+
+Userdata objects are variable Lua size objects embedding a C struct you
+define. It's the equivalent of an object in object oriented language.
+
+Lua does not provide any reference counting for the userdata objects. That
+means you can push this objects on the stack, use them, but they cannot
+directly reference each others. If you have a "car" userdata and a "wheel"
+one, the car cannot hold directly a reference to the wheel. This is not
+possible because userdata are allocated and garbage collected by Lua, and
+there's no way to increase the reference counting yourself.
+
+So the common hack is to store the wheel into a table as a value, and store
+the table index as an integer into the car data structure.
+
+This obviously makes memory leaks tracking harder, add huge level of
+reference indirection in usage (still more code), and does not make the
+whole process less error prone (at least in my opinion).
+
+# No paradigm makes you lose time
+
+Lua is proud to come with no paradigm and to provide metatables.
+[I already showed 3 years ago that it has big flaws](http://julien.danjou.info/blog/2008.html#_Rants_about_Lua).
+
+To me, this ain't no good. Lua is not functional, nor it is object oriented.
+
+Most people, including me, want one of this paradigm, or any else. Plain old
+imperative is not enough.
+
+So you'll start to build more, or to use something like [LOOP](http://loop.luaforge.net/), which
+implements an object model. You'll implement your paradigm. I say life is
+too short to (re)write a paradigm.
+
+In [awesome](http://awesome.naquadah.org) we wanted to have an object oriented approach (this is kind of
+typical in such a graphical application context), so we tried to build one.
+To me, this started to be a show stopper when I realized that I've ended
+writing Python object model into Lua while developing *awesome (which aims to
+be a window manager, not a language)*. This is one of the reason I stopped
+hacking on Lua things.
+
+I liked Python object model and wanted to have it in Lua, and spending time
+rewriting Python is just not worth it. I probably should have chose Python,
+not Lua. YMMV.
+
+# Embedding may not be a good choice
+
+This is not Lua related, but I want to mention it. Googling for
+"[embedding vs extending](http://www.google.fr/search?q=embedding+vs+extending)" will probably tell you more about why you should
+double check that you really need to embed Lua rather than to extend it.
+
+# Being small is not an excuse
+
+One common argument to choose Lua is that it has a small footprint. Yeah,
+that's true, but that's useless. Bummer! When I program, I don't have any
+resource usage pressure. People who have such pressure are either paranoids
+or playing in the world of embedded computers. This is also a no more
+existing conception since quad core processors equiped phones are coming
+into the market. I'm rather confident that what we used to call embedded
+devices are just dead and are now plain computers. But as usual, YMMV.
+
+So start to forget about it, run in your underpants and yelling "yay we
+killed that shit!", and then use real computers stuff. :-)
+
+Even [if benchmarks show how Lua is damn fast](http://shootout.alioth.debian.org/u32/lua.php), remember what a benchmark
+proves: that you can do useless things very fast.
+
+# Too few extension modules
+
+This is not directly Lua's fault, but there's too few extension modules for
+Lua. The community is quite small compared to other big languages' ones.
+
+# So think twice
+
+before you choose Lua (or any other language). My recommendations these days
+would be not to embed, but to extend. If you really have no choice and need
+to embed a language into your application, [GNU Guile](http://www.gnu.org/s/guile/) is probably worth
+considering, because it's a Scheme and therefore a functional language :-),
+and because it can provides also different languages.
+
+[Including Lua](http://git.savannah.gnu.org/gitweb/?p=guile.git;a=shortlog;h=refs/heads/lua).

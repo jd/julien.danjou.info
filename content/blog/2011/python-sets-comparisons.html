@@ -1,0 +1,67 @@
+---
+title: Python sets comparisons
+created: !!timestamp '2011-05-17 14:01:00'
+tags:
+    - python
+---
+{% mark excerpt %}
+
+This week I lost some time playing with [Python](http://python.org)'s
+[sets](http://docs.python.org/library/stdtypes.html#set).
+
+{% endmark %}
+
+After digging into
+Python source code, I finally discovered there is what seems to be little
+bug. Anyway, it has been "fixed" in Python 3, fortunately. I did not find if
+it was reported somewhere, but since it's fixed, it's not a big deal.
+
+<pre class="prettyprint">
+Python 2.7.1+ (default, Apr 20 2011, 10:53:33) 
+[GCC 4.5.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> class A(object):
+...     def __eq__(self, other):
+...             return True
+... 
+>>> A() == A()
+True
+>>> [A()] == [A()]
+True
+>>> set([A()]) == set([A()])
+False
+</pre>
+
+This clearly did not make any sense to me. I've then tested under
+Python 3.2:
+
+<pre class="prettyprint">
+Python 3.2.1a0 (default, May  4 2011, 19:59:25) 
+[GCC 4.6.1 20110428 (prerelease)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> class A(object):
+...     def __eq__(self, other):
+...             return True
+... 
+>>> set([A()]) == set([A()])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'A'
+</pre>
+
+At least, raising an error is saner. It actually helped me to understand
+what I needed to do to have my sets working correctly with Python 2:
+
+<pre class="prettyprint">
+Python 2.7.1+ (default, Apr 20 2011, 10:53:33) 
+[GCC 4.5.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> class A(object):
+...     def __eq__(self, other):
+...             return True
+...     def __hash__(self):
+...             return 123456789
+... 
+>>> set([A()]) == set([A()])
+True
+</pre>

@@ -1,0 +1,201 @@
+---
+title: Taking the other direction
+created: !!timestamp '2009-04-15 00:00:00'
+tags:
+    - awesome
+---
+{% mark excerpt %}
+
+I've started to develop [awesome](http://awesome.naquadah.org) more than 18
+months ago, and somehow I feel it's time to stop a bit and think where we
+come from and where we are going to.
+
+{% endmark %}
+
+# The motivation
+I never though I'd be written a window manager one day. That seems kinda
+stupid when you see how many window manager there's around.
+
+As many people, I've tested and have been using tons of window manager:
+[Window Maker](http://www.windowmaker.info),
+[Fluxbox](http://www.fluxbox.org), etc.
+
+In August 2007, I was using [fvwm](http://www.fvwm.org) since 2004 and was
+quite happy with it. I used the famous [fvwm
+crystal](http://www.fvwm-crystal.org) as a configuration starter and then
+rewrote lots of stuff. Digging into ''fvwm'' configuration files was boring,
+and since I'm lazy, I never really configured it to fit entirely my needs.
+
+The thing is that, in July 2007, my workstation died. I bought a new one
+based on the *amd64* architecture. Too bad, with this new box, *fvwm* decided
+that it will not longer runs and was segfaulting almost every time I logged
+in.
+
+I was **really** upset. Another failure in the window manager world. So I
+decided to get the yearly ride of testing many window managers. I went on
+the no more developed stuff like the *boxes, ion3, etc… but well, I did not
+like them, there were not powerful enough, too bugged or upstream was
+insane.
+
+Then I found [xmonad](http://www.xmonad.org). The Haskell configuration file
+format made my cry. I did not want to learn Haskell, it seemed too
+obfuscated to me. At that time it was even not packaged for
+[Debian](http://www.debian.org), so I gave up. But I found
+
+# The jdwm
+
+I just added a 'j' in front of *dwm* and started to hack it days and nights
+to add many feature I missed, like multi-head, etc… On 5th September 2007, I
+created a git repository to host my code.
+
+# That's gonna be… awesome.
+
+Five days later, on 10th September, I finally
+found a name for my new pet: **awesome**, borrowed from [Barney
+Stinson](http://en.wikipedia.org/wiki/Barney_Stinson) who heavily uses and
+abuses this word.
+
+## The 1.x branch
+
+The first releases until December were noted 1.x. It was just a better *dwm*
+with a simple flat configuration file.. The configuration file used
+[libconfig](http://www.hyperrealm.com/libconfig/), but it was a very poor
+choice. And I was not able to put in into Debian because of
+[name clash](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=441200).
+
+## The 2.x branch
+
+The 2.x branch came in January 2008 with a brand new configuration file
+format based on [libconfuse](http://www.nongnu.org/confuse/), which was a
+bit more powerful. Many concepts and features that have been added in this
+branch are still used in the current 3.x branch.
+
+At this time, between December 2007 and April 2008, the community was
+growing smoothly.
+
+But as I said, awesome 2 was based on a flat configuration file. That raised
+a problem very soon: users expectation were growing and the development team
+(me and a couple of regular contributors) was unable to cope with them.
+
+One of the event that started to change my mind was the support for
+titlebars.
+
+When I've added titlebar support, it was minimal. It was on top of a window,
+with the window title. Dot. Then I've started to add a lot of options, like
+the application icon drawing, the position (left, right, bottom) etc.
+
+And then users started to ask for more, like: "add titlebar on windows only
+when the window is floating".
+
+That's ok, but that's complicated: that's again **another** option to do some
+stuff conditionally. And then, why don't add titlebar on windows when
+<insert random events here>?
+
+## The 3.x branch
+
+### Why
+
+At that time, around April 2008, I'd totally stopped development. I was
+trying to find a solution which was simple and powerful. But after 2 weeks
+of thinking, I was not able to find anything else than: use a real language
+for configuration.
+
+So, I've started prototyping awesome 3 using [Lua](http://www.lua.org). The
+choice was not obvious, and despite the problem *Lua* might suffer, it's one
+of the easiest language to integrate into an existing application.
+
+But, let's go a little back: in January 2008, Arnaud Fontaine contacted me
+because he was interested to use *awesome* as one of its school project. He
+decided to port *awesome* from *Xlib* to
+*[XCB](http://xcb.freedesktop.org)*, a modern asynchronous X library.
+
+His work took some time, but in May 2008, Arnaud did finished to port git
+master version of *awesome* to use *XCB*.
+
+Consequently, I decided to start a new major branch, using *XCB* instead of
+*Xlib* (no change for users in this regard) and *Lua* instead of our previous
+flat configuration file format.
+
+### Development
+
+It took me a while to get from here to there, but in September 2008, it was
+ready. We had a simple Lua API, and the XCB port was working perfectly.
+
+It took us some time to release and have something totally working, because
+we had to work on *XCB* and contribute back to the project. It was really not
+ready to use by an application, but we did great work in this area and it's
+now really fine.
+
+### We're still here
+
+Releases continue to happens, 3.1 around December 2008, and 3.2 around March
+2009. 3.3 should be here in June.
+
+One of the drawback we had, is that we moved many stuff from C to Lua. Why?
+Because writing things in Lua is quicker and easier to maintain than C, and
+makes thing more configurable for the user.
+
+For example, the layout algorithm used to organize window were written in C
+until 3.2 came out. At that time, users had no choice than using a set of
+predefined layout to organize their windows.
+
+Starting with 3.2, if they have minimal knowledge about geometry, they can
+start writing a layout function organising windows on the screen.
+
+But this kind of API changes was a bit rough for users, since they had to
+port some part of their configuration file to the new API.  The thing is
+that the project was still a *teenager* at that time, not really knowing were
+it will go. But I'm happy to announce that API breakage are more and more
+rare (so far only one minor between 3.2 and 3.3), and anyway always for the
+Good.
+
+But I admit that it built a bad reputation around *awesome 3.x* during its
+first month of existence.
+
+# Future direction
+
+I am currently working on 3.3 development. We have still many things to do.
+Time passing, we get more idea, and more users. And more users bring more
+ideas. We also have many more contributors, and some guys are even taking
+maintainer-ship of some code area.
+
+# Conclusion
+My post title is "Taking the other direction" because I feel this way.
+
+I've got that feeling that some approaches in projects like GNOME are
+sometimes bad. Please don't misread me, I know we are not playing in the
+same yard.
+
+When adding a key shortcut for starting an application makes you dig into
+*gconf*, I wonder how this is a win for the user.
+
+Well, it's probably a win for the end-user, but I surely am not one of
+them. And I don't intend to target them with my software, anyway.
+
+And now, when I hear things like GNOME 3.0 and the "[desktop shell](http://live.gnome.org/GnomeShell])" approach, that makes me smile.
+Guys, it was time, but have luck. What I see from here, is that any desktop
+control interface is wrong somehow, and that there's no approach that can
+fulfill all users wishes.
+
+I think that we, the awesome development team (no pun intended) took the
+direction of building a frame-work window manager rather than a solution
+written in marble.
+
+We (partially) solved the issue of UI ergonomic by not writing one and
+allowing the user to write his own. I don't say that's easy to do for most
+of users, but it's doable.
+
+And I think it's worth it: I use window managers since I use Linux, around
+1998. If something like ''awesome'' came 5 years ago, I'd be using it so
+far, because you can write *Fluxbox* or *WindowMaker* using *awesome* in a hundred
+of Lua code. And you can write your own version of it. And it starts in less
+than 3 seconds, supporting almost all standard desktop specification (ICCCM,
+EWMH, XDG, system tray, message notification, D-Bus, etc), whereas many of
+the window mangers do not.
+
+You can even write and play [space
+invaders](http://awesome.naquadah.org/apidoc/modules/invaders.html).
+
+Finally, I'm happy about the the road we took so far, and hope we will
+continue into that direction. The rants I read about our project are not
+that big, compared to the kudos we received.

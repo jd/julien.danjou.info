@@ -1,0 +1,93 @@
+---
+title: "muse-blog"
+---
+{% mark excerpt %}
+
+*muse-blog* is an extension to [Emacs
+Muse](http://mwolson.org/projects/EmacsMuse.html), a publishing environment
+for [Emacs](http://www.gnu.org/software/emacs/).
+
+{% endmark %}
+
+It allows you to maintain a blog within Emacs, and produce HTML pages and
+RSS 2.0 feeds.
+
+# Download
+
+It is available from
+[its Git repository](http://git.naquadah.org/?p=muse-blog.git;a=summary).
+
+There's no tagged release for now.
+
+# Manual
+## Creating a blog project
+You should load it from your Emacs start-up file:
+
+<pre class="prettify lang-lisp">
+(require 'muse-blog)
+</pre>
+
+Then, you should define a project in `*muse-project-alist'*.
+
+<pre class="prettify lang-lisp">
+(add-to-list 'muse-project-alist
+             '("MyBlog"
+               ;; Path to your blog
+               ("~/Blog")
+               ;; Always re-publish index
+               :force-publish ("index"))
+              (:base "blog-xhtml"
+                     :base-url "http://www.example.com/blog/"
+                     :path "~/Blog/output/")
+              (:base "blog-rss"
+                     :base-url "http://www.example.com/blog/"
+                     :path "~/Blog/output/"))
+</pre>
+
+This will add a new project named *MyBlog*, which have files in *~/Blog* and
+will publish all files (XHTML and RSS) to *:path*. All URL will be relative to
+*:base-url*.
+
+## Writing entries
+You're free to split your blog entries like you want: either all of them in
+one Muse file, or a Muse file for each month, or even a file by entry.
+
+The syntax for a blog entry is:
+
+<pre class="prettify">
+* 20100519-16:24:78 This is my first muse-blog entry
+
+I'm very excited about all this. I think it's amazing to write a blog in
+Emacs. Seriously. We should all thanks **jd** for his extraordinary work!
+</pre>
+
+An entry should start with a first-level heading, with the following format:
+
+<pre class="prettify">
+* YYMMDD-HH:MM:SS Title
+</pre>
+
+Date is mandatory, time and title are optional. If title is not specified,
+the date will be used as a title.
+
+## Building an index page
+*muse-blog* provides you a way to create an index page and regroup all your
+entries in a front page.
+
+Just create a front page like this:
+
+<pre class="prettyify">
+#title This is my bloog!
+#desc Blog of a new muse-blog user
+<lisp>(muse-blog-make-index 0 9)</lisp>
+----
+Archives
+<lisp>(muse-index-as-string t nil t)</lisp>
+</pre>
+
+This will create an index page (HTML and RSS) with the 10 first entries from
+all files matching *`muse-blog-make-index-files-regexp'*.
+
+You can even add a footer to add link from your archives. Footer is "----",
+i.e. an horizontal line, and such a line is not included in an entry. *Muse*
+provides a handy function to build page index, *`muse-index-as-string'*.

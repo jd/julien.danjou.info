@@ -1,0 +1,71 @@
+---
+title: "Porting D-Bus to XCB: story of a failure"
+created: !!timestamp '2010-07-29 00:00:00'
+tags:
+    - dbus
+    - xcb
+---
+{% mark excerpt %}
+
+Even if [I recently stated I lost some of my
+faith]({{site.url}}/blog/2010/thoughts-and-rambling-on-the-X-protocol)
+in [XCB](http://xcb.freedesktop.org), I still sometimes hack things to add
+support for it.
+
+{% endmark %}
+
+These last days, I've worked on a [D-Bus](http://dbus.freedesktop.org) port from Xlib to XCB. The port was
+quite straight forward, since there's only a little piece of D-Bus using X,
+which is *dbus-launch*.
+
+I though D-Bus was a good candidate, since it's part of the [Freedesktop](http://www.freedesktop.org)
+initiative. Therefore, I was expecting a warm welcome and some enthusiasm
+from a fellow project.
+
+My contribution got one useful review, and a [cold reply from Thiago Macieira](http://lists.freedesktop.org/archives/dbus/2010-July/013185.html)
+(a [KDE](http://www.kde.org)/[Qt](http://qt.nokia.com)/[Nokia](http://www.nokia.com) developer):
+
+> No, sorry, I don't agree..
+> I've just checked and my Solaris machine doesn't have XCB.
+> Please do not remove the X11 code. You may *add* the XCB code, but you cannot
+> remove the X11 code.
+
+This is not really the kind of answer I expected, actually. I then reworked
+the code to [please Thiago](http://lists.freedesktop.org/archives/dbus/2010-July/013192.html), and added some *#ifdef* to add XCB support to
+D-Bus, with a fallback to libx11 where XCB would not be available.
+
+[Havoc Pennington replied](http://lists.freedesktop.org/archives/dbus/2010-July/013196.html):
+> Given that libX11 now uses xcb as backend, I don't understand the
+> value of porting to use libxcb directly when there isn't an issue of
+> round trips or other stuff. It will just make #ifdef hell, while the
+> X11 API is an API that works on both xcb and non-xcb platforms.
+> Maybe people should be thinking about porting xcb to non-Linux
+> platforms? The X protocol should be the same on other UNiX, so xcb in
+> theory ought to work fine if you just compiled it on Solaris/BSD, same
+> as GTK or dbus or Qt would work fine.
+
+The last part "Maybe people should be thinking about porting xcb to
+non-Linux platforms?" is still unclear to me, even though
+[I asked Havoc to explain what he meant](http://lists.freedesktop.org/archives/dbus/2010-July/013197.html).
+
+Finally, [Thiago refused to merge the patch](http://lists.freedesktop.org/archives/dbus/2010-July/013198.html):
+
+> […] thanks for the patch, but like Havoc I am unsure of the value. We can't
+> drop the X11 codepaths now because too many systems exist without
+> XCB. Adding the XCB codepaths only made it more complex, even though you did
+> a good job.
+
+I can't disagree with that conclusion: using both XCB and X11 make the code
+unreadable for little gain. That's why I did replace libx11 by XCB directly
+in the first version of the patch. On the other hand, D-Bus people does not
+seems to really care about making their software evolve in the right
+direction, even if that requires users to upgrade their systems.
+
+I think D-Bus using and depending on XCB would have been a good point to
+push adoption of XCB. Unfortunately, it seems you can't even rely of
+projects of the same initiative (i.e. Freedesktop) to work together to make
+things a little bit better.
+
+After 5 years of existence, XCB is still not so obvious to people, and
+making it adopt is going to be a challenge for the next years. The upside is
+that [new X.org 7.6 will bring XCB with it](http://www.x.org/wiki/Releases/7.6), as part of the katamari.

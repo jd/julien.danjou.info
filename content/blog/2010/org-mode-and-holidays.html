@@ -1,0 +1,24 @@
+---
+title: Org-mode and holidays
+created: !!timestamp '2010-11-15 16:11:00'
+tags:
+    - emacs
+    - orgmode
+---
+{% mark excerpt %}
+
+[Org-mode](http://orgmode.org) has a nice option which allows you to show
+week-end days in a different color in your agenda. That means that Saturday
+and Sunday (when I do not work) are fontified with *org-agenda-date-weekend*.
+
+{% endmark %}
+
+But there are other days I do not work, like my vacations or holidays.
+
+Therefore, I've wrote a patch to add *`org-agenda-day-face-function'* which is
+optionally called to determine what should be the face used to fontify a
+day. [This](http://lists.gnu.org/archive/html/emacs-orgmode/2010-11/msg00542.html) allows me to use the same face for holidays and for week-end days, like for last Thursday which was an holiday in France.
+
+![Emacs orgmode and holidays screenshot]({{site.url}}/media/images/blog/2010/emacs-org-mode-holidays.png)
+
+That patch has been merged in Org last week.

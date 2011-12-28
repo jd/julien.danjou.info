@@ -1,0 +1,33 @@
+---
+title: "sysrqd"
+---
+{% mark excerpt %}
+
+*sysrqd* is a small daemon intended to manage Linux Sysrq over network.
+
+{% endmark %}
+
+Its philosophy is to be very responsive under heavy load and try to be
+somehow reliable. Authentication is made by clear password.
+
+# Download
+
+You can download if from [the Git
+repository](http://git.naquadah.org/?p=sysrqd.git;a=summary).
+
+# Demo
+
+<pre class="prettify">
+% telnet localhost 4094
+Trying 127.0.0.1...
+Connected to localhost.localdomain.
+Escape character is '^]'.
+sysrqd password: hello
+sysrq> s
+sysrq> u
+sysrq> q
+</pre>
+
+**s** will do a Emergency Sync, **q** will exit the session.
+Other command like **b** (reBoot), **o** (pOweroff) or
+**u** (Umount) are available, and so on.

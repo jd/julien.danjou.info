@@ -1,0 +1,27 @@
+---
+title: Enhancing Emacs mouse avoidance
+created: !!timestamp '2010-10-19 19:23:00'
+tags:
+    - emacs
+---
+{% mark excerpt %}
+
+Recent *Emacs* versions have a wonderful capacity to hide the mouse pointer as
+soon as you type and insert characters in a buffer. This is controlled by
+the *`make-pointer-invisible'* variable, which is set to t by default.
+
+{% endmark %}
+
+However that does not hide the pointer when simply moving the cursor on
+screen. Therefore, I've started to use *`mouse-avoidance-mode'*, which make
+the mouse pointer jump if your cursor hits it.
+
+Unfortunately, if your cursor hits the invisible mouse pointer,
+*`mouse-avoidance-mode'* makes it jump too, because it does not know it is
+invisible.
+
+Well, it *did* not know. Now it does, [thanks to my patches](http://lists.gnu.org/archive/html/emacs-devel/2010-10/msg00574.html)
+which have been merged in Emacs 24. Using the new function
+**frame-pointer-invisible-p**, one can know if the mouse pointer has been
+hidden by Emacs. Therefore I enhanced `mouse-avoidance-mode' to use it, and
+everything is alright now. :-)

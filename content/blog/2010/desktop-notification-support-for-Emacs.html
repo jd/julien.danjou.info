@@ -1,0 +1,45 @@
+---
+title: Desktop notification support for Emacs
+created: !!timestamp '2010-06-09 00:00:00'
+tags:
+    - freedesktop
+    - emacs
+---
+{% mark excerpt %}
+
+This last weeks, I've worked on implementing the
+[Desktop Notification Specification](http://www.galago-project.org/specs/notification/) into [Emacs](http://www.gnu.org/software/emacs/).
+
+{% endmark %}
+
+It allows sending desktop notification in a very simple way.
+
+<pre class="prettyprint lang-lisp">
+(notifications-notify
+    :title "You've got mail!"
+    :body "There's 34 mails unread"
+    :app-icon "~/.emacs.d/icons/mail.png"
+    :urgency 'low)
+</pre>
+
+It supports the protocol signals (*NotificationClosed* and *ActionInvoked*) and
+the two main methods (*Notify* and *CloseNotification*).
+
+The methods specification are implemented entirely (hints, replaces,
+actions, icon, etc).
+
+The signals are supported via callbacks function provided on the
+notification creation.
+
+It have been merged into Emacs trunk today.
+
+<pre class="prettyprint">
+2010-06-09  Julien Danjou  <julien@danjou.info>
+
+	* net/notifications.el: New file.
+
+</pre>
+
+This also allowed me to discover, raise and fix a
+[bug](http://lists.gnu.org/archive/html/emacs-devel/2010-06/msg00228.html)
+in the D-Bus binding of Emacs, which will be probably fixed in trunk soon.

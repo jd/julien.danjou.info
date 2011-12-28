@@ -1,0 +1,52 @@
+base_url: /
+simple_copy:
+  - media/*
+media_root: media # Relative path from content folder.
+media_url: /media # URL where the media files are served from.
+
+plugins:
+  - hyde.ext.plugins.meta.MetaPlugin
+  - hyde.ext.plugins.auto_extend.AutoExtendPlugin
+  - hyde.ext.plugins.syntext.SyntextPlugin
+  - hyde.ext.plugins.textlinks.TextlinksPlugin
+  - hyde.ext.plugins.urls.UrlCleanerPlugin
+  - hyde.ext.plugins.sorter.SorterPlugin 
+  - hyde.ext.plugins.tagger.TaggerPlugin 
+
+sorter:
+  name:
+    attr: name
+    filters:
+      source_file.kind: html
+      is_processable: True
+  time:
+     attr: meta.created
+     reverse: True
+     filters:
+       source_file.kind: html
+       is_processable: True
+
+tagger:
+  sorter: time
+  archives: 
+    blog: 
+      source: blog 
+      target: blog/tags 
+      template: tag.j2 
+      archive_extension: html 
+
+urlcleaner:
+  index_file_names:
+    - index.html
+  strip_extensions:
+    - html
+
+context:
+    data:
+        site_url: http://julien.danjou.info
+        site_title: Julien Danjou
+        blog_title: jd:/dev/blog
+        author:
+            name: Julien Danjou
+            url: "http://julien.danjou.info"
+        google_analytics_id: UA-25393581-1

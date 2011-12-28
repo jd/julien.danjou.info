@@ -1,0 +1,56 @@
+---
+title: Gnus news is good news!
+created: !!timestamp '2010-09-23 10:21:00'
+tags:
+    - emacs
+    - gnus
+---
+{% mark excerpt %}
+
+As I already wrote too many times, I've started to use
+[Gnus](http://gnus.org) 6 months ago, and never looked back.
+
+{% endmark %}
+
+At that time, I joined the [ding mailing list](http://gnus.org/resources.html) in order to ask some dumb
+questions and, once, send a patch. There were very low activity on that
+list.
+
+Until Lars, the original Gnus author, came back.
+
+Three weeks ago, he started to wrote a new wash function to render [HTML](http://en.wikipedia.org/wiki/HTML)
+mails properly, with pictures. It's named **`gnus-html'**, and is (for now)
+based on [w3m](http://w3m.sourceforge.net) (but not on [emacs-w3m](http://emacs-w3m.namazu.org/), which is not part of Emacs).
+
+Last week, I've sent a set of patches to replace the usage of [curl](http://curl.haxx.se) by the
+standard **`url-retrieve'** function to fetch images, plus various enhancement.
+It seems that my work was good enough that Lars offered me write access to
+the git repository. I can therefore mess up the Gnus entirely. Hurrah!
+
+I've continued to work on **gnus-html** and recently merged a set of patches
+improving image retrieval (which is now done in parallel) and starting to
+use **`url-cache'** to cache image for a defined period of time. Of course, I
+found a bunch of tiny bug and special case while reading RSS feeds and
+various HTML mails, and fixed them all along.
+
+Lars added a [libxml](http://xmlsoft.org) binding for Emacs 24, providing the **`html-parse-string'**
+function. His future plan seems to be the abandon of w3m in favor of a
+native parsing via libxml to render HTML, and therefore, HTML mails.
+
+I should also mention the new **`nnimap'** back-end; Gnus has been designed to
+read [NNTP](http://en.wikipedia.org/wiki/Network_News_Transfer_Protocol) newsgroups, and not mails. Consequently, it had a very poor
+behaviour when used with a back-end such has (IMAP)[http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol].
+
+Lars took a week to rewrite entirely our dear **`nnimap'** back-end, and make it
+act in a more expected way. There's still a bunch of bug and code to write,
+but it is at least usable and seems faster than the old code.
+
+Last thing I did was to rewrite the icon support in the group buffer. When I
+started to use Gnus, I was curious and tried to configure this. I never
+managed to make it work, and now know and understand why it was broken. So I
+ended rewriting entirely, and now it works. I never though I would
+understand, fix, and commit this code when reading the Gnus documentation
+this winter, but hell yeah, I did.
+
+Now I've still several little project to improve things in all sort of area.
+We'll see what I'll do next. :-)

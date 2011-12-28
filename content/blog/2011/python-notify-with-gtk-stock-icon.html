@@ -1,0 +1,31 @@
+---
+title: Using GTK+ stock icons with pynotify
+created: !!timestamp '2011-12-27 11:55:00'
+tags:
+    - python
+    - gtk
+    - notify
+---
+
+It took me a while to find this, so I'm just blogging it so other people
+will be able to find it.
+
+I wanted to send a [desktop
+notification](http://www.galago-project.org/specs/notification/) using
+pynotify, but using a [GTK+ stock
+icons](http://developer.gnome.org/gtk/2.24/gtk-Stock-Items.html).
+
+With the following snippet, I managed to do it.
+
+<pre class="prettyprint">
+import pynotify
+pynotify.init("myapp")
+import gtk
+n = pynotify.Notification(summary="Summary", message="Message!")
+n.set_icon_from_pixbuf(gtk.Label().render_icon(gtk.STOCK_HARDDISK, gtk.ICON_SIZE_LARGE_TOOLBAR))
+n.show()
+</pre>
+
+Note that the use of a *Label* is just to have a widget instanciated to use
+the *render_icon()* method. It could be any widget type as far as I
+understand.

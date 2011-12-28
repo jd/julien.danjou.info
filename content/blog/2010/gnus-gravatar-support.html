@@ -1,0 +1,36 @@
+---
+title: Gnus and Gravatar support
+created: !!timestamp '2010-09-25 09:38:00'
+tags:
+    - emacs
+    - gnus
+    - gravatar
+---
+{% mark excerpt %}
+
+This last couple of days I've been dedicated making [Gnus](http://www.gnus.org)… fresher.
+
+{% endmark %}
+
+I've decided to give a whirl on [Gravatar](http://www.gravatar.com) support. I already tried the
+*gravatar.el* lying on the Interweb, but well, it was crap: it used *wget* to
+fetch pictures, therefore was totally synchronous. Reading each mail was
+slower. The cache did not even have TTL, as far as I recall.
+
+So, I've now wrote **[gravatar.el](http://git.gnus.org/cgit/gnus.git/tree/lisp/gravatar.el)** implementing the Gravatar API. Asynchronously
+of course. With cache, TTL, etc. Perfect. :-)
+
+Then I've composed **[gnus-gravatar.el](http://git.gnus.org/cgit/gnus.git/tree/lisp/gnus-gravatar.el)**, implementing a washing function adding
+Gravatar for *From* field and/or *Cc/To* fields, like done for [picons](https://www.cs.indiana.edu/picons/).
+
+As I was expecting, the patch was badly received by the GNU guys, which
+start talking about thinks like external resources, privacy, non-free
+software, etc. Boring.
+
+Fortunately, Lars allowed me to push the patch in git so everybody can give
+it a try. I'm now waiting for feedbacks in order to know if I will have to
+maintain this patch outside Gnus, or not.
+
+Here's the mandatory screen-shot.
+
+![Screenshot of Gnus showing a Gravatar]({{site.url}}/media/images/blog/2010/gnus-gravatar.png)

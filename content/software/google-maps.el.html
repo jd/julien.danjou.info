@@ -1,0 +1,58 @@
+---
+title: "Google Maps for Emacs"
+---
+{% mark excerpt %}
+
+The *google-maps* [Emacs]([http://www.gnu.org/software/emacs/) extension
+allows to display [Google Maps](http://maps.google.com) directly inside
+Emacs.
+
+{% endmark %}
+
+It fully implements the [Google Static Maps
+API](http://code.google.com/apis/maps/documentation/staticmaps/) and the
+[Google Maps Geocoding
+API](http://code.google.com/apis/maps/documentation/geocoding/).
+
+![Google Maps example screenshot](/media/images/google-maps.el/google-maps.el.png Google Maps example screenshot)
+
+# Download
+
+It is available from [the Git
+repository](http://git.naquadah.org/?p=google-maps.git;a=summary).
+
+There's no tagged release for now.
+
+# Manual
+The easiest way to use it is to load it from your *.emacs*:
+
+<pre class="prettyprint lang-lisp">
+(require 'google-maps)
+</pre>
+
+You can then use **M-x google-maps** and type a location.
+
+Various key bindings are available. Here's a few:
+
+ - **+** or **-** to zoom in or out;
+ - **left**, **right**, **up**, **down** to move;
+ - **z** to set a zoom level via prefix;
+ - **q** to quit;
+ - **m** to add or remove markers;
+ - **c** to center the map on a place;
+ - **C** to remove centering;
+ - **t** to change the maptype;
+ - **w** to copy the URL of the map to the kill-ring;
+ - **h** to show your home.
+
+You can integrate directly Google Maps into [Org-mode](http://orgmode.org):
+
+<pre class="prettyprint lang-lisp">
+(require 'org-location-google-maps)
+</pre>
+
+Then you can use **C-c M-L** to enter a location assisted by Google geocoding
+service. Pressing **C-c M-l** will show you a map.
+
+If you want to use advanced feature, you should take a look at
+**google-maps-static-show** and **google-maps-geocode-request** functions.
