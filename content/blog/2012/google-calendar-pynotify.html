@@ -1,0 +1,92 @@
+---
+title: Google Calendar notifications using pynotify
+created: !!timestamp '2012-01-03 18:55:00'
+tags:
+    - python
+    - gtk
+    - notify
+    - googlecalendar
+    - gdata
+---
+
+I use [Google Calendar](http://google.com/calendar) to manage my calendars,
+and I really missed something to warn me whenever I have an appointment with
+an alert set.
+
+So hHere is an example of a Python program to do such a thing. It is written using
+the [Google Data APIs Python client library](http://code.google.com/p/gdata-python-client/)
+and pynotify.
+
+I'll detail the code here, so you can build your own and adapt it to your needs.
+
+First, we need to import a GTK+ and pynotify, and initialize it.
+
+<pre class="prettyprint python">
+import gtk
+import pynotify
+pynotify.init(sys.argv[0])
+</pre>
+
+Then, we need to import gdata Calendar API and connect to the calendar. I'll
+use the simple email/password way to login, which is clearly not the best,
+but it's also the simplest. Feel free to use OAuth 2.0. :-)
+
+<pre class="prettyprint python">
+calendar_service = gdata.calendar.service.CalendarService()
+calendar_service.email = 'mygooglelogin'
+calendar_service.password = 'mygooglepassword'
+calendar_service.ProgrammaticLogin()
+</pre>
+
+Now we're ready to request stuff and notify! First, request the events from
+the default calendar.
+
+<pre class="prettyprint python">
+feed = calendar_service.GetCalendarEventFeed()
+</pre>
+
+Now we can iterate over *feed* and do various checks.
+
+<pre class="prettyprint python">
+for event in feed.entry:
+    # If the event status is not confirmed, go to the next event.
+    if event.event_status.value != "CONFIRMED":
+        continue
+    # Now iterate over all the event dates (usually it has one)
+    for when in event.when:
+        # Parse start and end time
+        try:
+            start_time = datetime.datetime.strptime(when.start_time.split(".")[0], "%Y-%m-%dT%H:%M:%S")
+            end_time = datetime.datetime.strptime(when.end_time.split(".")[0], "%Y-%m-%dT%H:%M:%S")
+        except ValueError:
+            # ValueError happens on parsing error. Parsing errors
+            # usually happen for "all day" events since they have
+            # not time, but we do not care about this events.
+            continue
+        now = datetime.datetime.now()
+        # Check that the event hasn't already ended
+        if end_time > now:
+            # Check each alert
+            for reminder in when.reminder:
+                # We handle only reminders with method "alert"
+                # and whose start time minus the reminder delay has passed
+                if reminder.method == "alert" \
+                        and start_time - datetime.timedelta(0, 60 * int(reminder.minutes)) < now:
+                    # Build the notification
+                    notification = pynotify.Notification(summary=event.title.text,
+                                                         message=event.content.text)
+                    # Set an icon from the GTK+ stock icons
+                    notification.set_icon_from_pixbuf(gtk.Label().render_icon(gtk.STOCK_DIALOG_INFO,
+                                                                              gtk.ICON_SIZE_LARGE_TOOLBAR))
+                    notification.set_timeout(0)
+                    # Show the notification
+                    notification.show()
+</pre>
+
+Running this program, you should see a notification if an appointment has an
+alert to be raised at that time.
+
+This should be enough to start to build something.
+
+If you don't want to program this into Python, you might want to take a look
+at [gcalcli](http://code.google.com/p/gcalcli/wiki/HowTo).
