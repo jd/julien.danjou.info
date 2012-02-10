@@ -109,3 +109,10 @@ footer {
 .social-logo img {
     display: inline;
 }
+
+.homepage-photo > img {
+    border-radius: 6px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
