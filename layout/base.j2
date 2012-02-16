@@ -34,17 +34,18 @@
 
     {% block body %}
 
-    <div class="topbar">
-      {% block topbar %}
-      <div class="fill">
+    <div class="navbar navbar-fixed-top">
+      {% block navbar %}
+      <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="{{ home_url }}">{{ site_title }}</a>
           <ul class="nav">
             {% for menu_item in site.content.child_nodes %}
             {% if menu_item.name == "software" %}
-            <li data-dropdown="dropdown" {% if resource.node == menu_item or resource.full_url == menu_item.full_url %} class="active"{% endif %}>
-              <a href="{{menu_item.full_url}}" {% if resource.node == menu_item or menu_item.full_url == resource.full_url %} class="dropdown-toggle"{% endif %}>
+            <li class="dropdown" id="#software-menu" {% if resource.node == menu_item or resource.full_url == menu_item.full_url %} class="active"{% endif %}>
+              <a {% if resource.node == menu_item or menu_item.full_url == resource.full_url %} data-toggle="dropdown" class="dropdown-toggle" href="#software-menu" {% else %} href="{{menu_item.full_url}}" {% endif %}>
                 {{menu_item.name|capitalize}}
+                <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 {% for page in menu_item.walk_resources_sorted_by_name() %}
@@ -64,7 +65,7 @@
           </ul>
         </div>
       </div>
-      {% endblock topbar %}
+      {% endblock navbar %}
     </div>
 
     <div class="container" id="top">
@@ -115,6 +116,10 @@
       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+      (function() {
+          $('.dropdown-toggle').dropdown()
       })();
     </script>
     {% endblock analytics %}

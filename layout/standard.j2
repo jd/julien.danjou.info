@@ -40,12 +40,14 @@
   {% endif %}
   {% if resource.next_by_time %}
   <span class="context-nav-prev">
-    ↩ <a rel="prev" href="{{ resource.next_by_time.full_url }}">{{resource.next_by_time.meta.title}}</a>
+    <i class="icon-arrow-left"></i>
+    <a rel="prev" href="{{ resource.next_by_time.full_url }}">{{resource.next_by_time.meta.title}}</a>
   </span>
   {% endif %}
   {% if resource.prev_by_time %}
   <span class="context-nav-next">
-    <a rel="next" href="{{ resource.prev_by_time.full_url }}">{{resource.prev_by_time.meta.title}}</a> ↪
+    <a rel="next" href="{{ resource.prev_by_time.full_url }}">{{resource.prev_by_time.meta.title}}</a>
+    <i class="icon-arrow-right"></i>
   </span>
   {% endif %}
   {% if resource.next_by_time or resource.prev_by_time%}
@@ -66,7 +68,7 @@
   {% endmark %}
   {% if resource.meta.tags %}
   <div class="taglist">
-  <em>Tags:</em>
+  <i class="icon-tags"></i> Tags:
   {% for tag in resource.meta.tags %}
       <a class="small" href="{{ content_url('blog/tags/'~tag~'.html') }}">{{tag}}</a>
   {% endfor %}

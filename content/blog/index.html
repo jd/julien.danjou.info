@@ -5,7 +5,6 @@ subtitle: <div class="rss-logo"><a href="/blog/index.xml"><img alt="RSS" src="/m
 default_block:
 ---
 {% block sidebar %}
-
 {% for tag, meta in site.tagger.tags %}
 <span style="font-size: {{ 9 + (meta.resources|length) / 1.5 }}px;">
 <a href="/blog/tags/{{tag}}.html">{{tag}} ({{(meta.resources|length)}})</a>
