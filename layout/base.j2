@@ -38,7 +38,7 @@
       {% block navbar %}
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="{{ home_url }}">{{ site_title }}</a>
+          <a class="brand" href="/">{{ site_title }}</a>
           <ul class="nav">
             {% for menu_item in site.content.child_nodes %}
             {% if menu_item.name == "software" %}
