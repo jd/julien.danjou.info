@@ -87,7 +87,9 @@ h1, #projects > h2, #projects > h3 {
 
 
 footer {
-    clear: both
+    padding: 10px;
+    clear: both;
+    text-align: center;
 }
 
 #BigFlattrButton {
