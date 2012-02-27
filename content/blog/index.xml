@@ -3,44 +3,44 @@ extends:
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>
-        {% block title %}{{ blog_title }}{% endblock %}
-    </title>
-    {% block self_url %}
-    <link href="{{site_url}}{{ resource.full_url }}" rel="self" />
-    {% endblock %}
+  <title>
+    {% block title %}{{ blog_title }}{% endblock %}
+  </title>
+  {% block self_url %}
+  <link href="{{site_url}}{{ resource.full_url }}" rel="self" />
+  {% endblock %}
 
-    {% block site_url %}
-    <link href="{{site_url}}/blog/"/>
-    {% endblock %}
+  {% block site_url %}
+  <link href="{{site_url}}/blog/"/>
+  {% endblock %}
 
-    {% block feed_extra %}
-    {% endblock %}
+  {% block feed_extra %}
+  {% endblock %}
 
-    <updated>{{ time_now|xmldatetime }}</updated>
+  <updated>{{ time_now|xmldatetime }}</updated>
 
-    <id>{{site_url}}{{resource.full_url}}</id>
+  <id>{{site_url}}{{resource.full_url}}</id>
 
-    {% for res in resource.node.walk_resources_sorted_by_time()[:10] %}
-        <entry>
-            <title type="html">{{ res.meta.title }}</title>
-            <author><name>{{ res.meta.author }}</name></author>
-            <link href="{{site_url}}{{ content_url(res.url) }}"/>
-            <updated>{{ res.meta.created|xmldatetime }}</updated>
-            <published>{{ res.meta.created|xmldatetime }}</published>
-            <id>{{ content_url(res.url) }}</id>
-            {% for tag in res.meta.tags %}
-            <category   scheme="{{ content_url('blog/tags') }}"
-                        term="{{tag}}"
-                        label="{{ tag|title }}" />
-            {% endfor %}
-
-            <content type="html">
-                {% refer to res.url as article %}
-                {% filter forceescape -%}
-                {{ article.main }}
-                {% endfilter %}
-            </content>
-        </entry>
+  {% for res in resource.node.walk_resources_sorted_by_time()[:10] %}
+  <entry>
+    <title type="html">{{ res.meta.title }}</title>
+    <author><name>{{ res.meta.author }}</name></author>
+    <link href="{{site_url}}{{ content_url(res.url) }}"/>
+    <updated>{{ res.meta.created|xmldatetime }}</updated>
+    <published>{{ res.meta.created|xmldatetime }}</published>
+    <id>{{ content_url(res.url) }}</id>
+    {% for tag in res.meta.tags %}
+    <category   scheme="{{ content_url('blog/tags') }}"
+                term="{{tag}}"
+                label="{{ tag|title }}" />
     {% endfor %}
+
+    <content type="html">
+      {% refer to res.relative_deploy_path as post %}
+      {% filter forceescape -%}
+      {{ post.article }}
+      {% endfilter %}
+    </content>
+  </entry>
+  {% endfor %}
 </feed>
