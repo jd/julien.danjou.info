@@ -58,7 +58,7 @@
             </li>
             {% elif menu_item.name != "media" %}
             <li{% if menu_item.full_url == resource.full_url %} class="active"{% endif %}>
-              <a href="{{ menu_item.full_url }}">{{ menu_item.name|capitalize }}</a>
+              <a href="{{ menu_item.full_url }}">{{ menu_item.meta.title|capitalize }}</a>
             </li>
             {% endif %}
             {%- endfor %}
