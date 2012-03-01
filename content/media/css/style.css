@@ -21,7 +21,10 @@ time {
     font-weight: normal;
     font-style: italic;
     text-align: center;
-    padding: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 9px;
+    padding-right: 9px;
     background-color: #333333;
     color: #eeeeee;
     font-size: 0.9em;
