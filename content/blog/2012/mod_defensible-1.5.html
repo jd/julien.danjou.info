@@ -1,0 +1,24 @@
+---
+title: mod_defensible 1.5 released
+created: !!timestamp '2012-04-03 15:48:00'
+tags:
+    - apache
+    - dnsbl
+---
+
+{% mark excerpt %}
+
+Apache 2.4 being out, I noticed that my good old
+[mod_defensible](http://julien.danjou.info/software/mod_defensible) did not
+compile anymore.
+
+{% endmark %}
+
+The changes in the Apache 2 API were small, so it was pretty easy to update
+the software to make it compile. The only tricky change is the split of the
+''remote_ip'' field of the connection structure to ''client_ip'' and
+''peer_ip'', but it's succinctly documented into the Apache's changes file.
+
+Honestly, I'm not sure that this module is really used into the wild, but I
+still think that it can serves as a good prototype for doing other things so
+I like keeping it around. Enjoy!
