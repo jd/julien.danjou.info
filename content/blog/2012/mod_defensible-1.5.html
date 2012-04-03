@@ -15,10 +15,15 @@ compile anymore.
 {% endmark %}
 
 The changes in the Apache 2 API were small, so it was pretty easy to update
-the software to make it compile. The only tricky change is the split of the
-''remote_ip'' field of the connection structure to ''client_ip'' and
-''peer_ip'', but it's succinctly documented into the Apache's changes file.
+the software to make it compile. The changes are available in [the Apache's
+API changes page](http://httpd.apache.org/docs/2.4/developer/new_api_2_4.html).
 
 Honestly, I'm not sure that this module is really used into the wild, but I
 still think that it can serves as a good prototype for doing other things so
-I like keeping it around. Enjoy!
+I like keeping it around.
+
+All this has been triggered by the Apache 2.4 arrival into Debian
+experimental. Therefore [I've updated the mod_defensible package to use the
+new
+dh_apache2](http://git.naquadah.org/?p=mod_defensible.git;a=shortlog;h=refs/heads/debian/unstable),
+and imported it into Git at the same time.
