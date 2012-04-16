@@ -18,7 +18,7 @@ It is available in the contrib directory of [Orgmode](http://orgmode.org) (versi
 ## Basics
 Just load the file from your .emacs:
 
-<pre class="prettify lang-lisp">
+<pre class="prettyprint lang-lisp">
 (require 'org-contacts)
 </pre>
 
@@ -33,7 +33,7 @@ What a contact is is determined by the matching rule in
 *org-contacts-matcher*. By default, contacts are Org entry which have a **EMAIL**
 property set.
 
-<pre class="prettify">
+<pre class="prettyprint">
 #+STARTUP: showeverything
 * Friends
 ** Dave Null
@@ -50,7 +50,7 @@ Now, if you do *M-x org-contacts* and search *Dave* you'll find Dave.
 *Org-contacts* support [Gnus](http://www.gnus.org). You can use completion in *message-mode* in the To,
 Cc, etc headers. You can also complete with tags. For example:
 
-<pre class="prettify">
+<pre class="prettyprint">
 #+STARTUP: showeverything
 * Friends
 ** Dave Null                               :dumb:
@@ -84,7 +84,7 @@ contact. A link to the email will be placed in the
 To add new contact, you can use **org-capture**. Here is an entry example for
 it:
 
-<pre class="prettify lang-lisp">
+<pre class="prettyprint lang-lisp">
 (add-to-list 'org-capture-templates
              '("c" "Contacts" entry (file "~/Org/contacts.org")
                "* %(org-contacts-template-name)
@@ -105,7 +105,7 @@ press *C-c C-x p* to set a property and type *BIRTHDAY*. Chose date.
 To see the birthday in your agenda, put such a line in one of you agenda
 file:
 
-<pre class="prettify">
+<pre class="prettyprint">
 #+STARTUP: showeverything
 * Birthdays
 %%(org-contacts-anniversaries)

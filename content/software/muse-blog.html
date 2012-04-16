@@ -23,13 +23,13 @@ There's no tagged release for now.
 ## Creating a blog project
 You should load it from your Emacs start-up file:
 
-<pre class="prettify lang-lisp">
+<pre class="prettyprint lang-lisp">
 (require 'muse-blog)
 </pre>
 
 Then, you should define a project in `*muse-project-alist'*.
 
-<pre class="prettify lang-lisp">
+<pre class="prettyprint lang-lisp">
 (add-to-list 'muse-project-alist
              '("MyBlog"
                ;; Path to your blog
@@ -54,7 +54,7 @@ one Muse file, or a Muse file for each month, or even a file by entry.
 
 The syntax for a blog entry is:
 
-<pre class="prettify">
+<pre class="prettyprint">
 * 20100519-16:24:78 This is my first muse-blog entry
 
 I'm very excited about all this. I think it's amazing to write a blog in
@@ -63,7 +63,7 @@ Emacs. Seriously. We should all thanks **jd** for his extraordinary work!
 
 An entry should start with a first-level heading, with the following format:
 
-<pre class="prettify">
+<pre class="prettyprint">
 * YYMMDD-HH:MM:SS Title
 </pre>
 
