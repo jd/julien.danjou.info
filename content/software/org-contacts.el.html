@@ -85,12 +85,14 @@ To add new contact, you can use **org-capture**. Here is an entry example for
 it:
 
 <pre class="prettify lang-lisp">
-        ("c" "Contacts" entry (file "~/Org/contacts.org")
-         "* %(org-contacts-template-name)
-:PROPERTIES:
-:EMAIL: %(org-contacts-template-email)
-:END:")
+(add-to-list 'org-capture-templates
+             '("c" "Contacts" entry (file "~/Org/contacts.org")
+               "* %(org-contacts-template-name)
+                  :PROPERTIES:
+                  :EMAIL: %(org-contacts-template-email)
+                  :END:"))
 </pre>
+
 
 The *org-contacts-template-name* and *org-contacts-template-email* functions
 will try to determine the name and email of your new contact, using the mail
