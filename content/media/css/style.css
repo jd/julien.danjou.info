@@ -128,3 +128,7 @@ table tr.active {
 img.printfriendly {
     float: right;
 }
+
+pre {
+    clear: both;
+}

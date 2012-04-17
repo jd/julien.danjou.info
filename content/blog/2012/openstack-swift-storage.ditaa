@@ -1,0 +1,31 @@
+                     +------------+   The Ring, split into
+                     |            |   P partitions for account
+                     |            v   (where log₂(P) ∈ ℕ)
++-----------+ hash() |   /-----+-----+-----+-=---+
+|  account  +--------+   | #1  | #2  | #3  | #P  |
+|  cBLU     |            |     | cBLU|     |     |
++-----+-----+            \-----+--+--+-----+-=---+     Z Zones
+      |                           |                    (Z ∈ ℕ)
+      | references                +--------------+  +----------+
+      | C containers       R replicas            |  |          |
+      | (C ∈ ℕ)           (where R ∈ ℕ and       +->|{s} z1cBLU|
+      |                    here with R equals 3) |  +----------+
+      |                                          |  |          |
+      v                                          +->|{s} z2cBLU|
++-----------+      /-=-------------\             |  +----------+
+| container +--=-> | Partitions    |             |  |          |
++-----+-----+      | for container |             |  |{s} z3    |
+      | references \-=---+---------/             |  +----------+
+      | O objects        |                       |  |          |
+      | (O ∈ ℕ)          :        +-=---------+  +->|{s} z4cBLU|
+      v                  +------->| Zones     |     +----------+
++-----------+                     | for       |     |          |
+|  object   |--=-+                | partition |     |{s} zZ    |
++-----------+    |                +-=---------+     +-=--------+
+                 |
+                 |  /-=-----------\    +-=-----------+
+                 +->| Partitions  +-=->| Zones       |
+                    | for objects |    | for objects |
+                    \-=-----------/    +-=-----------+
+
+

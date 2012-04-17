@@ -1,0 +1,13 @@
+  POST   /-----------\       +-----------+
+-------->|swift proxy+---+-->|cBLU       |  Each zone
+ object  \-----------/   |   |{s}Zone 1  |  is a
+                         |   +-----------+  swift object server
+                         |   |cBLU       |  process
+                         +-->|{s}Zone 2  |
+                         |   +-----------+
+                         |   |           |
+                         |   |{s}Zone 3  |
+                         |   +-----------+
+                         |   |cBLU       |
+                         +-->|{s}Zone 4  |
+                             +-----------+

@@ -1,0 +1,309 @@
+---
+title: OpenStack Swift eventual consistency analysis & bottlenecks
+created: !!timestamp '2012-04-23 12:06:00'
+tags:
+    - openstack
+    - swift
+    - python
+---
+
+{% mark excerpt %}
+
+[Swift](https://launchpad.net/swift) is the software behind the [OpenStack
+Object Storage](http://openstack.org/projects/storage/) service.
+
+This service provides a simple storage service for applications using
+[RESTful
+interfaces](http://docs.openstack.org/api/openstack-object-storage/1.0/content/),
+providing maximum data availability and storage capacity.
+
+I explain here how some parts of the storage and replication in Swift works,
+and show some of its current limitations.
+
+If you don't know Swift and want to read a more "shallow" overview first,
+you can read John Dickinson's [Swift Tech
+Overview](http://programmerthoughts.com/openstack/swift-tech-overview/).
+
+{% endmark %}
+
+# How Swift storage works
+
+If we refer to the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem),
+Swift chose **availability** and **partition tolerance** and dropped
+**consistency**. That means that you'll always get your data, they will be
+dispersed on many places, but you could get an old version of them (or no
+data at all) in some odd cases (like some server overload or failure). This
+compromise is made to allow maximum availability and scalability of the
+storage platform.
+
+But there are mechanisms built into Swift to minimize the potential data
+inconsistency window: they are responsible for data replication and
+consistency.
+
+The [official Swift documentation](http://swift.openstack.org/) explains the
+internal storage in a certain way, but I'm going to write my own explanation
+here about this.
+
+## Consistent hashing
+
+Swift uses the principle of [consistent
+hashing](http://en.wikipedia.org/wiki/Consistent_hashing). It builds what it
+calls a *ring*. A ring represents the space of all possible computed hash
+values divided in equivalent parts. Each part of this space is called a
+*partition*. This implements the **partitioning** (from the *CAP theorem*).
+
+The following schema (stolen from the [Riak](http://wiki.basho.com/)
+project) shows the principle nicely:
+
+![Consistent hashing ring](/media/images/blog/2012/riak-ring.png)
+
+In a simple world, if you wanted to store some objects and distribute them
+on 4 nodes, you would split your hash space in 4. You would have 4
+partitions, and computing *hash(object) modulo 4* would tell you where to
+store your object: on node 0, 1, 2 or 3.
+
+But since you want to be able to extend your storage cluster to more nodes
+without breaking the whole hash mapping and moving everything around, you
+need to build a lot more partitions. Let's say we're going to build
+2<sup>10</sup> partitions. Since we have 4 nodes, each node will
+have <code>2<sup>10</sup> ÷ 4 = 256</code> partitions. If we ever want to
+add a 5<sup>th</sup> node, it's easy: we just have to re-balance the
+partitions and move 1⁄4 of the partitions from each node to this
+5<sup>th</sup> node. That means all our nodes will end up
+with <code>2<sup>10</sup> ÷ 5 ≈ 204</code> partitions. We can also define a
+*weight* for each node, in order for some nodes to get more partitions than
+others.
+
+With 2<sup>10</sup> partitions, we can have up to 2<sup>10</sup> nodes in our
+cluster. Yeepee.
+
+For reference, Gregory Holt, one of the Swift authors, also wrote [an
+explanation post about the
+ring](http://www.tlohg.com/p/building-consistent-hashing-ring.html).
+
+Concretely, when building one Swift ring, you'll have to say how much
+partitions you want, and this is what this value is really about.
+
+## Data duplication
+
+Now, to assure **availability** (as seen in the *CAP theorem*) we also want
+to store replicas of our objects. By default, Swift stores 3 copies of every
+objects, but that's configurable.
+
+In that case, we need to store each partition defined above not only on 1
+node, but on 2 others. So Swift adds another concept: zones. A zone is an
+isolated space that does not depends on other zone, so in case of an outage
+on a zone, the other zones are still available. Concretely, a zone is likely
+to be a disk, a server, or a whole cabinet, depending on the size of your
+cluster. It's up to you to chose anyway.
+
+Consequently, each partitions has not to be mapped to 1 host only anymore,
+but to N hosts. Each node will therefore store this number of partitions:
+
+<pre>
+number of partition stored on one node = number of replicas × total number of partitions ÷ number of node
+</pre>
+
+Examples:
+
+<blockquote>
+We split the ring in 2<sup>10</sup> = 1024 partitions. We have 3 nodes. We want 3 replicas of data.<br>
+→ Each node will store a copy of the full partition space: <code>3 × 2<sup>10</sup> ÷ 3 = 2<sup>10</sup> = 1024 partitions</code>.
+</blockquote>
+<blockquote>
+We split the ring in 2<sup>11</sup> = 2048 partitions. We have 5 nodes. We want 3 replicas of data.<br>
+→ Each node will store <code>2<sup>11</sup> × 3 ÷ 5 ≈ 1129 partitions</code>.
+</blockquote>
+<blockquote>
+We split the ring in 2<sup>11</sup> = 2048 partitions. We have 6 nodes. We want 3 replicas of data.<br>
+→ Each node will store <code>2<sup>11</sup> × 3 ÷ 6 = 1024 partitions</code>.
+</blockquote>
+
+
+## Three rings to rule them all
+
+In Swift, there is 3 categories of thing to store: *account*, *container*
+and *objects*.
+
+An **account** is what you'd expect it to be, a user account. An account
+contains **containers** (the equivalent of Amazon S3's buckets). Each
+container can contains user-defined key and values (just like a hash table
+or a dictionary): values are what Swift call **objects**.
+
+Swift wants you to build 3 different and independent rings to store its 3
+kind of things (*accounts*, *containers* and *objects*).
+
+Internally, the two first categories are stored as
+[SQLite](http://www.sqlite.org/) databases, whereas the last one is stored
+using regular files.
+
+Note that this 3 rings can be stored and managed on 3 completely different
+set of servers.
+
+![Swift storage schema](/media/images/blog/2012/openstack-swift-storage.png)
+
+# Data replication
+
+Now that we have our storage theory in place (accounts, containers and
+objects distributed into partitions, themselves stored into multiple zones),
+let's go the replication practice.
+
+When you put something in one of the 3 rings (being an account, a container
+or an object) it is uploaded into all the zones responsible for the ring
+partition the object belongs to. This upload into the different zones is the
+responsibility of the *swift-proxy* daemon.
+
+![Swift proxy schema](/media/images/blog/2012/openstack-swift-replication.png)
+
+But if one of the zone is failing, you can't upload all your copies in all
+zones at the upload time. So you need a mechanism to be sure the failing
+zone will catch up to a correct state at some point.
+
+That's the role of the *swift-{container,account,object}-replicator*
+processes. This processes are **running on each node part of a zone** and
+replicates their contents to nodes of the other zones.
+
+When they run, they walk through all the contents from all the partitions on
+the whole file system and for each partition, issue a special *REPLICATE*
+HTTP request to all the other zones responsible for that same partition. The
+other zone responds with information about the local state of the partition.
+That allows the replicator process to decide if the remote zone has an
+up-to-date version of the partition.
+
+In case of account and containers, it doesn't check at the partition level,
+but check each account/container contained inside each partition.
+
+If something is not up-to-date, it will be pushed using *rsync* by the
+replicator process. This is why you'll read that the replication updates are
+*"push based"* in Swift documentation.
+
+<pre class="prettyprint">
+# Pseudo code describing replication process for accounts
+# The principle is exactly the same for containers
+for account in accounts:
+    # Determine the partition used to store this account
+    partition = hash(account) % number_of_partitions
+    # The number of zone is the number of replicas configured
+    for zone in partition.get_zones_storing_this_partition():
+        # Send a HTTP REPLICATE command to the remote swift-account-server process
+        version_of_account = zone.send_HTTP_REPLICATE_for(account):
+        if version_of_account < account.version()
+            account.sync_to(zone)
+</pre>
+
+This replication process is *O(number of account × number of replicas)*. The
+more your number of account will increase and the more you will want
+replicas for your data, the more the replication time for your accounts will
+grow. The same rule applies for containers.
+
+<pre class="prettyprint">
+# Pseudo code describing replication process for objects
+for partition in partitions_storing_objects:
+    # The number of zone is the number of replicas configured
+    for zone in partition.get_zones_storing_this_partition():
+        # Send a HTTP REPLICATE command to the remote swift-object-server process
+        verion_of_partition = zone.send_HTTP_REPLICATE_for(partition):
+        if version_of_partition < partition.version()
+            # Use rsync to synchronize the whole partition
+            # and all its objects
+            partition.rsync_to(zone)
+</pre>
+
+This replication process is
+*O(number of objects partitions × number of replicas)*. The more your
+number of objects partitions will increase, and the more you will want
+replicas for your data, the more the replication time for your objects will
+grow.
+
+I think this is something important to know when deciding how to build your
+Swift architecture. Choose the right number the number of replicas,
+partitions and nodes.
+
+# Replication process bottlenecks
+
+<span class="pull-right">
+![Copycat](/media/images/blog/2012/copy-cat.jpg)
+</span>
+
+## File accesses
+
+The problem, as you might have guessed, is that to replicate, **it walks
+through every damn things**, things being accounts, containers, or object's
+partition hash files. This means it need to open and read (part of) a every
+file your node stores to check that data need or not to be replicated!
+
+For accounts & containers replication, this is done every 30 seconds by
+default, but it will likely take more than 30 seconds as soon as you hit
+around 12 000 containers on a node (see measurements below). Therefore
+you'll end up checking consistency of accounts & containers on each all node
+**all the time**, using obviously a lot of CPU time.
+
+For reference, [Alex Yang also did an
+analysis](http://alexyang.sinaapp.com/?p=115) of that same problem.
+
+## TCP connections
+
+Worst, the HTTP connections used to send the *REPLICATE* commands are not
+pooled: a new TCP connection is established each time something has to be
+checked against the same thing stored on a remote zone.
+
+This is why you'll see in the [Swift's Deployment
+Guide](http://swift.openstack.org/deployment_guide.html) this lines listed
+under ["general system
+tuning"](http://swift.openstack.org/deployment_guide.html#general-system-tuning):
+
+<pre class="prettyprint">
+# disable TIME_WAIT.. wait..
+net.ipv4.tcp_tw_recycle=1
+net.ipv4.tcp_tw_reuse=1
+
+# double amount of allowed conntrack
+net.ipv4.netfilter.ip_conntrack_max = 262144
+</pre>
+
+In my humble opinion, this is more an ugly hack than a tuning. If you don't
+activate this and if you have a lot of containers on your node, you'll end
+up soon with thousands of connections in *TIME_WAIT* state, and you indeed
+risk to overload the IP conntrack module.
+
+## Container deletion
+
+We also should talk about container deletion. When a user deletes a
+container from its account, the container is **marked as deleted**. And
+that's it. It's not deleted. Therefore the SQLite database file representing
+the container will continue to be checked for synchronization, over and
+over.
+
+The only way to have a container permanently deleted is to **mark an account
+as deleted**. This way the *swift-account-reaper* will delete all its
+containers and, finally, the account.
+
+# Measurement
+
+On a pretty big server, I measured the replications to be done at a speed of
+around 350 {account,container,object-partitions}/second, which can be a real
+problem if you chose to build a lots of partition and you have a low
+*number_of_node ⁄ number_of_replicas* ratio.
+
+For example, the default parameters runs the container replication every 30
+seconds. To check replication status of 12 000 containers stored on one node
+at the speed of 350 containers/seconds, you'll need around 34 seconds to do
+so. In the end, you'll never stop checking replication of your containers,
+and the more you'll have containers, the more your **inconsistency window
+will increase**.
+
+# Conclusion
+
+Until some of the code is fixed (the HTTP connection pooling probably being
+the "easiest" one), I warmly recommend to chose correctly the different
+Swift parameters for your setup. The replication process optimization
+consists in having the minimum amount of partitions per node, which can be
+done by:
+
+- decreasing the number of partitions
+- decreasing the number of replicas
+- increasing the number of node
+
+For very large setups, some code to speed up accounts and containers
+synchronization, and remove deleted containers will be required, but this
+does not exist yet, as far as I know.
