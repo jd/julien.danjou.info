@@ -50,7 +50,7 @@ Swift uses the principle of [consistent
 hashing](http://en.wikipedia.org/wiki/Consistent_hashing). It builds what it
 calls a *ring*. A ring represents the space of all possible computed hash
 values divided in equivalent parts. Each part of this space is called a
-*partition*. This implements the **partitioning** (from the *CAP theorem*).
+*partition*.
 
 The following schema (stolen from the [Riak](http://wiki.basho.com/)
 project) shows the principle nicely:
@@ -86,9 +86,9 @@ partitions you want, and this is what this value is really about.
 
 ## Data duplication
 
-Now, to assure **availability** (as seen in the *CAP theorem*) we also want
-to store replicas of our objects. By default, Swift stores 3 copies of every
-objects, but that's configurable.
+Now, to assure availability and partitioning (as seen in the *CAP theorem*)
+we also want to store replicas of our objects. By default, Swift stores 3
+copies of every objects, but that's configurable.
 
 In that case, we need to store each partition defined above not only on 1
 node, but on 2 others. So Swift adds another concept: zones. A zone is an
