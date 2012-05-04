@@ -1,6 +1,6 @@
 {# Columns template #}
 
-{% extends "base.j2" %}
+{% extends "standard.j2" %}
 
 {% block basecss %}
 {{ super() }}
@@ -8,16 +8,7 @@
 {% endblock basecss %}
 
 
-{% block content %}
-
-<div class="page-header">
-  {% block header %}
-  <h1>
-    {% block page_title %}{{ resource.meta.title }}{% endblock %}
-    {% if resource.meta.subtitle %}<small>{% block page_subtitle %}{{ resource.meta.subtitle }}{% endblock %}</small>{% endif %}
-  </h1>
-  {% endblock header %}
-</div>
+{% block article %}
 
 <div class="row">
   <div class="span2">
@@ -30,7 +21,7 @@
   </div>
 </div>
 
-{% endblock content %}
+{% endblock article %}
 
 
 
