@@ -5,10 +5,9 @@ subtitle: <div class="rss-logo"><a href="/blog/index.xml"><img alt="RSS" src="/m
 default_block:
 ---
 {% block sidebar %}
+<h2>Tags</h2>
 {% for tag, meta in site.tagger.tags %}
-<span style="font-size: {{ 9 + (meta.resources|length) / 1.5 }}px;">
-<a href="/blog/tags/{{tag}}.html">{{tag}} ({{(meta.resources|length)}})</a>
-</span>
+<a href="/blog/tags/{{tag}}.html"><span class="label label-inverse" style="line-height: {{ 18 + (meta.resources|length) / 2 }}px; font-size: {{ 8 + (meta.resources|length) / 2 }}px;">{{tag}} ({{(meta.resources|length)}})</span></a>
 {% endfor %}
 
 {% endblock %}

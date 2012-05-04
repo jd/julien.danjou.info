@@ -71,7 +71,7 @@
   <div class="taglist">
   <i class="icon-tags"></i> Tags:
   {% for tag in resource.meta.tags %}
-      <a class="small" href="{{ content_url('blog/tags/'~tag~'.html') }}">{{tag}}</a>
+      <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-inverse small">{{tag}}</span></a>
   {% endfor %}
   </div>
   {% endif %}
