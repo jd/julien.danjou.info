@@ -125,10 +125,6 @@ table tr.active {
     background: #f9f9f9;
 }
 
-img.printfriendly {
-    float: right;
-}
-
 pre {
     clear: both;
 }
