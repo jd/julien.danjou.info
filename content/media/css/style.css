@@ -65,6 +65,10 @@ h1,  h2, #projects > h3 {
     clear: both;
 }
 
+.clear {
+    clear: both;
+}
+
 .page-content img, .page-content video {
     display: block;
     width: auto;
