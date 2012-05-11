@@ -88,7 +88,7 @@
 
     {% endblock body %}
 
-    {% block js %}
+    {% block basejs %}
     <!-- Javascript at the bottom for fast page loading -->
     {% block jquery %}
     <script src="{{ media_url('js/jquery-1.7.1.min.js') }}"></script>
@@ -124,7 +124,9 @@
     </script>
     {% endblock analytics %}
 
-    {% endblock js %}
+    {% block endjs %}{% endblock endjs %}
+
+    {% endblock basejs %}
 
     <div id="banner"><a href="/experience">Want to hire me?</a></div>
 

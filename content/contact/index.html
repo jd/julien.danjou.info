@@ -1,11 +1,14 @@
 ---
 title: "Contact"
+default_block: None
 ---
+
+{% block main %}
 
 You can contact me <a href="mailto:julien@danjou.info">directly by
 e-mail</a> or via this form.
 
-<form class="form-horizontal" method="POST" action="mail.php">
+<form onsubmit="return validateForm()" name="contact" class="form-horizontal" method="POST" action="mail.php">
   <div class="control-group">
     <label class="control-label" for="lastname" >Lastname</label>
     <div class="controls">
@@ -35,7 +38,7 @@ e-mail</a> or via this form.
     </div>
   </div>
 
-  <div class="control-group">
+  <div class="control-group" id="control-group-mail">
     <label class="control-label" for="mail">E-mail address</label>
     <div class="controls">
       <div class="input-prepend">
@@ -45,7 +48,7 @@ e-mail</a> or via this form.
     </div>
   </div>
 
-  <div class="control-group">
+  <div class="control-group" id="control-group-message">
     <label class="control-label" for="message">Message</label>
     <div class="controls">
       <textarea class="input-xlarge" name="message" id="message" rows="12"></textarea>
@@ -59,3 +62,56 @@ e-mail</a> or via this form.
   </div>
 
 </form>
+
+{% endblock main %}
+
+{% block endjs %}
+<script type="text/javascript">
+  $(function () {
+     $("[name=message]").focusout(validateMessage);
+     $("[name=mail]").focusout(validateMail);
+  });
+
+  function addAlert(field, msg) {
+    removeAlert(field);
+    $("[id=control-group-" + field + "] > div[class=controls]").append("<div class=\"help-inline error\" id=\"alert-for-" + field +"\">" + msg + "</div>");
+    $("[id=control-group-" + field + "]").addClass("error");
+  }
+
+  function removeAlert(field) {
+    $("[id=alert-for-" + field + "]").detach();
+    $("[id=control-group-" + field + "]").removeClass("error");
+    $("[id=control-group-" + field + "]").removeClass("success");
+  }
+
+  function validateMail() {
+    if(! /.+@.+/.test($("[name=mail]")[0].value)) {
+       addAlert("mail", "E-mail address seems invalid.");
+       return false;
+    }
+    removeAlert("mail");
+    $("[id=control-group-mail]").addClass("success");
+    return true;
+  }
+
+  function validateMessage() {
+    if($("[name=message]")[0].value.length < 10) {
+       addAlert("message", "Message is too short.");
+       return false;
+    }
+    removeAlert("message");
+    $("[id=control-group-message]").addClass("success");
+    return true;
+  }
+
+  function validateForm()
+  {
+    if(validateMail() && validateMessage())
+    {
+        $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-success\" >" + msg + "</div>");
+        return true;
+    }
+    return false;
+  };
+</script>
+{% endblock %}
