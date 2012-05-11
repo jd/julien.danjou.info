@@ -8,7 +8,7 @@ default_block: None
 You can contact me <a href="mailto:julien@danjou.info">directly by
 e-mail</a> or via this form.
 
-<form onsubmit="return validateForm()" name="contact" class="form-horizontal" method="POST" action="mail.php">
+<form name="contact" class="form-horizontal">
   <div class="control-group">
     <label class="control-label" for="lastname" >Lastname</label>
     <div class="controls">
@@ -57,10 +57,9 @@ e-mail</a> or via this form.
 
   <div class="form-actions">
     <div class="controls">
-      <button class="btn btn-primary" type="submit">Send</button>
+      <button class="btn btn-primary" type="submit" onclick="return validateForm()">Send</button>
     </div>
   </div>
-
 </form>
 
 {% endblock main %}
@@ -104,12 +103,25 @@ e-mail</a> or via this form.
     return true;
   }
 
+  function checkMailSent(data) {
+    $("[id=form-submit-alert]").detach();
+    if(data == "OK")
+    {
+        $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Mail sent!</h4> I'll get back to you in the next 48 hours, thanks.</div>");
+    }
+    else
+    {
+        $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-error\"><h4 class=\"alert-heading\">Mail not sent!</h4> :-(</div>");
+        $("button").removeAttr("disabled");
+    }
+  }
+
   function validateForm()
   {
     if(validateMail() && validateMessage())
     {
-        $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-success\" >" + msg + "</div>");
-        return true;
+        $.post("mail.php", $("form").serialize(), checkMailSent);
+        $("button").attr("disabled", true);
     }
     return false;
   };
