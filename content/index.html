@@ -7,29 +7,11 @@ subtitle: Free Software Freelance
 <link href="https://plus.google.com/107513391728776207155" rel="publisher" />
 {% endblock %}
 
-
 <div class="row">
   <div class="span2">
     <span class="homepage-photo">
       <img src="/media/images/jd.jpg">
     </span>
-    <div class="social-logo">
-      <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
-        <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
-      </a>
-      <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
-        <img src="media/images/twitter.png" alt="Twitter logo"/>
-      </a>
-      <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
-        <img src="media/images/linkedin.jpg" alt="LinkedIn logo"/>
-      </a>
-      <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
-        <img src="media/images/viadeo.png" alt="Viadeo logo"/>
-      </a>
-      <a href="https://flattr.com/profile/jd" title="jd on Flattr">
-        <img src="media/images/flattr.png" alt="Flattr logo"/>
-      </a>
-    </div>
   </div>
   <div class="span5">
     <h2>Hello!</h2>
@@ -90,7 +72,27 @@ subtitle: Free Software Freelance
 </div>
 
 
-<h2>Recent blog posts</h2>
+<br>
+
+<div class="social-logo">
+  <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
+    <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
+  </a>
+  <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
+    <img src="media/images/twitter.png" alt="Twitter logo"/>
+  </a>
+  <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
+    <img src="media/images/linkedin.jpg" alt="LinkedIn logo"/>
+  </a>
+  <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
+    <img src="media/images/viadeo.png" alt="Viadeo logo"/>
+  </a>
+  <a href="https://flattr.com/profile/jd" title="jd on Flattr">
+    <img src="media/images/flattr.png" alt="Flattr logo"/>
+  </a>
+</div>
+
+<h2 class="not-clear">Recent blog posts</h2>
 
 {% from "macros.j2" import render_blog_listing with context %}
 {{ render_blog_listing(site.content.walk_resources_sorted_by_time()[:3]) }}

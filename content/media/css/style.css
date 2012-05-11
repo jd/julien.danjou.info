@@ -69,6 +69,10 @@ h1,  h2, #projects > h3 {
     clear: both;
 }
 
+.not-clear {
+    clear: none;
+}
+
 .page-content img, .page-content video {
     display: block;
     width: auto;
@@ -108,6 +112,7 @@ footer {
 
 .social-logo img {
     display: inline;
+    float: right;
 }
 
 .homepage-photo > img {
