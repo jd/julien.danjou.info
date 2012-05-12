@@ -40,7 +40,7 @@
         <div class="container">
           <a class="brand" href="/">{{ site_title }}</a>
           <ul class="nav">
-            {% for menu_item in site.content.child_nodes|sort %}
+            {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
             {% if menu_item.name == "software" %}
             <li class="dropdown" id="#software-menu" {% if resource.node == menu_item or resource.full_url == menu_item.full_url %} class="active"{% endif %}>
               <a {% if resource.node == menu_item or menu_item.full_url == resource.full_url %} data-toggle="dropdown" class="dropdown-toggle" href="#software-menu" {% else %} href="{{menu_item.full_url}}" {% endif %}>
