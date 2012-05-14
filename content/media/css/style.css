@@ -189,11 +189,11 @@ pre {
 	linear,
 	left bottom,
 	left top,
-	color-stop(0.03, #221111),
-	color-stop(0.05, #666666),
-	color-stop(0.07, #443333),
-	color-stop(0.93, #443333),
-	color-stop(0.95, #666666),
-	color-stop(0.97, #221111)
+	color-stop(0.03, #1073ed),
+	color-stop(0.05, #b5c7de),
+	color-stop(0.07, #5b90d0),
+	color-stop(0.93, #4382cf),
+	color-stop(0.95, #b5c7de),
+	color-stop(0.97, #1272e8)
     );
 }
