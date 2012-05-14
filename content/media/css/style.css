@@ -110,9 +110,13 @@ footer {
     float: right
 }
 
+.social-logo {
+    margin-top: 20px;
+    text-align: right;
+}
+
 .social-logo img {
     display: inline;
-    float: right;
 }
 
 .homepage-photo > img {
