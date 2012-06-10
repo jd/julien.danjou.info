@@ -1,12 +1,3 @@
-{% macro render_software_excerpt(res, class=None) %}
-{% refer to res.url as soft %}
-<article {{'class='~class if class }}>
-<h2><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h2>
-<a href="{{ content_url(res.url) }}">{{ soft.image|markdown|typogrify }}</a>
-{{ soft.excerpt|markdown|typogrify }}
-</article>
-{% endmacro %}
-
 {% macro render_blog_listing(walker) %}
 <ul class="clear unstyled">
 {% for res in walker %}

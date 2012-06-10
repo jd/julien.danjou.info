@@ -41,22 +41,7 @@
           <a class="brand" href="/">{{ site_title }}</a>
           <ul class="nav">
             {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
-            {% if menu_item.name == "software" %}
-            <li class="dropdown" id="#software-menu" {% if resource.node == menu_item or resource.full_url == menu_item.full_url %} class="active"{% endif %}>
-              <a {% if resource.node == menu_item or menu_item.full_url == resource.full_url %} data-toggle="dropdown" class="dropdown-toggle" href="#software-menu" {% else %} href="{{menu_item.full_url}}" {% endif %}>
-                {{menu_item.name|capitalize}}
-                <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                {% for page in menu_item.walk_resources_sorted_by_name() %}
-                {% if page.name != "index.html" %}
-                <li{% if page.full_url == resource.full_url %} class="active" {% endif %}>
-                  <a href="{{page.full_url}}">{{page.slug}}</a></li>
-                {% endif %}
-                {% endfor %}
-              </ul>
-            </li>
-            {% elif menu_item.name != "media" %}
+            {% if menu_item.name != "media" %}
             <li{% if menu_item.full_url == resource.full_url %} class="active"{% endif %}>
               <a href="{{ menu_item.full_url }}">{{ menu_item.meta.title|capitalize }}</a>
             </li>
@@ -95,7 +80,7 @@
     {% endblock jquery %}
 
     {% block bootstrap_scripts %}
-    <script src="{{ media_url('js/bootstrap-dropdown.js') }}"></script>
+    <script src="{{ media_url('js/bootstrap-tab.js') }}"></script>
     {% endblock bootstrap_scripts %}
 
     {% block scripts %}
@@ -116,10 +101,6 @@
       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
-      (function() {
-          $('.dropdown-toggle').dropdown()
       })();
     </script>
     {% endblock analytics %}

@@ -61,10 +61,6 @@ time {
     float: right;
 }
 
-h1,  h2, #projects > h3 {
-    clear: both;
-}
-
 .clear {
     clear: both;
 }
@@ -80,14 +76,29 @@ h1,  h2, #projects > h3 {
     margin-right: auto;
 }
 
-.project-logo {
-    float: right;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    max-width: 140px;
-    max-height: 60px;
-    clear: both;
+.illustration-item {
+    font-size: 0.8em;
+    float: left;
+    max-width: 80px;
+    text-align: center;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 1px;
 }
+
+.project-logo {
+    max-width: 80px;
+    max-height: 40px;
+}
+
+img.software-logo {
+    max-width: 80px;
+    max-height: 40px;
+    margin: 6px;
+    float: left;
+}
+
 
 .social {
     width: auto;
@@ -110,22 +121,6 @@ footer {
     float: right
 }
 
-.social-logo {
-    margin-top: 20px;
-    text-align: right;
-}
-
-.social-logo img {
-    display: inline;
-}
-
-.homepage-photo > img {
-    border-radius: 6px;
-    float: left;
-    margin-right: 20px;
-    margin-bottom: 20px;
-}
-
 table tr.active {
     background: #f9f9f9;
 }
@@ -134,7 +129,37 @@ pre {
     clear: both;
 }
 
+.bigfont {
+    font-size: 1.4em;
+    color: #333333;
+    line-height: 1.5em;
+}
 
+
+.mediumfont {
+    font-size: 1.2em;
+    color: #333333;
+    line-height: 1.3em;
+}
+
+.illustration {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.illustration > img {
+    border-radius: 6px;
+}
+
+.software-excerpt {
+    height: 210px;
+    text-align: justify;
+}
+
+.row {
+    margin-bottom: 10px;
+}
 
 #banner{
     height: 149px;

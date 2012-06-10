@@ -1,26 +1,79 @@
 ---
 title: "Software"
 ---
-{% from "macros.j2" import render_software_excerpt with context  %}
-
 <div id="BigFlattrButton">
 <a class="FlattrButton" style="display:none;" href="http://julien.danjou.info"></a>
 <noscript><a href="http://flattr.com/thing/48024/Support-me" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
 </div>
 
-Here are some software I've made.
-
-Much of my contribution work is also referenced on
+Plenty of my contribution work is also referenced on
 [Ohloh](http://www.ohloh.net/accounts/jdanjou).
 
-If you like what I do, you can flattr me.
+{% macro render_software(name, url, logo, text) %}
+  <li class="span3">
+    <div class="thumbnail software-excerpt">
+      <a href="{{ url }}">
+        {% if logo %}
+        <img class="software-logo" src="{{logo}}">
+        {% endif %}
+        <h2>{{name}}</h2>
+      </a>
+      <span class="mediumfont">
+      {{ text|typogrify }}
+      </span>
+    </div>
+  </li>
+{% endmacro %}
 
-{% for res in resource.node.walk_resources_sorted_by_name() %}
-{% if res.name != "index.html" %}
-<a href="{{res.url}}">
-  {{ render_software_excerpt(res) }}
-</a>
-{% endif %}
-{% endfor %}
+<ul class="thumbnails clear">
+  {{ render_software("Debian",
+  "http://debian.org",
+  "/media/images/projects/debian.png",
+  "I am a Debian developer since 2002, maintaining <a href=\"http://qa.debian.org/developer.php?login=acid\">more than 50 packages</a>. I've been an <a href=\"https://nm.debian.org/public/whoisam\">Application Manager</a>, a Stable Release Manager and founded the <a href=\"http://alioth.debian.org/projects/pkg-xen/\">Xen</a> and the <a href=\"http://alioth.debian.org/projects/openstack/\">OpenStack</a> packaging team.") }}
 
+  {{ render_software("OpenStack",
+  "http://openstack.org",
+  "/media/images/projects/openstack.jpg",
+  "Since 2011, I'm working on <a href=\"http://openstack.org\">OpenStack</a> and its various components. I probably sent patches for everyone one at one point. I set up the packaging for Debian too.") }}
+
+  {{ render_software("awesome",
+  "http://awesome.naquadah.org",
+  "/media/images/projects/awesome.png",
+  "I am the author of the <a href=\"http://awesome.naquadah.org\">awesome window manager</a>, started in 2007.") }}
+
+  {{ render_software("GNU Emacs",
+  "http://www.gnu.org/software/emacs/",
+  "/media/images/projects/emacs.png",
+  "I use <a href=\"http://www.gnu.org/software/emacs/\">Emacs</a> since 2010, and am a commiter. I've wrote some <a href=\"/software/emacs-packages\">packages</a> like rainbow-mode, google-maps, etc.") }}
+
+  {{ render_software("XCB",
+  "http://xcb.freedesktop.org",
+  "/media/images/projects/xcb.png",
+  "I've contributed and co-maintained the <a href=\"http://xcb.freedesktop.org\">X C bindings</a> since 2008, mentoring for the <a href=\"http://www.google-melange.com/gsoc/project/google/gsoc2009/mceier/2001\">GSoC in 2009</a>. I'm also maintaining <a href=\"http://cgit.freedesktop.org/xcb/xpyb/\">xpyb</a>.") }}
+
+  {{ render_software("startup-notification",
+  "http://freedesktop.org/wiki/Software/startup-notification",
+  "/media/images/projects/freedesktop.png",
+  "I've ported <a href=\"http://freedesktop.org/wiki/Software/startup-notification\">startup-notification</a> to XCB for awesome, and therefore I became a de facto maintainer.") }}
+
+  {{ render_software("Gnus",
+  "http://www.gnus.org",
+  "/media/images/projects/gnus.png",
+  "Using Emacs is nice, but reading e-mail with it is better. Therefore I became a <a href=\"http://gnus.org\">Gnus</a> developer in 2010.") }}
+
+  {{ render_software("Org-mode",
+  "http://orgmode.org",
+  "/media/images/projects/org-mode.png",
+  "I like to be organized using Emacs, so I'm an <a href=\"http://orgmode.org\">Org-mode</a> developer since 2010.") }}
+
+  {{ render_software("el-get",
+  "https://github.com/dimitri/el-get",
+  None,
+  "I'm co-maintaing <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
+
+  {{ render_software("VHFFS",
+  "http://vhffs.org",
+  "/media/images/projects/vhffs.png",
+  "I was one of the author of the <a href=\"http://vhffs.org\">VHFFS</a> platform between 2001 and 2006. It is the platform initiated and used by <a href=\"http://tuxfamily.org\">TuxFamily</a>.") }}
+</ul>
