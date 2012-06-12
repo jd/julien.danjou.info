@@ -99,6 +99,12 @@ img.software-logo {
     float: left;
 }
 
+img.reference-logo {
+    max-width: 120px;
+    max-height: 50px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
 
 .social {
     width: auto;
@@ -137,7 +143,7 @@ pre {
 
 
 .mediumfont {
-    font-size: 1.2em;
+    font-size: 1.15em;
     color: #333333;
     line-height: 1.3em;
 }
@@ -156,6 +162,12 @@ pre {
     height: 210px;
     text-align: justify;
 }
+
+.reference {
+    height: 140px;
+    text-align: justify;
+}
+
 
 .row {
     margin-bottom: 10px;

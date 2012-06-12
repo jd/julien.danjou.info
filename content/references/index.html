@@ -1,0 +1,63 @@
+---
+title: References
+---
+This are customers I worked or did missions for for in the last years.
+
+{% macro render_ref(url, logo, text) %}
+  <li class="span3">
+    <div class="thumbnail reference">
+      {% if url %}
+      <a href="{{ url }}">
+      {% endif %}
+        <img class="reference-logo" src="{{logo}}">
+      {% if url %}
+      </a>
+      {% endif %}
+      <span class="mediumfont">
+      {{ text|typogrify }}
+      </span>
+    </div>
+  </li>
+{% endmacro %}
+
+<ul class="thumbnails clear">
+  {{ render_ref("http://enovance.com",
+  "/media/images/cv/enovance.png",
+  "Lead developer for <a href=\"http://enovance.com\">eNovance</a>, built the <a href=\"http://enocloud.com\">eNocloud</a> project from scratch.") }}
+  {{ render_ref("http://www.lwm-agence.com/",
+  "/media/images/lwm.jpg",
+  "VoIP set-up, LAMP platform system audit and administration.") }}
+  {{ render_ref("http://www.meetic.fr/",
+  "/media/images/meetic.jpg",
+  "<a href=\"http://git-scm.com\">Git</a> expertise, development workflow consulting.") }}
+  {{ render_ref("http://www.hermes.com",
+  "/media/images/hermes.png",
+  "Set-up of fail-over and load-balanced HTTP proxy, replicated virtualization server, log server, for HQ.") }}
+  {{ render_ref("http://paris.fr",
+  "/media/images/mairiedeparis.png",
+  "Scalable hosting on cloud platform for the <a href=\"http://nuitblanche2010.paris.fr/\">Nuit Blanche 2010 website</a>.") }}
+  {{ render_ref("http://www.armines.net/",
+  "/media/images/armines.gif",
+  "Management of the <a href=\"http://lheo.org\">LHEO project</a>, set-up of a fail-over Web platform.") }}
+  {{ render_ref(None,
+  "/media/images/europcar.png",
+  "Development of a custom Debian GNU/Linux distribution for thin-client, with inventoring agents.") }}
+  {{ render_ref("http://www.lesartsdecoratifs.fr/",
+  "/media/images/lesartsdecoratifs.gif",
+  "Linux system audits and administration.") }}
+  {{ render_ref("http://www.orc.fr/",
+  "/media/images/orc.gif",
+  "Linux system administration, infrastructure virtualization.") }}
+  {{ render_ref("http://www.gardemedicaledeparis.org",
+  "/media/images/gmp.jpg",
+  "IPBX set-up and programming to automate calls dispatch.") }}
+  {{ render_ref("http://www.msh-paris.fr/",
+  "/media/images/msh.gif",
+  "Linux application farm servers administration.") }}
+  {{ render_ref("http://www.mairie-pierrefitte93.fr/",
+  "/media/images/pierrefitte-sur-seine.png",
+  "Linux servers and firewall set-up and administration.") }}
+  {{ render_ref("http://www.lafemis.fr/",
+  "/media/images/femis.jpg",
+  "E-mail server with spam and virus filters set-up and administration.") }}
+</ul>
