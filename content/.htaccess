@@ -1,6 +1,7 @@
 ---
 extends:
 ---
-RewriteEngine On 
-RewriteCond %{REQUEST_FILENAME}.html -f  
-RewriteRule ^.*$ %{REQUEST_FILENAME}.html 
+RedirectPermanent /software/ http://julien.danjou.info/projects/
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^.*$ %{REQUEST_FILENAME}.html

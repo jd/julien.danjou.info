@@ -1,5 +1,5 @@
 ---
-title: "Software"
+title: "Projects"
 ---
 <div id="BigFlattrButton">
 <a class="FlattrButton" style="display:none;" href="http://julien.danjou.info"></a>
@@ -7,7 +7,7 @@ title: "Software"
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
 </div>
 
-Plenty of my contribution work is also referenced on
+Here is a list of Free Software (or related) projects I've contributed to. I only list the biggest project, since there's a lot of small contributions I did all over the years. Some of this small contributions are referenced on
 [Ohloh](http://www.ohloh.net/accounts/jdanjou).
 
 {% macro render_software(name, url, logo, text) %}
@@ -37,10 +37,15 @@ Plenty of my contribution work is also referenced on
   "/media/images/projects/openstack.jpg",
   "Since 2011, I'm working on <a href=\"http://openstack.org\">OpenStack</a> and its various components. I probably sent patches for everyone one at one point. I set up the packaging for Debian too.") }}
 
+  {{ render_software("CompatibleOne",
+  "http://www.compatibleone.org",
+  "/media/images/projects/compatibleone.png",
+  "I worked on CompatibleOne between 2011 and 2012 and particularly on EZVM and <a href=\"http://occi-wg.org\">OCCI</a>.") }}
+
   {{ render_software("awesome",
   "http://awesome.naquadah.org",
   "/media/images/projects/awesome.png",
-  "I am the author of the <a href=\"http://awesome.naquadah.org\">awesome window manager</a>, started in 2007.") }}
+  "I had enough of non working window manager, so I started the <a href=\"http://awesome.naquadah.org\">awesome window manager</a> project in 2007.") }}
 
   {{ render_software("GNU Emacs",
   "http://www.gnu.org/software/emacs/",
@@ -55,7 +60,7 @@ Plenty of my contribution work is also referenced on
   {{ render_software("startup-notification",
   "http://freedesktop.org/wiki/Software/startup-notification",
   "/media/images/projects/freedesktop.png",
-  "I've ported <a href=\"http://freedesktop.org/wiki/Software/startup-notification\">startup-notification</a> to XCB for awesome, and therefore I became a de facto maintainer.") }}
+  "I've ported <a href=\"http://freedesktop.org/wiki/Software/startup-notification\">startup-notification</a> to XCB for awesome, and thus I became a de facto maintainer.") }}
 
   {{ render_software("Gnus",
   "http://www.gnus.org",
@@ -71,6 +76,11 @@ Plenty of my contribution work is also referenced on
   "https://github.com/dimitri/el-get",
   None,
   "I'm co-maintaing <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
+
+  {{ render_software("TuxFamily",
+  "http://www.tuxfamily.org",
+  "/media/images/projects/tuxfamily.png",
+  "I managed TuxFamily.org in 2006, and been a system administrator between 2002 and 2006.") }}
 
   {{ render_software("VHFFS",
   "http://vhffs.org",
