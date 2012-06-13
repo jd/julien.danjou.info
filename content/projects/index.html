@@ -1,14 +1,20 @@
 ---
 title: "Projects"
 ---
-<div id="BigFlattrButton">
-<a class="FlattrButton" style="display:none;" href="http://julien.danjou.info"></a>
-<noscript><a href="http://flattr.com/thing/48024/Support-me" target="_blank">
-<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
+<div class="well">
+  <div id="BigFlattrButton">
+    <a class="FlattrButton" style="display:none;" href="http://julien.danjou.info"></a>
+    <noscript><a href="http://flattr.com/thing/48024/Support-me" target="_blank">
+        <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
+  </div>
+  <p class="mediumfont">
+    Here is a list of Free Software (or related) projects I've contributed to. I only list the projects for which I made a significant contribution, or the ones where I'm one of the author or developer.
+  </p>
+  <p>
+    There's also a lot of small contributions I did all over the years. Some of this small contributions are referenced on
+    <a href="http://www.ohloh.net/accounts/jdanjou">Ohloh</a>.
+  </p>
 </div>
-
-Here is a list of Free Software (or related) projects I've contributed to. I only list the biggest project, since there's a lot of small contributions I did all over the years. Some of this small contributions are referenced on
-[Ohloh](http://www.ohloh.net/accounts/jdanjou).
 
 {% macro render_software(name, url, logo, text) %}
   <li class="span3">
@@ -77,6 +83,21 @@ Here is a list of Free Software (or related) projects I've contributed to. I onl
   None,
   "I'm co-maintaing <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
 
+  {{ render_software("PyMuninCli",
+  "/projects/pymunincli",
+  None,
+  "This <a href=\"http://python.org\">Python</a> package allow you to fetch data from <a href=\"http://munin-monitoring.org/\">Munin</a> node daemon.") }}
+
+  {{ render_software("rebuildd",
+  "/projects/rebuildd",
+  None,
+  "If you want to rebuild the whole Debian archive, this is the tool I wrote for.") }}
+
+  {{ render_software("telak",
+  "/projects/telak",
+  None,
+  "Once upon a time, before starting to write <a href=\"http://awesome.naquadah.org\">awesome</a>, I wanted to have pictures from the Internet displayed on my root window and I wrote <a href=\"/projects/telak\">telak</a>.") }}
+
   {{ render_software("TuxFamily",
   "http://www.tuxfamily.org",
   "/media/images/projects/tuxfamily.png",
@@ -86,4 +107,19 @@ Here is a list of Free Software (or related) projects I've contributed to. I onl
   "http://vhffs.org",
   "/media/images/projects/vhffs.png",
   "I was one of the author of the <a href=\"http://vhffs.org\">VHFFS</a> platform between 2001 and 2006. It is the platform initiated and used by <a href=\"http://tuxfamily.org\">TuxFamily</a>.") }}
+
+  {{ render_software("VARMon",
+  "/projects/varmon",
+  None,
+  "<a href=\"/projects/varmon/\">VARMon</a> is a text-based tool to monitor DAC 960/1100 based RAID controllers. I took over its maintenance in 2004.") }}
+
+  {{ render_software("sysrqd",
+  "/projects/sysrqd",
+  None,
+  "<a href=\"/projects/sysrqd/\">sysrqd</a> is a very special and very optimized daemon that enables you to use <a href=\"http://fr.wikipedia.org/wiki/Magic_SysRq_key\">magic SysRq keys</a> over IP, via telnet.") }}
+
+  {{ render_software("libparportled",
+  "/projects/libparportled",
+  None,
+  "Ever wanted to light some LEDs using your parallel port? I wanted to so in 2003, so <a href=\"/projects/libparportled\">libparportled</a> was born.") }}
 </ul>
