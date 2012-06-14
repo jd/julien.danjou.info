@@ -17,7 +17,7 @@
 {{ res.meta.created.strftime('%d %b %Y') }}
 </time>
 <h3><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h3>
-{% refer to res.url as post %}
+{% refer to res.relative_deploy_path as post %}
 {{ post.excerpt|markdown|typogrify }}
 </article>
 </li>
