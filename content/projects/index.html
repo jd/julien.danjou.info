@@ -17,17 +17,16 @@ title: "Projects"
 </div>
 
 {% macro render_software(name, url, logo, text) %}
-  <li class="span3">
+  <li class="span4">
     <div class="thumbnail software-excerpt">
-      <a href="{{ url }}">
+      <h2>
         {% if logo %}
         <img class="software-logo" src="{{logo}}">
         {% endif %}
-        <h2>{{name}}</h2>
-      </a>
-      <span class="mediumfont">
+        <a href="{{ url }}">{{name}}</a></h2>
+      <p class="mediumfont clear">
       {{ text|typogrify }}
-      </span>
+      </p>
     </div>
   </li>
 {% endmacro %}

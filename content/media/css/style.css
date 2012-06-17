@@ -96,14 +96,13 @@ img.software-logo {
     max-width: 60px;
     max-height: 40px;
     margin: 6px;
-    float: left;
+    display: inline;
 }
 
 img.reference-logo {
     max-width: 120px;
     max-height: 50px;
-    margin-bottom: 8px;
-    margin-top: 8px;
+    display: inline
 }
 
 .social {
@@ -159,13 +158,16 @@ pre {
 }
 
 .software-excerpt {
-    height: 210px;
-    text-align: justify;
+    height: 150px;
 }
 
 .reference {
-    height: 140px;
-    text-align: justify;
+    height: 150px;
+}
+
+.reference h2 {
+    text-align: center;
+    line-height: 65px;
 }
 
 

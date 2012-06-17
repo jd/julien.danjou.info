@@ -8,6 +8,7 @@ title: References
 {% macro render_ref(url, logo, text) %}
   <li class="span3">
     <div class="thumbnail reference">
+      <h2>
       {% if url %}
       <a href="{{ url }}">
       {% endif %}
@@ -15,9 +16,10 @@ title: References
       {% if url %}
       </a>
       {% endif %}
-      <span class="mediumfont">
+      </h2>
+      <p class="mediumfont">
       {{ text|typogrify }}
-      </span>
+      </p>
     </div>
   </li>
 {% endmacro %}
