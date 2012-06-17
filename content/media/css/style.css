@@ -160,6 +160,10 @@ pre {
     height: 150px;
 }
 
+.software-excerpt:hover {
+    background: #f9f9f9;
+}
+
 .software-excerpt h2 {
     line-height: 55px;
 
