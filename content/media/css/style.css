@@ -95,7 +95,6 @@ time {
 img.software-logo {
     max-width: 60px;
     max-height: 40px;
-    margin: 6px;
     display: inline;
 }
 
@@ -160,6 +159,9 @@ pre {
 .software-excerpt {
     height: 150px;
 }
+
+.software-excerpt h2 {
+    line-height: 55px;
 
 .reference {
     height: 150px;
