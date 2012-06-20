@@ -1,8 +1,7 @@
 {% macro render_blog_listing(walker) %}
-<ul class="clear unstyled">
+<div class="thumbnails">
 {% for res in walker %}
-<li class="post-summary">
-<article>
+<div class="thumbnail post-summary">
 <time datetime="{{ res.meta.created.strftime('%Y-%m-%d') }}">
 <i class="icon-calendar"></i>
 {{ res.meta.created.strftime('%d %b %Y') }}
@@ -10,8 +9,7 @@
 <h3><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h3>
 {% refer to res.relative_deploy_path as post %}
 {{ post.excerpt|markdown|typogrify }}
-</article>
-</li>
+</div>
 {% endfor %}
-</ul>
+</div>
 {% endmacro %}

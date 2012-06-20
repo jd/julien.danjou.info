@@ -44,6 +44,10 @@ time {
     width: 120px;
 }
 
+.post-summary {
+    margin: 20px;
+}
+
 .post-summary p {
     font-style: italic;
     font-size: 0.9em;
