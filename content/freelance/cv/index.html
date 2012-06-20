@@ -1,186 +1,6 @@
 ---
-title: "Freelance"
-default_block: None
+title: "Curriculum vitae"
 ---
-{% block main %}
-
-<div class="well bigfont">
-  As you can see, I have participated in a lot of Free Software projects for
-  the last years. I'm available to provide audit, expertise, training,
-  development and support on Free Software based projects.
-  <h3>Skills</h3>
-  <ul>
-    <li>Master in Computer Science</li>
-    <li>Official Debian Developer for 10+ years</li>
-    <li>10+ years of contributions to Free Software projects (C, Python, Lisp development)</li>
-    <li>12+ years of Debian system administrations</li>
-    <li>Speaks French (native), English (<a href="http://www.toeic.eu">TOEIC</a> score 935)</li>
-  </ul>
-</div>
-
-<div class="row clear">
-  <div class="span6">
-    <div class="well bigfont">
-      I have participated in a lot of Free Software projects for the last
-      years. I'm available to provide audit, expertise, training, development
-      and support on Free Software based projects.
-    <h4>Skills</h4>
-    <ul>
-      <li>Master in Computer Science</li>
-      <li>Official Debian Developer for 10+ years</li>
-      <li>10+ years of contributions to Free Software projects (C, Python, Lisp development)</li>
-      <li>12+ years of Debian system administrations</li>
-      <li>Speaks French (native), English (<a href="http://www.toeic.eu">TOEIC</a> score 935)</li>
-    </ul>
-    </div>
-  </div>
-  <div class="span6">
-    You can contact me <a href="mailto:julien@danjou.info">directly by
-      e-mail</a> or via this form.
-
-    <form name="contact" class="form-horizontal">
-      <div class="control-group">
-        <label class="control-label" for="lastname" >Lastname</label>
-        <div class="controls">
-          <input type="text" id="lastname" name="lastname"/>
-        </div>
-      </div>
-
-
-      <div class="control-group">
-        <label class="control-label" for="firstname">Firstname</label>
-        <div class="controls">
-          <input type="text" id="firstname" name="firstname"/>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label" for="company">Company</label>
-        <div class="controls">
-          <input type="text" id="company" name="company"/>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label" for="phone">Phone</label>
-        <div class="controls">
-          <input type="text" id="phone" name="phone"/>
-        </div>
-      </div>
-
-      <div class="control-group" id="control-group-mail">
-        <label class="control-label" for="mail">E-mail address</label>
-        <div class="controls">
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-envelope"></i></span>
-            <input type="email" id="mail" name="mail"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="control-group" id="control-group-message">
-        <label class="control-label" for="message">Message</label>
-        <div class="controls">
-          <textarea class="input-xlarge" name="message" id="message" rows="12"></textarea>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <div class="controls">
-          <button class="btn btn-primary" type="submit" onclick="return validateForm()">Send</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-{% endblock main %}
-
-{% block endjs %}
-<script type="text/javascript">
-  $(function () {
-     $("[name=message]").focusout(validateMessage);
-     $("[name=mail]").focusout(validateMail);
-  });
-
-  function addAlert(field, msg) {
-    removeAlert(field);
-    $("[id=control-group-" + field + "] > div[class=controls]").append("<div class=\"help-inline error\" id=\"alert-for-" + field +"\">" + msg + "</div>");
-    $("[id=control-group-" + field + "]").addClass("error");
-  }
-
-  function removeAlert(field) {
-    $("[id=alert-for-" + field + "]").detach();
-    $("[id=control-group-" + field + "]").removeClass("error");
-    $("[id=control-group-" + field + "]").removeClass("success");
-  }
-
-  function validateMail() {
-    if(! /.+@.+/.test($("[name=mail]")[0].value)) {
-       addAlert("mail", "E-mail address seems invalid.");
-       return false;
-    }
-    removeAlert("mail");
-    $("[id=control-group-mail]").addClass("success");
-    return true;
-  }
-
-  function validateMessage() {
-    if($("[name=message]")[0].value.length < 10) {
-       addAlert("message", "Message is too short.");
-       return false;
-    }
-    removeAlert("message");
-    $("[id=control-group-message]").addClass("success");
-    return true;
-  }
-
-  function checkMailSent(data) {
-    $("[id=form-submit-alert]").detach();
-    if(data == "OK")
-    {
-        $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Mail sent!</h4> I'll get back to you in the next 48 hours, thanks.</div>");
-    }
-    else
-    {
-        $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-error\"><h4 class=\"alert-heading\">Mail not sent!</h4> :-(</div>");
-        $("button").removeAttr("disabled");
-    }
-  }
-
-  function validateForm()
-  {
-    if(validateMail() && validateMessage())
-    {
-        $.post("/mail.php", $("form").serialize(), checkMailSent);
-        $("button").attr("disabled", true);
-    }
-    return false;
-  };
-</script>
-{% endblock %}
-
-  <div class="span2">
-    <div style="text-align: right;">
-      <p>
-        <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
-          <img style="display: inline;" src="/media/images/linkedin.jpg" alt="LinkedIn logo"/>
-        </a>
-        <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
-          <img style="display: inline;" src="/media/images/viadeo.png" alt="Viadeo logo"/>
-        </a>
-      </p>
-      <script src="http://cdn.printfriendly.com/printfriendly.js" type="text/javascript"></script>
-      <p class="clear">
-        <a href="http://www.printfriendly.com" class="printfriendly btn" onclick="window.print(); return false;" title="Printer Friendly and PDF">
-          <i class="icon-print"></i> Print
-        </a>
-      </p>
-      <p>
-        <a class="btn btn-primary" href="/contact"><i class="icon-envelope icon-white"></i> Contact</a>
-      </p>
-    </div>
-  </div>
-</div>
 
 <h2>Occupation</h2>
 <table class="table">
@@ -198,7 +18,7 @@ default_block: None
     <td><time>October 2011 - June 2012</time></td>
     <td><strong>Lead developer</strong> at <a href="http://enovance.com">eNovance</a>
       (Paris, France)
-      <img class="project-logo" src="/media/images/cv/enovance.png">
+      <img class="cv-logo" src="/media/images/cv/enovance.png">
       <p>
         <em>eNovance</em> is a cloud and managed service provider.
       </p>
@@ -214,7 +34,7 @@ default_block: None
     <td><time>February 2006 - September 2011</time></td>
     <td><strong>Linux system engineer</strong> at <a href="http://easter-eggs.com">Easter-eggs</a>
       (Paris, France)
-      <img class="project-logo" src="/media/images/cv/easter-eggs.png">
+      <img class="cv-logo" src="/media/images/cv/easter-eggs.png">
       <p>
         <em>Easter-eggs</em> is a computer service company
         providing Free Software only based solutions.
@@ -232,27 +52,13 @@ default_block: None
         <li>Building of cloud based hosting solution for big and
           ephemeral events (scaling, tests, etc)</li>
       </ul>
-      <strong>References:</strong> <a href="http://www.hermes.fr">Hermès</a>, Europcar
-      Information
-      Services, <a href="http://www.orc.fr">ORC</a>, <a href="http://eaudeparis.fr">Eau
-      de Paris</a>, <a href="http://www.paris.fr">Mairie de
-      Paris</a>,
-      <a href="http://www.montreuil.fr/">Mairie de
-      Montreuil</a>, <a href="http://www.mairie-pierrefitte93.fr/">Mairie de
-      Pierrefitte</a>, <a href="http://www.armines.net/">Armines</a>, <a href="http://www.promotrans.fr">Promotrans</a>, <a href="http://www.ehess.fr">EHESS</a>, <a href="http://www.msh-paris.fr/">Fondation
-      maison des sciences de
-      l'homme</a>, <a href="http://www.lesartsdecoratifs.fr/">Les Arts
-      décoratifs</a>, <a href="http://www.mecalectro.com/">Mecalectro</a>, <a href="http://www.gardemedicaledeparis.org/">Garde
-      Médicale de
-      Paris</a>, <a href="http://lwm-agence.com">LWM</a>, <a href="http://www.meetic.fr">Meetic</a>, <a href="http://www.smile.fr">SMILE</a>, <a href="http://u-m-p.org">UMP</a>, <a href="http://www.indicateurbertrand.com/">Indicateur
-      Bertrand</a>…
     </td>
   </tr>
   <tr>
     <td><time>June 2005 - August 2005</time><br><time>April 2003 - June 2003</time></td>
     <td><strong>System and network administrator</strong> at <a href="http://lost-oasis.fr">Lost Oasis</a>
       (Marseille, France)
-      <img class="project-logo" src="/media/images/cv/lostoasis.jpg">
+      <img class="cv-logo" src="/media/images/cv/lostoasis.jpg">
       <p>
         <em>Lost Oasis</em> is an Internet service provider (AS29075)
       </p>
@@ -267,7 +73,7 @@ default_block: None
     <td><time>June 2003 - August 2003</time></td>
     <td><strong>Quality assurance developer</strong> at <a href="http://mandriva.com">Mandriva</a>
       (Paris, France)
-      <img class="project-logo" src="/media/images/cv/mandriva.jpg">
+      <img class="cv-logo" src="/media/images/cv/mandriva.jpg">
       <ul>
         <li>Hardware certification kit development (Perl)</li>
         <li>Internal developments for the R&amp;D department</li>
@@ -281,7 +87,7 @@ default_block: None
   <tr class="active">
     <td><time>Since 2011</time></td>
     <td><strong><a href="http://openstack.org">OpenStack</a></strong>
-      <img class="project-logo" src="/media/images/projects/openstack.jpg">
+      <img class="cv-logo" src="/media/images/projects/openstack.jpg">
       <p>
         I've contributed to various components of
         OpenStack like
@@ -300,7 +106,7 @@ default_block: None
   <tr class="active">
     <td><time>Since 2010</time></td>
     <td><strong><a href="http://www.gnu.org/software/emacs/">GNU Emacs</a></strong>
-      <img class="project-logo" src="/media/images/projects/emacs.png">
+      <img class="cv-logo" src="/media/images/projects/emacs.png">
       <p>
         Developer. Working on <a href="http://gnus.org">Gnus</a> (an e-mail and news reader),
         <a href="http://orgmode.org">Org-mode</a> (organization tool) and various other packages.
@@ -337,8 +143,8 @@ default_block: None
   <tr class="active">
     <td><time>Since 2008</time></td>
     <td><strong><a href="http://freedesktop.org">Freedesktop</a></strong>
-      <img class="project-logo" src="/media/images/projects/xcb.png">
-      <img class="project-logo" src="/media/images/projects/freedesktop.png">
+      <img class="cv-logo" src="/media/images/projects/xcb.png">
+      <img class="cv-logo" src="/media/images/projects/freedesktop.png">
       <ul>
         <li>Developer of <a href="http://xcb.freedesktop.org">XCB (X C
             Bindings)</a>, a C interface library to the X Window System based
@@ -359,7 +165,7 @@ default_block: None
   <tr class="active">
     <td><time>Since 2007</time></td>
     <td><strong><a href="http://awesome.naquadah.org">awesome</a></strong>
-      <img class="project-logo" src="/media/images/projects/awesome.png">
+      <img class="cv-logo" src="/media/images/projects/awesome.png">
       <p>
         Author and technical leader of awesome,
         a X11 window manager, written in C and XCB and embedding Lua as its configuration language.
@@ -369,7 +175,7 @@ default_block: None
   <tr class="active">
     <td><time>Since 2002</time></td>
     <td><strong><a href="http://debian.org">Debian</a></strong>
-      <img class="project-logo" src="/media/images/projects/debian.png">
+      <img class="cv-logo" src="/media/images/projects/debian.png">
       <p>Developer.</p>
       <ul>
         <li>Founder of the <a href="http://alioth.debian.org/projects/pkg-xen/">Debian Xen Team</a></li>
@@ -428,7 +234,7 @@ default_block: None
   <tr>
     <td><time>2003 - 2009</time></td>
     <td><strong><a href="http://ornix.org">Ornix</a></strong>
-      <img class="project-logo" src="/media/images/projects/ornix.jpg">
+      <img class="cv-logo" src="/media/images/projects/ornix.jpg">
       <p>
         Co-founder and active member of the Linux User Group of
         the <a href="http://en.wikipedia.org/wiki/Orne">Orne
@@ -439,7 +245,7 @@ default_block: None
   <tr>
     <td><time>2002 - 2006</time></td>
     <td><strong><a href="http://tuxfamily.org">TuxFamily</a></strong>
-      <img class="project-logo" src="/media/images/projects/tuxfamily.png">
+      <img class="cv-logo" src="/media/images/projects/tuxfamily.png">
       <p> President and system administrator.</p>
       <ul>
         <li>Team work with other system administrators</li>
@@ -451,7 +257,7 @@ default_block: None
   <tr>
     <td><time>2001 - 2006</time></td>
     <td><strong><a href="http://vhffs.org">VHFFS</a></strong>
-      <img class="project-logo" src="/media/images/projects/vhffs.png">
+      <img class="cv-logo" src="/media/images/projects/vhffs.png">
       <p>
         VHFFS is a massive hosting platform and I've
         contributed to the development of the version 1, 2 and 4.
@@ -472,7 +278,7 @@ default_block: None
   <tr>
     <td><time>1999 - 2002</time></td>
     <td><strong>Linux En Rezo / SANS Linux</strong>
-      <img class="project-logo" src="/media/images/projects/sanslinux.png">
+      <img class="cv-logo" src="/media/images/projects/sanslinux.png">
       <p>
         Linux En Rezo (literally "Linux on network") was a french website aiming to
         give help to people who wanted to set up their own home-network. I wrote a

@@ -82,6 +82,14 @@ time.label {
     max-height: 40px;
 }
 
+img.cv-logo {
+    max-width: 100px;
+    max-height: 60px;
+    float: right;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
 img.software-logo {
     max-width: 60px;
     max-height: 40px;
@@ -151,7 +159,7 @@ pre {
 }
 
 .software-excerpt:hover {
-    background: #f9f9f9;
+    background: whiteSmoke;
 }
 
 .software-excerpt h2 {
