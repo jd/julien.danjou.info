@@ -36,21 +36,27 @@
 {% block article %}
 {% if resource.meta.created %}
   {% if resource.next_by_time or resource.prev_by_time%}
-  <nav class="context-nav">
+  <nav>
+  <ul class="pager">
   {% endif %}
   {% if resource.next_by_time %}
-  <span class="context-nav-prev">
-    <i class="icon-arrow-left"></i>
-    <a rel="prev" href="{{ resource.next_by_time.full_url }}">{{resource.next_by_time.meta.title}}</a>
-  </span>
+  <li class="previous">
+    <a rel="prev" href="{{ resource.next_by_time.full_url }}">
+        <i class="icon-arrow-left"></i>
+        {{resource.next_by_time.meta.title}}
+    </a>
+  </li>
   {% endif %}
   {% if resource.prev_by_time %}
-  <span class="context-nav-next">
-    <a rel="next" href="{{ resource.prev_by_time.full_url }}">{{resource.prev_by_time.meta.title}}</a>
-    <i class="icon-arrow-right"></i>
-  </span>
+  <li class="next">
+    <a rel="next" href="{{ resource.prev_by_time.full_url }}">
+           {{resource.prev_by_time.meta.title}}
+           <i class="icon-arrow-right"></i>
+    </a>
+  </li>
   {% endif %}
   {% if resource.next_by_time or resource.prev_by_time%}
+  </ul>
   </nav>
   {% endif %}
 {% endif %}
