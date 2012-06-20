@@ -39,18 +39,6 @@ time.label {
     font-size: 0.9em;
 }
 
-.context-nav {
-    height: 3em;
-}
-
-.context-nav-prev {
-    float: left;
-}
-
-.context-nav-next {
-    float: right;
-}
-
 .clear {
     clear: both;
 }
