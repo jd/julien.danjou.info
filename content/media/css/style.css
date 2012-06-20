@@ -14,24 +14,10 @@ a:hover {
     clear: both;
 }
 
-time {
+time.label {
     float: right;
-    margin: 5px;
-    text-decoration: none;
-    font-weight: normal;
-    font-style: italic;
-    text-align: center;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 9px;
-    padding-right: 9px;
-    background-color: #fafafa;
-    color: #222;
-    font-size: 0.9em;
-    border-radius: 2em;
-    box-shadow: 2px 2px 4px #ddd;
-    line-height: 1.2em;
     clear: both;
+    vertical-align: bottom;
 }
 
 .socialised {
