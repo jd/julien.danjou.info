@@ -240,11 +240,11 @@ pre {
     transform:rotate(45deg);
     box-shadow: 1px 1px 5px 1px #666;
 
-    background-image: linear-gradient(bottom, #000000 3%, #666666 5%, #000000 7%, #000000 93%, #666666 95%, #000000 97%);
-    background-image: -o-linear-gradient(bottom, #000000 3%, #666666 5%, #000000 7%, #000000 93%, #666666 95%, #000000 97%);
-    background-image: -moz-linear-gradient(bottom, #000000 3%, #666666 5%, #000000 7%, #000000 93%, #666666 95%, #000000 97%);
-    background-image: -webkit-linear-gradient(bottom, #000000 3%, #666666 5%, #000000 7%, #000000 93%, #666666 95%, #000000 97%);
-    background-image: -ms-linear-gradient(bottom, #000000 3%, #666666 5%, #000000 7%, #000000 93%, #666666 95%, #000000 97%);
+    background-image: linear-gradient(bottom, #1073ed 3%, #b5c7de 5%, #5b90d0 7%, #4382cf 93%, #b5c7de 95%, #1272e8 97%);
+    background-image: -o-linear-gradient(bottom, #1073ed 3%, #b5c7de 5%, #5b90d0 7%, #4382cf 93%, #b5c7de 95%, #1272e8 97%);
+    background-image: -moz-linear-gradient(bottom, #1073ed 3%, #b5c7de 5%, #5b90d0 7%, #4382cf 93%, #b5c7de 95%, #1272e8 97%);
+    background-image: -webkit-linear-gradient(bottom, #1073ed 3%, #b5c7de 5%, #5b90d0 7%, #4382cf 93%, #b5c7de 95%, #1272e8 97%);
+    background-image: -ms-linear-gradient(bottom, #1073ed 3%, #b5c7de 5%, #5b90d0 7%, #4382cf 93%, #b5c7de 95%, #1272e8 97%);
 
     background-image: -webkit-gradient(
 	linear,
