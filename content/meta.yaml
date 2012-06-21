@@ -2,3 +2,4 @@ extends: standard.j2
 default_block: main
 author: Julien Danjou
 charset: UTF-8
+icon: user

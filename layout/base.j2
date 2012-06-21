@@ -40,10 +40,18 @@
         <div class="container">
           <a class="brand" href="/">{{ site_title }}</a>
           <ul class="nav">
+            <li{% if resource.node == site.content %} class="active"{% endif %}>
+              <a href="/"><i class="icon-{{site.content.meta.icon}} icon-white"></i> Bio</a>
+            </li>
             {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
             {% if menu_item.name != "media" %}
             <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
-              <a href="{{ menu_item.full_url }}">{{ menu_item.meta.title|capitalize }}</a>
+              <a href="{{ menu_item.full_url }}">
+              {% if menu_item.meta.icon %}
+              <i class="icon-{{menu_item.meta.icon}} icon-white"></i>
+              {% endif %}
+              {{ menu_item.meta.title|capitalize }}
+              </a>
             </li>
             {% endif %}
             {%- endfor %}
