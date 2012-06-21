@@ -85,11 +85,11 @@
   {{ resource.meta.created.strftime('%A %d %B %Y') }}
   </time>
   {% endif %}
+  {% block premain %}
   {% mark article -%}
-  {% filter markdown -%}
   {% block main %}{% endblock %}
-  {%- endfilter %}
   {%- endmark %}
+  {% endblock %}
   {% if resource.meta.tags %}
   <div class="taglist">
   <i class="icon-tags"></i> Tags:

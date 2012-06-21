@@ -1,1 +1,2 @@
 title: Projects
+extends: markdown.j2

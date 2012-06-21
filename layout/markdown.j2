@@ -1,0 +1,7 @@
+{% extends "standard.j2" %}
+
+{% block premain %}
+{% filter markdown %}
+{% block main %}{% endblock %}
+{% endfilter %}
+{% endblock %}
