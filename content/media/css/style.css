@@ -111,9 +111,8 @@ img.reference-logo {
     margin-top: 4px;
 }
 
-.btn-well {
-    margin-top: 20px;
-    text-align: right;
+#btn-print {
+    float: right;
 }
 
 footer {

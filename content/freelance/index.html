@@ -4,6 +4,16 @@ default_block: None
 ---
 {% block main %}
 
+
+<div class="tabbable">
+  <ul class="nav nav-pills">
+    <li class="active"><a href="#contact" data-toggle="tab"><i class="icon-envelope"></i> Contact</a></li>
+    <li><a href="#cv" data-toggle="tab"><i class="icon-user"></i> Curriculum vitae</a></li>
+    <li><a href="#references" data-toggle="tab"><i class="icon-th-list"></i> References</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="contact">
+
 <div class="row">
   <div class="span6">
     <div class="well mediumfont">
@@ -18,10 +28,6 @@ default_block: None
         <li>12+ years of Debian system administrations</li>
         <li>Speaks French (native), English (<a href="http://www.toeic.eu">TOEIC</a> score 935)</li>
       </ul>
-      <div class="btn-well">
-        <a class="btn btn-info float-right" href="/freelance/cv"><i class="icon-file icon-white"></i> Consult my resume/CV</a>
-        <a class="btn btn-info float-right" href="/freelance/references"><i class="icon-list icon-white"></i> Consult my references</a>
-      </div>
     </div>
 
   </div>
@@ -85,6 +91,15 @@ You can contact me <a href="mailto:julien@danjou.info">directly by
         </div>
       </div>
     </form>
+  </div>
+</div>
+    </div>
+    <div class="tab-pane" id="cv">
+      {% include "freelance/cv.html" %}
+    </div>
+    <div class="tab-pane" id="references">
+      {% include "freelance/references.html" %}
+    </div>
   </div>
 </div>
 
