@@ -2,6 +2,7 @@
 extends:
 ---
 RedirectPermanent /software/ http://julien.danjou.info/projects/
+RedirectPermanent /experience/ http://julien.danjou.info/freelance/
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^.*$ %{REQUEST_FILENAME}.html
