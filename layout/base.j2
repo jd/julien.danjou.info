@@ -42,7 +42,7 @@
           <ul class="nav">
             {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
             {% if menu_item.name != "media" %}
-            <li{% if menu_item.full_url == resource.full_url %} class="active"{% endif %}>
+            <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
               <a href="{{ menu_item.full_url }}">{{ menu_item.meta.title|capitalize }}</a>
             </li>
             {% endif %}
