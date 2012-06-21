@@ -34,6 +34,23 @@
 </header>
 
 {% block article %}
+{% if resource.node.parent %}
+<ul class="breadcrumb">
+  {% for node in resource.node.rwalk()|reverse %}
+    {% if node != site.content %}
+    <li>
+      <a href="{{node.full_url}}">{{ node.meta.title }}</a> <span class="divider">/</span>
+    {% endif %}
+    </li>
+  {% endfor %}
+  {% if resource.name != "index.html" %}
+  <li class="active">
+    <a href="{{resource.full_url}}">{{ resource.meta.title }}</a>
+  </li>
+  {% endif %}
+</ul>
+  {% endif %}
+
 {% if resource.meta.created %}
   {% if resource.next_by_time or resource.prev_by_time%}
   <nav>

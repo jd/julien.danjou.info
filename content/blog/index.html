@@ -1,21 +1,17 @@
 ---
-extends: columns.j2
 title: jd:/dev/blog
 subtitle: <div class="rss-logo"><a href="/blog/index.xml"><img alt="RSS" src="/media/images/blog/rss.png"></a></div>
-default_block:
 ---
-{% block sidebar %}
-<h2>Tags</h2>
-{% for tag, meta in site.tagger.tags %}
-<a href="/blog/tags/{{tag}}.html"><span class="label label-inverse" style="line-height: {{ 18 + (meta.resources|length) / 2 }}px; font-size: {{ 8 + (meta.resources|length) / 2 }}px;">{{tag}} ({{(meta.resources|length)}})</span></a>
-{% endfor %}
+<div class="row">
+  <div class="span2">
+    <h2><i class="icon-tags"></i> Tags</h2>
+    {% for tag, meta in site.tagger.tags %}
+    <a href="/blog/tags/{{tag}}.html"><span class="label label-inverse" style="line-height: {{ 18 + (meta.resources|length) / 2 }}px; font-size: {{ 8 + (meta.resources|length) / 2 }}px;">{{tag}} ({{(meta.resources|length)}})</span></a>
+    {% endfor %}
+  </div>
+  <div class="span10">
+    {% from "macros.j2" import render_blog_listing with context %}
+    {{ render_blog_listing(site.content.walk_resources_sorted_by_time()) }}
+  </div>
+</div>
 
-{% endblock %}
-
-
-{% block main %}
-
-{% from "macros.j2" import render_blog_listing with context %}
-{{ render_blog_listing(site.content.walk_resources_sorted_by_time()) }}
-
-{% endblock %}

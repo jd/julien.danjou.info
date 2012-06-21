@@ -20,6 +20,10 @@ time.label {
     vertical-align: bottom;
 }
 
+[class^="icon-"] {
+    vertical-align: middle
+}
+
 .socialised {
     display: inline-block;
     width: 120px;
@@ -46,6 +50,7 @@ time.label {
 .not-clear {
     clear: none;
 }
+
 
 .page-content img, .page-content video {
     display: block;
@@ -97,6 +102,20 @@ img.reference-logo {
     margin-top: 30px;
 }
 
+#social-logos {
+    text-align: center;
+}
+
+#social-logos img {
+    display: inline;
+    margin-top: 4px;
+}
+
+.btn-well {
+    margin-top: 20px;
+    text-align: right;
+}
+
 footer {
     padding: 10px;
     clear: both;
@@ -125,10 +144,17 @@ pre {
     line-height: 1.5em;
 }
 
+.bigfont li {
+    line-height: 1.4em;
+}
 
 .mediumfont {
     font-size: 1.15em;
     color: #333333;
+    line-height: 1.3em;
+}
+
+.mediumfont li {
     line-height: 1.3em;
 }
 
