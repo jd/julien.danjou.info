@@ -34,7 +34,7 @@
 </header>
 
 {% block article %}
-{% if resource.node.parent %}
+{% if resource.node.parent and resource.node.parent.parent %}
 <ul class="breadcrumb">
   {% for node in resource.node.rwalk()|reverse %}
     {% if node != site.content %}
