@@ -41,7 +41,6 @@ default_block: None
 
   </div>
   <div class="span6">
-    <a name="contact"></a>
     <p>
 You can contact me <a href="mailto:julien@danjou.info">directly by
         e-mail</a> or via this form.
@@ -116,64 +115,69 @@ You can contact me <a href="mailto:julien@danjou.info">directly by
 
 {% block endjs %}
 <script type="text/javascript">
-  $(function () {
+$(function () {
   $("[name=message]").focusout(validateMessage);
   $("[name=mail]").focusout(validateMail);
-  });
+});
 
-  function addAlert(field, msg) {
+function addAlert(field, msg) {
   removeAlert(field);
   $("[id=control-group-" + field + "] > div[class=controls]").append("<div class=\"help-inline error\" id=\"alert-for-" + field +"\">" + msg + "</div>");
   $("[id=control-group-" + field + "]").addClass("error");
-  }
+}
 
-  function removeAlert(field) {
+function removeAlert(field) {
   $("[id=alert-for-" + field + "]").detach();
   $("[id=control-group-" + field + "]").removeClass("error");
   $("[id=control-group-" + field + "]").removeClass("success");
-  }
+}
 
-  function validateMail() {
+function validateMail() {
   if(! /.+@.+/.test($("[name=mail]")[0].value)) {
-  addAlert("mail", "E-mail address seems invalid.");
-  return false;
+    addAlert("mail", "E-mail address seems invalid.");
+    return false;
   }
   removeAlert("mail");
   $("[id=control-group-mail]").addClass("success");
   return true;
-  }
+}
 
-  function validateMessage() {
+function validateMessage() {
   if($("[name=message]")[0].value.length < 10) {
-                                           addAlert("message", "Message is too short.");
-                                           return false;
-                                           }
-                                           removeAlert("message");
-                                           $("[id=control-group-message]").addClass("success");
-                                           return true;
-                                           }
+    addAlert("message", "Message is too short.");
+    return false;
+  }
+  removeAlert("message");
+  $("[id=control-group-message]").addClass("success");
+  return true;
+}
 
-                                           function checkMailSent(data) {
-                                           $("[id=form-submit-alert]").detach();
-                                           if(data == "OK")
-                                           {
-                                           $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Mail sent!</h4> I'll get back to you in the next 48 hours, thanks.</div>");
-                                           }
-                                           else
-                                           {
-                                           $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-error\"><h4 class=\"alert-heading\">Mail not sent!</h4> :-(</div>");
-                                           $("button").removeAttr("disabled");
-                                           }
-                                           }
+function checkMailSent(data) {
+  $("[id=form-submit-alert]").detach();
+  if(data == "OK")
+  {
+    $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Mail sent!</h4> I'll get back to you in the next 48 hours, thanks.</div>");
+    var google_conversion_id = 1011816067;
+    var google_conversion_label = "Myy-CM2wxwQQg6284gM";
+    var google_conversion_value = 0;
+    $.getScript("http://www.googleadservices.com/pagead/conversion.js");
+  }
+  else
+  {
+    $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-error\"><h4 class=\"alert-heading\">Mail not sent!</h4> :-(</div>");
+   $("button").removeAttr("disabled");
+  }
+}
 
-                                           function validateForm()
-                                           {
-                                           if(validateMail() && validateMessage())
-                                           {
-                                           $.post("/mail.php", $("form").serialize(), checkMailSent);
-                                           $("button").attr("disabled", true);
-                                           }
-                                           return false;
-                                           };
-                                           </script>
+function validateForm()
+{
+  if(validateMail() && validateMessage())
+  {
+    $.post("/mail.php", $("form").serialize(), checkMailSent);
+    $("button").attr("disabled", true);
+  }
+  return false;
+};
+</script>
+
 {% endblock %}
