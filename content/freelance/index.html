@@ -195,4 +195,18 @@ function validateForm()
 <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion_async.js">
 </script>
 
+<script type="text/javascript">
+/* Automagically jump an good tab based on anchor */
+$(document).ready(function() {
+  url = document.location.href.split('#');
+  $('[href=#'+url[1]+']').click();
+});
+
+/* Update hash based on tab */
+$("[data-toggle=tab]").click(function (event) {
+  document.location.hash = this.getAttribute("href");
+});
+
+</script>
+
 {% endblock %}
