@@ -158,6 +158,8 @@ function checkMailSent(data) {
   {
     $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Mail sent!</h4> I'll get back to you in the next 48 hours, thanks.</div>");
 
+    _gaq.push(['_trackEvent', 'Contact', 'MailSend', 'OK']);
+
     window.google_conversion_id = 1011816067;
     window.google_conversion_label = "Myy-CM2wxwQQg6284gM";
     window.google_conversion_value = 0;
@@ -175,6 +177,7 @@ function checkMailSent(data) {
   {
     $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-error\"><h4 class=\"alert-heading\">Mail not sent!</h4> :-(</div>");
    $("button").removeAttr("disabled");
+   _gaq.push(['_trackEvent', 'Contact', 'MailSend', 'ERROR']);
   }
 }
 
