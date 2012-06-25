@@ -20,10 +20,6 @@ time.label {
     vertical-align: bottom;
 }
 
-[class^="icon-"] {
-    vertical-align: middle
-}
-
 .socialised {
     display: inline-block;
     width: 120px;
