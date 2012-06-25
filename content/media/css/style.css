@@ -183,6 +183,10 @@ pre {
     height: 140px;
 }
 
+.reference:hover {
+    background: whiteSmoke;
+}
+
 .reference h2 {
     text-align: center;
     line-height: 65px;
