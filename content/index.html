@@ -1,71 +1,61 @@
 ---
-title: Julien Danjou, Free Software freelance
+default_block: None
 ---
 
 {% block starthead %}
 <link href="https://plus.google.com/107513391728776207155" rel="publisher" />
 {% endblock %}
 
-<div class="row clear">
-  <div class="span2">
-    <div class="illustration">
-      <img src="/media/images/jd.jpg">
-    </div>
-  </div>
-  <div class="span9">
-    <div class="well bigfont">
-      <h2>Hello!</h2>
-      I am Julien Danjou, a 28 years old <strong>Free Software
-        <a href="http://en.wikipedia.org/wiki/Hacker_(programmer_subculture)">hacker</a></strong> working <strong>freelance</strong>
-      I've been working at various <strong>free software</strong> friendly
-      companies for the past 10 years, doing system administration and then
-      development.
-    </div>
-  </div>
-  <div class="span1">
-    <div id="social-logos">
-    <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
-      <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
-    </a>
-    <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
-      <img src="media/images/twitter.png" alt="Twitter logo"/>
-    </a>
-    <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
-      <img src="media/images/linkedin.jpg" alt="LinkedIn logo"/>
-    </a>
-    <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
-      <img src="media/images/viadeo.png" alt="Viadeo logo"/>
-    </a>
-    <a href="https://flattr.com/profile/jd" title="jd on Flattr">
-      <img src="media/images/flattr.png" alt="Flattr logo"/>
-    </a>
-    </div>
-  </div>
+{% block title %}
+Julien Danjou, Free Software freelance
+{% endblock %}
+
+{% block main %}
+<div class="illustration float-left">
+  <img src="/media/images/jd.jpg">
 </div>
 
-<div class="row">
-  <div class="span9">
-    <div class="well bigfont">
-      During that time, I became an expert on <strong>Linux system
-        administration</strong> and <strong>development</strong>. I daily
-      used <a href="http://debian.org">Debian</a> systems and
-      the <a href="http://python.org">Python programming language</a>. I
-      also hacked
-      in <a href="http://en.wikipedia.org/wiki/C_(programming_language)">Lisp</a>
-      and <a href="http://en.wikipedia.org/wiki/C_(programming_language)">C</a>.
-      But when I start using something, I can't refrain from hacking and
-      tweaking it. Therefore, I became an <strong>active
-        contributor</strong> of various <strong><a href="/projects/">free software
-          projects</a></strong>.
-    </div>
-  </div>
-  <div class="span3">
-    <div class="illustration">
-      <img src="/media/images/code.jpg">
-    </div>
-  </div>
+<div class="bigfont">
+  <h1>Hello!</h1> My name is Julien Danjou, and I'm a 28 years
+  old <strong>Free Software
+    <a href="http://en.wikipedia.org/wiki/Hacker_(programmer_subculture)">hacker</a></strong> and <strong>developer</strong>
+  working <strong><a href="/freelance">freelance</a></strong>.
 </div>
 
-<h2>Latest blog posts</h2>
-{% from "macros.j2" import render_blog_listing with context %}
-{{ render_blog_listing(site.content.walk_resources_sorted_by_time()[:3]) }}
+<br>
+
+<div class="bigfont">
+  I studied Computer Science and passed a <strong>Master degree</strong> in
+  2006. For the last 10 years, I've been developing and contributing
+  to <strong><a href="/projects">many Free Software projects</a></strong>.
+  Among other things, I'm a <strong>Debian developer</strong> since 2002,
+  and the author of the <strong>awesome window manager</strong>.
+</div>
+
+<br>
+
+<div class="bigfont">
+I worked as a <strong>Linux system engineer & developer</strong> for the last 10 years,
+in various organizations and companies, and now have a strong knowledge about
+systems and development.
+</div>
+
+<div id="social-logos">
+  <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
+    <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
+  </a>
+  <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
+    <img src="media/images/twitter.png" alt="Twitter logo"/>
+  </a>
+  <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
+    <img src="media/images/linkedin.jpg" alt="LinkedIn logo"/>
+  </a>
+  <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
+    <img src="media/images/viadeo.png" alt="Viadeo logo"/>
+  </a>
+  <a href="https://flattr.com/profile/jd" title="jd on Flattr">
+    <img src="media/images/flattr.png" alt="Flattr logo"/>
+  </a>
+</div>
+
+{% endblock %}

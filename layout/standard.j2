@@ -24,6 +24,7 @@
 
 {% block content %}
 
+{% if resource.meta.title %}
 <header class="page-header">
   {% block header %}
   <h1>
@@ -32,6 +33,7 @@
   </h1>
   {% endblock header %}
 </header>
+{% endif %}
 
 {% block article %}
 {% if resource.node != site.content and resource.name != "index.html" %}

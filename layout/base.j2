@@ -3,7 +3,11 @@
   <head>
     {% block starthead %}{% endblock starthead %}
     <meta charset="{{ resource.meta.charset }}">
-    <title>{% block title %}{{ resource.meta.title }}{% endblock %} | {{ site_title }}</title>
+    <title>
+    {% block title %}
+    {{ resource.meta.title }} | {{ site_title }}
+    {% endblock %}
+    </title>
     <meta name="author" content="{{ resource.meta.author }}">
 
     <link type="application/atom+xml" rel="alternate" href="/blog/index.xml"/>
@@ -12,6 +16,7 @@
     <link href="{{ media_url('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ media_url('css/style.css') }}" rel="stylesheet">
     <link href="{{ media_url('js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
     {% endblock basecss %}
     {% block css %}{% endblock %}
 
