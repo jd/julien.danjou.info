@@ -59,15 +59,8 @@ time.label {
     margin-right: auto;
 }
 
-.illustration-item {
-    font-size: 0.8em;
-    float: left;
-    max-width: 80px;
-    text-align: center;
-    padding-bottom: 2px;
-    padding-left: 2px;
-    padding-right: 2px;
-    margin: 1px;
+.taglist {
+    text-align: right;
 }
 
 .project-logo {

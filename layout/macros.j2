@@ -9,6 +9,12 @@
 <h2><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h2>
 {% refer to res.relative_deploy_path as post %}
 {{ post.excerpt|markdown|typogrify }}
+  <div class="taglist">
+  <i class="icon-tags"></i>
+  {% for tag in res.meta.tags %}
+      <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-inverse small">{{tag}}</span></a>
+  {% endfor %}
+  </div>
 </div>
 {% endfor %}
 </div>
