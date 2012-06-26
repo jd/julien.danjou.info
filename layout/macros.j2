@@ -3,7 +3,6 @@
 {% for res in walker %}
 <div class="thumbnail post-summary">
 <time class="label label-info" datetime="{{ res.meta.created.strftime('%Y-%m-%d') }}">
-<i class="icon-calendar icon-white"></i>
 {{ res.meta.created.strftime('%d %b %Y') }}
 </time>
 <h2><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h2>
