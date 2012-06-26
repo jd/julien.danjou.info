@@ -17,7 +17,8 @@ a:hover {
 time.label {
     float: right;
     clear: both;
-    vertical-align: bottom;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 .socialised {
