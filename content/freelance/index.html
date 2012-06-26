@@ -7,105 +7,99 @@ default_block: None
 
 <div class="tabbable">
   <ul class="nav nav-pills">
-    <li class="active"><a href="#contact" data-toggle="pill"><i class="icon-envelope"></i> Contact</a></li>
+    <li class="active"><a href="#services" data-toggle="pill"><i class="icon-envelope"></i> Services</a></li>
     <li><a href="#cv" data-toggle="pill"><i class="icon-user"></i> Curriculum vitae</a></li>
     <li><a href="#references" data-toggle="pill"><i class="icon-th-list"></i> References</a></li>
+    <li><a href="#contact" data-toggle="pill"><i class="icon-envelope"></i> Contact</a></li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane fade in active" id="contact">
-
-      <div class="row">
-        <div class="span6">
-          <div class="well mediumfont">
-            As you can see, I have participated in a lot
-            of <a href="/projects">Free Software projects</a> for the last years.
-            Therefore I'm now working as a freelance engineer and developer to
-            provide expertise on this technical area. I'm available to provide
-            consulting, audit, expertise, training, development and support on
-            Free Software based projects.
-          </div>
-          <div>
-            <h2>Key skills</h2>
-            <ul>
-              <li>Master in Computer Science</li>
-              <li>Official Debian Developer for 10+ years</li>
-              <li>10+ years of contributions to Free Software projects</li>
-              <li>Very good knowledge of C and Python</li>
-              <li>12+ years of Debian system administrations</li>
-              <li>Good knowledge of cloud computing (OpenStack & CompatibleOne contributor)</li>
-              <li>Speaks French (native), English (<a href="http://www.toeic.eu">TOEIC</a> score 935)</li>
-            </ul>
-            <h2>Services</h2>
-            <ul>
-              <li>Technical consulting & expertise</li>
-              <li>Development training & coaching</li>
-              <li>Linux systems audits</li>
-              <li>Critical / urgent problems solving</li>
-            </ul>
-          </div>
-
-        </div>
-        <div class="span6">
-          <p>
-            You can contact me <a href="mailto:julien@danjou.info">directly by
-              e-mail</a> or via this form.
-          </p>
-
-          <form name="contact" class="form-horizontal">
-            <div class="control-group">
-              <label class="control-label" for="lastname" >Lastname</label>
-              <div class="controls">
-                <input type="text" id="lastname" name="lastname"/>
-              </div>
-            </div>
-
-
-            <div class="control-group">
-              <label class="control-label" for="firstname">Firstname</label>
-              <div class="controls">
-                <input type="text" id="firstname" name="firstname"/>
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label" for="company">Company</label>
-              <div class="controls">
-                <input type="text" id="company" name="company"/>
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label" for="phone">Phone</label>
-              <div class="controls">
-                <input type="text" id="phone" name="phone"/>
-              </div>
-            </div>
-
-            <div class="control-group" id="control-group-mail">
-              <label class="control-label" for="mail">E-mail address</label>
-              <div class="controls">
-                <div class="input-prepend">
-                  <span class="add-on"><i class="icon-envelope"></i></span>
-                  <input type="email" id="mail" name="mail"/>
-                </div>
-              </div>
-            </div>
-
-            <div class="control-group" id="control-group-message">
-              <label class="control-label" for="message">Message</label>
-              <div class="controls">
-                <textarea class="input-xlarge" name="message" id="message" rows="12"></textarea>
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button class="btn btn-primary" type="submit" onclick="return validateForm()">
-                <i class="icon-envelope icon-white"></i> Send
-              </button>
-            </div>
-          </form>
-        </div>
+    <div class="tab-pane fade in active" id="services">
+      <div class="well mediumfont">
+        As you can see, I have participated in a lot
+        of <a href="/projects">Free Software projects</a> for the last years.
+        Therefore I'm now working as a freelance engineer and developer to
+        provide expertise on this technical area. I'm available to provide
+        consulting, audit, expertise, training, development and support on
+        Free Software based projects.
       </div>
+      <div>
+        <h2>Key skills</h2>
+        <ul>
+          <li>Master in Computer Science</li>
+          <li>Official Debian Developer for 10+ years</li>
+          <li>10+ years of contributions to Free Software projects</li>
+          <li>Very good knowledge of C and Python</li>
+          <li>12+ years of Debian system administrations</li>
+          <li>Good knowledge of cloud computing (OpenStack & CompatibleOne contributor)</li>
+          <li>Speaks French (native), English (<a href="http://www.toeic.eu">TOEIC</a> score 935)</li>
+        </ul>
+        <h2>Services</h2>
+        <ul>
+          <li>Technical consulting & expertise</li>
+          <li>Development training & coaching</li>
+          <li>Linux systems audits</li>
+          <li>Critical / urgent problems solving</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-pane" id="contact">
+      <p>
+        You can contact me <a href="mailto:julien@danjou.info">directly by
+          e-mail</a> or via this form.
+      </p>
+      <form name="contact" class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="lastname" >Lastname</label>
+          <div class="controls">
+            <input type="text" id="lastname" name="lastname"/>
+          </div>
+        </div>
+
+
+        <div class="control-group">
+          <label class="control-label" for="firstname">Firstname</label>
+          <div class="controls">
+            <input type="text" id="firstname" name="firstname"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="company">Company</label>
+          <div class="controls">
+            <input type="text" id="company" name="company"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="phone">Phone</label>
+          <div class="controls">
+            <input type="text" id="phone" name="phone"/>
+          </div>
+        </div>
+
+        <div class="control-group" id="control-group-mail">
+          <label class="control-label" for="mail">E-mail address</label>
+          <div class="controls">
+            <div class="input-prepend">
+              <span class="add-on"><i class="icon-envelope"></i></span>
+              <input type="email" id="mail" name="mail"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group" id="control-group-message">
+          <label class="control-label" for="message">Message</label>
+          <div class="controls">
+            <textarea class="input-xlarge" name="message" id="message" rows="12"></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit" onclick="return validateForm()">
+            <i class="icon-envelope icon-white"></i> Send
+          </button>
+        </div>
+      </form>
     </div>
     <div class="tab-pane fade" id="cv">
       {% include "freelance/cv.html" %}
