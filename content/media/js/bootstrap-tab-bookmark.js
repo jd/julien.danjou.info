@@ -3,14 +3,16 @@ function bootstrap_tab_bookmark (selector) {
         selector = "";
     }
 
-    /* Automagically jump an good tab based on anchor */
+    /* Automagically jump on good tab based on anchor */
     $(document).ready(function() {
         url = document.location.href.split('#');
-        $(selector + '[href=#'+url[1]+']').click();
+        if(url[1] != undefined) {
+            $(selector + '[href=#'+url[1]+']').tab('show');
+        }
     });
 
     /* Update hash based on tab */
-    $(selector + "[data-toggle=tab]").click(function (event) {
+    $(selector + "[data-toggle=pill]").click(function (event) {
         document.location.hash = this.getAttribute("href");
     });
 }
