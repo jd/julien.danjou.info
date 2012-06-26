@@ -162,19 +162,7 @@ function checkMailSent(data) {
     $("[name=contact]").prepend("<div id=\"form-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Mail sent!</h4> I'll get back to you in the next 48 hours, thanks.</div>");
 
     _gaq.push(['_trackEvent', 'Contact', 'MailSend', 'OK']);
-
-    window.google_conversion_id = 1011816067;
-    window.google_conversion_label = "Myy-CM2wxwQQg6284gM";
-    window.google_conversion_value = 0;
-    window.google_conversion_format = "3";
-    window.google_is_call = true;
-    var opt = new Object();
-    opt.onload_callback = function() {
-    }
-    var conv_handler = window['google_trackConversion'];
-    if (typeof(conv_handler) == 'function') {
-      conv_handler(opt);
-    }
+    $.getScript("http://www.googleadservices.com/pagead/conversion.js");
   }
   else
   {
@@ -195,7 +183,15 @@ function validateForm()
 };
 </script>
 
-<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion_async.js">
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1011816067;
+var google_conversion_language = "fr";
+var google_conversion_format = "2";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "zp6RCLWv2AEQg6284gM";
+var google_conversion_value = 0;
+/* ]]> */
 </script>
 
 <script type="text/javascript">
