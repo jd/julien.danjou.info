@@ -73,18 +73,6 @@ img.cv-logo {
     margin-bottom: 10px;
 }
 
-img.software-logo {
-    max-width: 60px;
-    max-height: 40px;
-    display: inline;
-}
-
-img.reference-logo {
-    max-width: 120px;
-    max-height: 50px;
-    display: inline
-}
-
 .social {
     width: auto;
     margin-left: 20px;
@@ -170,8 +158,14 @@ pre {
     margin-left: 0px;
 }
 
+/* Software/projects */
+
+img.software-logo {
+    max-height: 60px;
+}
+
 .software-excerpt {
-    height: 160px;
+    height: 180px;
 }
 
 .software-excerpt:hover {
@@ -179,7 +173,16 @@ pre {
 }
 
 .software-excerpt h2 {
-    line-height: 55px;
+    line-height: 65px;
+    text-align: center;
+}
+
+/* Reference */
+
+img.reference-logo {
+    max-width: 120px;
+    max-height: 50px;
+    display: inline
 }
 
 .reference {
@@ -194,7 +197,6 @@ pre {
     text-align: center;
     line-height: 65px;
 }
-
 
 .row {
     margin-bottom: 10px;

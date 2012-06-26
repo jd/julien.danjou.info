@@ -20,13 +20,22 @@ title: "Projects"
   <li class="span4">
     <div class="thumbnail software-excerpt">
       <h2>
+        <a href="{{ url }}">
         {% if logo %}
         <img class="software-logo" src="{{logo}}">
+        {% else %}
+        {{name}}
         {% endif %}
-        <a href="{{ url }}">{{name}}</a></h2>
-      <p class="mediumfont clear">
-      {{ text|typogrify }}
-      </p>
+        </a>
+      </h2>
+      <div class="caption">
+        {% if logo %}
+        <h4><a href="{{ url }}">{{name}}</a></h4>
+        {% endif %}
+        <p>
+          {{ text|typogrify }}
+        </p>
+      </div>
     </div>
   </li>
 {% endmacro %}
@@ -55,7 +64,7 @@ title: "Projects"
   {{ render_software("GNU Emacs",
   "http://www.gnu.org/software/emacs/",
   "/media/images/projects/emacs.png",
-  "I use <a href=\"http://www.gnu.org/software/emacs/\">Emacs</a> since 2010, and am a commiter. I've wrote some <a href=\"/projects/emacs-packages\">packages</a> like rainbow-mode, google-maps, etc.") }}
+  "I use <a href=\"http://www.gnu.org/software/emacs/\">Emacs</a> since 2010, and am a commiter. I wrote some <a href=\"/projects/emacs-packages\">packages</a> like rainbow-mode, google-maps, etc.") }}
 
   {{ render_software("XCB",
   "http://xcb.freedesktop.org",
@@ -80,7 +89,7 @@ title: "Projects"
   {{ render_software("el-get",
   "https://github.com/dimitri/el-get",
   None,
-  "I'm co-maintaing <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
+  "I'm co-maintaining <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
 
   {{ render_software("PyMuninCli",
   "/projects/pymunincli",
@@ -100,7 +109,7 @@ title: "Projects"
   {{ render_software("TuxFamily",
   "http://www.tuxfamily.org",
   "/media/images/projects/tuxfamily.png",
-  "I managed TuxFamily.org in 2006, and been a system administrator between 2002 and 2006.") }}
+  "I managed TuxFamily.org in 2006 as president, and also have been a system administrator between 2002 and 2006.") }}
 
   {{ render_software("VHFFS",
   "http://vhffs.org",
