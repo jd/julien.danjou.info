@@ -11,8 +11,11 @@ function bootstrap_tab_bookmark (selector) {
         }
     });
 
-    /* Update hash based on tab */
-    $(selector + "[data-toggle=pill]").click(function (event) {
+    var update_location = function (event) {
         document.location.hash = this.getAttribute("href");
-    });
+    }
+
+    /* Update hash based on tab */
+    $(selector + "[data-toggle=pill]").click(update_location);
+    $(selector + "[data-toggle=tab]").click(update_location);
 }

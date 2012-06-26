@@ -1,6 +1,9 @@
 ---
 title: Emacs packages
+default_block: None
 ---
+
+{% block main %}
 
 <div class="tabbable tabs-right">
   <ul class="nav nav-tabs">
@@ -527,7 +530,11 @@ directly.
 </div>
 </div>
 </div>
+{% endblock %}
 
+{% block endjs %}
+{{ super() }}
 <script type="text/javascript">
-bootstrap_tab_bookmark();
+$(document).ready(function () { bootstrap_tab_bookmark(); });
 </script>
+{% endblock %}
