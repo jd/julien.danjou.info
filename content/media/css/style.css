@@ -190,14 +190,16 @@ img.reference-logo {
 /* Front page */
 
 #bio-title {
-    line-height: 52px;
-    text-align: center;
+    float: left;
+    line-height: 55px;
+    text-align: left;
     font-size: 60px;
     font-family: "Francois One", sans-serif;
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 30px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
+    margin-right: 60px;
 }
 
 #bio-title > strong {
@@ -207,19 +209,21 @@ img.reference-logo {
 
 
 #bio-line-1 {
+    line-height: 20px;
     font-size: 40px;
     letter-spacing: 2px;
 }
 
 #bio-line-3 {
-    letter-spacing: 8px;
-    font-size: 70px;
+    letter-spacing: 9px;
+    font-size: 75px;
+    line-height: 60px;
 }
 
 
 .bigfont {
     font-size: 1.7em;
-    color: #333333;
+    color: #555;
     line-height: 1.9em;
     font-family: 'PT Sans', sans-serif;
 }
