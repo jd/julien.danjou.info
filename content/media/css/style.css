@@ -6,6 +6,20 @@ p {
     font-size: 14px;
 }
 
+.navbar {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* .navbar .nav .active > a { */
+/*     font-weight: bold; */
+/* } */
+
+.navbar .brand {
+    font-family: 'Francois One', sans-serif;
+}
+
 blockquote {
     font-style: italic;
 }
@@ -109,7 +123,8 @@ footer {
 }
 
 #BigFlattrButton {
-    float: right
+    float: right;
+    margin-left: 12px;
 }
 
 .rss-logo {
