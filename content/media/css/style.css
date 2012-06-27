@@ -116,17 +116,6 @@ pre {
     clear: both;
 }
 
-.bigfont {
-    font-size: 1.7em;
-    color: #333333;
-    line-height: 1.9em;
-    font-family: 'PT Sans', sans-serif;
-}
-
-.bigfont li {
-    line-height: 1.4em;
-}
-
 .mediumfont {
     font-size: 1.2em;
     color: #333333;
@@ -197,6 +186,47 @@ img.reference-logo {
     text-align: center;
     line-height: 65px;
 }
+
+/* Front page */
+
+#bio-title {
+    line-height: 52px;
+    text-align: center;
+    font-size: 60px;
+    font-family: "Francois One", sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 80px;
+}
+
+#bio-title > strong {
+    color: #5b90d0;
+    letter-spacing: -2px;
+}
+
+
+#bio-line-1 {
+    font-size: 40px;
+    letter-spacing: 2px;
+}
+
+#bio-line-3 {
+    letter-spacing: 8px;
+    font-size: 70px;
+}
+
+
+.bigfont {
+    font-size: 1.7em;
+    color: #333333;
+    line-height: 1.9em;
+    font-family: 'PT Sans', sans-serif;
+}
+
+
+
+/* Stuff */
 
 .row {
     margin-bottom: 10px;
