@@ -1,9 +1,20 @@
 ---
 title: jd:/dev/blog
 subtitle: <div class="rss-logo"><a href="/blog/index.xml"><img alt="RSS" src="/media/images/blog/rss.png"></a></div>
+extends: standard.j2
 ---
 <div class="row">
   <div class="span2">
+    <h2>Years</h2>
+    <ul class="unstyled">
+    {% for node in resource.node.child_nodes|sort(attribute="name")|reverse %}
+    {# I don't plan to live in after 2999 #}
+    {% if node.name.startswith("2") %}
+    <li><a href="#{{node.name}}">{{ node.name }} ({{node.resources|length}} articles)</a></li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+    <hr>
     <h2><i class="icon-tags"></i> Tags</h2>
     {% for tag, meta in site.tagger.tags %}
     <a href="/blog/tags/{{tag}}.html"><span class="label label-inverse" style="line-height: {{ 18 + (meta.resources|length) / 2 }}px; font-size: {{ 8 + (meta.resources|length) / 2 }}px;">{{tag}} ({{(meta.resources|length)}})</span></a>
@@ -11,7 +22,13 @@ subtitle: <div class="rss-logo"><a href="/blog/index.xml"><img alt="RSS" src="/m
   </div>
   <div class="span10">
     {% from "macros.j2" import render_blog_listing with context %}
-    {{ render_blog_listing(site.content.walk_resources_sorted_by_time()) }}
+    {% for node in resource.node.child_nodes|sort(attribute="name")|reverse %}
+    {# I don't plan to live in after 2999 #}
+    {% if node.name.startswith("2") %}
+    <h1 id="{{ node.name }}"><a href="{{node.url}}"}>{{ node.name }}</a></h1>
+    {{ render_blog_listing(node.walk_resources_sorted_by_time()) }}
+    {% endif %}
+    {% endfor %}
   </div>
 </div>
 
