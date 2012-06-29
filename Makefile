@@ -6,7 +6,7 @@ deploy: site.yaml clean content/media/images/blog/2012/openstack-swift-storage.p
 	hyde gen
 
 pub: deploy
-	rsync -Pavz --delete deploy/ pro.julien.danjou.info:/var/www/pro.julien.danjou.info/
+	rsync -Pavz --delete deploy/ julien.danjou.info:/var/www/julien.danjou.info/
 
 clean:
 	rm -rf deploy
