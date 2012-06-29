@@ -1,0 +1,53 @@
+---
+title: How to make Twitter's Bootstrap tabs bookmarkable
+created: !!timestamp '2012-06-29 12:21:00'
+tags:
+    - javascript
+    - bootstrap
+---
+
+{% mark excerpt %}
+
+I've been using [Twitter's bootstrap](http://twitter.github.com/bootstrap/)
+library recently to build this Web site, and wondered how to be able to use
+[the
+bootstrap-tab](http://twitter.github.com/bootstrap/javascript.html#tabs)
+Javascript plugin in a bookmark friendly manner.
+
+{% endmark %}
+
+I ended up with a simple solution. These are my first steps in Javascript
+and front-end manipulation, and it's really not my area of expertise, so
+don't be harsh.
+
+
+<figure>
+<pre class="prettyprint">
+function bootstrap_tab_bookmark (selector) { if (selector == undefined) {
+    selector = ""; }
+
+    /* Automagically jump on good tab based on anchor */
+    $(document).ready(function() {
+        url = document.location.href.split('#');
+        if(url[1] != undefined) {
+            $(selector + '[href=#'+url[1]+']').tab('show');
+        }
+    });
+
+    var update_location = function (event) {
+        document.location.hash = this.getAttribute("href");
+    }
+
+    /* Update hash based on tab */
+    $(selector + "[data-toggle=pill]").click(update_location);
+    $(selector + "[data-toggle=tab]").click(update_location);
+}
+</pre>
+</figure>
+
+All you need is to use and call this function with a selector (only useful
+if you have several tabs/pills divisions) when the document is ready.
+
+The first part takes care of showing the good tab based on the hash
+contained in the URL. The second part takes care of changing the document
+location to add the current tab to it when the user clicks.
