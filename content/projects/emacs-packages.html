@@ -1,6 +1,7 @@
 ---
 title: Emacs packages
 default_block: None
+extends: standard.j2
 ---
 
 {% block main %}
@@ -177,9 +178,12 @@ There's no tagged release for now.
 
 ## Manual
 The easiest way to use it is to load it from your *.emacs*:
+
+{% endmarkdown %}
 <pre class="prettyprint lang-lisp">
 (require 'offlineimap)
 </pre>
+{% markdown %}
 
 You can then use **M-x offlineimap**. It will launch offlineimap in a
 background buffer.
@@ -187,10 +191,10 @@ background buffer.
 If you want to run offlineimap when you launch [Gnus](http://gnus.org), you
 can add the following to your **.emacs**:
 
+{% endmarkdown %}
 <pre class="prettyprint lang-lisp">
 (add-hook 'gnus-before-startup-hook 'offlineimap)
 </pre>
-{% endmarkdown %}
 </div>
 <div class="tab-pane fade in" id="oauth2">
 {% markdown %}
@@ -285,10 +289,10 @@ Just create a front page like this:
 <pre class="prettyify">
 #title This is my bloog!
 #desc Blog of a new muse-blog user
-<lisp>(muse-blog-make-index 0 9)</lisp>
+&lt;lisp&gt;(muse-blog-make-index 0 9)&lt;/lisp&gt;
 ----
 Archives
-<lisp>(muse-index-as-string t nil t)</lisp>
+&lt;lisp&gt;(muse-index-as-string t nil t)&lt;/lisp&gt;
 </pre>
 
 This will create an index page (HTML and RSS) with the 10 first entries from
@@ -356,7 +360,7 @@ Celsius degrees, you can use "en-gb".
 {% markdown %}
 # google-maps.el
 
-The *google-maps* [Emacs]([http://www.gnu.org/software/emacs/) extension
+The *google-maps* [Emacs](http://www.gnu.org/software/emacs/) extension
 allows to display [Google Maps](http://maps.google.com) directly inside
 Emacs.
 
@@ -420,11 +424,11 @@ Contacts](http://google.com/contacts) directly inside Emacs.
 **Note** that it is likely to only work with at least Emacs 24, since it's using
 *oauth2* which is part of GNU ELPA.
 
-<p align="center">
+<figure>
 <video controls="controls">
 <source src="/media/videos/google-contacts.el/emacs-google-contacts.ogv" type="video/ogg" />
 </video>
-</p>
+</figure>
 
 ## Download
 
