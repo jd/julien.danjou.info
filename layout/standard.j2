@@ -42,8 +42,8 @@
     {% if node != site.content %}
     <li>
       <a href="{{node.full_url}}">{{ node.meta.title }}</a> <span class="divider">/</span>
-    {% endif %}
     </li>
+    {% endif %}
   {% endfor %}
   {% if resource.name != "index.html" %}
   <li class="active">
