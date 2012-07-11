@@ -6,15 +6,16 @@ p {
     font-size: 14px;
 }
 
+.socialite {
+    display: inline;
+    float: left;
+}
+
 .navbar {
     font-family: 'Quicksand', sans-serif;
     font-size: 15px;
     font-weight: bold;
 }
-
-/* .navbar .nav .active > a { */
-/*     font-weight: bold; */
-/* } */
 
 .navbar .brand {
     font-family: 'Francois One', sans-serif;
