@@ -1,6 +1,15 @@
 ---
 extends:
 ---
+RedirectPermanent /software/rainbow-mode http://julien.danjou.info/projects/emacs-packages#rainbow-mode
+RedirectPermanent /software/google-weather.el http://julien.danjou.info/projects/emacs-packages#google-weather
+RedirectPermanent /software/google-maps.el http://julien.danjou.info/projects/emacs-packages#google-maps
+RedirectPermanent /software/google-contacts.el http://julien.danjou.info/projects/emacs-packages#google-contacts
+RedirectPermanent /software/oauth2.el http://julien.danjou.info/projects/emacs-packages#oauth2
+RedirectPermanent /software/muse-blog.el http://julien.danjou.info/projects/emacs-packages#muse-blog
+RedirectPermanent /software/offlineimap.el http://julien.danjou.info/projects/emacs-packages#offlineimap
+RedirectPermanent /software/org-contacts.el http://julien.danjou.info/projects/emacs-packages#org-contacts
+RedirectPermanent /software/erc-track-score.el http://julien.danjou.info/projects/emacs-packages#erc-track-score
 RedirectPermanent /software/ http://julien.danjou.info/projects/
 RedirectPermanent /experience/ http://julien.danjou.info/freelance/
 RewriteEngine On
