@@ -287,6 +287,8 @@ and does not check for error codes, be careful.
 <pre class="prettyprint">
 /* Written by Julien Danjou <julien@danjou.info> in 2012 */
 
+#include &lt;linux/hid.h&gt;
+
 #include &lt;libusb.h&gt;
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -334,8 +336,8 @@ int main(void)
 
                 if(libusb_control_transfer(device_handle,
                                            LIBUSB_REQUEST_TYPE_CLASS | LIBUSB_RECIPIENT_INTERFACE,
-                                           LIBUSB_REQUEST_SET_CONFIGURATION,
-                                           0x0210, 2, payload, sizeof(payload) - 1, 10000))
+                                           HID_REQ_SET_REPORT,
+                                           0x0210, iface_index, payload, sizeof(payload) - 1, 10000))
                 {
                     int actual_length = 0;
 
