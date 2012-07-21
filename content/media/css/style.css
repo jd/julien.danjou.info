@@ -77,6 +77,13 @@ time.label {
     width: auto;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.pull-left img, .pull-right img {
+    margin-right: 25px;
+    margin-left: 25px;
 }
 
 .taglist {
