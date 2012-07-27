@@ -71,6 +71,13 @@ time.label {
     clear: none;
 }
 
+.page-content iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 
 .page-content img, .page-content video {
     display: block;
