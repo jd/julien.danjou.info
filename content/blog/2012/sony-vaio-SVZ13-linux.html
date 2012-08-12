@@ -93,13 +93,14 @@ do not use USB 3.0 yet, so…
 
 # WiFi
 
-The WiFi module (iwlwifi) works fine. The only problem with NetworkManager
-is that the *sony-laptop* offers a second rfkill switch and NM does not know
-how to handle it correctly. [A bug isopened about
+The WiFi module (based on iwlwifi) works fine. The only problem with
+NetworkManager is that the *sony-laptop* offers a second rfkill switch and
+NM does not know how to handle it correctly. [A bug isopened about
 this](https://bugzilla.gnome.org/show_bug.cgi?id=680632) and I hope to be
 able to write a patch or something at some point. Also, there seems to be
-some quality issue with the *iwlwifi* driver at this point. I'm losing
-connection quite often when the signal drops below 40 %.
+some quality issue with the *iwlwifi* and 802.11n driver at this point. I'm
+losing connection quite often when the signal drops below 40 %. Loading the
+module with *11n_disable=1* helps a lot.
 
 
 # Ethernet
