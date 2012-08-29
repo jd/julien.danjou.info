@@ -63,6 +63,11 @@ time.label {
     font-size: 0.9em;
 }
 
+.post-summary img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
 .clear {
     clear: both;
 }
