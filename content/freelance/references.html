@@ -7,25 +7,27 @@ extends:
 </div>
 
 {% macro render_ref(url, logo, text) %}
-  <li class="span3">
-    <div class="thumbnail reference">
+  <div class="span3">
+    <div class="reference listing-entry">
       <h2>
-      {% if url %}
-      <a href="{{ url }}">
-      {% endif %}
-        <img class="reference-logo" src="{{logo}}">
-      {% if url %}
-      </a>
-      {% endif %}
+        {% if url %}
+        <a href="{{ url }}">
+        {% endif %}
+          <img class="listing-logo" src="{{logo}}">
+        {% if url %}
+        </a>
+        {% endif %}
       </h2>
       <div class="caption">
-      {{ text|typogrify }}
+        <p>
+        {{ text|typogrify }}
+        </p>
       </div>
     </div>
-  </li>
+  </div>
 {% endmacro %}
 
-<ul class="thumbnails clear">
+<div class="clear row">
   {{ render_ref("http://enovance.com",
   "/media/images/cv/enovance.png",
   "Lead developer for <a href=\"http://enovance.com\">eNovance</a>, built the <a href=\"http://enocloud.com\">eNocloud</a> project from scratch using <a href=\"http://openstack.org\">OpenStack</a>.") }}
@@ -68,4 +70,4 @@ extends:
   {{ render_ref("http://www.lafemis.fr/",
   "/media/images/femis.jpg",
   "E-mail server with spam and virus filters set-up and administration, using Postfix and amavisd.") }}
-</ul>
+</div>

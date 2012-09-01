@@ -18,11 +18,11 @@ title: "Projects"
 
 {% macro render_software(name, url, logo, text) %}
   <li class="span4">
-    <div class="thumbnail software-excerpt">
+    <div class="listing-entry">
       <h2>
         <a href="{{ url }}">
           {% if logo %}
-          <img class="software-logo" src="{{logo}}">
+          <img class="listing-logo" src="{{logo}}">
           {% else %}
           {{name}}
           {% endif %}
