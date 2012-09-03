@@ -216,6 +216,33 @@ img.listing-logo {
     text-align: center;
 }
 
+/* Freelance */
+
+
+#speech img {
+    max-width: 50px;
+    float: left;
+    margin-left: 0px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+#references-carousel {
+    margin-top: 20px;
+}
+
+#references-carousel .item {
+    height: 245px;
+}
+
+#references-carousel img {
+    max-height: 245px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+
 /* Front page */
 
 #bio-title {

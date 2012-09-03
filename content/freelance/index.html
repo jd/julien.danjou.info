@@ -3,8 +3,6 @@ title: "Freelance"
 default_block: None
 ---
 {% block main %}
-
-
 <div class="tabbable">
   <ul class="nav nav-pills">
     <li class="active"><a href="#services" data-toggle="pill"><i class="icon-wrench"></i> Services</a></li>
@@ -14,48 +12,84 @@ default_block: None
   </ul>
   <div class="tab-content">
     <div class="tab-pane fade in active" id="services">
-      <div class="well">
-        <p class="mediumfont">
-          I have participated in a lot of <a href="/projects">Free Software
-          projects</a> for the last years.
-        </p>
-        <p class="mediumfont">
-          This is why I work as a freelance engineer and developer to
-          provide expertise on this technical area. I'm available to provide
-          consulting, audit, expertise, training, development and support on
-          Free Software based projects.
-        </p>
-        <p class="mediumfont">
-          One of the key points of my services is my implication and ability
-          to work with upstream software authors and teams. The developments
-          I do are done with upstream merging on mind, allowing them to be
-          maintained by the community later.
-        </p>
+      <div class="row">
+        <div class="span8">
+          <div class="well" id="intro">
+            <p class="mediumfont">
+              As a <strong>developer</strong>, I have participated in a lot of
+              <a href="/projects">Free Software projects</a> for the last years.
+            </p>
+            <p class="mediumfont">
+              This is why I work as a <strong>freelance engineer and
+                developer</strong> to provide expertise on these technical areas.
+              I'm available to provide <strong>consulting, audit, expertise, training,
+                development and support on Free Software based projects</strong>.
+            </p>
+            <p class="mediumfont">
+              One of the keys of my services is my implication and ability
+              to work with upstream software authors and teams. Usually, the
+              developments I do are done with upstream merging on mind,
+              allowing them to be maintained by the community later.
+              I have a good knowledge of the Free Software and Open Source
+              ecosystem.
+            </p>
+          </div>
+        </div>
+        <div class="span4">
+          <div id="references-carousel" class="carousel slide">
+            <div class="carousel-inner">
+              {% for reference in site.context.references %}
+              <div class="{% if loop.first %}active {% endif %}item">
+                <a href="{{reference.url}}"><img src="{{reference.logo}}"></a>
+                <div class="carousel-caption">
+                  <h4>{{reference.name}}</h4>
+                  <p>
+                    {{reference.text}}
+                  </p>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <a class="carousel-control left" href="#references-carousel" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#references-carousel" data-slide="next">&rsaquo;</a>
+          </div>
+        </div>
       </div>
       <div>
-        <div class="row">
-          <div class="span6">
-            <h2>Key skills</h2>
-            <ul>
-              <li>Master in Computer Science</li>
-              <li>Official Debian Developer for 10+ years</li>
-              <li>10+ years of contributions to Free Software projects</li>
-              <li>Very good knowledge of C and Python</li>
-              <li>12+ years of Debian system administrations</li>
-              <li>Good knowledge of cloud computing (OpenStack & CompatibleOne contributor)</li>
-              <li>Speaks French (native), English (<a href="http://www.toeic.eu">TOEIC</a> score 935)</li>
-            </ul>
+        <div class="row" id="speech">
+          <div class="span3">
+            <h4>Software development</h4>
+            <img src="/media/images/python.png">
+            Whether you're thinking about developing something new,
+            enhancing an old project or building a new one using
+            <strong>Free Software or Open Source technologies</strong>, I
+            can help you. Especially if it's C or Python based!
           </div>
-          <div class="span6">
-            <h2>Services</h2>
-            <ul>
-              <li>Technical consulting & expertise</li>
-              <li>Development training & coaching</li>
-              <li>Software development</li>
-              <li>Contributions to Free Software</li>
-              <li>Linux systems audits</li>
-              <li>Critical / urgent problems solving</li>
-            </ul>
+          <div class="span3">
+            <h4>Linux System Expertise</h4>
+            <img src="/media/images/tux.png">
+            Being a <strong>Debian Developer for more than 10 years</strong>,
+            I know a bunch of things about Linux systems and development on
+            this platform. And I did years of system administration and
+            technical support on this.
+          </div>
+          <div class="span3">
+            <h4>Cloud computing</h4>
+            <img src="/media/images/projects/openstack.png">
+            Going to the cloud? I already built an entire cloud platform and
+            contribute to the <strong>OpenStack development</strong>. My
+            expertise can help you doing good choices, deploying or
+            enhancing your own cloud services.
+          </div>
+          <div class="span3">
+            <h4>Team player</h4>
+            <img src="/media/images/world.jpg">
+            I already worked for several companies, schools, R&D and
+            international software projects, on site or remotely. With teams
+            of different size and culture. I've no problem integrating,
+            working with any team, if there's one.<br>And yes, I speak
+            English!
           </div>
         </div>
       </div>

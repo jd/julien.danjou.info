@@ -50,3 +50,61 @@ context:
             name: Julien Danjou
             url: "http://julien.danjou.info"
         google_analytics_id: UA-25393581-1
+        references:
+          - url: http://enovance.com
+            name: eNovance
+            logo: /media/images/cv/enovance.png
+            text: Lead developer, built the <a href="http://enocloud.com">eNocloud</a> project from scratch using <a href="http://openstack.org">OpenStack</a>.
+          - url: http://www.lwm-agence.com/
+            name: LWM
+            logo: /media/images/lwm.jpg
+            text: VoIP set-up, LAMP platform system audit and administration.
+          - url: http://www.meetic.fr/
+            name: Meetic
+            logo: /media/images/meetic.png
+            text: <a href="http://git-scm.com">Git</a> expertise, development workflow consulting.
+          - url: http://www.hermes.com
+            name: Hermès
+            logo: /media/images/hermes.png
+            text: Set-up of fail-over and load-balanced HTTP proxy using <a href="http://www.squid-cache.org">Squid</a>, replicated virtualization server using <a href="http://libvirt.org/">libvirtd</a> for HQ.
+          - url: http://paris.fr
+            name: Mairie de Paris
+            logo: /media/images/mairiedeparis.png
+            text: Scalable LAMP hosting on cloud platform for the <a href="http://nuitblanche2010.paris.fr/">Nuit Blanche 2010</a> and <a href="http://www.paris-plages.fr">Paris-Plages</a> websites.
+          - url: http://www.armines.net/
+            name: Armines
+            logo: /media/images/armines.gif
+            text: Management of the <a href="http://lheo.org">LHEO project</a>, set-up of a fail-over Web platform.
+          - url: http://europcar.com
+            name: Europcar
+            logo: /media/images/europcar.gif
+            text: Development of a custom Debian GNU/Linux distribution for thin-clients, with inventoring agent.
+          - url: http://www.lesartsdecoratifs.fr/
+            name: Les Arts Décoratifs
+            logo: /media/images/lesartsdecoratifs.gif
+            text: Linux systems audits and administration.
+          - url: http://www.orc.fr/
+            name: ORC
+            logo: /media/images/orc.jpg
+            text: Linux systems administration, infrastructure virtualization.
+          - url: http://www.foncia.fr/
+            name: Foncia
+            logo: /media/images/foncia.jpg
+            text: Linux systems administration, development of automation scripts and custom system administration applications.
+          - url: http://www.gardemedicaledeparis.org
+            name: Garde Médicale de Paris
+            logo: /media/images/gmp.jpg
+            text: IPBX set-up and programming to automate calls dispatch using <a href="http://asterisk.org">Asterisk</a>.
+          - url: http://www.msh-paris.fr/
+            name: Maison des Sciences de l'Homme
+            logo: /media/images/msh.gif
+            text: <a href="http://debian.org">Debian</a> GNU/Linux servers farm administration.
+          - url: http://www.mairie-pierrefitte93.fr/
+            name: Mairie de Pierrefitte-sur-Seine
+            logo: /media/images/pierrefitte-sur-seine.png
+            text: <a href="http://debian.org">Debian</a> GNU/Linux servers and firewall set-up and administration.
+          - url: http://www.lafemis.fr/
+            name: La femis
+            logo: /media/images/femis.jpg
+            text: E-mail server with spam and virus filters set-up and administration, using Postfix and amavisd.
+
