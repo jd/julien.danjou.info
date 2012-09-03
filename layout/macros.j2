@@ -1,21 +1,20 @@
 {% macro render_blog_listing(walker) %}
 <div class="thumbnails">
-{% for res in walker %}
-<div class="thumbnail post-summary">
-<time class="label label-info" datetime="{{ res.meta.created.strftime('%Y-%m-%d') }}">
-{{ res.meta.created.strftime('%d %b %Y') }}
-</time>
-<h2><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h2>
-{% refer to res.relative_deploy_path as post %}
-{{ post.excerpt|markdown|typogrify }}
-  <a href="{{ content_url(res.url) }}"><i class="icon-hand-right"></i> Read this post</a>
-  <div class="taglist">
-  <i class="icon-tags"></i>
-  {% for tag in res.meta.tags %}
+  {% for res in walker %}
+  <div class="thumbnail post-summary">
+    <h2><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h2>
+    <time class="label label-info" datetime="{{ res.meta.created.strftime('%Y-%m-%d') }}">
+      {{ res.meta.created.strftime('%d %b %Y') }}
+    </time>
+    {% refer to res.relative_deploy_path as post %}
+    {{ post.excerpt|markdown|typogrify }}
+    <div class="taglist">
+      <i class="icon-tags"></i>
+      {% for tag in res.meta.tags %}
       <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-inverse small">{{tag}}</span></a>
-  {% endfor %}
+      {% endfor %}
+    </div>
   </div>
-</div>
 {% endfor %}
 </div>
 {% endmacro %}
