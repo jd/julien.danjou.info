@@ -228,7 +228,11 @@ img.listing-logo {
     margin-top: 10px;
 }
 
-#references-carousel {
+#references-carousel h4 {
+    margin-top: 0px;
+}
+
+#references-carousel .carousel-inner {
     margin-top: 20px;
 }
 
