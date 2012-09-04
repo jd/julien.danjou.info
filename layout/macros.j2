@@ -2,10 +2,10 @@
 <div class="thumbnails">
   {% for res in walker %}
   <div class="thumbnail post-summary">
-    <h2><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h2>
     <time class="label label-info" datetime="{{ res.meta.created.strftime('%Y-%m-%d') }}">
       {{ res.meta.created.strftime('%d %b %Y') }}
     </time>
+    <h2><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h2>
     {% refer to res.relative_deploy_path as post %}
     {{ post.excerpt|markdown|typogrify }}
     <div class="taglist">
