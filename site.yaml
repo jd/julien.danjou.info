@@ -54,7 +54,7 @@ context:
           - url: http://eisti.fr
             name: EISTI
             logo: /media/images/eisti.png
-            text: Consulting for the <a href="http://xlcloud.org">XLcloud</a> project around <a href="http://launchpad.net/ceilometer">Ceilometer</a>, OpenStack accounting software.
+            text: Consulting on <a href="http://launchpad.net/ceilometer">Ceilometer</a> and <a href="http://openstack.org">OpenStack</a> for the <a href="http://xlcloud.org">XLcloud</a> project.
           - url: http://enovance.com
             name: eNovance
             logo: /media/images/cv/enovance.png
