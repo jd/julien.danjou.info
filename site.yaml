@@ -51,6 +51,10 @@ context:
             url: "http://julien.danjou.info"
         google_analytics_id: UA-25393581-1
         references:
+          - url: http://eisti.fr
+            name: EISTI
+            logo: /media/images/eisti.png
+            text: Consulting for the <a href="http://xlcloud.org">XLcloud</a> project around <a href="http://launchpad.net/ceilometer">Ceilometer</a>, OpenStack accounting software.
           - url: http://enovance.com
             name: eNovance
             logo: /media/images/cv/enovance.png
