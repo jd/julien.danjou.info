@@ -1,3 +1,7 @@
+body {
+    font-family: 'Cabin';
+}
+
 .socialite {
     display: inline;
     float: left;
