@@ -55,37 +55,10 @@
 </ul>
   {% endif %}
 
-{% if resource.meta.created %}
-  {% if resource.next_by_time or resource.prev_by_time%}
-  <nav>
-  <ul class="pager">
-  {% endif %}
-  {% if resource.next_by_time %}
-  <li class="previous">
-    <a rel="prev" href="{{ resource.next_by_time.full_url }}">
-        <i class="icon-arrow-left"></i>
-        {{resource.next_by_time.meta.title}}
-    </a>
-  </li>
-  {% endif %}
-  {% if resource.prev_by_time %}
-  <li class="next">
-    <a rel="next" href="{{ resource.prev_by_time.full_url }}">
-           {{resource.prev_by_time.meta.title}}
-           <i class="icon-arrow-right"></i>
-    </a>
-  </li>
-  {% endif %}
-  {% if resource.next_by_time or resource.prev_by_time%}
-  </ul>
-  </nav>
-  {% endif %}
-{% endif %}
-
 <article class="page-content">
   {% if resource.meta.created %}
   <time class="label label-info" pubdate datetime="{{ resource.meta.created.strftime('%Y-%m-%d') }}">
-  {{ resource.meta.created.strftime('%A %d %B %Y') }}
+  {{ resource.meta.created.strftime('%A<br>%d %B %Y') }}
   </time>
   {% endif %}
   {% block premain %}
@@ -113,6 +86,33 @@
 <a class="socialite linkedin-share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{site_url}}{resource.full_url}}&amp;title={{resource.meta.title}}" data-counter="horizontal" data-url="{{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank">Share on LinkedIn</a>
 <a class="socialite facebook-like" href="http://www.facebook.com/sharer.php?u={{site_url}}{{resource.full_url}}&amp;t={{resource.meta.title}}" data-action="recommend" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank">Share on Facebook</a>
 </div>
+{% endif %}
+
+{% if resource.meta.created %}
+  {% if resource.next_by_time or resource.prev_by_time%}
+  <nav>
+  <ul class="pager">
+  {% endif %}
+  {% if resource.next_by_time %}
+  <li class="previous">
+    <a rel="prev" href="{{ resource.next_by_time.full_url }}">
+        <i class="icon-arrow-left"></i>
+        {{resource.next_by_time.meta.title}}
+    </a>
+  </li>
+  {% endif %}
+  {% if resource.prev_by_time %}
+  <li class="next">
+    <a rel="next" href="{{ resource.prev_by_time.full_url }}">
+           {{resource.prev_by_time.meta.title}}
+           <i class="icon-arrow-right"></i>
+    </a>
+  </li>
+  {% endif %}
+  {% if resource.next_by_time or resource.prev_by_time%}
+  </ul>
+  </nav>
+  {% endif %}
 {% endif %}
 
 {% endblock article %}
