@@ -38,12 +38,14 @@
 {% block article %}
 {% if resource.node != site.content and resource.name != "index.html" %}
 <ul class="breadcrumb">
-  {% for node in resource.node.rwalk()|reverse %}
-    {% if node != site.content %}
+  {% set last_title = None %}
+  {% for node in resource.node.rwalk()|reverse if node != site.content and node.meta.title != last_title %}
     <li>
-      <a href="{{node.full_url}}">{{ node.meta.title }}</a> <span class="divider">/</span>
+      <a href="{{node.full_url}}">
+        {{ node.meta.title }}
+        {% set last_title = node.meta.title %}
+      </a> <span class="divider">/</span>
     </li>
-    {% endif %}
   {% endfor %}
   {% if resource.name != "index.html" %}
   <li class="active">
