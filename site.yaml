@@ -51,6 +51,10 @@ context:
             url: "http://julien.danjou.info"
         google_analytics_id: UA-25393581-1
         references:
+          - url: http://swiftstack.com
+            name: SwiftStack
+            logo: /media/images/swiftstack.png
+            text: Development on and around <a href="http://launchpad.net/swift">Swift</a>.
           - url: http://eisti.fr
             name: EISTI
             logo: /media/images/eisti.png
