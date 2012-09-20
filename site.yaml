@@ -51,6 +51,10 @@ context:
             url: "http://julien.danjou.info"
         google_analytics_id: UA-25393581-1
         references:
+          - url: http://dreamhost.com
+            name: DreamHost
+            logo: /media/images/dreamhost.png
+            text: Development on <a href="http://launchpad.net/ceilometer">Ceilometer</a>.
           - url: http://swiftstack.com
             name: SwiftStack
             logo: /media/images/swiftstack.png
