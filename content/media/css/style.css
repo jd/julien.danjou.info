@@ -54,10 +54,6 @@ time.label {
     clear: both;
 }
 
-.posts-list p img {
-    display: none;
-}
-
 .clear {
     clear: both;
 }
@@ -358,4 +354,8 @@ img.listing-logo {
 	color-stop(0.95, #b5c7de),
 	color-stop(0.97, #1272e8)
     );
+}
+
+.posts-list img {
+    margin: 0;
 }

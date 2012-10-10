@@ -2,14 +2,43 @@
 <div>
   {% for res in walker %}
   <div class="posts-list">
-    <h4>
-    <span class="label label-info">
-      {{ res.meta.created.strftime('%d %b %Y') }}</span>
-      <a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h4>
-    {% refer to res.relative_deploy_path as post %}
-    {{ post.excerpt|markdown|typogrify }}
-    <a href="{{ content_url(res.url) }}">Read more…</a>
+    <div class="row">
+      <div class="span8">
+        <h4><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      {% if res.meta.image %}
+      <div class="span2">
+        <a href="{{content_url(res.url)}}" class="thumbnail">
+          <img src="{{res.meta.image}}" alt="">
+        </a>
+      </div>
+      <div class="span6">
+      {% else %}
+      <div class="span8">
+      {% endif %}
+        {% refer to res.relative_deploy_path as post %}
+        {{ post.excerpt|markdown|typogrify }}
+        <p><a class="btn" href="{{ content_url(res.url) }}">Read more</a></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8">
+        <p></p>
+        <p>
+          <i class="icon-calendar"></i> {{ res.meta.created.strftime('%d %b %Y') }}
+          {% if res.meta.tags %}
+          | <i class="icon-tags"></i> Tags:
+          {% for tag in res.meta.tags %}
+          <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-info">{{tag}}</span></a>
+          {% endfor %}
+          {% endif %}
+        </p>
+      </div>
+    </div>
   </div>
+  <hr>
   {% endfor %}
 </div>
 {% endmacro %}
