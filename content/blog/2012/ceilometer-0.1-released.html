@@ -1,0 +1,86 @@
+---
+title: Ceilometer 0.1 released
+created: !!timestamp '2012-10-12 17:45:00'
+image: /media/images/Ceilometer_Architecture.png
+tags:
+    - openstack
+    - ceilometer
+---
+
+{% mark excerpt %}
+
+After 6 months of development, we are proud to release the first release of
+[Ceilometer](http://launchpad.org/ceilometer), the
+[OpenStack](http://openstack.org) Metering project. Ceilometer. This is a
+first and amazing milestone for us: we follow all other projects by
+releasing a version for Folsom!
+
+Using Ceilometer, you should now be able to meter your OpenStack cloud and
+retrieve its usage to build statistics or bill your customer!
+
+{% endmark %}
+
+You can read [our announcement on the OpenStack mailing list](https://lists.launchpad.net/openstack/msg17410.html).
+
+# Architecture
+
+We spent a good amount of time defining and refining [our
+architecture](http://ceilometer.readthedocs.org/en/latest/architecture.html#high-level-description).
+
+<a href="http://ceilometer.readthedocs.org/en/latest/architecture.html#high-level-description">
+  <img class="thumbnail" src="/media/images/Ceilometer_Architecture.png">
+</a>
+
+One of its important point, is that it has been designed to work without
+modifying any of the existing core components. Patching OpenStack components
+in an intrusive way to meter them was not an option for now, simply because
+we had no legitimacy to do so. This may change in the future, and this will
+likely be discussed next week during the [OpenStack
+Summit](http://www.openstack.org/summit/san-diego-2012/).
+
+# Meters
+
+Initially, we defined a bunch of meters we'd like to have for a first
+release, and in the end, most of them are available. Some of them are still
+missing, like OpenStack Object Storage (Swift) ones, mainly due to lack of
+interest from the involved parties so far.
+
+Anyhow, with this first release, you should be able to meter your instances,
+their network usage, memory, CPU. Images, networks and volumes and their
+CRUD operations are metered too. For more detail, you can read the [complete
+list of implemented
+meters](http://ceilometer.readthedocs.org/en/latest/measurements.html).
+
+# REST API
+
+The HTTP REST API has been partially implemented. The provided methods
+should allow basic integration with a billing system.
+
+[DreamHost](http://dreamhost.com/) is using Ceilometer in their deployment
+architecture and coupling it with their billing system!
+
+# Towards Grizzly
+
+We don't have a clear and established road-map for Grizzly yet.
+
+We already have a couple of patches waiting in the queue to be merged, like
+the use of [Keystone to authenticate API
+request](https://review.openstack.org/#/c/13989/) and the [removal of Nova
+DB access](https://review.openstack.org/#/c/14185/).
+
+On my side, these last days I've been working on a small debug user
+interface for the API. Ceilometer API server will return this interface if
+your do an API request from a browser (i.e. requesting
+<code>text/html</code> instead of <code>application/json</code>).
+
+<a href="/media/images/ceilometer-debug-interface.png" class="thumbnail"
+   style="width: 500px; margin: auto;">
+  <img src="/media/images/ceilometer-debug-interface.png">
+</a>
+
+I hope this will help to discover Ceilometer API more easily for new comers
+and leverage it to build powerful tools!
+
+Anyhow, we have tons of idea and work to do, and I'm sure the upcoming weeks
+will be very interesting. Also, we hope to be able to become an OpenStack
+incubated project soon. So stay tuned!
