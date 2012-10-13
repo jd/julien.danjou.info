@@ -31,7 +31,7 @@
           {% if res.meta.tags %}
           | <i class="icon-tags"></i> Tags:
           {% for tag in res.meta.tags %}
-          <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-info">{{tag}}</span></a>
+          <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-inverse">{{tag}}</span></a>
           {% endfor %}
           {% endif %}
         </p>
