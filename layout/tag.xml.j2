@@ -2,4 +2,4 @@
 extends:
 ---
 {% from "macros.j2" import render_xml_blog_listing with context %}
-{{ render_xml_blog_listing(resource.node.walk_resources_sorted_by_time) }}
+{{ render_xml_blog_listing(walker) }}

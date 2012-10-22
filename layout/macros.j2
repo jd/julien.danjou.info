@@ -42,3 +42,49 @@
   {% endfor %}
 </div>
 {% endmacro %}
+
+{% macro render_xml_blog_listing(walker) %}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>
+    {% block title %}{{ blog_title|forceescape }}{% endblock %}
+  </title>
+  {% block self_url %}
+  <link href="{{site_url}}{{ resource.full_url }}" rel="self" />
+  {% endblock %}
+
+  {% block site_url %}
+  <link href="{{site_url}}/blog/"/>
+  {% endblock %}
+
+  {% block feed_extra %}
+  {% endblock %}
+
+  <updated>{{ time_now|xmldatetime }}</updated>
+
+  <id>{{site_url}}{{resource.full_url}}</id>
+
+  {% for res in walker() %}
+  <entry>
+    <title type="html">{{ res.meta.title|forceescape }}</title>
+    <author><name>{{ res.meta.author }}</name></author>
+    <link href="{{site_url}}{{ content_url(res.url) }}"/>
+    <updated>{{ res.meta.created|xmldatetime }}</updated>
+    <published>{{ res.meta.created|xmldatetime }}</published>
+    <id>{{ content_url(res.url) }}</id>
+    {% for tag in res.meta.tags %}
+    <category   scheme="{{ content_url('blog/tags') }}"
+                term="{{tag}}"
+                label="{{ tag|title }}" />
+    {% endfor %}
+
+    <content type="html">
+      {% refer to res.relative_deploy_path as post %}
+      {% filter forceescape -%}
+      {{ post.article }}
+      {% endfilter %}
+    </content>
+  </entry>
+  {% endfor %}
+</feed>
+{% endmacro %}

@@ -1,8 +1,10 @@
 {% extends "standard.j2" %}
+
 {% from "macros.j2" import render_blog_listing with context %}
 
 {% block page_title %}Posts with tag <em>{{tag}}</em>{% endblock %}
 {% block title %}Posts with tag {{tag}}{% endblock %}
+{% block page_subtitle %}<span class="rss-logo"><a href="/blog/tags/{{tag}}.xml"><img alt="RSS" src="/media/images/blog/rss.png"></a></span>{% endblock %}
 {% block article %}
 
 {{render_blog_listing(walker())}}

@@ -29,7 +29,13 @@
   {% block header %}
   <h1>
     {% block page_title %}{{ resource.meta.title }}{% endblock %}
-    {% if resource.meta.subtitle %}<small>{% block page_subtitle %}{{ resource.meta.subtitle }}{% endblock %}</small>{% endif %}
+    <small>
+    {% block page_subtitle %}
+    {% if resource.meta.subtitle %}
+    {{ resource.meta.subtitle }}
+    {% endif %}
+    {% endblock %}
+    </small>
   </h1>
   {% endblock header %}
 </header>

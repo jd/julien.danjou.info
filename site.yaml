@@ -10,8 +10,8 @@ plugins:
   - hyde.ext.plugins.syntext.SyntextPlugin
   - hyde.ext.plugins.textlinks.TextlinksPlugin
   - hyde.ext.plugins.urls.UrlCleanerPlugin
-  - hyde.ext.plugins.sorter.SorterPlugin 
-  - hyde.ext.plugins.tagger.TaggerPlugin 
+  - hyde.ext.plugins.sorter.SorterPlugin
+  - hyde.ext.plugins.tagger.TaggerPlugin
 
 sorter:
   name:
@@ -28,12 +28,17 @@ sorter:
 
 tagger:
   sorter: time
-  archives: 
-    blog: 
-      source: blog 
-      target: blog/tags 
-      template: tag.j2 
-      archive_extension: html 
+  archives:
+    atom:
+      source: blog
+      target: blog/tags
+      template: tag.xml.j2
+      extension: xml
+    blog:
+      source: blog
+      target: blog/tags
+      template: tag.j2
+      extension: html
 
 urlcleaner:
   index_file_names:
@@ -119,4 +124,3 @@ context:
             name: La femis
             logo: /media/images/femis.jpg
             text: E-mail server with spam and virus filters set-up and administration, using Postfix and amavisd.
-
