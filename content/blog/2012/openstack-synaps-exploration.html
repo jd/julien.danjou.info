@@ -1,0 +1,118 @@
+---
+title: Inside Synaps, a CloudWatch-like implementation for OpenStack
+created: !!timestamp '2012-10-22 11:16:00'
+image: /media/images/SynapsDeployment.jpg
+tags:
+    - openstack
+    - ceilometer
+    - heat
+    - synaps
+---
+
+{% mark excerpt %}
+
+A few days ago, [Samsung](http://www.samsung.com/) released the source code
+of [Synaps](https://github.com/spcs/synaps), an implementation of the
+[Amazon Web Service CloudWatch API](http://aws.amazon.com/cloudwatch/) for
+[OpenStack](http://openstack.org).
+
+Being a developer on the [Ceilometer](http://launchpad.net/ceilometer)
+project, I've been curious to look on this project and how it could overlap
+with Ceilometer or other projects like [Heat](http://www.heat-api.org).
+
+{% endmark %}
+
+# What is CloudWatch?
+
+CloudWatch is a monitoring system provided by Amazon on its Web Services
+platform to monitor services. This allows you get notifications and trigger
+an action on certain threshold.
+
+For example, this can be used to scale your architecture by monitoring the
+number of requests you get on it and its general load by starting new
+servers.
+
+<img src="/media/images/cloudwatch.jpg">
+
+# Synaps
+
+Synaps is written in around 7k lines of Python (with 28 % of which are
+comments), reuses at least one common module of OpenStack
+(*openstack.common.cfg*) and copy some modules from Nova. One thing that
+strikes me, is that there seems to be only a few unit tests compared to most
+OpenStack projects. Also, many parts of the code and documentation contains
+text written in korean, which won't be very helpful for most people! :-)
+It uses some external technologies, like [Storm](http://storm-project.net/),
+[Cassandra](http://cassandra.apache.org/) to store its persistent data and
+[Pandas](http://pandas.pydata.org/) to do data analysis.
+
+The API server provides an EC2 compatible API only: no OpenStack specific
+API. This is probably not a bad thing for now, since I am not aware of any
+work in this direction. The API access directly the Cassandra back-end for
+read operation, but relies on RPC to do writes. This way, a set of daemon
+handles the write using the Storm part of Synaps and do data aggregation.
+The authentication only supports LDAP, but it should still be possible to
+add a driver for Keystone.
+
+A Java and a Python SDK are provided to record metrics into Synaps, but
+there's not enough documentation for it to be useful.
+
+<img src="/media/images/SynapsDeployment.jpg">
+
+# Overlap with Heat
+
+For now, there's not a lot of overlap with Heat, because Heat does not
+implement completely the CloudWatch API. Heat actually still misses a lot of
+the CloudWatch functions. But as soon as it will implement the CloudWatch
+API completely, the overlap will be complete with Synaps in this regard.
+
+One divergence point however, is that Heat uses RPC to access data from the
+storage back-end via its engine (the central daemon), whereas Synaps
+directly connects to Cassandra. Also, Heat relies on SQLAlchemy, like most
+OpenStack projects needing a database.
+
+# Overlap with Ceilometer
+
+One of the goal of Ceilometer is to provide data probes and pollsters for
+all OpenStack components (Nova, Swift, Quantum…) whereas Synaps let the
+OpenStack users to put any kind of metric inside it, and therefore doesn't
+provide anything for now.
+
+But the storage of metrics is the main common point between Synaps and
+Ceilometer. Synaps chose only one technology, Cassandra, to store its
+metrics, whereas Ceilometer took care of building an abstraction layer for
+the storage engine. Ceilometer currently allows an operator to use SQL or
+MongoDB, but Cassandra could likely be added.
+
+Data metric consolidation is done by Synaps. This makes sense, since Synaps
+don't need to have the full data history to trigger alarms. On the opposite,
+Ceilometer needs to have a full history to allow things like billing, and
+don't do any aggregation on data.
+
+Also, in Synaps, the data analysis is done using Pandas. This means the data
+used are retrieved from the Cassandra back-end, and then transformed by
+Pandas inside Synaps in something else. It's likely that in such a case,
+Synaps should use CQL to achieve that. Ceilometer manipulates the data near
+their storage: it means that the computation are done by back-end to be
+efficient (SQL, mapreduce…).
+
+# Conclusion
+
+Considering Samsung open-sourced Synaps late in the development process, I
+don't feel like they aimed to have it becoming a core component. This is
+always sad, because the effort put into this implementation are big and it
+would have probably little to add some abstraction layers to follow what
+other OpenStack projects do. But this takes time and energy, and it's
+understandable that Samsung didn't want to achieve this in a short time
+frame.
+
+There's a part of the code and architecture that overlaps with Ceilometer
+and Heat. Ceilometer is becoming a specialized point to store data metrics
+from any source: so it's sad, but understandable, that Synaps did not tried
+to reuse it. Fortunately, Heat is working with Ceilometer to achieve exactly
+that. This means OpenStack would have only one metrics storage point, used
+for billing, for monitoring and alarming.
+
+Therefore, I think Synaps is an implementation of CloudWatch that should be
+looked at as an inspiration for Heat and Ceilometer to build a better and
+more integrated solution!
