@@ -1,0 +1,87 @@
+---
+title: Logitech Unifying devices support in UPower
+created: !!timestamp '2012-11-16 10:44:00'
+image: /media/images/upower.png
+tags:
+    - logitech
+    - upower
+    - freedesktop
+---
+
+{% mark excerpt %}
+
+A few months ago, [I wrote about my reverse engineering attempt to Logitech
+Unifying devices](/blog/2012/logitech-k750-linux-support). Back then, I
+concluded my post with big hopes on the future after receiving a document
+with some part of the specification of the HID++ 2.0 from Logitech.
+
+A couple of weeks ago, some of my summer work has been merged to
+[UPower](http://upower.freedesktop.org/), adding battery support for some
+Logitech devices.
+
+{% endmark %}
+
+# HID++
+
+<span class="pull-right">
+![UPower](/media/images/m705.jpg)
+</span>
+
+As I discovered late in my first reverse engineering attempt, Logitech
+developed a custom HID protocol named HID++. This protocol exists in two
+versions, 1.0 and 2.0. Some devices talk with version 1 of the protocol
+(like my M705 mouse) and some others talk with version 2 of the protocol
+(like my K750 keyboard).
+
+Recently, I've been able to be in touch with a Logitech engineer who worked
+on the Linux support for the Unifying receiver, and he has been really
+helpful and exposed me some details about this protocol.
+
+Logitech made the decision to publish their HID++ specification publicly
+about a year ago, but still didn't do it. The internal review needed to
+publish such documents hasn't be done yet. The [only published
+draft](http://6xq.net/git/lars/lshidpp.git/plain/doc/logitech_hidpp_2.0_specification_draft_2012-06-04.pdf)
+is just an extract of the specification, with even some typo in it as I
+discovered.
+
+Some [other
+documents](https://drive.google.com/?tab=mo&pli=1&authuser=0#folders/0BxbRzx7vEV7eWmgwazJ3NUFfQ28)
+have been recently published, but I didn't have the time to review them.
+They contains HID++ 1.0 specifications and some details I asked for about
+the K750 keyboard.
+
+# UPower support
+
+<span class="pull-left">
+![UPower](/media/images/upower.png)
+</span>
+
+It took me sometime to get a full understanding of the protocol, its
+different version etc. After reverse engineering my K750 keyboard, I've also
+reverse engineered the data stream used to get my M705 mouse battery status.
+I've also received some information about the HID++ 1.0 protocol, so I've
+been able to discover a bit more on what the packets mean. Most of my
+discoveries are now used to do proper <code>#define</code> in
+<a href="http://cgit.freedesktop.org/upower/tree/src/linux/up-device-lg-unifying.c"><code>up-lg-unifying.c</code></a>
+so the code makes more sense.
+
+My [first
+patch](http://cgit.freedesktop.org/upower/commit/?id=2f03ad62b520fc5c02e3ff9eb5bffc4275eb88dc)
+implements a new property for UPower devices, named *luminosity*, that use
+with K750 keyboard to report the light level received. The [second
+patch](http://cgit.freedesktop.org/upower/commit/?id=95184593504bca5240ecd296db98954decd2c5a5)
+add support for Logitech Unifying devices (over USB only) and should work
+with at least Logitech M705 and K750 devices. This should be available with
+the next version of UPower, which should be 0.9.19.
+
+![gnome-power-statistics for K750](/media/images/gnome-power-statistics-k750.png)
+
+So far, Logitech has been kind enough to help me understanding part of the
+protocol and even sent me a few devices so I can play and test my work with
+them. Unfortunately, this will probably requires some work and time, and so
+far Logitech was not able to help with that.
+
+There should be enough information out there to at least add support for
+battery to HID++ 2.0 devices, and probably a few other things too. I hope
+I'd get the time do this at some point, but feel free to beat me in this
+race!
