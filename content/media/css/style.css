@@ -110,7 +110,7 @@ img.cv-logo {
 
 #social-logos {
     text-align: right;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #social-logos img {
@@ -156,12 +156,10 @@ pre {
 }
 
 .illustration > img {
-    margin-bottom: 20px;
     border-radius: 6px;
     border: 5px #333333 solid;
     max-width: 200px;
     max-height: 200px;
-    margin-bottom: 20px;
 }
 
 .float-right {
@@ -176,18 +174,19 @@ pre {
     margin-left: 0px;
 }
 
-/* Software/projects/references listing */
+/* Software/projects listing */
 
 img.listing-logo {
     max-height: 60px;
-    margin-top: 10px;
+    max-width: 120px;
+    margin-top: 0px;
     margin-bottom: 10px;
-    display: inline;
+    margin-left: 12px;
+    float: right;
 }
 
 .listing-entry {
-    margin-bottom: 20px;
-    height: 240px;
+    height: 170px;
     text-align: justify;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -203,6 +202,36 @@ img.listing-logo {
     text-align: center;
 }
 
+/* References listing */
+
+img.reference-logo {
+    max-height: 50px;
+    max-width: 120px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin: auto;
+    display: inline;
+}
+
+.reference {
+    height: 200px;
+    text-align: justify;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.reference:hover {
+    background: whiteSmoke;
+}
+
+.reference h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 50px;
+    text-align: center;
+}
+
 /* Special case for reference: shorter in height */
 
 .reference {
@@ -213,6 +242,11 @@ img.listing-logo {
 /* Freelance */
 
 
+#speech {
+    margin-top: 50px;
+    margin-bottom: 60px;
+}
+
 #speech img {
     max-width: 50px;
     float: left;
@@ -220,6 +254,11 @@ img.listing-logo {
     margin-right: 5px;
     margin-bottom: 5px;
     margin-top: 10px;
+}
+
+#references-carousel {
+    width: 50%;
+    margin: auto;
 }
 
 #references-carousel h4 {
@@ -358,4 +397,58 @@ img.listing-logo {
 
 .posts-list img {
     margin: 0;
+}
+
+
+/* Bio on side */
+
+.bio .illustration {
+    width: 148px;
+    margin: auto;
+}
+
+.bio > h4 {
+    margin-top: 25px;
+}
+
+.bio {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 8px;
+    width: 214px;
+    box-shadow: 1px 1px 1px 1px #eee;
+}
+
+#twitter-widget-1 {
+    width: 214px;
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+    .bio {
+        width: 266px;
+    }
+    #twitter-widget-1 {
+        width: 266px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    .bio {
+        width: 162px;
+    }
+    #twitter-widget-1 {
+        width: 162px;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    .bio {
+        width: 162px;
+    }
+    #twitter-widget-1 {
+        width: 162px;
+    }
 }

@@ -6,7 +6,7 @@ extends: standard.j2
 ---
 {% block main %}
 {% from "macros.j2" import render_blog_listing with context %}
-<div class="row">
+<div class="row-fluid">
   <div class="tabbable span10">
     <ul class="nav nav-tabs">
     {% for node in resource.node.child_nodes|sort(attribute="name")|reverse if node.name.startswith("2") %}

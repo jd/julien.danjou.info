@@ -18,27 +18,6 @@
 {% endif %}
 
 
-{% block prearticle %}
-{% if resource.node != site.content and resource.name != "index.html" %}
-<ul class="breadcrumb">
-  {% set last_title = None %}
-  {% for node in resource.node.rwalk()|reverse if node != site.content and node.meta.title != last_title %}
-  <li>
-    <a href="{{node.full_url}}">
-      {{ node.meta.title }}
-      {% set last_title = node.meta.title %}
-    </a> <span class="divider">/</span>
-  </li>
-  {% endfor %}
-  {% if resource.name != "index.html" %}
-  <li class="active">
-    <a href="{{resource.full_url}}">{{ resource.meta.title }}</a>
-  </li>
-  {% endif %}
-</ul>
-{% endif %}
-{% endblock prearticle %}
-
 {% block premain %}
 {% mark article -%}
 {% filter markdown %}

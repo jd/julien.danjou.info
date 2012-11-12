@@ -51,7 +51,7 @@
           <a class="brand" href="/">{{ site_title }}</a>
           <ul class="nav">
             <li{% if resource.node == site.content %} class="active"{% endif %}>
-              <a href="/"><i class="icon-{{site.content.meta.icon}} icon-white"></i> Bio</a>
+              <a href="/"><i class="icon-{{site.content.meta.icon}} icon-white"></i> Consulting</a>
             </li>
             {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
             {% if menu_item.name != "media" %}
@@ -75,9 +75,65 @@
       {% block container %}
 
       <div class="content">
-        {# This is where the bulk of the content will go #}
-        {% block content %}
-        {% endblock %}
+        <div class="row-fluid">
+          <div class="span9">
+            {# This is where the bulk of the content will go #}
+            {% block content %}
+            {% endblock %}
+          </div>
+          <div class="span3">
+            <div class="bio" data-spy="affix">
+              <div class="illustration">
+                <img src="/media/images/jd.jpg" alt="Julien Danjou">
+              </div>
+              <div class="clear"></div>
+              <h4>Julien Danjou</h4>
+
+              <p>
+                <strong>Free Software
+<a href="http://en.wikipedia.org/wiki/Hacker_(programmer_subculture)">hacker</a></strong>,
+<strong>developer</strong> and consultant working
+<strong><a href="/freelance">freelance</a></strong>.
+              </p>
+
+              <p>
+                I develop and contribute to <strong><a href="/projects">many
+                Free Software projects</a></strong>. Among other things, I'm
+                a <strong>Debian developer</strong> since 2002, the author
+                of the <strong>awesome window manager</strong>, and a
+                contributor to <strong>Emacs</strong> and
+                <strong>OpenStack</strong>.
+              </p>
+
+              <p>
+                A question? Don't hesitate to
+<a href="/freelance#contact">contact me</a>.
+              </p>
+
+              <div id="social-logos">
+                <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
+                  <img src="/media/images/twitter.png" alt="Twitter logo"/>
+                </a>
+                <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
+                  <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
+                </a>
+                <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
+                  <img src="/media/images/linkedin.jpg" alt="LinkedIn logo"/>
+                </a>
+                <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
+                  <img src="/media/images/viadeo.png" alt="Viadeo logo"/>
+                </a>
+                <a href="https://flattr.com/profile/jd" title="jd on Flattr">
+                  <img src="/media/images/flattr.png" alt="Flattr logo"/>
+                </a>
+              </div>
+
+              <a class="twitter-timeline" href="https://twitter.com/juldanjou" data-widget-id="268005727774318593">Tweets by @juldanjou</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+            </div>
+          </div>
+        </div>
       </div>
 
       <footer>
@@ -94,7 +150,9 @@
     {% block basejs %}
     {% block scripts %}
     <!-- Javascript at the bottom for fast page loading -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+    type="text/javascript"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
     <script src="{{ media_url('js/bootstrap.js') }}"></script>
     <script src="{{ media_url('js/bootstrap-tab-bookmark.js') }}"></script>
     <script src="{{ media_url('js/google-code-prettify/prettify.js') }}"></script>

@@ -2,12 +2,12 @@
 <div>
   {% for res in walker %}
   <div class="posts-list">
-    <div class="row">
+    <div class="row-fluid">
       <div class="span8">
         <h4><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
       </div>
     </div>
-    <div class="row">
+    <div class="row-fluid">
       {% if res.meta.image %}
       <div class="span2">
         <a href="{{content_url(res.url)}}" class="thumbnail">
@@ -23,7 +23,7 @@
         <p><a class="btn" href="{{ content_url(res.url) }}">Read more</a></p>
       </div>
     </div>
-    <div class="row">
+    <div class="row-fluid">
       <div class="span8">
         <p></p>
         <p>
