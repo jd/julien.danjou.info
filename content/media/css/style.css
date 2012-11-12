@@ -280,49 +280,6 @@ img.reference-logo {
 }
 
 
-/* Front page */
-
-#bio-title {
-    float: left;
-    line-height: 55px;
-    text-align: left;
-    font-size: 60px;
-    font-family: "Francois One", sans-serif;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    margin-right: 60px;
-}
-
-#bio-title > strong {
-    color: #5b90d0;
-    letter-spacing: -2px;
-}
-
-
-#bio-line-1 {
-    line-height: 20px;
-    font-size: 40px;
-    letter-spacing: 2px;
-}
-
-#bio-line-3 {
-    letter-spacing: 9px;
-    font-size: 75px;
-    line-height: 60px;
-}
-
-
-.bigfont {
-    font-size: 1.7em;
-    color: #555;
-    line-height: 1.9em;
-    font-family: 'PT Sans', sans-serif;
-}
-
-
-
 /* Stuff */
 
 .row {
