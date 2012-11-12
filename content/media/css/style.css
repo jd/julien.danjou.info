@@ -377,7 +377,7 @@ img.reference-logo {
     box-shadow: 1px 1px 1px 1px #eee;
 }
 
-#twitter-widget-1 {
+iframe[id*=twitter-widget] {
     width: 214px;
 }
 
@@ -386,7 +386,7 @@ img.reference-logo {
     .bio {
         width: 266px;
     }
-    #twitter-widget-1 {
+    iframe[id*=twitter-widget] {
         width: 266px;
     }
 }
@@ -395,7 +395,7 @@ img.reference-logo {
     .bio {
         width: 162px;
     }
-    #twitter-widget-1 {
+    iframe[id*=twitter-widget] {
         width: 162px;
     }
 }
@@ -405,7 +405,7 @@ img.reference-logo {
     .bio {
         width: 162px;
     }
-    #twitter-widget-1 {
+    iframe[id*=twitter-widget] {
         width: 162px;
     }
 }
