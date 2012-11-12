@@ -1,0 +1,90 @@
+{% extends "standard.j2" %}
+
+{% if resource.name != "index.html" %}
+{% block headjs %}
+{{ super() }}
+<script type="text/javascript">
+  /* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+/* ]]> */
+</script>
+{% endblock %}
+{% endif %}
+
+
+{% block prearticle %}
+{% if resource.node != site.content and resource.name != "index.html" %}
+<ul class="breadcrumb">
+  {% set last_title = None %}
+  {% for node in resource.node.rwalk()|reverse if node != site.content and node.meta.title != last_title %}
+  <li>
+    <a href="{{node.full_url}}">
+      {{ node.meta.title }}
+      {% set last_title = node.meta.title %}
+    </a> <span class="divider">/</span>
+  </li>
+  {% endfor %}
+  {% if resource.name != "index.html" %}
+  <li class="active">
+    <a href="{{resource.full_url}}">{{ resource.meta.title }}</a>
+  </li>
+  {% endif %}
+</ul>
+{% endif %}
+{% endblock prearticle %}
+
+{% block premain %}
+{% mark article -%}
+{% filter markdown %}
+{% block main %}{% endblock %}
+{% endfilter %}
+{% endmark %}
+{% endblock %}
+
+{% block postarticle %}
+{% if resource.name != "index.html" %}
+<div class="social">
+  <a class="FlattrButton" style="display:none;" href="{{site_url}}{{resource.full_url}}"
+     title="{{resource.meta.title}}"
+     rev="flattr;button:compact;uid:jd"></a>
+  <a class="socialite twitter-share" href="http://twitter.com/share" data-text="{{resource.meta.title}}" data-via="juldanjou" data-count="horizontal" data-url="{{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank">Share on Twitter</a>
+  <a class="socialite googleplus-one" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url={{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank" data-size="medium" data-url="{{site_url}}{{resource.full_url}}">Share on Google+</a>
+  <a class="socialite linkedin-share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{site_url}}{resource.full_url}}&amp;title={{resource.meta.title}}" data-counter="horizontal" data-url="{{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank">Share on LinkedIn</a>
+  <a class="socialite facebook-like" href="http://www.facebook.com/sharer.php?u={{site_url}}{{resource.full_url}}&amp;t={{resource.meta.title}}" data-action="recommend" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank">Share on Facebook</a>
+</div>
+{% endif %}
+
+{% if resource.meta.created %}
+{% if resource.next_by_time or resource.prev_by_time%}
+<nav>
+  <ul class="pager">
+    {% endif %}
+    {% if resource.next_by_time %}
+    <li class="previous">
+      <a rel="prev" href="{{ resource.next_by_time.full_url }}">
+        <i class="icon-arrow-left"></i>
+        {{resource.next_by_time.meta.title}}
+      </a>
+    </li>
+    {% endif %}
+    {% if resource.prev_by_time %}
+    <li class="next">
+      <a rel="next" href="{{ resource.prev_by_time.full_url }}">
+        {{resource.prev_by_time.meta.title}}
+        <i class="icon-arrow-right"></i>
+      </a>
+    </li>
+    {% endif %}
+    {% if resource.next_by_time or resource.prev_by_time%}
+  </ul>
+</nav>
+{% endif %}
+{% endif %}
+
+{% endblock postarticle %}
