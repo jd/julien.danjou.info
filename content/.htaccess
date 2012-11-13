@@ -10,9 +10,9 @@ RedirectPermanent /software/muse-blog.el http://julien.danjou.info/projects/emac
 RedirectPermanent /software/offlineimap.el http://julien.danjou.info/projects/emacs-packages#offlineimap
 RedirectPermanent /software/org-contacts.el http://julien.danjou.info/projects/emacs-packages#org-contacts
 RedirectPermanent /software/erc-track-score.el http://julien.danjou.info/projects/emacs-packages#erc-track-score
-RedirectPermanent /software/ http://julien.danjou.info/projects/
-RedirectPermanent /experience/ http://julien.danjou.info/
-RedirectPermanent /freelance/ http://julien.danjou.info/
+RedirectPermanent /software http://julien.danjou.info/projects
+RedirectPermanent /experience http://julien.danjou.info/
+RedirectPermanent /freelance http://julien.danjou.info/
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^.*$ %{REQUEST_FILENAME}.html
