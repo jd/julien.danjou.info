@@ -63,7 +63,7 @@ context:
           - url: http://enovance.com
             name: eNovance
             logo: /media/images/cv/enovance.png
-            text: Lead developer, building of the <a href="http://enocloud.com">eNocloud</a> project using <a href="http://openstack.org">OpenStack</a>. Consulting on <a href="http://launchpad.net/ceilometr">Ceilometer</a>
+            text: Lead developer, building of the <a href="http://enocloud.com">eNocloud</a> project using <a href="http://openstack.org">OpenStack</a>. Consulting on <a href="http://launchpad.net/ceilometr">Ceilometer</a>.
           - url: http://swiftstack.com
             name: SwiftStack
             logo: /media/images/swiftstack.png
