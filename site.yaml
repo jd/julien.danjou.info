@@ -68,6 +68,10 @@ context:
             name: SwiftStack
             logo: /media/images/swiftstack.png
             text: Development on and around <a href="http://launchpad.net/swift">Swift</a>.
+          - url: http://smile.fr
+            name: Smile
+            logo: /media/images/smile.png
+            text: <a href="http://openstack.org">OpenStack</a> consulting, development, assistance and training.
           - url: http://1984.is
             name: 1984
             logo: /media/images/1984.png
