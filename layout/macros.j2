@@ -1,25 +1,19 @@
 {% macro render_blog_listing(walker) %}
 <div>
   {% for res in walker %}
-  <div class="posts-list">
-    <h4><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
-    <div class="row-fluid">
-      {% if res.meta.image %}
+  <div class="media">
       <div class="span2">
-        <a href="{{content_url(res.url)}}" class="thumbnail">
-          <img src="{{res.meta.image}}" alt="">
+        <a href="{{content_url(res.url)}}" class="pull-left">
+          {% if res.meta.image %}
+            <img src="{{res.meta.image}}" alt="">
+          {% endif %}
         </a>
       </div>
-      <div class="span10">
-      {% else %}
-      <div class="span12">
-      {% endif %}
-        {% refer to res.relative_deploy_path as post %}
-        {{ post.excerpt|markdown|typogrify }}
-        <p><a class="btn" href="{{ content_url(res.url) }}">Read more</a></p>
-      </div>
-    </div>
-    <div>
+    <div class="media-body">
+      <h4><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
+      {% refer to res.relative_deploy_path as post %}
+      {{ post.excerpt|markdown|typogrify }}
+      <p><a class="btn" href="{{ content_url(res.url) }}">Read more</a></p>
       <p>
         <i class="icon-calendar"></i> {{ res.meta.created.strftime('%d %b %Y') }}
         {% if res.meta.tags %}
@@ -31,7 +25,6 @@
       </p>
     </div>
   </div>
-  <hr>
   {% endfor %}
 </div>
 {% endmacro %}

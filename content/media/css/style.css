@@ -50,16 +50,8 @@ time.label {
     width: 120px;
 }
 
-.posts-list h4 {
-    clear: both;
-}
-
 .clear {
     clear: both;
-}
-
-.not-clear {
-    clear: none;
 }
 
 .page-content iframe {
@@ -79,8 +71,11 @@ time.label {
     margin-bottom: 25px;
 }
 
-.pull-left img, .pull-right img {
+article .pull-left {
     margin-right: 25px;
+}
+
+article .pull-right {
     margin-left: 25px;
 }
 
@@ -162,18 +157,6 @@ pre {
     max-height: 200px;
 }
 
-.float-right {
-    float: right;
-    margin-right: 0px;
-    margin-left: 30px;
-}
-
-.float-left {
-    float: left;
-    margin-right: 30px;
-    margin-left: 0px;
-}
-
 /* Software/projects listing */
 
 img.listing-logo {
@@ -240,7 +223,6 @@ img.reference-logo {
 }
 
 /* Freelance */
-
 
 #speech {
     margin-top: 50px;
