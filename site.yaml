@@ -56,30 +56,6 @@ context:
             url: "http://julien.danjou.info"
         google_analytics_id: UA-25393581-1
         references:
-          - url: http://dreamhost.com
-            name: DreamHost
-            logo: /media/images/dreamhost.png
-            text: Development on <a href="http://launchpad.net/ceilometer">Ceilometer</a>.
-          - url: http://enovance.com
-            name: eNovance
-            logo: /media/images/cv/enovance.png
-            text: Lead developer, building of the <a href="http://enocloud.com">eNocloud</a> project using <a href="http://openstack.org">OpenStack</a>. Consulting on <a href="http://launchpad.net/ceilometr">Ceilometer</a>.
-          - url: http://swiftstack.com
-            name: SwiftStack
-            logo: /media/images/swiftstack.png
-            text: Development on and around <a href="http://launchpad.net/swift">Swift</a>.
-          - url: http://smile.fr
-            name: Smile
-            logo: /media/images/smile.png
-            text: <a href="http://openstack.org">OpenStack</a> consulting, development, assistance and training.
-          - url: http://1984.is
-            name: 1984
-            logo: /media/images/1984.png
-            text: Deployment of an <a href="http://openstack.org">OpenStack</a> platform.
-          - url: http://eisti.fr
-            name: EISTI
-            logo: /media/images/eisti.png
-            text: Consulting on <a href="http://launchpad.net/ceilometer">Ceilometer</a> and <a href="http://openstack.org">OpenStack</a> for the <a href="http://xlcloud.org">XLcloud</a> project.
           - url: http://www.lwm-agence.com/
             name: LWM
             logo: /media/images/lwm.jpg
@@ -128,7 +104,3 @@ context:
             name: Mairie de Pierrefitte-sur-Seine
             logo: /media/images/pierrefitte-sur-seine.png
             text: <a href="http://debian.org">Debian</a> GNU/Linux servers and firewall set-up and administration.
-          - url: http://www.lafemis.fr/
-            name: La femis
-            logo: /media/images/femis.jpg
-            text: E-mail server with spam and virus filters set-up and administration, using Postfix and amavisd.

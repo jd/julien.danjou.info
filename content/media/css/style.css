@@ -62,7 +62,7 @@ time.label {
     margin-bottom: 25px;
 }
 
-.page-content img, .page-content video {
+article > img, article > video {
     display: block;
     width: auto;
     margin-left: auto;
@@ -197,8 +197,8 @@ img.reference-logo {
 }
 
 .reference {
-    height: 200px;
-    text-align: justify;
+    height: 150px;
+    text-align: center;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -212,13 +212,6 @@ img.reference-logo {
     margin-top: 0px;
     margin-bottom: 0px;
     line-height: 50px;
-    text-align: center;
-}
-
-/* Special case for reference: shorter in height */
-
-.reference {
-    height: 180px;
     text-align: center;
 }
 
@@ -238,29 +231,14 @@ img.reference-logo {
     margin-top: 10px;
 }
 
-#references-carousel {
-    width: 50%;
-    margin: auto;
+#references-detailed > .media {
+    margin-bottom: 40px;
 }
 
-#references-carousel h4 {
-    margin-top: 0px;
+img.reference-logo-detailed {
+    max-width: 112px;
+    max-height: 112px;
 }
-
-#references-carousel .carousel-inner {
-    margin-top: 20px;
-}
-
-#references-carousel .item {
-    height: 245px;
-}
-
-#references-carousel img {
-    max-height: 245px;
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-
 
 /* Stuff */
 

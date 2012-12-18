@@ -6,8 +6,8 @@ default_block: None
 <div class="tabbable">
   <ul class="nav nav-pills">
     <li class="active"><a href="#services" data-toggle="pill"><i class="icon-wrench"></i> Services</a></li>
-    <li><a href="#cv" data-toggle="pill"><i class="icon-user"></i> Curriculum vitae</a></li>
     <li><a href="#references" data-toggle="pill"><i class="icon-th-list"></i> References</a></li>
+    <li><a href="#cv" data-toggle="pill"><i class="icon-user"></i> Curriculum vitae</a></li>
     <li><a href="#contact" data-toggle="pill"><i class="icon-envelope"></i> Contact</a></li>
   </ul>
   <div class="tab-content">
@@ -47,6 +47,11 @@ default_block: None
         with upstream software projects, feel free to
         <a href="#contact">contact me</a>.
       </p>
+
+      <p class="mediumfont">
+        If you want to learn how I've been able to help my customers so far,
+        check out <a href="#references">my references</a>.
+      </p>
       </div>
       <div>
         <div class="row-fluid" id="speech">
@@ -83,26 +88,6 @@ default_block: None
             of different size and culture.
           </div>
         </div>
-      </div>
-
-      <div id="references-carousel" class="carousel slide">
-        <h4>References</h4>
-        <div class="carousel-inner">
-          {% for reference in site.context.references %}
-          <div class="{% if loop.first %}active {% endif %}item">
-            <a href="{{reference.url}}"><img src="{{reference.logo}}"></a>
-            <div class="carousel-caption">
-              <h4>{{reference.name}}</h4>
-                  <p>
-                    {{reference.text}}
-                  </p>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-
-        <a class="carousel-control left" href="#references-carousel" data-slide="prev">&lsaquo;</a>
-            <a class="carousel-control right" href="#references-carousel" data-slide="next">&rsaquo;</a>
       </div>
     </div>
     <div class="tab-pane fade" id="contact">
