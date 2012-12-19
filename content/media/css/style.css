@@ -54,7 +54,7 @@ time.label {
     clear: both;
 }
 
-.page-content iframe {
+article.page-content > iframe {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -62,7 +62,7 @@ time.label {
     margin-bottom: 25px;
 }
 
-article > img, article > video {
+article img, article video, article > img, article > video {
     display: block;
     width: auto;
     margin-left: auto;
