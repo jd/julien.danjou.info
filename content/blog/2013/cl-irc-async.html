@@ -57,10 +57,10 @@ So you would do something like:
 (defun connection-socket-event (ev)
   (format t "Socket event: ~a~%" ev))
 
-(defun connect (server &optional port)
+(defun connect (server &optional (port 6667))
   (cl-irc:make-connection :connection-type 'cl-irc:connection
                           :client-stream t
-                          :network-stream (as:tcp-connect server (or port 6667)
+                          :network-stream (as:tcp-connect server port
                                                           #'connection-socket-read
                                                           #'connection-socket-event
                                                           :stream t)
