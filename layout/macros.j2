@@ -33,7 +33,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>
-    {% block title %}{{ blog_title|forceescape }}{% endblock %}
+    {% block title %}{{ blog_title }}{% endblock %}
   </title>
   {% block self_url %}
   <link href="{{site_url}}{{ resource.full_url }}" rel="self" />
