@@ -118,9 +118,9 @@ So one solution here is to hack *cl-irc:make-connection* so we can build an
          ;; closure calling `connection-socket-read' with our `connection'
          ;; as arguments
          (network-stream (as:tcp-connect server port
-                                         (lambda (socket stream)
-                                           (declare (ignore socket stream))
-                                           (connection-socket-read `,connection))
+                                         (eval `(lambda (socket stream)
+                                                  (declare (ignore socket stream))
+                                                  (connection-socket-read ,connection)))
                                          #'connection-socket-event
                                          :stream t)))
     ;; Set the network stream on the connection
