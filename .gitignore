@@ -1,4 +1,4 @@
 deploy
 .hyde_deps
 content/blog/tags
-media/css/pygments.css
+content/media/css/pygments.css

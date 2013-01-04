@@ -18,6 +18,6 @@ content/media/images/blog/2012/openstack-swift-replication.png: content/blog/201
 	ditaa --overwrite $< $@
 
 content/media/css/pygments.css: Makefile
-	pygmentize -f html -S manni -a .highlight > $@
+	pygmentize -f html -S tango -a .highlight > $@
 
 .PHONY: clean web pub
