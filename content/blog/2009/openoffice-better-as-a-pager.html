@@ -19,7 +19,7 @@ this kind of request are sent by a pager to change the active desktop.
 That was weird. Nobody is using a pager here. So, I just kicked my gdb out,
 attached it to OOo, breaking on *XSendEvent* call. And I got it:
 
-<pre class="prettyprint">
+<pre>
 Breakpoint 1, XSendEvent (dpy=0x1a00080, w=483, propagate=0, event_mask=1572864, event=0x7fff1fd70d70)
    at ../../src/SendEvent.c:46
 (gdb) bt
@@ -64,7 +64,7 @@ Breakpoint 1, XSendEvent (dpy=0x1a00080, w=483, propagate=0, event_mask=1572864,
 I started digging more into the code, and this is what I finally found in
 *salframe.cxx*:
 
-<pre class="prettyprint lang-c">
+<pre>
         // #i45160# switch to desktop where a dialog with parent will appear
         if( mpParent && mpParent->m_nWorkArea != m_nWorkArea )
             GetDisplay()->getWMAdaptor()->switchToWorkArea(mpParent->m_nWorkArea );

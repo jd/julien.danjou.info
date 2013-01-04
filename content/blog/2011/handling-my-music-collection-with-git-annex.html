@@ -24,14 +24,14 @@ Using *git-annex* is pretty trivial once you understand the concepts.
 
 I've set up a a git repository in my *Music* directory, like that:
 
-<pre class="prettyprint">
+<pre>
 % git init
 Initialized empty Git repository in /home/jd/Music
 </pre>
 
 Then I initialized git annex:
 
-<pre class="prettyprint">
+<pre>
 % git annex init "Music on keller"
 </pre>
 
@@ -41,21 +41,21 @@ choice for file that could be modified, and music files can be, at least
 when editing the metadata. Therefore, I chose the slow but more reliable
 SHA1 backend.
 
-<pre class="prettyprint">
+<pre>
 % git annex add --backend=SHA1 .
 </pre>
 
 That can be long, so you should be patient. Then you should commit the fact
 you annexed files:
 
-<pre class="prettyprint">
+<pre>
 % git commit -a -m "Imported my music collection"
 [master 82d060f] Imported my music collection
 </pre>
 
 Now, it's done. You can go on another computer and clone the repo:
 
-<pre class="prettyprint">
+<pre>
 % git clone ssh://keller/~/Music
 % cd Music
 % git annex get "Incubus - Light Grenades"
@@ -69,7 +69,7 @@ The concept used by git-annex is quite simple. All files are replaced by
 symlinks pointing to *.git-annex/SHA1:filechecksum.log*. This file contains
 lines, whose format is:
 
-<pre class="prettyprint">
+<pre>
 retrieval-timestamp is-file-present uuid-of-the-repository
 </pre>
 

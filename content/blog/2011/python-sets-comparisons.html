@@ -16,7 +16,7 @@ Python source code, I finally discovered there is what seems to be little
 bug. Anyway, it has been "fixed" in Python 3, fortunately. I did not find if
 it was reported somewhere, but since it's fixed, it's not a big deal.
 
-<pre class="prettyprint">
+{% syntax python %}
 Python 2.7.1+ (default, Apr 20 2011, 10:53:33) 
 [GCC 4.5.2] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
@@ -30,12 +30,12 @@ True
 True
 >>> set([A()]) == set([A()])
 False
-</pre>
+{% endsyntax %}
 
 This clearly did not make any sense to me. I've then tested under
 Python 3.2:
 
-<pre class="prettyprint">
+{% syntax python %}
 Python 3.2.1a0 (default, May  4 2011, 19:59:25) 
 [GCC 4.6.1 20110428 (prerelease)] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
@@ -47,12 +47,12 @@ Type "help", "copyright", "credits" or "license" for more information.
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: unhashable type: 'A'
-</pre>
+{% endsyntax %}
 
 At least, raising an error is saner. It actually helped me to understand
 what I needed to do to have my sets working correctly with Python 2:
 
-<pre class="prettyprint">
+{% syntax python %}
 Python 2.7.1+ (default, Apr 20 2011, 10:53:33) 
 [GCC 4.5.2] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
@@ -64,4 +64,4 @@ Type "help", "copyright", "credits" or "license" for more information.
 ... 
 >>> set([A()]) == set([A()])
 True
-</pre>
+{% endsyntax %}

@@ -27,7 +27,7 @@ and refers to them using a relative or absolute index.
 In order to people who never wrote Lua code to understand, here's a quick
 example on how this work. The *L* pointer is a Lua environment.
 
-<pre class="prettyprint lang-c">
+{% syntax c %}
 /* Create a table on the stack: index 1 */
 lua_newtable(L);
 /* Push a string on the stack: index 2 */
@@ -36,7 +36,7 @@ lua_pushstring(L, "hello");
 lua_pushnumber(L, 123);
 /* Set newtable["hello"] = 123 */
 lua_settable(L, -3);
-</pre>
+{% endsyntax %}
 
 You first push a table (in Lua, a table is almost equivalent to what you'd
 call a hash table in other language), then push the key, the value, and do
@@ -54,7 +54,7 @@ parts, it can start to be more complicated.
 
 Let's take a look at the following:
 
-<pre class="prettyprint lang-c">
+{% syntax c %}
 /* Create a table on the stack: index 1 */
 lua_newtable(L);
 /* Push a string on the stack: index 2 */
@@ -63,7 +63,7 @@ lua_pushstring(L, "hello");
 lua_pushnumbe(L, mycomputingfunction());
 /* Set newtable["hello"] = 123 */
 lua_settable(L, -3);
-</pre>
+{% endsyntax %}
 
 Here, we do exactly the same thing, but we do not push *123* directly: we
 compute it.
@@ -77,7 +77,7 @@ sometimes, you forget to pop one of the item you fetched from a table.
 
 Imagine that *mycomputingfunction* is:
 
-<pre class="prettyprint lang-c">
+{% syntax c %}
 int
 mycomputingfunctiong(void)
 {
@@ -88,7 +88,7 @@ mycomputingfunctiong(void)
   lua_gettable(L, -2);
   return lua_tonumber(L, -1);
 }
-</pre>
+{% endsyntax %}
 
 This function works perfectly. It pushes a table, then a key (*"mykey"*), then
 fetches mytable["mykey"] and pops the key (lua_gettable does push value/pop

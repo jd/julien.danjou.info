@@ -13,6 +13,9 @@ plugins:
   - hyde.ext.plugins.sorter.SorterPlugin
   - hyde.ext.plugins.tagger.TaggerPlugin
 
+syntax:
+  use_figure: False
+
 sorter:
   name:
     attr: name

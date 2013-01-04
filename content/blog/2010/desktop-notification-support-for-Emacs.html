@@ -15,13 +15,13 @@ This last weeks, I've worked on implementing the
 
 It allows sending desktop notification in a very simple way.
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (notifications-notify
     :title "You've got mail!"
     :body "There's 34 mails unread"
     :app-icon "~/.emacs.d/icons/mail.png"
     :urgency 'low)
-</pre>
+{% endsyntax %}
 
 It supports the protocol signals (*NotificationClosed* and *ActionInvoked*) and
 the two main methods (*Notify* and *CloseNotification*).
@@ -34,12 +34,12 @@ notification creation.
 
 It have been merged into Emacs trunk today.
 
-<pre class="prettyprint">
+{% syntax text %}
 2010-06-09  Julien Danjou  <julien@danjou.info>
 
 	* net/notifications.el: New file.
 
-</pre>
+{% endsyntax %}
 
 This also allowed me to discover, raise and fix a
 [bug](http://lists.gnu.org/archive/html/emacs-devel/2010-06/msg00228.html)

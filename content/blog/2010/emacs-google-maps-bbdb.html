@@ -16,7 +16,7 @@ Maps' map, using my [Google Maps extension for Emacs](http://julien.danjou.info/
 
 With the help of a few lines of Lisp glue:
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (google-maps-static-show
  :markers
  (mapcar
@@ -34,7 +34,7 @@ With the help of a few lines of Lisp glue:
      ;; We need to copy the returned list, because mapcan will modify it later
      (copy-list (bbdb-record-addresses record)))
    (bbdb-records))))
-</pre>
+{% endsyntax %}
 
 we can make that:
 

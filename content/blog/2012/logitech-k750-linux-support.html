@@ -285,7 +285,7 @@ We're going to write a small application using
 and does not check for error codes, be careful.
 
 <figure>
-<pre class="prettyprint">
+{% syntax c %}
 /* Written by Julien Danjou <julien@danjou.info> in 2012 */
 
 #include &lt;linux/hid.h&gt;
@@ -362,7 +362,7 @@ int main(void)
     libusb_exit(ctx);
 }
 
-</pre>
+{% endsyntax %}
 </figure>
 
 What the program is doing is the following:

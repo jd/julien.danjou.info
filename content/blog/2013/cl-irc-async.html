@@ -21,7 +21,7 @@ really useful, for example to trigger action based on time, using timers.
 The first step is to create a basic *cl-irc:connection* object on our own.
 This can be achieved easily with this:
 
-<pre class="prettyprint lisp">
+{% syntax cl %}
 (require :cl-irc)
 
 (defun connect (server)
@@ -29,7 +29,7 @@ This can be achieved easily with this:
                                               :client-stream t
                                               :network-stream ?
                                               :server-name server))
-</pre>
+{% endsyntax %}
 
 This will return a *cl-irc:connection* object, logging to stdout
 (*:client-stream t*) and having the server name *server*. Note that the
@@ -47,7 +47,7 @@ option to get a stream rather than a socket.
 
 So you would do something like:
 
-<pre class="prettyprint lisp">
+{% syntax cl %}
 (require :cl-irc)
 (require :cl-async)
 
@@ -67,7 +67,7 @@ So you would do something like:
                           :server-name server))
 
 (as:start-event-loop (lambda () (connect "irc.oftc.net")))
-</pre>
+{% endsyntax %}
 
 If you run this program, it will connect to the OFTC IRC server, and then
 notice you each time the server is sending you a message.
@@ -89,7 +89,7 @@ So one solution here is to hack *cl-irc:make-connection* so we can build an
 *cl-irc:connection* to read event for. This is what we're going to do in the
 <code>connect</code> function.
 
-<pre class="prettyprint lisp">
+{% syntax cl %}
 (require :cl-irc)
 (require :cl-async)
 (require :flexi-streams)
@@ -141,7 +141,7 @@ So one solution here is to hack *cl-irc:make-connection* so we can build an
     connection))
 
 (as:start-event-loop (lambda () (connect "irc.oftc.net" 6667 "jd-blog")))
-</pre>
+{% endsyntax %}
 
 And here we are! If we run this, we're now using an event loop to run
 <code>cl-irc</code>. Each time the socket has something to read, the
@@ -153,7 +153,7 @@ function will exit and the loop will continue to run.
 
 You can now modify the last line with this:
 
-<pre class="prettyprint lisp">
+{% syntax cl %}
 (defun say-hello (connection)
   (cl-irc:privmsg connection "#jd-blog" "Hey I read your blog!")
   (as:delay (lambda () (say-hello connection)) :time 60))
@@ -162,7 +162,7 @@ You can now modify the last line with this:
                        (let ((connection (connect "irc.oftc.net" 6667 "jd-blog")))
                          (cl-irc:join connection "#jd-blog")
                          (say-hello connection))))
-</pre>
+{% endsyntax %}
 
 This will connect to the IRC server, join a channel and then say the same
 sentence every minute.

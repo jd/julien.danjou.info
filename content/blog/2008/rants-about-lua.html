@@ -28,27 +28,27 @@ I refer here to Lua version 5.1.
 Lua has a length operator on its objects, known as ''#''. It can be used to
 get the size of various objects.
 
-<pre class="prettyprint lang-lua">
+{% syntax lua %}
 > return #"lol"
 > 3
-</pre>
+{% endsyntax %}
 
 This operator works for table, string, etc… It's possible to define this
 operator by setting a *__len* meta-method on a userdata value.
 
 The problem is that you cannot redefine it on string or table objects, see:
 
-<pre class="prettyprint lang-lua">
+{% syntax lua %}
 > a = { "hello", "world" }
 > return #a
 2
 > setmetatable(a, { __len = function () return 18 end })
 > return #a
 2
-</pre>
+{% endsyntax %}
 
 Indeed, looking at the Lua core code:
-<pre class="prettyprint lang-c">
+{% syntax c %}
       case OP_LEN: {
         const TValue *rb = RB(i);
         switch (ttype(rb)) {
@@ -69,7 +69,7 @@ Indeed, looking at the Lua core code:
         }
         continue;
       }
-</pre>
+{% endsyntax %}
 
 You clearly see that tables and strings always use the internal length
 operator, never the *__len* meta-method.
@@ -84,14 +84,14 @@ can be set on a table or any other object.  *__index* will be called upon each
 read access to an undefined key on an object, and *__newindex* upon each write
 access.
 
-<pre class="prettyprint lang-lua">
+{% syntax lua %}
 > a = {}
 > -- function are not defined, this is just an example
 > setmetatable(a, { __index = myindexfunction, __newindex = mynewindexfunction })
 > a[1] = "hello" -- This will call __newindex metamethod
 > return a[2] -- This will call __index metamethods
 > return a[1] -- This will NOT call __index
-</pre>
+{% endsyntax %}
 
 The last line does not call *__index* meta-method because *a[1]* does
 exists. This is a problem when you want to use table as object, because
@@ -101,16 +101,16 @@ This can be easily worked around using a proxy system: you don't store
 things in the table you manipulate, but in another table.
 
 
-<pre class="prettyprint lang-lua">
+{% syntax lua %}
 > a = {}
 > realtable = {}
 > -- function are not defined, this is just an example:
 > setmetatable(a, { __index = myindexfunction, __newindex = mynewindexfunction })
-</pre>
+{% endsyntax %}
 
 Where meta-methods are something like:
 
-<pre class="prettyprint lang-lua">
+{% syntax lua %}
 function myindexfunction(table, key)
    return realtable[key]
 end
@@ -118,7 +118,7 @@ end
 function mynewindexfunction(table, key, value)
    realtable[key] = value
 end
-</pre>
+{% endsyntax %}
 
 This way, our *a* table will always be empty, and *realtable* will have the
 data. At every read or write access to *a*, the meta-methods will be

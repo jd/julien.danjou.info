@@ -17,32 +17,32 @@ repository](http://git.naquadah.org/?p=mod_defensible.git;a=summary).
 
 # Installation
 
-<pre class="prettyify">
-% ./configure
-% make
-% su -
-# make install
-</pre>
+{% syntax bash %}
+./configure
+make
+su -
+make install
+{% endsyntax %}
 
 You can use =--with-udns= to enable [udns](http://www.corpit.ru/mjt/udns.html)
 (asynchronous resolver library) usage, which should be faster.
 
 However, this is not mandatory.
 
-<pre class="prettyprint">
+{% syntax apache %}
 # Configuration
 # Activate DNSBL usage
 DnsblUse On
 # Specify DNSBL servers
 DnsblServers xbl-bl.spamhaus.org. mydnbl.server.org.
-</pre>
+{% endsyntax %}
 
 With udns support, you can also use:
 
-<pre class="prettyify">
+{% syntax apache %}
 # Specify another nameserver to use instead of default system resolver
 DnsblNameserver 192.168.3.254
-</pre>
+{% endsyntax %}
 
 # Why?
 

@@ -178,7 +178,7 @@ If something is not up-to-date, it will be pushed using *rsync* by the
 replicator process. This is why you'll read that the replication updates are
 *"push based"* in Swift documentation.
 
-<pre class="prettyprint">
+{% syntax python %}
 # Pseudo code describing replication process for accounts
 # The principle is exactly the same for containers
 for account in accounts:
@@ -190,14 +190,14 @@ for account in accounts:
         version_of_account = zone.send_HTTP_REPLICATE_for(account):
         if version_of_account < account.version()
             account.sync_to(zone)
-</pre>
+{% endsyntax %}
 
 This replication process is *O(number of account × number of replicas)*. The
 more your number of account will increase and the more you will want
 replicas for your data, the more the replication time for your accounts will
 grow. The same rule applies for containers.
 
-<pre class="prettyprint">
+{% syntax python %}
 # Pseudo code describing replication process for objects
 for partition in partitions_storing_objects:
     # The number of zone is the number of replicas configured
@@ -208,7 +208,7 @@ for partition in partitions_storing_objects:
             # Use rsync to synchronize the whole partition
             # and all its objects
             partition.rsync_to(zone)
-</pre>
+{% endsyntax %}
 
 This replication process is
 *O(number of objects partitions × number of replicas)*. The more your
@@ -253,14 +253,14 @@ Guide](http://swift.openstack.org/deployment_guide.html) this lines listed
 under ["general system
 tuning"](http://swift.openstack.org/deployment_guide.html#general-system-tuning):
 
-<pre class="prettyprint">
+{% syntax ini %}
 # disable TIME_WAIT.. wait..
 net.ipv4.tcp_tw_recycle=1
 net.ipv4.tcp_tw_reuse=1
 
 # double amount of allowed conntrack
 net.ipv4.netfilter.ip_conntrack_max = 262144
-</pre>
+{% endsyntax %}
 
 In my humble opinion, this is more an ugly hack than a tuning. If you don't
 activate this and if you have a lot of containers on your node, you'll end

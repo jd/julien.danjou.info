@@ -20,17 +20,16 @@ Emacs 24.2.
 ![gnus-notifications example](/media/images/blog/2012/gnus-notifications.png)
 
 This module allows you to be notified via <code>notifications-notify</code>
-(the Emacs implementation of the [Freedesktop desktop
-notifications](http://www.galago-project.org/specs/notification/)) on new
+(the Emacs implementation of the [Freedesktop desktop notifications](http://www.galago-project.org/specs/notification/)) on new
 messages received in Gnus. It can also retrieves contacts photo via
 *gravatar.el* and *google-contacts.el* to include them in the notification.
 
 To enable it in Emacs > 24.1, you just have to add the following line to
 your Gnus configuration file:
 
-<pre code="prettyprint lang-lisp">
+{% syntax cl %}
 (add-hook 'gnus-after-getting-new-news-hook 'gnus-notifications)
-</pre>
+{% endsyntax %}
 
 If you want to download it and use it stand-alone for a previous Emacs
 version, you can [fetch the latest file

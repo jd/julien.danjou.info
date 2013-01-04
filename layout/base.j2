@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ media_url('css/bootstrap-responsive.min.css') }}" rel="stylesheet">
     <link href="{{ media_url('css/style.css') }}" rel="stylesheet">
-    <link href="{{ media_url('js/google-code-prettify/prettify.css') }}" rel="stylesheet">
+    <link href="{{ media_url('css/pygments.css') }}" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
@@ -39,7 +39,7 @@
     {% block endhead %}{% endblock endhead %}
   </head>
 
-  <body onload="prettyPrint()">
+  <body>
 
     {% block body %}
 
@@ -166,9 +166,6 @@
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
     <script src="{{ media_url('js/bootstrap.min.js') }}"></script>
     <script src="{{ media_url('js/bootstrap-tab-bookmark.js') }}"></script>
-    <script src="{{ media_url('js/google-code-prettify/prettify.js') }}"></script>
-    <script src="{{ media_url('js/google-code-prettify/lang-lua.js') }}"></script>
-    <script src="{{ media_url('js/google-code-prettify/lang-lisp.js') }}"></script>
     <script src="{{ media_url('js/socialite/socialite.js') }}"></script>
     <script>$(Socialite.load);</script>
     {% endblock scripts %}

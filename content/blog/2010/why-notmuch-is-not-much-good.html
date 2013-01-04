@@ -28,13 +28,13 @@ more.
 
 A *notmuch* rule like:
 
-<pre class="prettyprint lang-sh">
+<pre>
 notmuch tag +intel from:intel.com and not tag:intel
 </pre>
 
 Can be written as a Sieve rule like:
 
-<pre class="prettyprint">
+<pre>
 if address :all :contains "From" "intel.com" {
 	addflag "intel";
 }

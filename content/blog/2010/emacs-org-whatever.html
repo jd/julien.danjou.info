@@ -23,7 +23,7 @@ but… not documented. Not at all. Not a single line. Nah.
 Then, I wrote a **google-weather** extension, implementing a basic Emacs Lisp
 API to retrieve data from the Google service:
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 ELISP> (google-weather-data->forecast (google-weather-get-data "Paris"))
 (((9 8 2010)
   (low "53")
@@ -45,7 +45,7 @@ ELISP> (google-weather-data->forecast (google-weather-get-data "Paris"))
   (high "75")
   (icon "http://www.google.com/ig/images/weather/partly_cloudy.gif")
   (condition "Partly Cloudy")))
-</pre>
+{% endsyntax %}
 
 My API even implements data caching, which is nice to speed up the agenda
 display.

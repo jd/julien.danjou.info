@@ -30,7 +30,7 @@ Here is an example of a Python program that draws a spiral in a window using
 xpyb and Pycairo. You need xpyb >= 1.3 and Pycairo >= 1.10 to make this
 works.
 
-<pre class="prettyprint python">
+{% syntax python %}
 import cairo
 import xcb
 from xcb.xproto import *
@@ -119,7 +119,7 @@ while True:
     elif isinstance(event, ButtonPressEvent):
         break
     conn.flush()
-</pre>
+{% endsyntax %}
 
 Seeing the complexity it is to draw something simple with this technology, I
 somehow understand why nobody bothered to release or use the code during the

@@ -67,9 +67,9 @@ It is available in the contrib directory of [Orgmode](http://orgmode.org) (versi
 ## Manual
 Just load the file from your .emacs:
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'org-contacts)
-</pre>
+{% endsyntax %}
 
 There's a few variables you can customize. The main one is
 *org-contacts-files* which determines which file(s) will be used to get your
@@ -82,6 +82,7 @@ What a contact is is determined by the matching rule in
 *org-contacts-matcher*. By default, contacts are Org entry which have a **EMAIL**
 property set.
 {% endmarkdown %}
+
 <pre>
 #+STARTUP: showeverything
 * Friends
@@ -92,6 +93,7 @@ property set.
 This is one of my friend.
 *** TODO Call him for the party
 </pre>
+
 {% markdown %}
 Now, if you do *M-x org-contacts* and search *Dave* you'll find Dave.
 
@@ -99,6 +101,7 @@ Now, if you do *M-x org-contacts* and search *Dave* you'll find Dave.
 *Org-contacts* support [Gnus](http://www.gnus.org). You can use completion in *message-mode* in the To,
 Cc, etc headers. You can also complete with tags. For example:
 {% endmarkdown %}
+
 <pre>
 #+STARTUP: showeverything
 * Friends
@@ -118,6 +121,7 @@ That good old Slash.
 :EMAIL: exam@pelle.com
 :END:
 </pre>
+
 {% markdown %}
 If you type *+* in the **To** field and press *&lt;TAB&gt;* to complete, you'll get a
 list of tags. Finishing the completion using a tag will expand the
@@ -133,14 +137,14 @@ contact. A link to the email will be placed in the
 To add new contact, you can use **org-capture**. Here is an entry example for
 it:
 {% endmarkdown %}
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (add-to-list 'org-capture-templates
              '("c" "Contacts" entry (file "~/Org/contacts.org")
                "* %(org-contacts-template-name)
                   :PROPERTIES:
                   :EMAIL: %(org-contacts-template-email)
                   :END:"))
-</pre>
+{% endsyntax %}
 {% markdown %}
 The *org-contacts-template-name* and *org-contacts-template-email* functions
 will try to determine the name and email of your new contact, using the mail
@@ -180,9 +184,9 @@ There's no tagged release for now.
 The easiest way to use it is to load it from your *.emacs*:
 
 {% endmarkdown %}
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'offlineimap)
-</pre>
+{% endsyntax %}
 {% markdown %}
 
 You can then use **M-x offlineimap**. It will launch offlineimap in a
@@ -192,9 +196,9 @@ If you want to run offlineimap when you launch [Gnus](http://gnus.org), you
 can add the following to your **.emacs**:
 
 {% endmarkdown %}
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (add-hook 'gnus-before-startup-hook 'offlineimap)
-</pre>
+{% endsyntax %}
 </div>
 <div class="tab-pane fade in" id="oauth2">
 {% markdown %}
@@ -233,13 +237,13 @@ There's no tagged release for now.
 ### Creating a blog project
 You should load it from your Emacs start-up file:
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'muse-blog)
-</pre>
+{% endsyntax %}
 
 Then, you should define a project in `*muse-project-alist'*.
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (add-to-list 'muse-project-alist
              '("MyBlog"
                ;; Path to your blog
@@ -252,7 +256,7 @@ Then, you should define a project in `*muse-project-alist'*.
               (:base "blog-rss"
                      :base-url "http://www.example.com/blog/"
                      :path "~/Blog/output/"))
-</pre>
+{% endsyntax %}
 
 This will add a new project named *MyBlog*, which have files in *~/Blog* and
 will publish all files (XHTML and RSS) to *:path*. All URL will be relative to
@@ -264,7 +268,7 @@ one Muse file, or a Muse file for each month, or even a file by entry.
 
 The syntax for a blog entry is:
 
-<pre class="prettyprint">
+<pre>
 * 20100519-16:24:78 This is my first muse-blog entry
 
 I'm very excited about all this. I think it's amazing to write a blog in
@@ -273,7 +277,7 @@ Emacs. Seriously. We should all thanks **jd** for his extraordinary work!
 
 An entry should start with a first-level heading, with the following format:
 
-<pre class="prettyprint">
+<pre>
 * YYMMDD-HH:MM:SS Title
 </pre>
 
@@ -286,7 +290,7 @@ entries in a front page.
 
 Just create a front page like this:
 
-<pre class="prettyify">
+<pre>
 #title This is my bloog!
 #desc Blog of a new muse-blog user
 &lt;lisp&gt;(muse-blog-make-index 0 9)&lt;/lisp&gt;
@@ -324,9 +328,9 @@ There's no tagged release for now.
 ## Manual
 The easiest way to use it is to load it from your *.emacs*:
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'google-weather)
-</pre>
+{% endsyntax %}
 
 The function are documented, therefore you should not have any difficulty to
 use them.
@@ -334,13 +338,13 @@ use them.
 If you want to use **org-google-weather** to add weather forecasts in your
 agenda, just add the following in your *.emacs.*
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'org-google-weather)
-</pre>
+{% endsyntax %}
 
 Then, add the following in one of your Org file.
 
-<pre class="prettyprint">
+<pre>
 * Weather
 %%(org-google-weather "New York")
 </pre>
@@ -350,7 +354,7 @@ system used is language dependent. By default, American English is used,
 therefore with Fahrenheit degrees, but if you want to have English with
 Celsius degrees, you can use "en-gb".
 
-<pre class="prettyprint">
+<pre>
 * Weather
 %%(org-google-weather "Paris 14" "en-gb")
 </pre>
@@ -381,9 +385,9 @@ There's no tagged release for now.
 ## Manual
 The easiest way to use it is to load it from your *.emacs*:
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'google-maps)
-</pre>
+{% endsyntax %}
 
 You can then use **M-x google-maps** and type a location.
 
@@ -402,9 +406,9 @@ Various key bindings are available. Here's a few:
 
 You can integrate directly Google Maps into [Org-mode](http://orgmode.org):
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'org-location-google-maps)
-</pre>
+{% endsyntax %}
 
 Then you can use **C-c M-L** to enter a location assisted by Google geocoding
 service. Pressing **C-c M-l** will show you a map.
@@ -440,9 +444,9 @@ There's no tagged release for now.
 ## Manual
 The easiest way to use it is to load it from your *.emacs*:
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'google-contacts)
-</pre>
+{% endsyntax %}
 
 You can then use **M-x google-contacts** and type a query string.
 
@@ -456,17 +460,17 @@ Various key bindings are available. Here's a few:
 
 You can integrate directly Google Contacts into [Gnus](http://gnus.org):
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'google-contacts-gnus)
-</pre>
+{% endsyntax %}
 
 Then you can use **;** to go to a contact information while reading an e-mail.
 
 You can integrate directly Google Contacts into *message-mode*;
 
-<pre class="prettyprint lang-lisp">
+{% syntax cl %}
 (require 'google-contacts-message)
-</pre>
+{% endsyntax %}
 
 Then you can use **TAB** to go to complete e-mail addresses in the header
 fields.

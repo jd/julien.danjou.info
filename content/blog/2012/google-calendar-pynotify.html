@@ -25,33 +25,33 @@ I'll detail the code here, so you can build your own and adapt it to your needs.
 
 First, we need to import GTK+ and pynotify, and initialize it.
 
-<pre class="prettyprint python">
+{% syntax python %}
 import gtk
 import pynotify
 pynotify.init(sys.argv[0])
-</pre>
+{% endsyntax %}
 
 Then, we need to import gdata Calendar API and connect to the calendar. I'll
 use the simple email/password way to login, which is clearly not the best,
 but it's also the simplest. Feel free to use OAuth 2.0. :-)
 
-<pre class="prettyprint python">
+{% syntax python %}
 calendar_service = gdata.calendar.service.CalendarService()
 calendar_service.email = 'mygooglelogin'
 calendar_service.password = 'mygooglepassword'
 calendar_service.ProgrammaticLogin()
-</pre>
+{% endsyntax %}
 
 Now we're ready to request stuff and notify! First, request the events from
 the default calendar.
 
-<pre class="prettyprint python">
+{% syntax python %}
 feed = calendar_service.GetCalendarEventFeed()
-</pre>
+{% endsyntax %}
 
 Now we can iterate over *feed* and do various checks.
 
-<pre class="prettyprint python">
+{% syntax python %}
 for event in feed.entry:
     # If the event status is not confirmed, go to the next event.
     if event.event_status.value != "CONFIRMED":
@@ -85,7 +85,7 @@ for event in feed.entry:
                     notification.set_timeout(0)
                     # Show the notification
                     notification.show()
-</pre>
+{% endsyntax %}
 
 Running this program, you should see a notification if an appointment has an
 alert to be raised at that time.
