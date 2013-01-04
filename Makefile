@@ -1,4 +1,4 @@
-deploy: site.yaml clean content/media/css/pygments.css content/media/images/blog/2012/openstack-swift-storage.png content/media/images/blog/2012/openstack-swift-replication.png
+deploy: site.yaml clean content/media/images/blog/2012/openstack-swift-storage.png content/media/images/blog/2012/openstack-swift-replication.png
 	hyde gen
 
 pub: deploy
@@ -16,8 +16,5 @@ content/media/images/blog/2012/openstack-swift-storage.png: content/blog/2012/op
 
 content/media/images/blog/2012/openstack-swift-replication.png: content/blog/2012/openstack-swift-replication.ditaa
 	ditaa --overwrite $< $@
-
-content/media/css/pygments.css: Makefile
-	pygmentize -f html -S tango -a .highlight > $@
 
 .PHONY: clean web pub
