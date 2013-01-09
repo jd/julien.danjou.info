@@ -1,10 +1,5 @@
 {% extends "base.j2" %}
 
-{% block basecss %}
-{{ super() }}
-<link href="{{ media_url('css/columns.css') }}" rel="stylesheet">
-{% endblock basecss %}
-
 {% block content %}
 
 {% if resource.meta.title %}

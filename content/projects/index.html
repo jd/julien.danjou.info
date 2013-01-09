@@ -17,30 +17,29 @@ title: "Projects"
 </div>
 
 {% macro render_software(name, url, logo, text) %}
-  <li class="span4">
-    <div class="listing-entry">
-      <h2>
-        <a href="{{ url }}">
-          {% if logo %}
-          <img class="listing-logo" src="{{logo}}">
-          {% else %}
-          {{name}}
-          {% endif %}
-        </a>
-      </h2>
-      <div class="caption">
-        {% if logo %}
-        <h4><a href="{{ url }}">{{name}}</a></h4>
-        {% endif %}
-        <p>
-          {{ text|typogrify }}
-        </p>
-      </div>
-    </div>
-  </li>
+<div class="span4 listing-entry">
+  <h2>
+    <a href="{{ url }}">
+      {% if logo %}
+      <img class="listing-logo" src="{{logo}}">
+      {% else %}
+      {{name}}
+      {% endif %}
+    </a>
+  </h2>
+  <div class="caption">
+    {% if logo %}
+    <h4><a href="{{ url }}">{{name}}</a></h4>
+    {% endif %}
+    <p>
+      {{ text|typogrify }}
+    </p>
+  </div>
+</div>
 {% endmacro %}
 
-<ul class="thumbnails clear">
+
+<div class="row-fluid">
   {{ render_software("Debian",
   "http://debian.org",
   "/media/images/projects/debian.png",
@@ -59,8 +58,8 @@ title: "Projects"
   "/media/images/projects/xlcloud.jpg",
   "I work on XLcloud since 2012, particularly on the
   <a href=\"http://launchpad.net/ceilometer\">Ceilometer</a> usage.") }}
-</ul>
-<ul class="thumbnails clear">
+</div>
+<div class="row-fluid">
   {{ render_software("CompatibleOne",
   "http://www.compatibleone.org",
   "/media/images/projects/compatibleone.png",
@@ -75,8 +74,8 @@ title: "Projects"
   "http://www.gnu.org/software/emacs/",
   "/media/images/projects/emacs.png",
   "I use <a href=\"http://www.gnu.org/software/emacs/\">Emacs</a> since 2010, and am a commiter. I wrote some <a href=\"/projects/emacs-packages\">packages</a> like rainbow-mode, google-maps, etc.") }}
-</ul>
-<ul class="thumbnails clear">
+</div>
+<div class="row-fluid">
   {{ render_software("XCB",
   "http://xcb.freedesktop.org",
   "/media/images/projects/xcb.png",
@@ -91,8 +90,8 @@ title: "Projects"
   "http://www.gnus.org",
   "/media/images/projects/gnus.png",
   "Using Emacs is nice, but reading e-mail with it is better. Therefore I became a <a href=\"http://gnus.org\">Gnus</a> developer in 2010.") }}
-</ul>
-<ul class="thumbnails clear">
+</div>
+<div class="row-fluid">
   {{ render_software("Org-mode",
   "http://orgmode.org",
   "/media/images/projects/org-mode.png",
@@ -107,8 +106,8 @@ title: "Projects"
   "/projects/pymunincli",
   None,
   "This <a href=\"http://python.org\">Python</a> package allow you to fetch data from <a href=\"http://munin-monitoring.org/\">Munin</a> node daemon.") }}
-</ul>
-<ul class="thumbnails clear">
+</div>
+<div class="row-fluid">
   {{ render_software("rebuildd",
   "/projects/rebuildd",
   None,
@@ -123,8 +122,8 @@ title: "Projects"
   "http://www.tuxfamily.org",
   "/media/images/projects/tuxfamily.png",
   "I managed TuxFamily.org in 2006 as president, and also have been a system administrator between 2002 and 2006.") }}
-</ul>
-<ul class="thumbnails clear">
+</div>
+<div class="row-fluid">
   {{ render_software("VHFFS",
   "http://vhffs.org",
   "/media/images/projects/vhffs.png",
@@ -139,8 +138,8 @@ title: "Projects"
   "/projects/sysrqd",
   None,
   "<a href=\"/projects/sysrqd/\">sysrqd</a> is a very special and very optimized daemon that enables you to use <a href=\"http://fr.wikipedia.org/wiki/Magic_SysRq_key\">magic SysRq keys</a> over IP, via telnet.") }}
-</ul>
-<ul class="thumbnails clear">
+</div>
+<div class="row-fluid">
   {{ render_software("libparportled",
   "/projects/libparportled",
   None,
@@ -151,4 +150,4 @@ title: "Projects"
   "/projects/mod_defensible",
   None,
   "An Apache HTTPD module made to blocks requests from spammers using DNSBL.") }}
-</ul>
+</div>
