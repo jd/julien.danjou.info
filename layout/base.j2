@@ -71,62 +71,67 @@
     </div>
 
     <section class="container">
-      {# This is where the bulk of the content will go #}
-      <div class="span9 content">
-        {% block content %}
-        {% endblock %}
+      <div class="row">
+        <div class="span9">
+          <div class="content">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+        <aside class="span3">
+          <div class="content bio">
+            <h1>Julien Danjou</h1>
+            <div class="illustration">
+              <img src="/media/images/jd.jpg" alt="Julien Danjou">
+            </div>
+            <div class="clear"></div>
+            <p>
+              <strong>Free Software
+                <a href="http://en.wikipedia.org/wiki/Hacker_(programmer_subculture)">hacker</a></strong>,
+              <strong>developer</strong> and consultant working
+              <strong><a href="/">freelance</a></strong>.
+            </p>
+
+            <p>
+              I develop and contribute to <strong><a href="/projects">many
+                  Free Software projects</a></strong>. Among other things, I'm
+              a <strong>Debian developer</strong> since 2002, the author
+              of the <strong>awesome window manager</strong>, and a
+              developer of <strong>Emacs</strong> and
+              <strong>OpenStack</strong>.
+            </p>
+
+            <p>
+              A question? Don't hesitate to
+              <a href="/#contact">contact me</a>.
+            </p>
+
+            <hr>
+
+            <div id="social-logos">
+              <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
+                <img src="/media/images/twitter.png" alt="Twitter logo"/>
+              </a>
+              <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
+                <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
+              </a>
+              <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
+                <img src="/media/images/linkedin.jpg" alt="LinkedIn logo"/>
+              </a>
+              <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
+                <img src="/media/images/viadeo.png" alt="Viadeo logo"/>
+              </a>
+              <a href="https://flattr.com/profile/jd" title="jd on Flattr">
+                <img src="/media/images/flattr.png" alt="Flattr logo"/>
+              </a>
+            </div>
+
+            <a class="twitter-timeline" href="https://twitter.com/juldanjou" data-widget-id="268005727774318593">Tweets by @juldanjou</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          </div>
+        </aside>
       </div>
-      <aside class="bio span3">
-        <h1>Julien Danjou</h1>
-        <div class="illustration">
-          <img src="/media/images/jd.jpg" alt="Julien Danjou">
-        </div>
-        <div class="clear"></div>
-        <p>
-          <strong>Free Software
-            <a href="http://en.wikipedia.org/wiki/Hacker_(programmer_subculture)">hacker</a></strong>,
-          <strong>developer</strong> and consultant working
-          <strong><a href="/">freelance</a></strong>.
-        </p>
-
-        <p>
-          I develop and contribute to <strong><a href="/projects">many
-              Free Software projects</a></strong>. Among other things, I'm
-          a <strong>Debian developer</strong> since 2002, the author
-          of the <strong>awesome window manager</strong>, and a
-          developer of <strong>Emacs</strong> and
-          <strong>OpenStack</strong>.
-        </p>
-
-        <p>
-          A question? Don't hesitate to
-          <a href="/#contact">contact me</a>.
-        </p>
-
-        <hr>
-
-        <div id="social-logos">
-          <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
-            <img src="/media/images/twitter.png" alt="Twitter logo"/>
-          </a>
-          <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
-            <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
-          </a>
-          <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
-            <img src="/media/images/linkedin.jpg" alt="LinkedIn logo"/>
-          </a>
-          <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
-            <img src="/media/images/viadeo.png" alt="Viadeo logo"/>
-          </a>
-          <a href="https://flattr.com/profile/jd" title="jd on Flattr">
-            <img src="/media/images/flattr.png" alt="Flattr logo"/>
-          </a>
-        </div>
-
-        <a class="twitter-timeline" href="https://twitter.com/juldanjou" data-widget-id="268005727774318593">Tweets by @juldanjou</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-      </aside>
     </section>
 
     <footer>
