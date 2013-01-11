@@ -11,6 +11,11 @@ body {
     }
 }
 
+header h1 {
+    font-size: 50px;
+    line-height: 55px;
+}
+
 .content {
     background-color: #fff;
     border-radius: 6px 6px;
@@ -310,15 +315,15 @@ img.reference-logo-detailed {
     background-image: -ms-linear-gradient(bottom, #1073ed 3%, #b5c7de 5%, #5b90d0 7%, #4382cf 93%, #b5c7de 95%, #1272e8 97%);
 
     background-image: -webkit-gradient(
-	linear,
-	left bottom,
-	left top,
-	color-stop(0.03, #1073ed),
-	color-stop(0.05, #b5c7de),
-	color-stop(0.07, #5b90d0),
-	color-stop(0.93, #4382cf),
-	color-stop(0.95, #b5c7de),
-	color-stop(0.97, #1272e8)
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.03, #1073ed),
+        color-stop(0.05, #b5c7de),
+        color-stop(0.07, #5b90d0),
+        color-stop(0.93, #4382cf),
+        color-stop(0.95, #b5c7de),
+        color-stop(0.97, #1272e8)
     );
 }
 
@@ -342,10 +347,8 @@ img.reference-logo-detailed {
     max-height: 200px;
 }
 
-.bio > h1 {
+.bio > h2 {
     color: #333;
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
 }
 
