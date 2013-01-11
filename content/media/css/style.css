@@ -250,6 +250,10 @@ img.reference-logo {
     margin-bottom: 40px;
 }
 
+#references-detailed > .media > a {
+    width: 112px;
+}
+
 img.reference-logo-detailed {
     max-width: 112px;
     max-height: 112px;
