@@ -40,6 +40,10 @@ header h1 {
     font-family: 'Francois One', sans-serif;
 }
 
+.pager {
+    margin-bottom: 30px;
+}
+
 blockquote {
     font-style: italic;
 }
