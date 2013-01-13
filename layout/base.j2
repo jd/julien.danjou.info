@@ -5,7 +5,7 @@
     <meta charset="{{ resource.meta.charset }}">
     <title>
     {% block title %}
-    {{ resource.meta.title }} | {{ site_title }}
+    {{ resource.meta.title|striptags }} | {{ site_title }}
     {% endblock %}
     </title>
     <meta name="author" content="{{ resource.meta.author }}">
