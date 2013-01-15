@@ -23,6 +23,7 @@ header h1 {
     padding-left: 18px;
     padding-right: 18px;
     padding-top: 1px;
+    padding-bottom: 10px;
 }
 
 .socialite {
@@ -38,10 +39,6 @@ header h1 {
 
 .navbar .brand {
     font-family: 'Francois One', sans-serif;
-}
-
-.pager {
-    padding-bottom: 30px;
 }
 
 blockquote {
