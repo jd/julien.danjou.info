@@ -5,12 +5,12 @@
       <div class="span2">
         <a href="{{content_url(res.url)}}" class="pull-left">
           {% if res.meta.image %}
-            <img src="{{res.meta.image}}" alt="">
+            <img class="media-object" src="{{res.meta.image}}" alt="">
           {% endif %}
         </a>
       </div>
     <div class="media-body">
-      <h4><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
+      <h4 class="media-heading"><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
       {% refer to res.relative_deploy_path as post %}
       {{ post.excerpt|markdown|typogrify }}
       <p><a class="btn" href="{{ content_url(res.url) }}">Read more</a></p>
