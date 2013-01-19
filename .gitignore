@@ -1,3 +1,5 @@
 deploy
 .hyde_deps
 content/blog/tags
+content/media/images/blog/2012/openstack-swift-storage.png
+content/media/images/blog/2012/openstack-swift-replication.png
