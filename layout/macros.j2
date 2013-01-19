@@ -2,13 +2,11 @@
 <div>
   {% for res in walker %}
   <div class="media">
-      <div class="span2">
-        <a href="{{content_url(res.url)}}" class="pull-left">
-          {% if res.meta.image %}
-            <img class="media-object" src="{{res.meta.image}}" alt="">
-          {% endif %}
-        </a>
-      </div>
+    <a href="{{content_url(res.url)}}" class="pull-left">
+      {% if res.meta.image %}
+        <img class="media-object" src="{{res.meta.image}}" alt="">
+      {% endif %}
+    </a>
     <div class="media-body">
       <h4 class="media-heading"><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
       {% refer to res.relative_deploy_path as post %}

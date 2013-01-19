@@ -26,11 +26,6 @@ header h1 {
     padding-bottom: 10px;
 }
 
-/* Firefox bug fix */
-.media-object {
-    width: 100%;
-}
-
 .socialite {
     display: inline;
     float: left;
