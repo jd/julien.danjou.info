@@ -24,7 +24,9 @@ extends: standard.j2
   <div class="span2">
     <h2><i class="icon-tags"></i> Tags</h2>
     {% for tag, meta in site.tagger.tags %}
-    <a href="/blog/tags/{{tag}}.html"><span class="label label-inverse" style="line-height: {{ 18 + (meta.resources|length) / 2 }}px; font-size: {{ 8 + (meta.resources|length) / 2 }}px;">{{tag}} ({{(meta.resources|length)}})</span></a>
+    <a href="/blog/tags/{{tag}}.html"><span class="label label-inverse"
+    style="line-height: {{ 18 + (meta.resources|length) / 2 }}px; font-size:
+    {{ 9 + (meta.resources|length) / 2 }}px;">{{tag}} ({{(meta.resources|length)}})</span></a>
     {% endfor %}
   </div>
 </div>
