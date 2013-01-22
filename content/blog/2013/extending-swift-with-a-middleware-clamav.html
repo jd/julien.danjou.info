@@ -196,6 +196,8 @@ class SwiftClamavMiddleware(object):
 
     def __call__(self, env, start_response):
         if env['REQUEST_METHOD'] == "PUT":
+            # We have to read the whole content in memory because pyclamd
+            # forces us to, but this is a bad idea if the file is huge.
             scan = pyclamd.scan_stream(env['wsgi.input'].read())
             if scan:
                 return Response(status=403,
