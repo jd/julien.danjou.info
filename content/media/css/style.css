@@ -86,10 +86,24 @@ article img, article video, article > img, article > video {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.illustration {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 25px;
     margin-bottom: 25px;
 }
 
+.shadow {
+    box-shadow: 4px 4px 10px #888888;
+}
+
+.rounded {
+    border-radius: 5px;
+    border: solid 1px;
+}
 
 figcaption {
     text-align: center

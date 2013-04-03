@@ -1,0 +1,96 @@
+---
+title: Hy, Lisp in Python
+created: !!timestamp '2013-04-03 22:01:20'
+image: /media/images/hy-photo.jpg
+tags:
+    - python
+    - hy
+---
+
+{% mark excerpt %}
+
+I've meant to look at [Hy](http://github.com/paultag/hy) since
+[Paul Tagliamonte](http://http://blog.pault.ag/) started to talk to me about
+it, but never took a chance until now.
+Yesterday, Paul indicated it was a good time for me to start looking at it,
+so I spent a few hours playing.
+
+{% endmark %}
+
+# But what's Hy?
+
+Python is very nice: it has a great community and a wide range of useful
+libraries. But let's face it, it misses a great language.
+
+Hy is an implementation of a
+[Lisp](http://en.wikipedia.org/wiki/Lisp_(programming_language)) on top of
+Python.
+
+Technically, Hy is built directly with a custom made parser (for now) which
+then translate expressions using the
+[Python AST](http://docs.python.org/2/library/ast.html) module to generate
+code, which is then run by Python. Therefore, it shares the same properties
+as Python, and is a Lisp-1 (i.e. with a single namespace for symbol and
+functions).
+
+If you're interested to listen Paul talking about Hy during last PyCon US, I
+recommend to watch his lightning talk. As the name implies, it's only a few
+minutes long.
+
+<iframe width="500" height="374" class="shadow"
+src="http://www.youtube.com/embed/1vui-LupKJI?wmode=transparent&autohide=1&egm=0&hd=1&iv_load_policy=3&modestbranding=1&rel=0&showinfo=0&showsearch=0#t=16m14s"
+frameborder="0" allowfullscreen></iframe>
+
+# Does it work?
+
+I've been cloning the code and played around a bit with Hy. And to my
+greatest surprise and pleasure, it works quite well. You can imagine writing
+Python from there easily. Part of the syntax smells like
+[Clojure](http://clojure.org)'s, which looks like a good thing since they're
+playing in the same area.
+
+You can try a [Hy REPL](http://hy.pault.ag/) in your Web browser if you
+want.
+
+Here's what some code look like:
+
+{% syntax clojure %}
+(import requests)
+
+(setv req (requests.get "http://hy.pault.ag"))
+(if (= req.status_code 200)
+  (for (kv (.iteritems req.headers))
+    (print kv))
+  (throw (Exception "Wrong status code")))
+{% endsyntax %}
+
+This code would ouput:
+
+<pre>
+('date', 'Wed, 03 Apr 2013 12:09:23 GMT')
+('connection', 'keep-alive')
+('content-encoding', 'gzip')
+('transfer-encoding', 'chunked')
+('content-type', 'text/html; charset=utf-8')
+('server', 'nginx/1.2.6')
+</pre>
+
+As you can see, it's really simple to write Lispy code that really uses
+Python idioms.
+
+There's obviously still a lots of missing features in Hy. The language if
+far from complete and many parts are moving, but it's really promising, and
+Paul's doing a great job implementing every idea.
+
+<img class="illustration shadow rounded" src="/media/images/hy-photo.jpg">
+
+I actually started to hack a bit on Hyde, and will try to continue to do so,
+since I'm really eager to learn a bit more about both Lisp and Python
+internals in the process. I've already send a few patches on small bugs I've
+encountered, and proposed a few ideas. It's really exciting to be able to
+influence early a language design that I'll love to use! Being a recent fan
+of Common Lisp, I tend to grab the good stuff from it to add them into Hy.
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
