@@ -106,7 +106,9 @@ article img, article video, article > img, article > video {
 }
 
 figcaption {
-    text-align: center
+    text-align: center;
+    font-style: italic;
+    font-size: 0.9em;
 }
 
 article .pull-left {
