@@ -379,6 +379,6 @@ img.media-object {
     text-align: center;
 }
 
-iframe[id*=twitter-widget] {
+iframe[id*=twitter-widget].twitter-timeline {
     width: 234px;
 }
