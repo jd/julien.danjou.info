@@ -6,7 +6,7 @@ extends:
 
 <h2>Occupation</h2>
 <table class="table">
-  <tr class="active">
+  <tr>
     <td><span class="label label-info">Since 2011</span></td>
     <td><strong>Free Software Consultant</strong> at <a href="/">Julien Danjou</a> (Paris, France)
       <ul>
@@ -17,7 +17,7 @@ extends:
       Fore more detail, you can check my <a href="#references">references</a>.
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">October 2011 - June 2012</span></td>
     <td><strong>Lead developer</strong> at <a href="http://enovance.com">eNovance</a>
       (Paris, France)
@@ -33,7 +33,7 @@ extends:
       </ul>
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">February 2006 - September 2011</span></td>
     <td><strong>Linux system engineer</strong> at <a href="http://easter-eggs.com">Easter-eggs</a>
       (Paris, France)
@@ -57,7 +57,7 @@ extends:
       </ul>
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">June 2005 - August 2005</span><br><span class="label label-inverse">April 2003 - June 2003</span></td>
     <td><strong>System and network administrator</strong> at <a href="http://lost-oasis.fr">Lost Oasis</a>
       (Marseille, France)
@@ -72,7 +72,7 @@ extends:
       </ul>
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">June 2003 - August 2003</span></td>
     <td><strong>Quality assurance developer</strong> at <a href="http://mandriva.com">Mandriva</a>
       (Paris, France)
@@ -87,11 +87,24 @@ extends:
 
 <h2>Projects</h2>
 <table class="table">
-  <tr class="active">
+  <tr>
     <td><span class="label label-info">Since 2011</span></td>
     <td><strong><a href="http://openstack.org">OpenStack</a></strong>
       <img class="cv-logo" src="/media/images/projects/openstack.png">
       <ul>
+        <li>
+          Core developer of
+          <a href="http://launchpad/ceilometer">Ceilometer</a>, the
+          OpenStack metering project
+        </li>
+        <li>
+          Ceilometer <i>Project Technical Leader</i> for the Havana release (2013)
+        </li>
+        <li>
+          Member of the
+          <a href="http://www.openstack.org/foundation/technical-committee/">OpenStack
+            Technical Committee</a> (2013)
+        </li>
         <li>
           Contributions to various components of OpenStack like:
           <a href="http://nova.openstack.org">Nova</a>,
@@ -99,12 +112,9 @@ extends:
           <a href="http://swift.openstack.org">Swift</a>,
           <a href="http://horizon.openstack.org">Horizon</a>,
           <a href="http://cinder.openstack.org">Cinder</a>,
+          <a href="http://launchpad.net/oslo">Oslo</a>,
+          <a href="http://launchpad.net/glance">Glance</a>,
           <a href="https://launchpad.net/tempest">Tempest</a>…
-        </li>
-        <li>
-          Core developer of
-          <a href="http://launchpad/ceilometer">Ceilometer</a>, the
-          OpenStack metering project
         </li>
         <li>
           Co-founder of the
@@ -114,7 +124,7 @@ extends:
       </ul>
     </td>
   </tr>
-  <tr class="active">
+  <tr>
     <td><span class="label label-info">Since 2010</span></td>
     <td><strong><a href="http://www.gnu.org/software/emacs/">GNU Emacs</a></strong>
       <img class="cv-logo" src="/media/images/projects/emacs.png">
@@ -144,14 +154,14 @@ extends:
         </li>
         <li>Co-maintainer
           of <a href="https://github.com/dimitri/el-get">el-get</a>, Emacs
-          extensions installation system</li>
+          extensions installation system (2011-2013)</li>
         <li>Maintenance of
           the <a href="http://emacs.naquadah.org">emacs-snapshot
             packages</a> for Debian</li>
       </ul>
     </td>
   </tr>
-  <tr class="active">
+  <tr>
     <td><span class="label label-info">Since 2008</span></td>
     <td><strong><a href="http://freedesktop.org">Freedesktop</a></strong>
       <img class="cv-logo" src="/media/images/projects/xcb.png">
@@ -182,7 +192,7 @@ extends:
       </ul>
     </td>
   </tr>
-  <tr class="active">
+  <tr>
     <td><span class="label label-info">Since 2007</span></td>
     <td><strong><a href="http://awesome.naquadah.org">awesome</a></strong>
       <img class="cv-logo" src="/media/images/projects/awesome.png">
@@ -192,7 +202,7 @@ extends:
       </p>
     </td>
   </tr>
-  <tr class="active">
+  <tr>
     <td><span class="label label-info">Since 2002</span></td>
     <td><strong><a href="http://debian.org">Debian</a></strong>
       <img class="cv-logo" src="/media/images/projects/debian.png">
@@ -212,28 +222,19 @@ extends:
       </ul>
     </td>
   </tr>
-  <tr class="active">
+  <tr>
     <td><span class="label label-info">Since 2001</span></td>
     <td><strong><a href="http://en.wikipedia.org/wiki/Free_software">Free Software</a></strong>
       <p>Various contribution to multiple Free Software projects, like:</p>
       <ul>
-        <li><a href="http://www.gnu.org/software/automake/">Automake</a> ,
+        <li><a href="http://www.gnu.org/software/automake/">Automake</a>
         <li><a href="http://httpd.apache.org/">Apache httpd</a></li>
         <li><a href="http://cython.org/">Cython</a></li>
         <li>...</li>
       </ul>
     </td>
   </tr>
-  <tr>
-    <td><span class="label label-inverse">April 2011</span></td>
-    <td><strong><a href="http://fabelier.org/">Fabelier</a></strong>
-      <p>
-        <a href="http://fabelier.org/lua-programming-language-by-julien-danjou/">Workshop</a>
-        on the <a href="http://lua.org">Lua</a> programming language.
-      </p>
-    </td>
-  </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">November 2008</span></td>
     <td><strong><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-5187">CVE-2008-5187</a></strong>
       <p>
@@ -243,7 +244,7 @@ extends:
       </p>
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">2003 - 2009</span></td>
     <td><strong><a href="http://ornix.org">Ornix</a></strong>
       <img class="cv-logo" src="/media/images/projects/ornix.jpg">
@@ -254,7 +255,7 @@ extends:
       </p>
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">2002 - 2006</span></td>
     <td><strong><a href="http://tuxfamily.org">TuxFamily</a></strong>
       <img class="cv-logo" src="/media/images/projects/tuxfamily.png">
@@ -266,7 +267,7 @@ extends:
       </ul>
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">2001 - 2006</span></td>
     <td><strong><a href="http://vhffs.org">VHFFS</a></strong>
       <img class="cv-logo" src="/media/images/projects/vhffs.png">
@@ -276,7 +277,7 @@ extends:
       </p>
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">2000 - 2002</span></td>
     <td><strong>Frag Arena</strong>
       <img class="cv-logo" src="/media/images/fragarena.png">
@@ -288,7 +289,7 @@ extends:
       </ul>
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">1999 - 2002</span></td>
     <td><strong>Linux En Rezo / SANS Linux</strong>
       <img class="cv-logo" src="/media/images/projects/sanslinux.png">
@@ -305,99 +306,22 @@ extends:
 
 <h2>Education</h2>
 <table class="table">
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">2004 - 2006</span></td>
     <td><strong>Master in Computer Science</strong>,
       <i>System and Network Administration and Exploitation</i>
       at <a href="http://www.univ-ubs.fr">University of South Brittany</a> (Vannes, France)
     </td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">2003 - 2004</span></td>
     <td><strong>Bachelor in Mathematics and Computer Science</strong>
       at <a href="http://www.univ-ubs.fr">University of South Brittany</a> (Vannes, France)</td>
   </tr>
-  <tr>
+  <tr class="inactive">
     <td><span class="label label-inverse">2001 - 2003</span></td>
     <td><strong>University Diploma in Technology, Computer Science</strong>
       at <a href="http://www-iut.univ-lehavre.fr/index.php/fr/info">Le Havre Institute of Technology</a> (Le Havre, France)
-    </td>
-  </tr>
-</table>
-
-<h2>Technologies</h2>
-<table class="table table-condensed">
-  <tr>
-    <td>Operating systems</td>
-    <td>
-      GNU/Linux (<a href="http://debian.org">Debian</a>, <a href="http://ubuntu.com">Ubuntu</a>, …), basic BSD skills
-    </td>
-  </tr>
-  <tr>
-    <td>Languages (advanced)</td>
-    <td>
-      <a href="http://en.wikipedia.org/wiki/GNU_build_system">Autotools</a>,
-      <a href="http://www.gnu.org/software/bash/">bash</a>,
-      <a href="http://en.wikipedia.org/wiki/C_(programming_language)">C</a> (<a href="http://valgrind.org/">valgrind</a>, <a href="http://www.gnu.org/software/gdb/">gdb</a>),
-      <a href="http://python.org">Python</a>,
-      <a href="http://www.lua.org/">Lua</a>,
-      <a href="http://en.wikipedia.org/wiki/Lisp_(programming_language)">Lisp</a> (mainly <a href="http://en.wikipedia.org/wiki/Lisp_(programming_language)">Emacs Lisp</a>)
-    </td>
-  </tr>
-  <tr>
-    <td>Languages (intermediate)</td>
-    <td>
-      <a href="http://www.cmake.org">CMake</a>,
-      <a href="http://www.perl.org">Perl</a>,
-      <a href="http://en.wikipedia.org/wiki/SQL">SQL</a>,
-      <a href="http://www.php.net">PHP</a>
-    </td>
-  </tr>
-  <tr>
-    <td>Libraries</td>
-    <td>
-      <a href="http://www.cairographics.org">Cairo</a>,
-      <a href="http://www.pango.org">Pango</a>,
-      <a href="http://en.wikipedia.org/wiki/Xlib">Xlib</a>,
-      <a href="http://xcb.freedesktop.org">XCB</a>,
-      <a href="http://www.samba.org/~jelmer/dulwich/">Dulwich</a>,
-      <a href="http://apr.apache.org/">APR</a>,
-      <a href="http://www.freedesktop.org/wiki/Software/dbus">D-Bus</a>
-    </td>
-  </tr>
-  <tr>
-    <td>Server tools/daemons</td>
-    <td>
-      <a href="http://www.apache.org">Apache</a>,
-      <a href="http://www.samba.org">Samba</a>,
-      <a href="http://mysql.org">MySQL</a>,
-      <a href="http://postgresql.org">PostgreSQL</a>,
-      <a href="http://git-scm.com/">Git</a>,
-      <a href="http://subversion.tigris.org/">Subversion</a>,
-      <a href="http://openssh.org">OpenSSH</a>,
-      <a href="http://www.pureftpd.org/project/pure-ftpd">Pure-FTPd</a>,
-      <a href="http://proftpd.org">ProFTPD</a>,
-      <a href="http://www.squid-cache.org/">Squid</a>,
-      <a href="http://www.squidguard.org/">squidGuard</a>,
-      <a href="http://www.nagios.org/">Nagios</a>,
-      <a href="http://munin-monitoring.org/">Munin</a>,
-      <a href="http://www.cacti.net/">Cacti</a>,
-      <a href="http://www.openldap.org/">OpenLDAP</a>,
-      <a href="http://www.isc.org/software/bind">BIND</a>,
-      <a href="http://www.isc.org/software/dhcp">ISC DHCP</a>,
-      <a href="http://dovecot.org">Dovecot</a>,
-      <a href="http://postfix.org">Postfix</a>,
-      <a href="http://www.net-snmp.org/">Net-SNMP</a>
-    </td>
-  </tr>
-  <tr>
-    <td>Network</td>
-    <td>
-      <a href="http://en.wikipedia.org/wiki/Ethernet">Ethernet</a>,
-      <a href="http://en.wikipedia.org/wiki/IPv4">IPv4</a>,
-      <a href="http://en.wikipedia.org/wiki/IPv6">IPv6</a>,
-      <a href="http://www.linuxvirtualserver.org/">LVS</a>,
-      <a href="http://www.openvpn.net">OpenVPN</a>
     </td>
   </tr>
 </table>

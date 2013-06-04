@@ -175,8 +175,8 @@ footer {
     float: right
 }
 
-table tr.active {
-    background: #f9f9f9;
+table tr.inactive {
+    background: #f7f7f7;
 }
 
 pre {
