@@ -13,6 +13,8 @@ RedirectPermanent /software/erc-track-score.el http://julien.danjou.info/project
 RedirectPermanent /software http://julien.danjou.info/projects
 RedirectPermanent /experience http://julien.danjou.info/
 RedirectPermanent /freelance http://julien.danjou.info/
+# Typo :(
+RedirectPermanent /blog/2013/lips-and-openstack-with-cl-openstack-client http://julien.danjou.info/blog/2013/lisp-and-openstack-with-cl-openstack-client
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^.*$ %{REQUEST_FILENAME}.html
