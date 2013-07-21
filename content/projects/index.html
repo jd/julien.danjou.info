@@ -11,7 +11,7 @@ title: "Projects"
     Here is a list of Free Software (or related) projects I maintain or contribute to. I only list the projects for which I made a significant contribution, or the ones where I'm one of the author or developer.
   </p>
   <p>
-    There's also a lot of small contributions I did all over the years. Some of this small contributions are referenced on
+    There's also a lot of small contributions I did all over the years. Some of them are referenced on
     <a href="http://www.ohloh.net/accounts/jdanjou">Ohloh</a>.
   </p>
 </div>
@@ -53,30 +53,36 @@ title: "Projects"
   it, and set up the packaging for Debian too. I am also co-leading the
   development of <a href=\"https://launchpad.net/ceilometer\">Ceilometer</a>.") }}
 
+  {{ render_software("Hy",
+  "http://hylang.org",
+  "/media/images/hylang.png",
+  "I'm working with others on a Lisp implementation on top of Python, called
+  <a href=\"http://hylang.org\">Hy</a>.") }}
+</div>
+<div class="row-fluid">
   {{ render_software("XLcloud",
   "http://xlcloud.org",
   "/media/images/projects/xlcloud.jpg",
   "I work on XLcloud since 2012, particularly on the
   <a href=\"http://launchpad.net/ceilometer\">Ceilometer</a> usage.") }}
-</div>
-<div class="row-fluid">
+
   {{ render_software("Common Lisp",
   "http://common-lisp.net",
   None,
-  "I've started to write Common Lisp in 2012, and now co-maintain
-  <a href=\"http://common-lisp.net/project/cl-irc/\">CL-IRC</a>") }}
+  "I've started to use Common Lisp in 2012, and now co-maintain
+  <a href=\"http://common-lisp.net/project/cl-irc/\">CL-IRC</a>.") }}
 
   {{ render_software("awesome",
   "http://awesome.naquadah.org",
   "/media/images/projects/awesome.png",
   "I had enough of non working window manager, so I started the <a href=\"http://awesome.naquadah.org\">awesome window manager</a> project in 2007.") }}
-
+</div>
+<div class="row-fluid">
   {{ render_software("GNU Emacs",
   "http://www.gnu.org/software/emacs/",
   "/media/images/projects/emacs.png",
   "I use <a href=\"http://www.gnu.org/software/emacs/\">Emacs</a> since 2010, and am a commiter. I wrote some <a href=\"/projects/emacs-packages\">packages</a> like rainbow-mode, google-maps, etc.") }}
-</div>
-<div class="row-fluid">
+
   {{ render_software("XCB",
   "http://xcb.freedesktop.org",
   "/media/images/projects/xcb.png",
@@ -86,27 +92,24 @@ title: "Projects"
   "http://freedesktop.org/wiki/Software/startup-notification",
   "/media/images/projects/freedesktop.png",
   "I've ported <a href=\"http://freedesktop.org/wiki/Software/startup-notification\">startup-notification</a> to XCB for awesome, and thus I became a de facto maintainer.") }}
-
+</div>
+<div class="row-fluid">
   {{ render_software("Gnus",
   "http://www.gnus.org",
   "/media/images/projects/gnus.png",
   "Using Emacs is nice, but reading e-mail with it is better. Therefore I became a <a href=\"http://gnus.org\">Gnus</a> developer in 2010.") }}
-</div>
-<div class="row-fluid">
+
   {{ render_software("Org-mode",
   "http://orgmode.org",
   "/media/images/projects/org-mode.png",
   "I like to be organized using Emacs, so I'm an <a href=\"http://orgmode.org\">Org-mode</a> developer since 2010.") }}
 
-  {{ render_software("el-get",
-  "https://github.com/dimitri/el-get",
-  "/media/images/projects/el-get.png",
-  "I'm co-maintaining <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
-
   {{ render_software("PyMuninCli",
   "/projects/pymunincli",
   None,
-  "This <a href=\"http://python.org\">Python</a> package allow you to fetch data from <a href=\"http://munin-monitoring.org/\">Munin</a> node daemon.") }}
+  "This <a href=\"http://python.org\">Python</a> package allow you to fetch
+  data from <a href=\"http://munin-monitoring.org/\">Munin</a> node
+  daemon.") }}
 </div>
 <div class="row-fluid">
   {{ render_software("rebuildd",
@@ -129,13 +132,17 @@ title: "Projects"
   {{ render_software("VARMon",
   "/projects/varmon",
   None,
-  "<a href=\"/projects/varmon/\">VARMon</a> is a text-based tool to monitor DAC 960/1100 based RAID controllers. I took over its maintenance in 2004.") }}
+  "<a href=\"/projects/varmon/\">VARMon</a> is a text-based tool to monitor
+  DAC 960/1100 based RAID controllers. I took over its maintenance in
+  2004.") }}
+
   {{ render_software("libparportled",
   "/projects/libparportled",
   None,
   "Ever wanted to light some LEDs using your parallel port? I wanted to so
   in 2003, so <a href=\"/projects/libparportled\">libparportled</a> was
   born.") }}
+
   {{ render_software("mod_defensible",
   "/projects/mod_defensible",
   None,
@@ -148,6 +155,11 @@ title: "Projects"
 This is a list of past projects that I don't belong to anymore.
 
 <div class="row-fluid">
+  {{ render_software("el-get",
+  "https://github.com/dimitri/el-get",
+  "/media/images/projects/el-get.png",
+  "I co-maintained <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
+
   {{ render_software("CompatibleOne",
   "http://www.compatibleone.org",
   "/media/images/projects/compatibleone.png",
@@ -155,7 +167,11 @@ This is a list of past projects that I don't belong to anymore.
   {{ render_software("TuxFamily",
   "http://www.tuxfamily.org",
   "/media/images/projects/tuxfamily.png",
-  "I managed TuxFamily.org in 2006 as president, and also have been a system administrator between 2002 and 2006.") }}
+  "I managed TuxFamily.org in 2006 as president, and also have been a system
+  administrator between 2002 and 2006.") }}
+</div>
+
+<div class="row-fluid">
   {{ render_software("VHFFS",
   "http://vhffs.org",
   "/media/images/projects/vhffs.png",
