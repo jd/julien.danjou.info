@@ -5,6 +5,7 @@ tags:
     - dbus
     - xcb
 ---
+{% block excerpt %}
 {% mark excerpt %}
 
 Even if [I recently stated I lost some of my
@@ -13,6 +14,7 @@ in [XCB](http://xcb.freedesktop.org), I still sometimes hack things to add
 support for it.
 
 {% endmark %}
+{% endblock %}
 
 These last days, I've worked on a [D-Bus](http://dbus.freedesktop.org) port from Xlib to XCB. The port was
 quite straight forward, since there's only a little piece of D-Bus using X,

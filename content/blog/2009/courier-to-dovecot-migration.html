@@ -6,6 +6,7 @@ tags:
     - mail
     - imap
 ---
+{% block excerpt %}
 {% mark excerpt %}
 
 This week, I've managed to migrate from
@@ -14,6 +15,7 @@ This week, I've managed to migrate from
 with dovecot, and I still have one.
 
 {% endmark %}
+{% endblock %}
 
 Dovecot performances are very good in comparison with courier. With that
 switch, we dropped the CPU usage of the server from 25 % to 10 %, and it's

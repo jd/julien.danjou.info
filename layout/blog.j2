@@ -18,6 +18,19 @@
 {% endif %}
 
 
+{% if resource.meta.created %}
+{% block endhead %}
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:site" content="@juldanjou"/>
+<meta name="twitter:image:src" content='{{site_url}}{{resource.meta.image}}'/>
+<meta name="twitter:title" content="{{resource.meta.title}}"/>
+<meta name="twitter:domain" content="julien.danjou.info"/>
+<meta name="twitter:description" content="{{
+                                          self.excerpt()|markdown|striptags
+                                          |truncate(200, end="…")|forceescape }}"/>
+{% endblock endhead %}
+{% endif %}
+
 {% block premain %}
 {% mark article -%}
 {% filter markdown %}

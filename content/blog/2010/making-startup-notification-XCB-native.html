@@ -6,6 +6,7 @@ tags:
     - xcb
     - startupnotification
 ---
+{% block excerpt %}
 {% mark excerpt %}
 
 I'm trying to work on XCB this week. And today I've started to accomplish
@@ -13,6 +14,7 @@ the second step of a long term goal: making an X11 only library using [XCB](http
 its primary interface instead of Xlib.
 
 {% endmark %}
+{% endblock %}
 
 Last year, I had extended the API of [startup-notification](http://www.freedesktop.org/wiki/Software/startup-notification) to support XCB as
 a back-end.  This had been made possible by factorizing some code,

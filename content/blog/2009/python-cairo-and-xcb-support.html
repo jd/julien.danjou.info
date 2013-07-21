@@ -6,6 +6,7 @@ tags:
     - cairo
     - xcb
 ---
+{% block excerpt %}
 {% mark excerpt %}
 
 [cairo](http://www.cairographics.org) has a [Python binding
@@ -14,6 +15,7 @@ some months ago a [Python binding for XCB
 (xpyb)](http://cgit.freedesktop.org/xcb/xpyb/) has been released.
 
 {% endmark %}
+{% endblock %}
 
 Pycairo has no support for creating Xlib surfaces. You can get a Xlib
 surface from PyGTK and then use Pycairo to draw on it, but there's no way to

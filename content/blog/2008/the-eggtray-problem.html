@@ -8,6 +8,7 @@ tags:
     - freedesktop
 ---
 
+{% block excerpt %}
 {% mark excerpt %}
 
 I still don't know why but many GTK+ applications use something called
@@ -17,6 +18,7 @@ tray](http://standards.freedesktop.org/systemtray-spec/latest/) procotol for
 GTK+ applications.
 
 {% endmark %}
+{% endblock %}
 
 Problem is that this C file is used in dozens of programs and maybe more,
 and is a bit bugged. I've already send patches for

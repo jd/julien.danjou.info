@@ -4,6 +4,7 @@ created: !!timestamp '2010-10-19 19:23:00'
 tags:
     - emacs
 ---
+{% block excerpt %}
 {% mark excerpt %}
 
 Recent *Emacs* versions have a wonderful capacity to hide the mouse pointer as
@@ -11,6 +12,7 @@ soon as you type and insert characters in a buffer. This is controlled by
 the *`make-pointer-invisible'* variable, which is set to t by default.
 
 {% endmark %}
+{% endblock %}
 
 However that does not hide the pointer when simply moving the cursor on
 screen. Therefore, I've started to use *`mouse-avoidance-mode'*, which make

@@ -6,6 +6,7 @@ tags:
     - emacs
     - orgmode
 ---
+{% block excerpt %}
 {% mark excerpt %}
 
 My latest patch for [Org mode](http://orgmode.org) has been accepted by
@@ -13,6 +14,7 @@ Carsten today. It adds support for custom category icons in all views, like
 agenda or todo.
 
 {% endmark %}
+{% endblock %}
 
 You just need to configure *org-agenda-category-icon-alist* and it will work
 out of the box.

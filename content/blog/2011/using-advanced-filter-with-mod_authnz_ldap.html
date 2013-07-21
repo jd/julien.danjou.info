@@ -5,6 +5,7 @@ tags:
     - ldap
     - apache
 ---
+{% block excerpt %}
 {% mark excerpt %}
 
 As you may know, Apache's [mod_authzn_ldap](http://httpd.apache.org/docs/2.2/mod/mod_authnz_ldap.html) allows to authenticate users in
@@ -12,6 +13,7 @@ Apache HTTP server using an LDAP server. Unfortunately, it has a little
 implementation flaw.
 
 {% endmark %}
+{% endblock %}
 
 The filter used to authenticate the user is built by abusing the [RFC 2255](http://www.ietf.org/rfc/rfc2255.txt)
 which specifies the LDAP URL format. This format has an "attribute" field

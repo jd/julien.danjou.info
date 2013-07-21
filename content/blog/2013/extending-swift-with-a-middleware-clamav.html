@@ -12,6 +12,7 @@ tags:
     <img width="120" src="/media/images/openstack-virus.jpg">
 </div>
 
+{% block excerpt %}
 {% mark excerpt %}
 
 In this article, I'm going to explain you how you can extend
@@ -20,6 +21,7 @@ Object Storage project, so it performs extra action on files at upload or at
 download time.
 
 {% endmark %}
+{% endblock %}
 
 We're going to build an anti-virus filter inside Swift. The goal is to
 refuse uploaded data if they contain a virus. To help us with virus

@@ -6,6 +6,7 @@ tags:
     - emacs
     - googlemaps
 ---
+{% block excerpt %}
 {% mark excerpt %}
 
 Last week, I worked on my
@@ -15,6 +16,7 @@ the longitude and latitude. The initial format was just a string describing
 the location, which was obviously too limited.
 
 {% endmark %}
+{% endblock %}
 
 It now prints coordinates of the different elements when the mouse is over
 the map, with other information.
