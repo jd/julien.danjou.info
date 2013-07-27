@@ -2,7 +2,6 @@ body {
     background-color: #eee;
     font-family: 'Cabin', sans-serif;
     font-size: 1em;
-    margin-top: 70px;
 }
 
 @media (max-width: 979px) {
@@ -29,6 +28,10 @@ header h1 {
 .socialite {
     display: inline;
     float: left;
+}
+
+#main-navbar {
+    padding-bottom: 25px;
 }
 
 .navbar {
