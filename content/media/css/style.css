@@ -363,6 +363,14 @@ img.media-object {
 
 /* Bio on side */
 
+.bio {
+    border: 0px;
+    border-left: 1px;
+    border-style: solid;
+    border-color: #eee;
+    padding-left: 20px;
+}
+
 .bio .illustration {
     width: 148px;
     margin: auto;
