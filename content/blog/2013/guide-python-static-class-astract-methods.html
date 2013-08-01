@@ -95,7 +95,7 @@ But what if you wanted to know which object this bound method is bound to?
 Here's a little trick:
 
 {% syntax python %}
->>> m = Pizza().get_size
+>>> m = Pizza(42).get_size
 >>> m.__self__
 <__main__.Pizza object at 0x7f3138827910>
 >>> # You could guess, look at this:
