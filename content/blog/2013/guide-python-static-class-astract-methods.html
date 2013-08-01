@@ -189,7 +189,7 @@ class Pizza(object):
         self.ingredients = ingredients
 
     @classmethod
-    def from_fridge(fridge):
+    def from_fridge(cls, fridge):
         return cls(fridge.get_cheese() + fridge.get_vegetables())
 {% endsyntax %}
 
@@ -212,7 +212,7 @@ class Pizza(object):
 
     @classmethod
     def compute_volume(cls, height, radius):
-         return height * cls.circumference(radius)
+         return height * cls.compute_circumference(radius)
 
     def get_volume(self):
         return self.compute_volume(self.height, self.radius)
