@@ -184,6 +184,7 @@ table tr.inactive {
 
 pre {
     clear: both;
+    margin-bottom: 0px;
 }
 
 .mediumfont {
