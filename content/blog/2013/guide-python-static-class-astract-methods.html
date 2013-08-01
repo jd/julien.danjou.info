@@ -208,7 +208,7 @@ class Pizza(object):
 
     @staticmethod
     def compute_circumference(radius):
-         return math.pi * (2 ** radius)
+         return math.pi * (radius ** 2)
 
     @classmethod
     def compute_volume(cls, height, radius):
