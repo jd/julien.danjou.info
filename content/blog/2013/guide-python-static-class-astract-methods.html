@@ -135,6 +135,8 @@ cost. Having a static method avoids that:
 {% syntax python %}
 >>> Pizza().cook is Pizza().cook
 False
+>>> Pizza().mix_ingredients is Pizza.mix_ingredients
+True
 >>> Pizza().mix_ingredients is Pizza().mix_ingredients
 True
 {% endsyntax %}
