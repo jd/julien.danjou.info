@@ -107,6 +107,22 @@ True
 Obviously, we still have a reference to our object, and we can find it back
 if we want.
 
+In Python 3, the functions attached to a class are not considered as
+*unbound method* anymore, but as simple functions, that are bound to an
+object if required. So the principle stays the same, the model is just
+simplified.
+
+{% syntax python %}
+>>> class Pizza(object):
+...     def __init__(self, size):
+...         self.size = size
+...     def get_size(self):
+...         return self.size
+...
+>>> Pizza.get_size
+<function Pizza.get_size at 0x7f307f984dd0>
+{% endsyntax %}
+
 # Static methods
 
 Static methods are a special case of methods. Sometimes, you'll write code
