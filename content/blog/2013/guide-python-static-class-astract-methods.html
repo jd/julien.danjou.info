@@ -369,8 +369,9 @@ implement *get_ingredients* as a class method, you are wrong. This simply
 implies that your implementation of *get_ingredients* in the *BasePizza*
 class is a class method.
 
-An implementation in an abstract method? Yes! In Python, contrary to Java,
-you can have code in your abstract class and call it via *super()*:
+An implementation in an abstract method? Yes! In Python, contrary to methods
+in Java interfaces, you can have code in your abstract methods and call it
+via *super()*:
 
 {% syntax python %}
 import abc
