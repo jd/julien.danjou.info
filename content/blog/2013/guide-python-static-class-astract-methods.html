@@ -387,9 +387,8 @@ class BasePizza(object):
          """Returns the ingredient list."""
          return cls.default_ingredients
 
-class DietPizza(Pizza):
-    @staticmethod
-    def get_ingredients():
+class DietPizza(BasePizza):
+    def get_ingredients(self):
         return ['egg'] + super(DietPizza, self).get_ingredients()
 {% endsyntax %}
 
