@@ -38,10 +38,10 @@
     </div>
     <aside class="span3">
       <div class="bio">
-        <h2>Julien Danjou</h2>
         <div class="illustration">
           <img src="/media/images/jd.jpg" alt="Julien Danjou">
         </div>
+        <h2>Julien Danjou</h2>
         <div class="clear"></div>
         <p>
           <strong>Free Software
@@ -55,63 +55,42 @@
           <strong><a href="http://launchpad.net/ceilometer">OpenStack
               Ceilometer</a></strong>, member of the
               <strong><a href="http://openstack.org">OpenStack</a> technical
-                committee</strong>, and <strong>developer</strong> since 2011.
+                committee</strong>, and <strong>developer</strong>.
         </p>
 
         <p>
           Also a <strong><a href="http://debian.org">Debian</a>
-          developer</strong> since 2002, the author of the
+          developer</strong>, the author of the
           <strong><a href="http://awesome.naquadah.org">awesome window
-              manager</a></strong> and an <strong>Emacs developer</strong>
+          manager</a></strong> and a developer of <strong>GNU
+          Emacs</strong>.
         </p>
 
-        <p style="text-align: center;">
-          <a class="btn btn-small btn-primary"
-             href="/#contact"><i class="icon-envelope icon-white"></i>
-             Send me a mail!</a>
-        </p>
+        <hr/>
 
-        <hr>
+        <div id="social-logos">
+          <a href="/#contact">
+            <img src="/media/images/webicon-mail-m.png" alt="E-mail">
+          </a>
+          <a href="/blog/index.xml">
+            <img src="/media/images/webicon-rss-m.png" alt="RSS feed">
+          </a>
+          <a href="https://github.com/jd" title="jd on GitHub">
+            <img src="/media/images/webicon-github-m.png" alt="GitHub logo"/>
+          </a>
+          <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
+            <img src="/media/images/webicon-twitter-m.png" alt="Twitter logo"/>
+          </a>
+          <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
+            <img src="/media/images/webicon-googleplus-m.png" alt="Google+ logo"/>
+          </a>
+          <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
+            <img src="/media/images/webicon-linkedin-m.png" alt="LinkedIn logo"/>
+          </a>
+        </div>
 
-          <div id="mc_embed_signup">
-            <form action="http://danjou.us7.list-manage.com/subscribe/post?u=53ceb9eb499d62f6ee37c8167&amp;id=d80a8d25c4"
-	          method="post" id="mc-embedded-subscribe-form"
-	          name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-	          <label for="mce-EMAIL">
-                    <h5>Want to receive my next blog posts by email?</h5>
-                  </label>
-                  <div class="input-append">
-	            <input type="email" value="" name="EMAIL" class="email input-small"
-                           id="mce-EMAIL" placeholder="email address" required>
-	                   <button type="submit" name="subscribe"
-	                           id="mc-embedded-subscribe" class="btn btn-primary">Subscribe</button>
-                  </div>
-            </form>
-          </div>
-
-          <div id="social-logos">
-            <a href="/blog/index.xml">
-              <img src="/media/images/blog/rss.png" alt="RSS feed">
-            </a>
-            <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
-              <img src="/media/images/twitter.png" alt="Twitter logo"/>
-            </a>
-            <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
-              <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="Google+ logo"/>
-            </a>
-            <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
-              <img src="/media/images/linkedin.jpg" alt="LinkedIn logo"/>
-            </a>
-            <a href="http://www.viadeo.com/fr/profile/julien.danjou" title="julien.danjou on Viadeo">
-              <img src="/media/images/viadeo.png" alt="Viadeo logo"/>
-            </a>
-            <a href="https://flattr.com/profile/jd" title="jd on Flattr">
-              <img src="/media/images/flattr.png" alt="Flattr logo"/>
-            </a>
-          </div>
-
-          <a class="twitter-timeline" href="https://twitter.com/juldanjou" data-widget-id="268005727774318593">Tweets by @juldanjou</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <a class="twitter-timeline" href="https://twitter.com/juldanjou" data-widget-id="268005727774318593">Tweets by @juldanjou</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
       </div>
     </aside>
@@ -127,39 +106,71 @@
 
 {% block postarticle %}
 {% if resource.name != "index.html" %}
-<div class="social">
-  <a class="FlattrButton" style="display:none;" href="{{site_url}}{{resource.full_url}}"
-     title="{{resource.meta.title}}"
-     rev="flattr;button:compact;uid:jd"></a>
-  <a class="socialite twitter-share" href="http://twitter.com/share" data-text="{{resource.meta.title}}" data-via="juldanjou" data-count="horizontal" data-url="{{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank">Share on Twitter</a>
-  <a class="socialite googleplus-one" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url={{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank" data-size="medium" data-url="{{site_url}}{{resource.full_url}}">Share on Google+</a>
-  <a class="socialite linkedin-share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{site_url}}{resource.full_url}}&amp;title={{resource.meta.title}}" data-counter="horizontal" data-url="{{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank">Share on LinkedIn</a>
-  <a class="socialite facebook-like" href="http://www.facebook.com/sharer.php?u={{site_url}}{{resource.full_url}}&amp;t={{resource.meta.title}}" data-action="recommend" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank">Share on Facebook</a>
-</div>
+  <hr/>
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="social">
+        <a class="FlattrButton" style="display:none;" href="{{site_url}}{{resource.full_url}}"
+           title="{{resource.meta.title}}"
+           rev="flattr;button:compact;uid:jd"></a>
+           <a class="socialite twitter-share" href="http://twitter.com/share" data-text="{{resource.meta.title}}" data-via="juldanjou" data-count="horizontal" data-url="{{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank">Share on Twitter</a>
+           <a class="socialite googleplus-one" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url={{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank" data-size="medium" data-url="{{site_url}}{{resource.full_url}}">Share on Google+</a>
+           <a class="socialite linkedin-share" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{site_url}}{resource.full_url}}&amp;title={{resource.meta.title}}" data-counter="horizontal" data-url="{{site_url}}{{resource.full_url}}" rel="nofollow" target="_blank">Share on LinkedIn</a>
+           <a class="socialite facebook-like" href="http://www.facebook.com/sharer.php?u={{site_url}}{{resource.full_url}}&amp;t={{resource.meta.title}}" data-action="recommend" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank">Share on Facebook</a>
+      </div>
+    </div>
+    <div class="span6">
+      <div id="mc_embed_signup">
+        <form action="http://danjou.us7.list-manage.com/subscribe/post?u=53ceb9eb499d62f6ee37c8167&amp;id=d80a8d25c4"
+	      method="post" id="mc-embedded-subscribe-form"
+	      name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	      <label for="mce-EMAIL">
+                <h5>Want to receive my next blog posts by email?</h5>
+              </label>
+              <div class="input-append">
+                <div class="input-prepend"><span class="add-on"><i class="icon-envelope"></i></span>
+                  <input type="email" id="" name="" class="email" placeholder="your@email.com"
+                         id="mce-EMAIL" required>
+	                 <button type="submit" name="subscribe"
+	                         id="mc-embedded-subscribe" class="btn btn-primary">Subscribe</button>
+                </div>
+              </div>
+        </form>
+      </div>
+    </div>
+  </div>
 {% endif %}
 
 {% if resource.meta.created %}
 {% if resource.next_by_time or resource.prev_by_time%}
 <nav>
   <ul class="pager">
-    {% endif %}
-    {% if resource.next_by_time %}
-    <li class="previous">
-      <a rel="prev" href="{{ resource.next_by_time.full_url }}">
-        <i class="icon-arrow-left"></i>
-        {{resource.next_by_time.meta.title}}
-      </a>
-    </li>
-    {% endif %}
-    {% if resource.prev_by_time %}
-    <li class="next">
-      <a rel="next" href="{{ resource.prev_by_time.full_url }}">
-        {{resource.prev_by_time.meta.title}}
-        <i class="icon-arrow-right"></i>
-      </a>
-    </li>
-    {% endif %}
-    {% if resource.next_by_time or resource.prev_by_time%}
+{% endif %}
+<div class="row-fluid">
+  {% if resource.next_by_time %}
+    <div class="span6">
+      <li class="previous">
+        <a rel="prev" href="{{ resource.next_by_time.full_url }}">
+          <i class="icon-arrow-left"></i>
+          <strong>Previous post:</strong>
+          {{resource.next_by_time.meta.title}}
+        </a>
+      </li>
+    </div>
+  {% endif %}
+  {% if resource.prev_by_time %}
+    <div class="span6">
+      <li class="next">
+        <a rel="next" href="{{ resource.prev_by_time.full_url }}">
+          <strong>Next post:</strong>
+          {{resource.prev_by_time.meta.title}}
+          <i class="icon-arrow-right"></i>
+        </a>
+      </li>
+    </div>
+  {% endif %}
+  {% if resource.next_by_time or resource.prev_by_time%}
+</div>
   </ul>
 </nav>
 {% endif %}

@@ -15,6 +15,11 @@
     {% endblock %}
     </small>
   </h1>
+  {% if resource.meta.created %}
+  <time class="label label-info" pubdate datetime="{{ resource.meta.created.strftime('%Y-%m-%d') }}">
+    {{ resource.meta.created.strftime('%A<br>%d %B %Y') }}
+  </time>
+  {% endif %}
   {% endblock header %}
 </header>
 {% endif %}
@@ -22,28 +27,22 @@
 {% block prearticle %}
 {% endblock prearticle %}
 
+{% if resource.meta.tags %}
+<div class="taglist">
+<i class="icon-tags"></i>
+{% for tag in resource.meta.tags %}
+<a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-inverse small">{{tag}}</span></a>
+{% endfor %}
+</div>
+{% endif %}
 
 {% block article %}
-
 <article class="page-content">
-  {% if resource.meta.created %}
-  <time class="label label-info" pubdate datetime="{{ resource.meta.created.strftime('%Y-%m-%d') }}">
-    {{ resource.meta.created.strftime('%A<br>%d %B %Y') }}
-  </time>
-  {% endif %}
   {% block premain %}
   {% mark article -%}
   {% block main %}{% endblock %}
   {%- endmark %}
   {% endblock %}
-  {% if resource.meta.tags %}
-  <div class="taglist">
-    <i class="icon-tags"></i> Tags:
-    {% for tag in resource.meta.tags %}
-    <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-inverse small">{{tag}}</span></a>
-    {% endfor %}
-  </div>
-  {% endif %}
 </article>
 
 {% endblock article %}
