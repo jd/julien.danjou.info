@@ -3,12 +3,11 @@ title: "Free Software Consulting Services"
 default_block: None
 ---
 {% block main %}
-<div class="tabbable">
-  <ul class="nav nav-pills">
-    <li class="active"><a href="#services" data-toggle="pill"><i class="icon-wrench"></i> Services</a></li>
-    <li><a href="#references" data-toggle="pill"><i class="icon-th-list"></i> References</a></li>
-    <li><a href="#cv" data-toggle="pill"><i class="icon-user"></i> Curriculum vitae</a></li>
-    <li><a href="#contact" data-toggle="pill"><i class="icon-envelope"></i> Contact</a></li>
+  <ul class="nav nav-pills nav-container">
+    <li class="active"><a href="#services" data-toggle="pill"><span class="glyphicon glyphicon-wrench"></span> Services</a></li>
+    <li><a href="#references" data-toggle="pill"><span class="glyphicon glyphicon-th-list"></span> References</a></li>
+    <li><a href="#cv" data-toggle="pill"><span class="glyphicon glyphicon-user"></span> Curriculum vitae</a></li>
+    <li><a href="#contact" data-toggle="pill"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane fade in active" id="services">
@@ -96,55 +95,59 @@ default_block: None
           e-mail</a> or via this form.
       </p>
       <form name="contact" class="form-horizontal">
-        <div class="control-group">
-          <label class="control-label" for="lastname" >Lastname</label>
-          <div class="controls">
-            <input type="text" id="lastname" name="lastname"/>
+        <div class="form-group">
+          <label class="control-label col-lg-2" for="lastname"
+          >Lastname</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" id="lastname" name="lastname"/>
           </div>
         </div>
 
 
-        <div class="control-group">
-          <label class="control-label" for="firstname">Firstname</label>
-          <div class="controls">
-            <input type="text" id="firstname" name="firstname"/>
+        <div class="form-group">
+          <label class="control-label col-lg-2"
+                 for="firstname">Firstname</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" id="firstname" name="firstname"/>
           </div>
         </div>
 
-        <div class="control-group">
-          <label class="control-label" for="company">Company</label>
-          <div class="controls">
-            <input type="text" id="company" name="company"/>
+        <div class="form-group">
+          <label class="control-label col-lg-2"
+          for="company">Company</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" id="company" name="company"/>
           </div>
         </div>
 
-        <div class="control-group">
-          <label class="control-label" for="phone">Phone</label>
-          <div class="controls">
-            <input type="text" id="phone" name="phone"/>
+        <div class="form-group">
+          <label class="control-label col-lg-2" for="phone">Phone</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" id="phone" name="phone"/>
           </div>
         </div>
 
-        <div class="control-group" id="control-group-mail">
-          <label class="control-label" for="mail">E-mail address</label>
-          <div class="controls">
-            <div class="input-prepend">
-              <span class="add-on"><i class="icon-envelope"></i></span>
-              <input type="email" id="mail" name="mail"/>
-            </div>
+        <div class="form-group" id="control-group-mail">
+          <label class="control-label col-lg-2" for="mail">E-mail
+            address</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="email" id="mail" name="mail"
+            required validate/>
           </div>
         </div>
 
-        <div class="control-group" id="control-group-message">
-          <label class="control-label" for="message">Message</label>
-          <div class="controls">
-            <textarea class="input-xlarge" name="message" id="message" rows="12"></textarea>
+        <div class="form-group" id="control-group-message">
+          <label class="control-label col-lg-2"
+                 for="message">Message</label>
+          <div class="col-lg-10">
+            <textarea class="form-control" name="message" id="message"
+                      rows="15"></textarea>
           </div>
         </div>
 
-        <div class="form-actions">
+        <div class="form-actions" style="text-align: right;">
           <button class="btn btn-primary" type="submit" onclick="return validateForm()">
-            <i class="icon-envelope icon-white"></i> Send
+            <span class="glyphicon glyphicon-envelope"></span> Send
           </button>
         </div>
       </form>
@@ -156,7 +159,6 @@ default_block: None
       {% include "references.html" %}
     </div>
   </div>
-</div>
 
 {% endblock main %}
 
@@ -169,14 +171,14 @@ $(function () {
 
 function addAlert(field, msg) {
   removeAlert(field);
-  $("[id=control-group-" + field + "] > div[class=controls]").append("<div class=\"help-inline error\" id=\"alert-for-" + field +"\">" + msg + "</div>");
-  $("[id=control-group-" + field + "]").addClass("error");
+  $("[id=control-group-" + field + "]").append("<div class=\"help-block\" id=\"alert-for-" + field +"\">" + msg + "</div>");
+  $("[id=control-group-" + field + "]").addClass("has-error");
 }
 
 function removeAlert(field) {
   $("[id=alert-for-" + field + "]").detach();
-  $("[id=control-group-" + field + "]").removeClass("error");
-  $("[id=control-group-" + field + "]").removeClass("success");
+  $("[id=control-group-" + field + "]").removeClass("has-error");
+  $("[id=control-group-" + field + "]").removeClass("has-success");
 }
 
 function validateMail() {
@@ -185,7 +187,7 @@ function validateMail() {
     return false;
   }
   removeAlert("mail");
-  $("[id=control-group-mail]").addClass("success");
+  $("[id=control-group-mail]").addClass("has-success");
   return true;
 }
 
@@ -195,7 +197,7 @@ function validateMessage() {
     return false;
   }
   removeAlert("message");
-  $("[id=control-group-message]").addClass("success");
+  $("[id=control-group-message]").addClass("has-success");
   return true;
 }
 
@@ -240,7 +242,6 @@ var google_conversion_value = 0;
 
 <script type="text/javascript">
 bootstrap_tab_bookmark();
-$('.carousel').carousel()
 </script>
 
 {% endblock %}

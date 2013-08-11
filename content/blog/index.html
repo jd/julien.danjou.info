@@ -8,7 +8,7 @@ extends: standard.j2
 {% from "macros.j2" import render_blog_listing with context %}
 <div class="row-fluid">
   <div class="tabbable span10">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs nav-container">
     {% for node in resource.node.child_nodes|sort(attribute="name")|reverse if node.name.startswith("2") %}
       <li{% if loop.first %} class="active" {% endif %}><a href="#{{node.name}}" data-toggle="tab">{{ node.name }}</a></li>
     {% endfor %}
@@ -22,9 +22,9 @@ extends: standard.j2
     </div>
   </div>
   <div class="span2">
-    <h2><i class="icon-tags"></i> Tags</h2>
+    <h2><span class="glyphicon glyphicon-tags"></span> Tags</h2>
     {% for tag, meta in site.tagger.tags %}
-    <a href="/blog/tags/{{tag}}.html"><span class="label label-inverse"
+    <a href="/blog/tags/{{tag}}.html"><span class="label label-default"
     style="line-height: {{ 18 + (meta.resources|length) / 2 }}px; font-size:
     {{ 9 + (meta.resources|length) / 2 }}px;">{{tag}} ({{(meta.resources|length)}})</span></a>
     {% endfor %}

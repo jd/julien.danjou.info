@@ -6,20 +6,24 @@ extends: standard.j2
 
 {% block main %}
 
-<div class="tabbable tabs-right">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#rainbow-mode" data-toggle="tab">rainbow-mode.el</a></li>
-    <li><a href="#org-contacts" data-toggle="tab">org-contacts.el</a></li>
-    <li><a href="#offlineimap" data-toggle="tab">offlineimap.el</a></li>
-    <li><a href="#oauth2" data-toggle="tab">oauth2.el</a></li>
-    <li><a href="#muse-blog" data-toggle="tab">muse-blog.el</a></li>
-    <li><a href="#google-weather" data-toggle="tab">google-weather.el</a></li>
-    <li><a href="#google-maps" data-toggle="tab">google-maps.el</a></li>
-    <li><a href="#google-contacts" data-toggle="tab">google-contacts.el</a></li>
-    <li><a href="#erc-track-score" data-toggle="tab">erc-track-score.el</a></li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane fade in active" id="rainbow-mode">
+<div class="tabbable">
+  <div class="row-fluid">
+    <div class="span2">
+      <ul class="nav nav-stacked nav-pills nav-container">
+        <li class="active"><a href="#rainbow-mode" data-toggle="tab">rainbow-mode.el</a></li>
+        <li><a href="#org-contacts" data-toggle="tab">org-contacts.el</a></li>
+        <li><a href="#offlineimap" data-toggle="tab">offlineimap.el</a></li>
+        <li><a href="#oauth2" data-toggle="tab">oauth2.el</a></li>
+        <li><a href="#muse-blog" data-toggle="tab">muse-blog.el</a></li>
+        <li><a href="#google-weather" data-toggle="tab">google-weather.el</a></li>
+        <li><a href="#google-maps" data-toggle="tab">google-maps.el</a></li>
+        <li><a href="#google-contacts" data-toggle="tab">google-contacts.el</a></li>
+        <li><a href="#erc-track-score" data-toggle="tab">erc-track-score.el</a></li>
+      </ul>
+    </div>
+    <div class="span10">
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="rainbow-mode">
 {% markdown %}
 # rainbow-mode.el
 
@@ -543,6 +547,7 @@ by setting *erc-track-switch-direction* to *mostactive*, since *erc-track-score*
 modifies the number of unread message in *erc-modified-channels-alist*
 directly.
 {% endmarkdown %}
+</div>
 </div>
 </div>
 </div>

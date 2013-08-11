@@ -14,11 +14,11 @@
 
     {% block basecss %}
     <link href="{{ media_url('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ media_url('css/bootstrap-theme.min.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ media_url('css/bootstrap-responsive.min.css') }}" rel="stylesheet">
     <link href="{{ media_url('css/style.css') }}" rel="stylesheet">
     <link href="{{ media_url('css/pygments.css') }}" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
     {% endblock basecss %}
@@ -47,17 +47,17 @@
       {% block navbar %}
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/">{{ site_title }}</a>
-          <ul class="nav">
+          <a class="navbar-brand" href="/">{{ site_title }}</a>
+          <ul class="nav navbar-nav">
             <li{% if resource.node == site.content %} class="active"{% endif %}>
-              <a href="/"><i class="icon-{{site.content.meta.icon}} icon-white"></i> Consulting</a>
+              <a href="/"><span class="glyphicon glyphicon-{{site.content.meta.icon}}"></span> Consulting</a>
             </li>
             {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
             {% if menu_item.name != "media" %}
             <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
               <a href="{{ menu_item.full_url }}">
               {% if menu_item.meta.icon %}
-              <i class="icon-{{menu_item.meta.icon}} icon-white"></i>
+              <span class="glyphicon glyphicon-{{menu_item.meta.icon}}"></span>
               {% endif %}
               {{ menu_item.meta.title|capitalize }}
               </a>

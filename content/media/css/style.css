@@ -1,18 +1,13 @@
 body {
     background-color: #eee;
     font-family: 'Cabin', sans-serif;
-    font-size: 1em;
+    font-size: 100 %;
 }
 
 @media (max-width: 979px) {
     body {
         margin-top: 0px;
     }
-}
-
-header h1 {
-    font-size: 50px;
-    line-height: 55px;
 }
 
 .content {
@@ -30,18 +25,19 @@ header h1 {
     float: left;
 }
 
-#main-navbar {
-    padding-bottom: 25px;
+header h1 {
+    font-weight: 700;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: -1px;
 }
 
 .navbar {
     font-family: 'Quicksand', sans-serif;
     font-size: 15px;
     font-weight: bold;
-}
-
-.navbar .brand {
-    font-family: 'Francois One', sans-serif;
 }
 
 blockquote {
@@ -289,6 +285,11 @@ img.reference-logo {
 img.media-object {
     max-width: 112px;
     max-height: 112px;
+}
+
+.nav-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /* Stuff */

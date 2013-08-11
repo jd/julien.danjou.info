@@ -13,11 +13,11 @@
       {{ post.excerpt|markdown|typogrify }}
       <p><a class="btn" href="{{ content_url(res.url) }}">Read more</a></p>
       <p>
-        <i class="icon-calendar"></i> {{ res.meta.created.strftime('%d %b %Y') }}
+        <span class="glyphicon glyphicon-calendar"></span> {{ res.meta.created.strftime('%d %b %Y') }}
         {% if res.meta.tags %}
-        | <i class="icon-tags"></i> Tags:
+        | <span class="glyphicon glyphicon-tags"></span> Tags:
         {% for tag in res.meta.tags %}
-        <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-inverse">{{tag}}</span></a>
+        <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-default">{{tag}}</span></a>
         {% endfor %}
         {% endif %}
       </p>

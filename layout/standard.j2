@@ -29,9 +29,9 @@
 
 {% if resource.meta.tags %}
 <div class="taglist">
-<i class="icon-tags"></i>
+<span class="glyphicon glyphicon-tags"></span>
 {% for tag in resource.meta.tags %}
-<a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-inverse small">{{tag}}</span></a>
+<a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-default small">{{tag}}</span></a>
 {% endfor %}
 </div>
 {% endif %}
