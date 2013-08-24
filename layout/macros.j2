@@ -72,3 +72,47 @@
   {% endfor %}
 </feed>
 {% endmacro %}
+
+{% macro thgtp_form() %}
+<div id="thgtp-form" class="well well-sm row-fluid">
+  <div class="col-lg-8">
+    <div style="text-align: center;">
+      <h4><strong>
+          <a href="/books/the-hacker-guide-to-python">
+            The Hacker Guide to Python</a>
+      </strong></h4>
+    </div>
+    <p>
+      A book I'm writing that will be launched soon, talking about
+      designing Python applications, state of the art, and various
+      Python tips.
+    </p>
+    <p>
+      If you want to be the first to hear about the launch, subscribe
+      now.
+    </p>
+     <form role="form"
+          action="http://danjou.us7.list-manage.com/subscribe/post?u=53ceb9eb499d62f6ee37c8167&amp;id=208c414b19"
+  method="post" id="mc-embedded-subscribe-form"
+  name="mc-embedded-subscribe-form" class="validate" target="_blank"
+  novalidate>
+                <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                <input name="EMAIL" type="email" class="form-control" placeholder="your@email.com"
+                       required>
+                       <span class="input-group-btn">
+                         <button type="submit"
+	                         class="btn btn-primary">Keep me updated</button>
+                       </span>
+              </div>
+    </form>
+
+  </div>
+  <div class="col-lg-4">
+    <a href="/books/the-hacker-guide-to-python">
+        <img src="/media/images/the-hacker-guide-to-python.png"
+             style="max-width: 180px;">
+    </a>
+  </div>
+</div>
+{% endmacro %}

@@ -1,0 +1,172 @@
+---
+title: The Hacker Guide to Python
+subtitle: <br>Learn everything you need to build a successful Python project.
+default_block: None
+---
+{% block endhead %}
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:site" content="@juldanjou"/>
+<meta name="twitter:image:src" content='{{site_url}}{{resource.meta.image}}'/>
+<meta name="twitter:title" content="{{resource.meta.title}}"/>
+<meta name="twitter:domain" content="julien.danjou.info"/>
+<meta name="twitter:description" content="{{
+                                          self.excerpt()|markdown|striptags
+                                          |truncate(200, end="…")|forceescape }}"/>
+{% endblock endhead %}
+
+{% block main %}
+<br>
+
+<div class="row-fluid" style="margin-top: 10px; margin-bottom: 60px;
+                              padding: 50px;
+                              ">
+  <div class="span8">
+    {% block excerpt %}
+    <p style="line-height: 1.5em;"
+       class="lead">
+      Python is a wonderful programing language that is being used more and
+      more in a lot of different industries. It is fast, flexible, and comes
+      with batteries included.
+    </p>
+    <p style="line-height: 1.5em;" class="lead">
+      Most of the books you read about Python teach you the language basics.
+      But once you've learnt them, you are on your own designing your
+      application and discovering best practices.
+    <p style="line-height: 1.5em;" class="lead">
+      In this book, we'll see how to leverage Python to efficiently tackle
+      your problems and build great Python applications.
+    </p>
+    {% endblock %}
+    <br>
+    <p style="text-align: right;">
+      <a class="btn btn-warning btn-lg"
+         href="#subscribe">Subscribe for the launch</a>
+    </p>
+  </div>
+  <div class="span4">
+    <img src="/media/images/the-hacker-guide-to-python.png"
+         style="max-width: 320px;">
+  </div>
+</div>
+
+<div style="width: 80%; margin: auto;">
+  <h3>What's going to be in this book?</h3>
+  <div class="row-fluid" style="margin-bottom: 120px;">
+    <div class="span4">
+      <h3>
+        <span class="glyphicon glyphicon-ok-sign"></span>
+        Best practices
+      </h3>
+      Advice you should follow when building your
+      application, that will help you make the most out of Python, and
+      build a future proof programs. If you're already working on
+      something, you'll be able to apply technique discussed right ahead
+      to enhance your current work.
+    </div>
+    <div class="span4">
+      <h3><span class="glyphicon glyphicon-fire"></span>
+        Solving problems</h3>
+      Real issues and real solutions to tackle problem such as testing,
+      porting, scaling, etc, Python applications or libraries.
+      Great tips included so you avoid making mistakes already made by
+      others, and save time.
+    </div>
+    <div class="span4">
+      <h3><span class="glyphicon glyphicon-comment"></span> Hacker
+      interviews</h3> Read advice, tips and opinions from great hackers from
+      the Open Source and Python community. Learn from experts of the
+      discussed areas.
+    </div>
+  </div>
+
+  <div class="row-fluid well" style="margin-bottom: 120px;">
+    <div class="span6">
+      <h3>
+        Be the first to hear when it's released!
+      </h3>
+      <p>
+         <img src="/media/images/hacker-guide-snake.png" style="max-width: 100px;">
+      </p>
+      <p>
+        Sign-up for exclusive content, a discount and more updates on The
+        Hacker Guide to Python.
+      </p>
+    </div>
+
+    <div class="span6" id="subscribe">
+      <form role="form"
+            action="http://danjou.us7.list-manage.com/subscribe/post?u=53ceb9eb499d62f6ee37c8167&amp;id=208c414b19" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div class="form-group">
+          <label for="input-email">E-mail address</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon
+                           glyphicon-envelope"></span>
+              </span>
+            <input type="email" class="form-control" id="input-email"
+                   name="EMAIL"
+                   placeholder="Enter e-mail address">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input-fname">Firstname</label>
+          <input type="text" class="form-control" id="input-fname"
+                 name="FNAME"
+                 placeholder="Enter your firstname">
+        </div>
+        <div class="form-group">
+          <label for="input-fname">Lastname</label>
+          <input type="text" class="form-control" id="input-lname"
+                 name="LNAME"
+                 placeholder="Enter your lastname">
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Keep me updated</button>
+      </form>
+      <small>You'll never receive spam. Unsubscribe at any time.</small>
+    </div>
+  </div>
+
+  <div class="row-fluid" style="margin-bottom: 120px;">
+    <div class="span3">
+      <img src="/media/images/jd.jpg" class="img-circle">
+    </div>
+    <div class="span9">
+      <h3>About the author</h3>
+      <p>
+        Hi, I'm Julien Danjou, a Free Software hacker for more than 12
+        years. I have multiple hats in the Free and Open Source community,
+        among them: <a href="http://debian.org">Debian</a> developer,
+        <a href="http://freedesktop.org">Freedesktop</a> contributor,
+        <a href="http://www.gnu.org/software/emacs/">GNU Emacs</a>
+        committer, the <a href="http://awesome.naquadah.org">awesome</a>
+        window manager creator, and more recently, the <em>Project Technical
+        Leader</em> for <a href="http://openstack.org">OpenStack</a>
+        <a href="http://launchpad.net/ceilometer">Ceilometer</a>.
+      </p>
+      <p>
+        For the last years, I've been hacking on Python a lot, especially
+        through <a href="http://openstack.org">OpenStack</a>, a
+        cloud-computing platform. During that time, I had the chance to work
+        with fabulous Python hackers, learning a lot from them and the
+        surrounding community.
+      </p>
+
+      <p>I live in Paris, France, but like to travel once in a while. You
+        should follow me on Twitter so we can keep in touch!
+        <a href="https://twitter.com/juldanjou" class="twitter-follow-button" data-show-count="false">Follow @juldanjou</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </p>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block endjs %}
+<script type="text/javascript">
+$("form").submit(function (e) {
+  _gaq.push(['_trackEvent', 'Books', 'THGTP', 'Pre-Launch B']);
+});
+</script>
+{% endblock %}

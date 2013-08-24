@@ -396,6 +396,9 @@ In such a case, every pizza you will build by inheriting from *BasePizza*
 will have to override the *get_ingredients* method, but will be able to use
 the default mechanism to get the ingredient list by using *super()*.
 
+{% from "macros.j2" import thgtp_form %}
+{{ thgtp_form() }}
+
 {# Local Variables: #}
 {# mode: markdown #}
 {# End: #}
