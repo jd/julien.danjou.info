@@ -3,6 +3,7 @@ deploy: site.yaml clean content/media/images/blog/2012/openstack-swift-storage.p
 
 pub: deploy
 	if ! git status | egrep -q '^nothing to commit.*working directory clean'; then echo Untracked files, not pushing && exit 1; fi
+	if ! git branch | grep -q '^* master'; then echo Not on master, not pushing && exit 2;fi
 	rsync -Pavz --delete deploy/ julien.danjou.info:/var/www/julien.danjou.info/
 
 clean:
