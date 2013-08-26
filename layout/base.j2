@@ -111,6 +111,8 @@
     {% block analytics %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
+      var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+      _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
       _gaq.push(['_setAccount', '{{ google_analytics_id }}']);
       _gaq.push(['_trackPageview']);
 
