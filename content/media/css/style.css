@@ -390,3 +390,7 @@ img.media-object {
 iframe[id*=twitter-widget].twitter-timeline {
     width: 234px;
 }
+
+img.flag {
+    display: inline;
+}
