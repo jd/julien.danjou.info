@@ -10,7 +10,7 @@ tags:
 {% block excerpt %}
 {% mark excerpt %}
 
-Last week, the third and last milestone of the Havana developement branch of
+Last week, the third and last milestone of the Havana development branch of
 Ceilometer has been released and is now available for testing and download.
 This means the end of the OpenStack *Havana* development time is coming, and
 that the features are now frozen.
@@ -19,6 +19,9 @@ that the features are now frozen.
 {% endblock %}
 
 # New features
+<div class="illustration pull-right">
+    <img width="150" src="http://julien.danjou.info/media/images/blueprint.jpg">
+</div>
 
 Eleven blueprints have been implemented as you can see on the
 [release page](https://launchpad.net/ceilometer/+milestone/havana-3). That's
@@ -27,39 +30,36 @@ though we had a pretty high score considering the size of our contributors
 team. I'm going to talk through some of them here, that are the most
 interesting for users.
 
-<div class="illustration pull-left">
-    <img width="150" src="http://julien.danjou.info/media/images/blueprint.jpg">
-</div>
-
-Our favorite [OPW](https://wiki.openstack.org/wiki/OutreachProgramForWomen)
-intern Terri Yu implemented the long awaited
+* Our favorite
+[OPW](https://wiki.openstack.org/wiki/OutreachProgramForWomen) intern Terri
+Yu implemented the long awaited
 [GROUP BY API feature](https://blueprints.launchpad.net/ceilometer/+spec/api-group-by),
 that allows to group samples by fields before returning statistics.
 
-Eoghan Glynn (RedHat) continued his implementation of alarming features, and
-the
+* Eoghan Glynn (RedHat) continued his implementation of alarming features,
+and the
 [audit API](https://blueprints.launchpad.net/ceilometer/+spec/alarm-audit-api)
 has been merged. A few blueprints related to alarming slipped and will be
-delayed for rc1, as they have been granted feature freeze exceptions:
+delayed for RC1, as they have been granted feature freeze exceptions:
 [logical combinations of alarms](https://blueprints.launchpad.net/ceilometer/+spec/alarming-logical-combination)
 and
 [alarm service partitioner](https://blueprints.launchpad.net/ceilometer/+spec/alarm-service-partitioner).
 
-With the help of Gordon Chung (IBM), I've worked on creating a
+* With the help of Gordon Chung (IBM), I've worked on creating a
 [middleware to meter API requests](https://blueprints.launchpad.net/ceilometer/+spec/count-api-requests).
 This has been merged into Oslo and is handled by Ceilometer. Gordon added
 another middleware on top of it to add CADF support for audit.
 
-Ceilometer agent compute gained his second inspector to poll for virtual
-machine, thanks to Alessandro Pilotti who implemented
+* Ceilometer agent compute gained his second inspector to poll for virtual
+machine, thanks to Alessandro Pilotti (Cloudbase) who implemented
 [the Hyper-V inspector](https://blueprints.launchpad.net/ceilometer/+spec/hyper-v-agent).
 
-Ceilometer will be able to meter Neutron bandwidth thanks to eNovance folks
-that worked on
+* Ceilometer will be able to meter Neutron bandwidth thanks to eNovance
+folks that worked on
 [bandwidth metering blueprint](https://blueprints.launchpad.net/ceilometer/+spec/ceilometer-quantum-bw-metering),
 both on Ceilometer and Neutron parts. This is also a long awaited feature.
 
-Finally, Ceilometer will be shipped with yet another storage backend, as
+* Finally, Ceilometer will be shipped with yet another storage back-end, as
 Tong Li (IBM) implemented a
 [DB2 driver](https://blueprints.launchpad.net/ceilometer/+spec/ibm-db2-support).
 
@@ -74,7 +74,7 @@ curious.
 
 With the feature freeze in place, we're now focusing on fixing bugs and
 improving documentation. I'll try to make sure we'll get there without too
-much trouble for the 6th September 2013. Stay tuned!
+much trouble for the 17th October 2013. Stay tuned!
 
 {# Local Variables: #}
 {# mode: markdown #}
