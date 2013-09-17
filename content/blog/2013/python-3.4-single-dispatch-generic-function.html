@@ -1,0 +1,251 @@
+---
+title: Python 3.4 single dispatch, a step into generic functions
+created: !!timestamp '2013-09-17 14:26:20'
+image: /media/images/python.png
+tags:
+    - python
+    - lisp
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+I love to say that Python is a nice subset of Lisp, and I discover that it's
+getting even more true as time passes. Recently, I've stumbled upon the
+[PEP 443](http://python.org/dev/peps/pep-0443/) that describes a way to
+dispatch generic functions, in a way that looks like what CLOS, the Common
+Lisp Object System, provides.
+
+{% endmark %}
+{% endblock %}
+
+
+## What are generic functions
+
+If you come from the Lisp world, this won't be something new to you. The
+Lisp object system provides a really good way to define and handle method
+dispatching. It's a base of the Common Lisp object system.
+For my own pleasure to see Lisp code in a Python post, I'll show you how
+generic methods work in Lisp first.
+
+To begin, let's define a few very simple classes.
+
+{% syntax cl %}
+(defclass snare-drum ()
+  ())
+
+(defclass cymbal ()
+  ())
+
+(defclass stick ()
+  ())
+
+(defclass brushes ()
+  ())
+{% endsyntax %}
+
+This defines a few classes: `snare-drum`, `symbal`, `stick` and `brushes`,
+without any parent class nor attribute. These classes compose a drum kit,
+and we can combine them to play sound. So we define a `play` method that
+takes two arguments, and returns a sound (as a string).
+
+{% syntax cl %}
+(defgeneric play (instrument accessory)
+  (:documentation "Play sound with instrument and accessory."))
+{% endsyntax %}
+
+This only defines a generic method: it has no body, and cannot be called
+with any instance yet. At this stage, we only inform the object system that
+the method is generic and can be then implemented with various type of
+arguments. We'll start by implementing versions of this method that knows
+how to play with the snare-drum.
+
+{% syntax cl %}
+(defmethod play ((instrument snare-drum) (accessory stick))
+  "POC!")
+
+(defmethod play ((instrument snare-drum) (accessory brushes))
+  "SHHHH!")
+{% endsyntax %}
+
+Now we just defined concrete methods with code. They also takes two
+arguments: `instrument` which is an instance of `snare-drum` and `accessory`
+that is an instance of `stick` or `brushes`.
+
+At this stage, you should note the first difference with object system as
+built into language like Python: the method isn't tied to any class in
+particular. The methods are *generic*, and any class can implement them, or
+not.
+
+Let's try it.
+
+{% syntax cl %}
+* (play (make-instance 'snare-drum) (make-instance 'stick))
+"POC!"
+
+* (play (make-instance 'snare-drum) (make-instance 'brushes))
+"SHHHH!"
+
+* (play (make-instance 'cymbal) (make-instance 'stick))
+debugger invoked on a SIMPLE-ERROR in thread
+#<THREAD "main thread" RUNNING {1002ADAF23}>:
+  There is no applicable method for the generic function
+    #<STANDARD-GENERIC-FUNCTION PLAY (2)>
+  when called with arguments
+    (#<CYMBAL {1002B801D3}> #<STICK {1002B82763}>).
+
+Type HELP for debugger help, or (SB-EXT:EXIT) to exit from SBCL.
+
+restarts (invokable by number or by possibly-abbreviated name):
+  0: [RETRY] Retry calling the generic function.
+  1: [ABORT] Exit debugger, returning to top level.
+
+((:METHOD NO-APPLICABLE-METHOD (T)) #<STANDARD-GENERIC-FUNCTION PLAY (2)> #<CYMBAL {1002B801D3}> #<STICK {1002B82763}>) [fast-method]
+{% endsyntax %}
+
+As you see, the function called depends on the class of the arguments. The
+object systems **dispatch** the function calls to the right function for us,
+depending on the arguments classes. If we call `play` with instances that
+are not know to the object system, an error will be thrown.
+
+
+Inheritance is also supported and the equivalent (but more powerful and less
+error prone) equivalent of Python's `super()` is available via
+`(call-next-method)`.
+
+{% syntax cl %}
+(defclass snare-drum () ())
+(defclass cymbal () ())
+
+(defclass accessory () ())
+(defclass stick (accessory) ())
+(defclass brushes (accessory) ())
+
+(defmethod play ((c cymbal) (a accessory))
+  "BIIING!")
+
+(defmethod play ((c cymbal) (b brushes))
+  (concatenate 'string "SSHHHH!" (call-next-method)))
+{% endsyntax %}
+
+In this example, we define the `stick` and `brushes` classes as subclass of
+the `accessory` class. The `play` method defined will return the sound
+_BIIING!_ regardless of the accessory instance that is used to play the
+cymbal. Except in the case where it's a `brushes` instance; only the most
+precise method is always called. The `(call-next-method)` function is used
+to call the closest parent method, in this case that would be the method
+returning _"BIIING!".
+
+{% syntax cl %}
+* (play (make-instance 'cymbal) (make-instance 'stick))
+"BIIING!"
+
+* (play (make-instance 'cymbal) (make-instance 'brushes))
+"SSHHHH!BIIING!"
+{% endsyntax %}
+
+Note that CLOS is also able to dispatch on object instances themself by
+using the `eql` specializer.
+
+But if you're really curious about all features CLOS provides, I suggest you
+read the
+[brief guide to CLOS by Jeff Dalton](http://www.aiai.ed.ac.uk/~jeff/clos-guide.html)
+as a starter.
+
+## Python implementation
+
+Python implements a simpler equivalence of this workflow with the
+`singledispatch` function. It will be provided with Python 3.4 as part of
+the `functools` module. Here's a rough equivalence of the above Lisp
+program.
+
+{% syntax python %}
+import functools
+
+class SnareDrum(object): pass
+class Cymbal(object): pass
+class Stick(object): pass
+class Brushes(object): pass
+
+@functools.singledispatch
+def play(instrument, accessory):
+    raise NotImplementedError("Cannot play these")
+
+@play.register(SnareDrum)
+def _(instrument, accessory):
+    if isinstance(accessory, Stick):
+        return "POC!"
+    if isinstance(accessory, Brushes):
+        return "SHHHH!"
+    raise NotImplementedError("Cannot play these")
+{% endsyntax %}
+
+We define our four classes, and a base `play` function that raises
+`NotImplementedError`, indicating that by default we don't know what to do.
+We can then write specialized version of this function with a first
+instrument, the `SnareDrum`. We then check for the accessory type that we
+get, and return the appropriate sound or raise `NotImplementedError` again
+if we don't know what to do with it.
+
+If we run it, it works as expected:
+
+{% syntax python %}
+>>> play(SnareDrum(), Stick())
+'POC!'
+>>> play(SnareDrum(), Brushes())
+'SHHHH!'
+>>> play(Cymbal(), Brushes())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/jd/Source/cpython/Lib/functools.py", line 562, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+  File "/home/jd/sd.py", line 10, in play
+    raise NotImplementedError("Cannot play these")
+NotImplementedError: Cannot play these
+>>> play(SnareDrum(), Cymbal())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/jd/Source/cpython/Lib/functools.py", line 562, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+  File "/home/jd/sd.py", line 18, in _
+    raise NotImplementedError("Cannot play these")
+NotImplementedError: Cannot play these
+{% endsyntax %}
+
+The `singledispatch` module looks through the classes of the first argument
+passed to the `play` function, and calls the right version of it. The first
+defined version of the `play` function is always run for the `object` class,
+so if our instrument is a class that we did not register for, this base
+function will be called.
+
+For whose eager to try and use it, the `singledispatch` function is
+[provided Python 2.6 to 3.3 through the Python Package Index](https://pypi.python.org/pypi/singledispatch/).
+
+## Limitations
+
+First, as you noticed in the Lisp version, CLOS provides a multiple
+dispatcher that can dispatch on the tye pof **any of the argument** defined
+in the method prototype, not only the first one. Unfortunately, Python
+dispatcher is named _singledispatch_ for this good reason: it only knows to
+dispatch on the first argument. Guido van Rossum wrote a short article about
+the subject that he called
+[multimethod](http://www.artima.com/weblogs/viewpost.jsp?thread=101605) a
+few years ago.
+
+Then, there's no way to call the parent function directly. There's no
+equivalent of the `(call-next-method)` from Lisp nor the `super()` function
+that allows to do that in Python class system. This means you will have to
+use various trick to bypass this limitation.
+
+So while I am really glad that Python is going toward that direction, as
+it's a really powerful way to enhance an object system, it really lacks a
+lot of more advanced features that CLOS provides out of the box.
+
+Though, improving this could be an interesting challenge. :-)
+
+{% from "macros.j2" import thgtp_form %}
+{{ thgtp_form() }}
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
