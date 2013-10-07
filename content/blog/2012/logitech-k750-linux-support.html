@@ -335,7 +335,7 @@ int main(void)
 
                 unsigned char ret[65535];
 
-                unsigned char payload[] = "\x10\x02\x09\x03\x78\x01\x00";
+                unsigned char payload[] = "\x10\x01\x09\x03\x78\x01\x00";
 
                 if(libusb_control_transfer(device_handle,
                                            LIBUSB_REQUEST_TYPE_CLASS | LIBUSB_RECIPIENT_INTERFACE,
