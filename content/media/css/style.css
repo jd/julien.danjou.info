@@ -112,12 +112,12 @@ figcaption {
     font-size: 0.9em;
 }
 
-article .pull-left {
+.illustration.pull-left {
     margin-right: 25px;
     margin-bottom: 25px;
 }
 
-article .pull-right {
+.illustration.pull-right {
     margin-left: 25px;
     margin-bottom: 25px;
 }
@@ -267,9 +267,6 @@ img.reference-logo {
     margin-top: 10px;
 }
 
-.media {
-    margin-bottom: 40px;
-}
 
 .media > a {
     width: 112px;

@@ -7,130 +7,113 @@ default_block: None
 {% endblock %}
 
 {% block main %}
-<div class="media">
-  <a class="pull-left" href="#">
-    <div class="media-object"></div>
-  </a>
-  <div class="media-body">
-    <h4 class="media-heading">Ceilometer+Heat=Alarming</h4>
-    <span class="glyphicon glyphicon-map-marker"></span>
-      <a href="">
-        <i>OpenStack Design Summit Icehouse</i>,
+
+{% macro render_talk(title, event, link_event, place, country, country_code, date,
+                     speakers, slides_thumb, slides, extra) %}
+<div class="panel panel-default">
+  <div class="panel-heading">{{ title }}</div>
+  <div class="panel-body">
+    <div class="media">
+      <a class="pull-left" href="{{ slides }}">
+        <img class="media-object img-thumbnail" src="{{ slides_thumb }}">
       </a>
-      Hong-Kong
-      <img class="flag flag-hk" alt="Hong-Kong"/>
-    <br>
-    <span class="glyphicon glyphicon-calendar"></span> 8th November 2013
-    <br>
-    <span class="glyphicon glyphicon-user"></span> Julien Danjou, Eoghan Glynn
+      <div class="media-body">
+        {{ extra }}
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <a href="{{ link_event }}">
+          <i>{{ event }}</i>,
+        </a>
+        {{ place }}
+        <img class="flag flag-{{ country_code }}" alt="{{ country }}"/>
+        <br>
+        <span class="glyphicon glyphicon-calendar"></span> {{ date }}
+        <br>
+        <span class="glyphicon glyphicon-user"></span> {{ speakers }}
+      </div>
+    </div>
   </div>
 </div>
+{% endmacro %}
 
-<div class="media">
-  <a class="pull-left" href="/talks/hy-lisp-on-python.html">
-    <img class="media-object img-thumbnail" src="/media/images/talks/hy-lisp-on-python.png">
-  </a>
-  <div class="media-body">
-    <h4 class="media-heading">Hy, Lisp on Python</h4>
-    <span class="glyphicon glyphicon-map-marker"></span>
-      <a href="http://www.pycon.fr/2013/">
-        <i>PyconFR</i>,
-      </a>
-      Strasbourg
-      <img class="flag flag-fr" alt="France"/>
-    <br>
-    <span class="glyphicon glyphicon-calendar"></span> 26th October 2013
-    <br>
-    <span class="glyphicon glyphicon-user"></span> Julien Danjou
-  </div>
-</div>
 
-<div class="media">
-  <a class="pull-left" href="/media/OpenStack & Debian.pdf">
-    <img class="media-object img-thumbnail" src="/media/images/OpenStack & Debian.png">
-  </a>
-  <div class="media-body">
-    <h4 class="media-heading">OpenStack & Debian: How OpenStack and Debian
-      work together</h4>
-    <span class="glyphicon glyphicon-map-marker"></span>
-      <a href="http://www.meetup.com/Technologies-libres-open-source/events/113804162/">
-        <i>Debian en action, projet, production et cloud</i>,
-      </a>
-      Paris
-      <img class="flag flag-fr" alt="France"/>
-    <br>
-    <span class="glyphicon glyphicon-calendar"></span> 22nd May 2013
-    <br>
-    <span class="glyphicon glyphicon-user"></span> Julien Danjou
-  </div>
-</div>
+{{ render_talk("Ceilometer+Heat=Alarming",
+               "OpenStack Design Summit Icehouse",
+               "http://www.openstack.org/summit/openstack-summit-hong-kong-2013/",
+               "Hong-Kong",
+               "Hong-Kong",
+               "hk",
+               "8th November 2013",
+               "Nick Barcet, Eoghan Glynn, Julien Danjou",
+               "/media/images/talks/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.png",
+               "/talks/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.pdf",
+               "<embed class=\"pull-right\" width=\"320\" height=\"195\" src=\"http://www.youtube.com/v/-U6cyeWkiSc\" type=\"application/x-shockwave-flash\"></embed>") }}
 
-<div class="media">
-  <a class="pull-left" href="/media/Ceilometer presentation ODS Havana.pdf">
-    <img class="media-object img-thumbnail" src="/media/images/Ceilometer presentation ODS Havana.png">
-  </a>
-  <div class="media-body">
-    <h4 class="media-heading">Ceilometer: From Metering to Metrics</h4>
-    <span class="glyphicon glyphicon-map-marker"></span>
-    <a href="http://openstacksummitapril2013.sched.org/event/1d49d65f018339af9acc293aa853c5ae#.UW7AVJA97f0">
-      <i>OpenStack Design Summit Havana</i></a>,
-      Portland, OR <img class="flag flag-us" alt="USA"/>
-    <br>
-    <span class="glyphicon glyphicon-calendar"></span> 15th April 2013
-    <br>
-    <span class="glyphicon glyphicon-user"></span> Julien Danjou, Nick Barcet
-  </div>
-</div>
+{{ render_talk("Hy, Lisp on Python",
+               "PyCon FR",
+               "http://www.pycon.fr/2013/",
+               "Strasbourg",
+               "France",
+               "fr",
+               "26th October 2013",
+               "Julien Danjou",
+               "/media/images/talks/hy-lisp-on-python.png",
+               "/talks/hy-lisp-on-python.html",
+               "<video width=\"320\" class=\"pull-right\" controls><source src=\"/talks/pyconfr-2013-jdanjou-hy.mp4\" type=\"video/mp4\"></video>") }}
 
-<div class="media">
-  <a class="pull-left" href="/media/Ceilometer presentation FOSDEM 2013.pdf">
-    <img class="media-object img-thumbnail" src="/media/images/Ceilometer presentation FOSDEM 2013.png">
-  </a>
-  <div class="media-body">
-    <h4 class="media-heading">Measuring OpenStack: the Ceilometer Project</h4>
-    <span class="glyphicon glyphicon-map-marker"></span>
-    <a href="https://fosdem.org/2013/schedule/event/openstack_ceilometer/">
-      <i>FOSDEM 2013, Cloud devroom</i></a>,
-    Brussels
-    <img class="flag flag-be" alt="Belgium"/>
-    <br>
-    <span class="glyphicon glyphicon-calendar"></span> 3rd February 2013
-    <br>
-    <span class="glyphicon glyphicon-user"></span> Julien Danjou, Nick Barcet, Eoghan Glynn
-  </div>
-</div>
+{{ render_talk("OpenStack & Debian: How OpenStack and Debian work together",
+               "Debian en action, projet, production et cloud",
+               "http://www.meetup.com/Technologies-libres-open-source/events/113804162/",
+               "Paris",
+               "France",
+               "fr",
+               "22nd May 2013",
+               "Julien Danjou",
+               "/media/images/OpenStack & Debian.png",
+               "/media/OpenStack & Debian.pdf") }}
 
-<div class="media">
-  <a class="pull-left" href="/media/Ceilometer presentation OpenStack France meetup %232.pdf">
-    <img class="media-object img-thumbnail" src="/media/images/Ceilometer presentation OpenStack France meetup %232.png">
-  </a>
-  <div class="media-body">
-    <h4 class="media-heading">Ceilometer, The OpenStack Metering Project</h4>
-    <span class="glyphicon glyphicon-map-marker"></span>
-    <a href="http://www.meetup.com/OpenStack-France/events/84177022/">
-      <i>OpenStack France Meetup #2</i></a>,
-    Paris <img class="flag flag-fr" alt="France"/>
-    <br>
-    <span class="glyphicon glyphicon-calendar"></span> 5th November 2012
-    <br>
-    <span class="glyphicon glyphicon-user"></span>  Julien Danjou, Nick Barcet
-  </div>
-</div>
+{{ render_talk("Ceilometer: From Metering to Metrics",
+               "OpenStack Design Summit Havana",
+               "http://www.openstack.org/summit/portland-2013/",
+               "Portland, OR",
+               "USA",
+               "us",
+               "15th April 2013",
+               "Julien Danjou, Nick Barcet",
+               "/media/images/Ceilometer presentation ODS Havana.png",
+               "/media/Ceilometer presentation ODS Havana.pdf") }}
 
-<div class="media">
-  <a class="pull-left" href="/media/Ceilometer presentation XLCloud.pdf">
-    <img class="media-object img-thumbnail" src="/media/images/Ceilometer presentation XLCloud.png">
-  </a>
-  <div class="media-body">
-    <h4 class="media-heading">Ceilometer, The OpenStack Metering Project</h4>
-    <span class="glyphicon glyphicon-map-marker"></span>
-    <a href="http://xlcloud.org/bin/view/Events/XLcloud+Technical+Workshop+Thursday+July+26+2012">
-      <i>XLCloud Technical Workshop</i></a>,
-    Paris <img class="flag flag-fr" alt="France"/>
-    <br>
-    <span class="glyphicon glyphicon-calendar"></span> 26th July 2012
-    <br>
-    <span class="glyphicon glyphicon-user"></span> Julien Danjou
-  </div>
-</div>
+{{ render_talk("Measuring OpenStack: the Ceilometer Project",
+               "FOSDEM 2013",
+               "https://fosdem.org/2013/schedule/event/openstack_ceilometer/",
+               "Brussels",
+               "Belgium",
+               "be",
+               "3rd February 2013",
+               "Nick Barcet, Eoghan Glynn, Julien Danjou",
+               "/media/images/Ceilometer presentation FOSDEM 2013.png",
+               "/media/Ceilometer presentation FOSDEM 2013.pdf") }}
+
+{{ render_talk("Ceilometer, The OpenStack Metering Project",
+               "OpenStack France Meetup #2",
+               "http://www.meetup.com/OpenStack-France/events/84177022/",
+               "Paris",
+               "France",
+               "fr",
+               "5th November 2012",
+               "Julien Danjou",
+               "/media/images/Ceilometer presentation OpenStack France meetup %232.png",
+               "/media/Ceilometer presentation OpenStack France meetup %232.pdf") }}
+
+
+{{ render_talk("Ceilometer, The OpenStack Metering Project",
+               "XLCloud Technical Workshop",
+               "http://xlcloud.org/bin/view/Events/XLcloud+Technical+Workshop+Thursday+July+26+2012",
+               "Paris",
+               "France",
+               "fr",
+               "26th July 2012",
+               "Julien Danjou",
+               "/media/images/Ceilometer presentation XLCloud.png",
+               "/media/Ceilometer presentation XLCloud.pdf") }}
+
 {% endblock %}
