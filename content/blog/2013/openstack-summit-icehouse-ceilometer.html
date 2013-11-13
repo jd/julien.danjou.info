@@ -1,0 +1,148 @@
+---
+title: "OpenStack Design Summit Icehouse, from a Ceilometer point of view"
+created: !!timestamp '2013-11-13 12:00:00'
+image: /media/images/blog/2013/ods_icehouse_banner.jpg
+tags:
+    - openstack
+    - ceilometer
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Last week was the
+[OpenStack Design Summit Icehouse](http://www.openstack.org/summit/openstack-summit-hong-kong-2013/)
+in Hong-Kong where we, OpenStack developers, discussed and designed the new
+OpenStack release (Icehouse) that is coming up.
+
+{% endmark %}
+{% endblock %}
+
+<img class="illustration" src="/media/images/blog/2013/ods_icehouse_banner.jpg">
+
+The week has been wonderful. It was my second OpenStack design summit, and I
+loved it. Bumping into various people I've never met so far and worked with
+online only was a real pleasure, as it was to meet again with fellow
+OpenStack developers! The event organisation was great, as were the parties.
+:-)
+
+On the last day, I had the chance to present a talk with Eoghan Glynn and
+Nick Barcet how we built the auto-scaling feature in Heat, implementing the
+"alarming" feature needed in Ceilometer.
+
+<figure>
+<img class="illustration shadow" src="/media/images/blog/2013/ods_icehouse_ceilometer_heat_nijaba_eglynn_jd.jpg">
+</figure>
+
+The slides and video of the talk is online on my <a href="/talks/">talks
+page</a>.
+
+# Design sessions
+
+This time, Ceilometer design sessions were spread on 3 days. Everything we
+talked about has its
+[Etherpad instance](https://wiki.openstack.org/wiki/Summit/Icehouse/Etherpads#Ceilometer).
+The discussions were interesting, and the amount of feedback gathered is big
+and is going to be very useful.
+
+There's a lot of people and companies using Ceilometer now, and the project
+is getting more and more traction in general. There's a lot of different way
+to use it and to bend it to one's needs. Considering the amount of features
+and options that is provided, building functionality with a genericized
+approach it making Ceilometer useful for a lot of different and interesting
+use-cases.
+
+# Icehouse roadmap
+
+The
+[list of blueprints targeting Icehouse is available](https://blueprints.launchpad.net/ceilometer/icehouse),
+but not yet complete. I expect people to start filling this list in the next
+days.If you want to propose blueprints, you're free to do so and inform us
+about it so we can validate it. The same applies if you wish to implement
+one of them!
+
+Thereafter, I try to guess what the roadmap will look like in the upcoming
+weeks for Ceilometer based on the discussion we had last week during the
+summit.
+
+## Events management
+
+A lot of work is going to be put into event management. Ceilometer plans to
+store notifications sent using _oslo.messaging_ by OpenStack projects. Some
+work already got merge for Havana, but the API part and future improvements
+and ideas will continue to flow into the Icehouse release.
+
+## Agents and group management
+
+A lot has been discussed around the polling agents and around the alarm
+evaluator agent.
+
+The current state of the _ceilometer-central-agent_ disallows any kind of
+high-availability and load-balancing, as the polling task are kept and
+scheduled on only one node.
+
+The high-availability part is already covered by a custom mechanism built
+into _ceilometer-alarm-evaluator_, but it came clear to us that a more
+generic approach is needed. A lot of other projects needs this kind of
+functionality, and a pattern have been pointed out. A
+[blueprint about group membership](https://wiki.openstack.org/wiki/Oslo/blueprints/service-sync)
+has been discussed in an Oslo session, and will end into a new Python
+library written to solve this in Ceilometer and in other projects.
+
+[TaskFlow](https://wiki.openstack.org/wiki/Taskflow) will also probably be
+leveraged to solve the task distribution issue.
+
+## Documentation
+
+Since a few weeks, Ceilometer auto-generates its
+[API reference documentation](http://api.openstack.org/api-ref-metering.html)
+using
+[sphinxcontrib-docbookrestapi](https://git.openstack.org/cgit/stackforge/sphinxcontrib-docbookrestapi/)
+that parses our API code that uses
+[WSME](https://pypi.python.org/pypi/WSME).
+
+We also want to start writing a user guide, and we'll do that inside our own
+repository. That way, I hope that we will be the first project in OpenStack
+to require documentation to be incorporated into every patch that's being
+sent to Ceilometer. This is the best way to assure that nothing can be
+changed nor added without being accompanied with a documentation update.
+
+
+## Tempest testing
+
+Testing of Ceilometer already has been a subject during the previous design
+summit about testing. We already put a large effort on Tempest testing in
+this last cycle, but we encountered a lot of small issues that we had to
+tackle to achieve something. Some Ceilometer basic tests are already on
+their way into Tempest, so this is something that is going to be achieved
+very soon.
+
+Ultimately, I would also want Ceilometer moving towards providing its own
+set of Tempest tests as part of the code base. That way, it'd be as easy for
+core reviewers to refuse a patch if it doesn't provide functional tests as
+it is to refuse it if it doesn't provide unit tests. As we'll do for the
+documentation.
+
+## API improvements
+
+Once again, a few API improvements will probably be implemented, like
+aggregation or the ability to specify multiple queries with _OR_ and _AND_
+operators.
+
+## Roll-up, archiving of data
+
+There seems to be interest in archiving and rolling-up the data stored by
+Ceilometer, so work in this area is to be expected. Supporting multiple data
+storage driver in parallel seems to be something that needs to be done for
+this and other aspects of Ceilometer feature set.
+
+## Alarming
+
+The alarming feature set is already big, and the work that has been
+accomplished pretty amazing. A few improvements will be made, as retrieving
+better metrics and building better statistics (exclusion of low quality data
+points).
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
