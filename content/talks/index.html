@@ -9,19 +9,28 @@ default_block: None
 {% block main %}
 
 {% macro render_talk(title, event, link_event, place, country, country_code, date,
-                     speakers, slides_thumb, slides, extra) %}
-<div class="panel panel-default">
-  <div class="panel-heading">{{ title }}</div>
+                     speakers, slides_thumb, slides, extra, class="info") %}
+<div class="panel panel-{{ class }}">
+  <div class="panel-heading">
+    <h4><strong>
+    {{ title }}
+    {% if class == "primary" %}
+    <span class="pull-right label label-danger">UPCOMING</span>
+    {% endif %}
+    </strong></h4>
+  </div>
   <div class="panel-body">
     <div class="media">
       <a class="pull-left" href="{{ slides }}">
+        {% if slides_thumb %}
         <img class="media-object img-thumbnail" src="{{ slides_thumb }}">
+        {% endif %}
       </a>
       <div class="media-body">
         {{ extra }}
         <span class="glyphicon glyphicon-map-marker"></span>
         <a href="{{ link_event }}">
-          <i>{{ event }}</i>,
+          <i>{{ event }}</i>
         </a>
         {{ place }}
         <img class="flag flag-{{ country_code }}" alt="{{ country }}"/>
@@ -35,6 +44,18 @@ default_block: None
 </div>
 {% endmacro %}
 
+{{ render_talk("From Ceilometer to Telemetry: not so alarming!",
+               "OpenStack in action 4!",
+               "https://www.eventbrite.com/e/openstack-in-action-4-tickets-7645801799",
+               "Paris",
+               "France",
+               "fr",
+               "5th December 2013",
+               "Julien Danjou, Nick Barcet",
+               "",
+               "",
+               "",
+               "primary") }}
 
 {{ render_talk("Ceilometer+Heat=Alarming",
                "OpenStack Design Summit Icehouse",
