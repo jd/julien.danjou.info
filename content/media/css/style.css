@@ -270,12 +270,7 @@ img.reference-logo {
 
 
 .media > a {
-    width: 112px;
-}
-
-img.media-object {
-    max-width: 112px;
-    max-height: 112px;
+    width: 224px;
 }
 
 .nav-container {

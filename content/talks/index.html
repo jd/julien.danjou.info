@@ -30,7 +30,7 @@ default_block: None
         {{ extra }}
         <span class="glyphicon glyphicon-map-marker"></span>
         <a href="{{ link_event }}">
-          <i>{{ event }}</i>
+          <h4 class="media-heading">{{ event }}</h4>
         </a>
         {{ place }}
         <img class="flag flag-{{ country_code }}" alt="{{ country }}"/>
@@ -52,10 +52,9 @@ default_block: None
                "fr",
                "5th December 2013",
                "Julien Danjou, Nick Barcet",
-               "",
-               "",
-               "",
-               "primary") }}
+               "/talks/From Ceilometer to Telemetry- not so alarming!.png",
+               "/talks/From Ceilometer to Telemetry- not so alarming!.pdf",
+               "") }}
 
 {{ render_talk("Ceilometer+Heat=Alarming",
                "OpenStack Design Summit Icehouse",
