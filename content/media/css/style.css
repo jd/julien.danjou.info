@@ -252,6 +252,11 @@ img.reference-logo {
     text-align: center;
 }
 
+.reference-logo-detailed {
+    max-width: 150px;
+    max-height: 150px;
+}
+
 /* Freelance */
 
 #speech {
