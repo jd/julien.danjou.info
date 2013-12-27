@@ -229,6 +229,14 @@ img.listing-logo {
     max-height: 150px;
 }
 
+/* Book listing / index page */
+
+.book-logo {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+
 /* References listing */
 
 img.reference-logo {
