@@ -222,6 +222,13 @@ img.listing-logo {
     text-align: center;
 }
 
+/* Blog post list */
+
+.blog-post-logo {
+    max-width: 150px;
+    max-height: 150px;
+}
+
 /* References listing */
 
 img.reference-logo {
