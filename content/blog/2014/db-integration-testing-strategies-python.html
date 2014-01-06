@@ -1,0 +1,297 @@
+---
+title: Databases integration testing strategies with Python
+created: !!timestamp '2014-01-06 16:26:20'
+image: /media/images/python_db_tests.png
+tags:
+    - python
+    - ceilometer
+    - openstack
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+The [Ceilometer](http://ceilometer.launchpad.net) project supports various
+database backend that can be used as storage. Among them are
+[MongoDB](http://www.mongodb.org/), [SQLite](http://sqlite.org)
+[MySQL](http://mysql.com), [PostgreSQL](http://postgresql.org),
+[HBase](http://hbase.apache.org/), DB2… All Ceilometer's code is unit
+tested, but when dealing with external storage services, one cannot be sure
+that the code is really working. You could be inserting data with an
+incorrect SQL statement, or in the wrong table. Only having the real
+database storage running and being used can tell you that.
+
+{% endmark %}
+{% endblock %}
+
+<div class="pull-right">
+    <img src="http://julien.danjou.info/media/images/python_db_tests.png">
+</div>
+
+Over the months, we developed integration testing on top of our unit testing
+to validate that our storage drivers are able to deal with real world
+databases. That is not really different from generic
+[integration testing](http://en.wikipedia.org/wiki/Integration_testing).
+Integration testing is about plugging all the pieces of your software all
+together and running. In what I call "database integration testing", the
+pieces will be both your software and the database system that you are going
+to rely on.
+
+The only difference here is that one of the module is not coming from the
+application itself but is an external project.
+The type of database that you use (RDBMS, NoSQL…) does not matter. Taking a
+step back, what I will describe here could also apply to a lot of other
+different software modules, even something that would not be a database
+sytem at all.
+
+## Writing tests for integration
+
+Presumably, your Python application has unit tests. In order to test against
+a database back-end, you need to write a few specific classes of tests that
+will use the database subsystem for real. For example:
+
+{% syntax python %}
+import unittest
+import os
+import sqlalchemy
+
+class TestDB(unittest.TestCase):
+    def setUp(self):
+       url = os.getenv("DB_TEST_URL")
+       if not url:
+           self.skipTest("No database URL set")
+       self.engine = sqlalchemy.create_engine(url)
+{% endsyntax %}
+
+This code will try to fetch the database URL to use from an environment
+variable, and then will rely on [SQLAlchemy](http://sqlalchemy.org) to
+create a database connection.
+
+{% syntax python %}
+import unittest
+import os
+import sqlalchemy
+
+import myapp
+
+class TestDB(unittest.TestCase):
+    def setUp(self):
+       url = os.getenv("DB_TEST_URL")
+       if not url:
+           self.skipTest("No database URL set")
+       self.engine = sqlalchemy.create_engine(url)
+
+    def test_foobar(self):
+        self.assertTrue(myapp.store_integer(self.engine, 42))
+{% endsyntax %}
+
+You can then add as many tests as you want using the connection stored in
+`self.engine`. If no test database URL is, the tests will be skipped;
+however that decision is up to you. You may want to have these tests always
+run and fail if they can't be run.
+
+In the `setUp()` method, you may also need to do more work, like create a
+database and delete a database.
+
+{% syntax python %}
+import unittest
+import os
+import sqlalchemy
+
+class TestDB(unittest.TestCase):
+    def setUp(self):
+       url = os.getenv("DB_TEST_URL")
+       if not url:
+           self.skipTest("No database URL set")
+       self.engine = sqlalchemy.create_engine(url)
+       self.connection = self.engine.connect()
+       self.connection.execute("CREATE DATABASE testdb")
+
+    def tearDown(self):
+        self.connection.execute("DROP DATABASE testdb")
+{% endsyntax %}
+
+This will make sure that the database you need is clean and ready to be used
+to testing.
+
+## Launching modules, a.k.a. databases
+
+<div class="pull-right span2">
+    <img src="http://julien.danjou.info/media/images/postgresql.png" style="max-width: 100%">
+</div>
+
+The main problem we encountered when building integration testing with
+databases, is to find a way to start them. Most users are used to start them
+system-wide with some sort of init script, but when running sandboxed tests,
+that is not really a good option. Browsing the documentation of each storage
+allowed us to find a way to start them in foreground and control them
+"interactively" via a shell script.
+
+The following is a script that you can use to run Python tests using
+[nose](http://nose.readthedocs.org/) and is heavily inspired by the one we
+wrote for Ceilometer.
+
+{% syntax bash %}
+#!/bin/bash
+set -e
+
+clean_exit() {
+    local error_code="$?"
+    kill -9 $(jobs -p) >/dev/null 2>&1 || true
+    rm -rf "PGSQL_DATA"
+    return $error_code
+}
+
+check_for_cmd () {
+    if ! which "$1" >/dev/null 2>&1
+    then
+        echo "Could not find $1 command" 1>&2
+        exit 1
+    fi
+}
+
+wait_for_line () {
+    while read line
+    do
+        echo "$line" | grep -q "$1" && break
+    done < "$2"
+    # Read the fifo for ever otherwise process would block
+    cat "$2" >/dev/null &
+}
+
+check_for_cmd mongod
+
+trap "clean_exit" EXIT
+
+# Start PostgreSQL process for tests
+PGSQL_DATA=`mktemp -d /tmp/PGSQL-XXXXX`
+PGSQL_PATH=`pg_config --bindir`
+{PGSQL_PATH}/initdb ${PGSQL_DATA}
+mkfifo ${PGSQL_DATA}/out
+${PGSQL_PATH}/postgres -F -k ${PGSQL_DATA} -D ${PGSQL_DATA} &> ${PGSQL_DATA}/out &
+# Wait for PostgreSQL to start listening to connections
+wait_for_line "database system is ready to accept connections" ${PGSQL_DATA}/out
+export DB_TEST_URL="postgresql:///?host=${PGSQL_DATA}&dbname=template1"
+
+# Run the tests
+nosetests
+{% endsyntax %}
+
+If you use [tox](http://tox.readthedocs.org) to automatize your test run,
+you can use this scripts (I call it `run-test.sh`) in your `tox.ini` file.
+
+{% syntax %}
+[testenv]
+commands = {toxinidir}/run-tests.sh {posargs}
+{% endsyntax %}
+
+<div class="pull-right span2">
+    <img src="http://julien.danjou.info/media/images/mysql.png" style="max-width: 100%">
+</div>
+
+Most databases are able to be run in some sort of standalone mode where you
+can connect to them using a either a Unix domain socket, or a fixed port.
+Here are the snippet used in Ceilometer to run with MongoDB and MySQL:
+
+{% syntax bash %}
+# Start MongoDB process for tests
+MONGO_DATA=$(mktemp -d /tmp/MONGODB-XXXXX)
+MONGO_PORT=29000
+mkfifo ${MONGO_DATA}/out
+mongod --maxConns 32 --nojournal --noprealloc --smallfiles --quiet --noauth --port ${MONGO_PORT} --dbpath "${MONGO_DATA}" --bind_ip localhost &>${MONGO_DATA}/out &
+# Wait for Mongo to start listening to connections
+wait_for_line "waiting for connections on port ${MONGO_PORT}" ${MONGO_DATA}/out
+export DB_TEST_URL="mongodb://localhost:${MONGO_PORT}/testdb"
+{% endsyntax %}
+
+<div class="pull-right span2">
+    <img src="http://julien.danjou.info/media/images/mongodb.png" style="max-width: 100%">
+</div>
+
+{% syntax bash %}
+# Start MySQL process for tests
+MYSQL_DATA=$(mktemp -d /tmp/MYSQL-XXXXX)
+mkfifo ${MYSQL_DATA}/out
+mysqld --datadir=${MYSQL_DATA} --pid-file=${MYSQL_DATA}/mysql.pid --socket=${MYSQL_DATA}/mysql.socket --skip-networking --skip-grant-tables &> ${MYSQL_DATA}/out &
+# Wait for MySQL to start listening to connections
+wait_for_line "mysqld: ready for connections." ${MYSQL_DATA}/out
+export DB_TEST_URL="mysql://root@localhost/testdb?unix_socket=${MYSQL_DATA}/mysql.socket&charset=utf8"
+{% endsyntax %}
+
+The mechanism is always the same. We create a _fifo_ with `mkfifo`, and then
+run the database daemon with the output redirected to that fifo. We then
+read from it until we find a line stating the the database is ready to be
+used. At that point, we can continue and start running the tests. You have
+to read continuously from the fifo, otherwise the process writing to it will
+block. We redirect the output to `/dev/null`, but you could also redirect it
+to a different log file, or not at all.
+
+## One step further: using parallelism and scenarios
+
+The described approach is quite simple, as it only support one database
+type. When using an abstraction layer, such as SQLAlchemy, it would be a
+good idea to run all these tests against different RDBMS, such as MySQL and
+PostgreSQL for example.
+
+The snippet above allows to run both RDBMS in parallel, but the classic
+approach of unit tests does not allow that. Using one scenario for each
+database backend would be a great idea. To that end, you can use the
+[testscenarios](https://launchpad.net/testscenarios) library.
+
+{% syntax python %}
+import unittest
+import os
+import sqlalchemy
+import testscenarios
+
+load_tests = testscenarios.load_tests_apply_scenarios
+
+class TestDB(unittest.TestCase):
+    scenarios = [
+        ('mysql', dict(database_connection=os.getenv("MYSQL_TEST_URL")),
+        ('postgresql', dict(database_connection=os.getenv("PGSQL_TEST_URL")),
+    ]
+
+    def setUp(self):
+       if not self.database_connection:
+           self.skipTest("No database URL set")
+       self.engine = sqlalchemy.create_engine(self.database_connection)
+       self.connection = self.engine.connect()
+       self.connection.execute("CREATE DATABASE testdb")
+
+    def tearDown(self):
+        self.connection.execute("DROP DATABASE testdb")
+{% endsyntax %}
+
+
+
+{% syntax %}
+$ python -m subunit.run test_scenario | subunit2pyunit
+test_scenario.TestDB.test_foobar(mysql)
+test_scenario.TestDB.test_foobar(mysql) ... ok
+test_scenario.TestDB.test_foobar(postgresql)
+test_scenario.TestDB.test_foobar(postgresql) ... ok
+
+---------------------------------------------------------
+Ran 2 tests in 0.061s
+
+OK
+{% endsyntax %}
+
+To speed up tests run, you could also run the test in parallel. It can be
+intesting as you'll be able to spread the workload among a lot of different
+CPUs.
+However, note that it can require a different database for each test or a
+locking mechanism to be in place. It's likely that your tests won't be able
+to work altogether at the same time on only one database.
+
+(Both usage of scenarios and parallelism in testing will be covered in
+[The Hacker's Guide to Python](http://julien.danjou.info/books/the-hacker-guide-to-python),
+in case you wonder.)
+
+{% from "macros.j2" import thgtp_form %}
+{{ thgtp_form() }}
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
