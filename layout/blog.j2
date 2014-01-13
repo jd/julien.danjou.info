@@ -20,9 +20,9 @@
 
 {% if resource.meta.created %}
 {% block endhead %}
-<meta itemprop="name" content="{{resource.meta.title}}">
-<meta itemprop="description" content="{{self.excerpt()|markdown|striptags|truncate(200, end="…")|forceescape}}">
-<meta itemprop="image" content="{{site_url}}{{resource.meta.image}}">
+<meta property="og:title" content="{{resource.meta.title}}">
+<meta property="og:description" content="{{self.excerpt()|markdown|striptags|truncate(200, end="…")|forceescape}}">
+<meta property="og:image" content="{{site_url}}{{resource.meta.image}}">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:site" content="@juldanjou"/>
