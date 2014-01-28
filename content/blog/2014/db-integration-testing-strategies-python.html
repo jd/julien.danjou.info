@@ -226,6 +226,16 @@ to read continuously from the fifo, otherwise the process writing to it will
 block. We redirect the output to `/dev/null`, but you could also redirect it
 to a different log file, or not at all.
 
+
+<blockquote>
+Note: <a href="http://www.die-welt.net/">Evgeni Golov</a> pointed it exists
+a <a
+href="https://alioth.debian.org/scm/loggerhead/pkg-postgresql/postgresql-common/trunk/view/head:/pg_virtualenv">pg_virtualenv</a>
+for PostgreSQL and <a
+href="https://github.com/evgeni/my_virtualenv">my_virtualenv</a> for MySQL
+that does the same kind of thing, but with more bells and whistles.
+</blockquote>
+
 ## One step further: using parallelism and scenarios
 
 The described approach is quite simple, as it only support one database
