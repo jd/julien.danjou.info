@@ -9,17 +9,18 @@ default_block: None
 {% block main %}
 
 {% macro render_talk(title, event, link_event, place, country, country_code, date,
-                     speakers, slides_thumb, slides, extra, class="info") %}
-<div class="panel panel-{{ class }}">
-  <div class="panel-heading">
-    <h4><strong>
+                     speakers, slides_thumb, slides, extra) %}
+<div style="margin-bottom: 60px; padding-bottom: 30px; padding-left: 30px;
+                     padding-right: 30px;" class="panel panel-default">
+  <div class="panel-body">
+    <h3><strong>
     {{ title }}
     {% if class == "primary" %}
     <span class="pull-right label label-danger">UPCOMING</span>
     {% endif %}
-    </strong></h4>
+    </strong></h3>
   </div>
-  <div class="panel-body">
+  <div>
     <div class="media">
       <a class="pull-left" href="{{ slides }}">
         {% if slides_thumb %}
