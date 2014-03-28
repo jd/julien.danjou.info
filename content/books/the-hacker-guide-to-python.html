@@ -295,9 +295,9 @@ default_block: None
         </div>
         <br>
         <br>
-        <button type="submit" class="btn btn-primary"
-                onclick="return sendSample()">
-          Send me a sample chapter</button>
+        <button type="submit" class="btn btn-primary">
+          Send me a sample chapter
+        </button>
         <br>
         <small>You'll never receive spam. Unsubscribe at any time.</small>
       </form>
@@ -611,7 +611,8 @@ function checkSampleSent (data) {
   }
 }
 
-function sendSample() {
+function sendSample(event) {
+   event.preventDefault()
    $("form#get-sample").find("button").attr("disabled", true);
    $.ajax({
      url: "/stork/send-sample",
@@ -623,5 +624,9 @@ function sendSample() {
     success: checkSampleSent
     });
 }
+
+$(function () {
+    $("form#get-sample").submit(sendSample);
+});
 </script>
 {% endblock %}
