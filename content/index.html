@@ -71,13 +71,12 @@ default_block: None
                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
                 <input name="mail" type="email" class="form-control" placeholder="your@email.com"
                        required>
-                       <span class="input-group-btn">
-                         <button type="submit"
-	                         class="btn btn-primary"
-                                 onclick="return sendLead()">
-                                 Let's get in touch
-                         </button>
-                       </span>
+                <span class="input-group-btn">
+                  <button type="submit"
+	                  class="btn btn-primary">
+                    Let's get in touch
+                  </button>
+                </span>
               </div>
           </form>
         </p>
@@ -179,7 +178,7 @@ default_block: None
         </div>
 
         <div class="form-actions" style="text-align: right;">
-          <button id="contact-submit" class="btn btn-primary" type="submit" onclick="return validateForm()">
+          <button id="contact-submit" class="btn btn-primary" type="submit">
             <span class="glyphicon glyphicon-envelope"></span> Send
           </button>
         </div>
@@ -198,7 +197,6 @@ default_block: None
 <script type="text/javascript">
 $(function () {
   $("[name=message]").focusout(validateMessage);
-  $("[name=mail]").focusout(validateMail);
 });
 
 function addAlert(field, msg) {
@@ -240,8 +238,9 @@ function checkMailSent(data) {
   }
 }
 
-function validateForm()
+function validateForm(event)
 {
+  event.preventDefault();
   if(validateMessage())
   {
     $("button#contact-submit").attr("disabled", true);
@@ -249,6 +248,10 @@ function validateForm()
   }
   return false;
 };
+
+$(function () {
+   $("form#contact").submit(validateForm);
+});
 
 // Small form on lead page
 function checkLeadSent (data) {
@@ -268,12 +271,17 @@ function checkLeadSent (data) {
   }
 }
 
-function sendLead()
+function sendLead(event)
 {
+    event.preventDefault();
     $("form#lead").find("button").attr("disabled", true);
     $.post("/mail.php", $("form#lead").serialize(), checkLeadSent);
     return false;
 }
+
+$(function () {
+  $("form#lead").submit(sendLead);
+});
 
 </script>
 
