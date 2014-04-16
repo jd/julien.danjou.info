@@ -1,0 +1,157 @@
+---
+extends:
+---
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>How not to use PostgreSQL</title>
+
+    <meta name="description" content="How we use PostgreSQL in OpenStack">
+    <meta name="author" content="Julien Danjou">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="/media/js/reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="/media/js/reveal.js/css/theme/night.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="/media/js/reveal.js/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+    document.write( '<link rel="stylesheet" href="/media/js/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+    <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <div class="slides">
+        <section>
+          <h1>OpenStack & PostgreSQL</h1>
+          <h2>or "How not to use SQL"</h2>
+          <br>
+          <img style="border: 0; background: 0; max-height: 40%;"
+               src="/media/images/projects/openstack.png">
+          <img style="border: 0; background: 0; max-height: 40%;" src="/media/images/postgresql.png">
+          <br>
+          <p>
+            <small>16th April 2014 at
+              <a href="http://www.meetup.com/PostgreSQL-User-Group-Paris/events/173590252/">
+                PostgreSQL User Group Paris Meetup #3, Paris, FR</a></small>
+          </p>
+          <p>
+            <a href="http://julien.danjou.info">Julien Danjou</a>
+            <br>
+            <a href="http://twitter.com/juldanjou">@juldanjou</a>
+          </p>
+        </section>
+
+        <section>
+          <h2>What's OpenStack?</h2>
+          <ul>
+            <li>An open source cloud computing platform (Apache 2 licensed)</li>
+            <li>A project started in 2010 via Rackspace and NASA
+              (sort of)</li>
+            <li>First goal: provides IaaS
+              <small>(Infrastructure as a Service)</small>
+            </li>
+            <li>200+ companies in the project</li>
+            <li>9 integrated projects (components), and growing to be more
+              than Iaas</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Architecture</h2>
+          <ul>
+            <img src="/media/images/openstack-architecture.jpg">
+          </ul>
+        </section>
+
+        <section data-transition="zoom">
+          <h2>Architecture: SQL powered</h2>
+          <ul>
+            <img src="/media/images/openstack-architecture-sql.jpg">
+          </ul>
+        </section>
+
+        <section>
+          <h2>PostgreSQL, is it working with OpenStack?</h2>
+          <ul>
+            <li>In theory, yes</li>
+            <li>In practice, it has often been broken and sometimes for week
+              (non-voting gate check)</li>
+            <li>Primary target is MySQL in cluster mode (i.e. Galera)</li>
+            <li>Large community of ex-MySQL folks</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Technologies?</h2>
+          <h4>Python + SQLAlchemy =</h4>
+          <ul class="fragment">
+            <li>We target the lowest denominator: SQLite: you can't use any
+              advanced features of any other RDBMS</li>
+            <li>We rely on an ORM to handle the queries, etc</li>
+            <li>ORM allows you to express things that works on certain
+              RDBMS, and bugs on other</li>
+            <li>Many Python developers do not have a clue on how a RDMBS
+              work</li>
+          </ul>
+          <img class="fragment fade-in" src="http://www.reactiongifs.com/r/cr.gif">
+        </section>
+
+
+        <section>
+          <h2>Conclusion</h2>
+          <ul>
+            <li>RDBMS is a central point of many OpenStack components</li>
+            <li>Wrongly used in a lot of cases</li>
+            <li>The community in general lacks a proper understand of how it should be
+              used and leveraged</li>
+          <img src="http://www.reactiongifs.com/wp-content/gallery/wtf/maxwell_smart__confused.gif">
+        </section>
+
+      </div>
+    </div>
+
+    <script src="/media/js/reveal.js/lib/js/head.min.js"></script>
+    <script src="/media/js/reveal.js/js/reveal.min.js"></script>
+
+    <script>
+                                                                                                                                                  // Full list of configuration options available here:
+                                                                                                                                                  // https://github.com/hakimel/reveal.js#configuration
+                                                                                                                                                  Reveal.initialize({
+                                                                                                                                                      controls: false,
+                                                                                                                                                      progress: true,
+                                                                                                                                                      history: true,
+                                                                                                                                                      center: true,
+                                                                                                                                                      theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                                                                                                                                                      transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                                                                                                                                                      // Optional libraries used to extend on reveal.js
+                                                                                                                                                      dependencies: [
+                                                                                                                                                          { src: '/media/js/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                                                                                                                                                          { src: '/media/js/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                                                                                                                                                          { src: '/media/js/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                                                                                                                                                          { src: '/media/js/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                                                                                                                                                          { src: '/media/js/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                                                                                                                                                          { src: '/media/js/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                                                                                                                                                      ]
+                                                                                                                                                  });
+
+    </script>
+
+  </body>
+</html>
