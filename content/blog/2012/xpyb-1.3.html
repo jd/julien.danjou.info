@@ -49,10 +49,10 @@ def draw_spiral(ctx, width, height):
 
     ctx.move_to (width + 1, 1-hd)
     for i in range(9):
-	ctx.rel_line_to (0, height - hd * (2 * i - 1))
-	ctx.rel_line_to (- (width - wd * (2 *i)), 0)
-	ctx.rel_line_to (0, - (height - hd * (2*i)))
-	ctx.rel_line_to (width - wd * (2 * i + 1), 0)
+        ctx.rel_line_to (0, height - hd * (2 * i - 1))
+        ctx.rel_line_to (- (width - wd * (2 *i)), 0)
+        ctx.rel_line_to (0, - (height - hd * (2*i)))
+        ctx.rel_line_to (width - wd * (2 * i + 1), 0)
 
     ctx.set_source_rgb (0, 0, 1)
     ctx.stroke()
