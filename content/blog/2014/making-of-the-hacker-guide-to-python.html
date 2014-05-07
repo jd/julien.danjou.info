@@ -1,0 +1,258 @@
+---
+title: Making of The Hacker's Guide to Python
+created: !!timestamp '2014-05-07 15:34:00'
+image: /media/images/the-hacker-guide-to-python.png
+tags:
+    - python
+    - books
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+As promised, today I would like to write a bit about the making of
+[The Hacker's Guide to Python](/books/the-hacker-guide-to-python). It has
+been a very interesting experimentation, and I think it is worth sharing it
+with you.
+
+{% endmark %}
+{% endblock %}
+
+# The inspiration
+
+All started out at the beginning of August 2013. I was spending my summer,
+as the rest of the year, hacking on OpenStack.
+
+As years passed, I got more and more deeply involved in the various tools
+that we either built or contributed to within the OpenStack community. And I
+somehow got the feeling that my experience with Python, the way we used it
+inside OpenStack and other applications during these last years was worth
+sharing. Worth writing something bigger than a few blog posts.
+
+The OpenStack project is doing code reviews, and therefore so did I for
+almost two years. That inspired a lot of topics, like
+[the definitive guide to method decorators](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods)
+that I wrote at the time I started the hacker's guide. Stumbling upon the
+same mistakes or misunderstanding over and over is, somehow, inspiring.
+
+I also stumbled upon [Nathan Barry](http://nathanbarry.com)'s blog and book
+[Authority](http://nathanbarry.com/authority/) which were very helpful to
+get started and some sort of guideline.
+
+All of that brought me enough ideas to start writing a book about Python
+software development for people already familiar with the language.
+
+# The writing
+
+The first thing I started to do is to list all the topics I wanted to write
+about. The list turned out to have subjects that had no direct interest for
+a practical guide. For example, on one hand, very few developers know in
+details how metaclasses work, but on the other hand, I never had to write a
+metaclass during these last years. That's the kind of subject I decided not
+to write about, dropped all subjects that I felt were not going to help my
+reader to be more productive. Even if they could be technically interesting.
+
+<figure>
+<img src="/media/images/the-hacker-guide-to-python-opened.png"
+    class="illustration pull-right"
+    style="width: 25%;">
+</figure>
+
+Then, I gathered all problems I saw during the code reviews I did during
+these last two years. Some of them I only recalled in the days following the
+beginning of that project. But I kept adding them to the table of contents,
+reorganizing stuff as needed.
+
+After a couple of weeks, I had a pretty good overview of the contents that
+there I will write about. All I had to do was to fill in the blank (that
+sounds so simple now).
+
+The entire writing of the took hundred hours spread from August to November,
+during my spare time. I had to stop all my other side projects for that.
+
+# The interviews
+
+While writing the book, I tried to parallelize every thing I could. That
+included asking people for interviews to be included in the book. I already
+had a pretty good list of the people I wanted to feature in the book, so I
+took some time as soon as possible to ask them, and send them detailed
+questions.
+
+I discovered two categories of interviewees. Some of them were very fast to
+answer (≤ 1 week), and others were much, much slower. A couple of them even
+set up Git repositories to answer the questions, because that probably
+looked like an entire project to them. :-) So I had to not lose sight and
+kindly ask from time to time if everything was alright, and at some point
+started to kindly set some deadline.
+
+In the end, the quality of the answers was awesome, and I like to think that
+was because I picked the right people!
+
+# The proof-reading
+
+Once the book was finished, I somehow needed to have people proof-reading
+it. This was probably the hardest part of this experiment. I needed two
+different types of reviews: technical reviews, to check that the content was
+correct and interesting, and language review. That one is even more
+important since English is not my native language.
+
+Finding technical reviewers seemed easy at first, as I had ton of contacts
+that I identified as being able to review the book. I started by asking a
+few people if they would be comfortable reading a simple chapter and giving
+me feedbacks. I started to do that in September: having the writing and the
+reviews done in parallel was important to me in order to minimize latency
+and the book's release delay.
+
+All people I contacted answered positively that they would be interested in
+doing a technical review of a chapter. So I started to send chapters to
+them. But in the end, only 20% replied back. And even after that, a large
+portion stopped reviewing after a couple of chapters.
+
+Don't get me wrong: you can't be mad at people not wanting to spend their
+spare time in book edition like you do.
+
+However, from the few people that gave their time to review a few chapters,
+I got tremendous feedback, at all level. That's something that was very
+important and that helped a lot getting confident. Writing a book alone for
+months without having anyone taking a look upon your shoulder can make you
+doubt that you are creating something worth it.
+
+As far as English proof-reading, I went ahead and used
+[ODesk](http://odesk.com) to recruit a professional proof-reader. I looked
+for people with the right skills: a good English level (being a native
+English speaker at least), be able to understand what the book was about,
+and being able to work with correct delays. I had mixed results from the
+people I hired, but I guess that's normal. The only error I made was not to
+parallelize those reviews enough, so I probably lost a couple of months on
+that.
+
+# The toolchain
+
+<figure>
+<img src="/media/images/the-hacker-guide-to-python.png"
+     class="illustration pull-right" style="width: 25%;">
+</figure>
+
+While writing the book, I did a few breaks to build a toolchain. What I call
+a toolchain is set of tools used to render the final PDF, EPUB and MOBI
+files of the guide.
+
+After some research, I decided to settle on
+[AsciiDoc](http://www.methods.co.nz/asciidoc/), using the
+[DocBook](http://www.docbook.org) output, which is then being transformed to
+LaTeX, and then to PDF, or either to EPUB directly. I realy on
+[Calibre](http://calibre-ebook.com/) to convert the EPUB file to MOBI. It
+took me a few hours to do what I wanted, using some magic LaTeX tricks to
+have a proper render, but it was worth it and I'm particularly happy with
+the result.
+
+For the cover design, I asked my talented friend
+[Nicolas](http://nicolas-veyret.com/) to do something for me, and he
+designed the wonderful cover and its little snake!
+
+# The publishing
+
+Publishing in an interesting topic people kept asking me about. This is what
+I had to answer a few dozens of time:
+
+- "Who is your editor?"
+- "Me."
+
+I never had any plan for asking an editor to publish this book. Nowadays,
+asking an editor to publish a book feels to me like asking a major company
+to publish a CD. It feels awkward.
+
+However, don't get me wrong: there can be a few upsides of having an editor.
+They will find reviewers and review your book for you. Having the book
+review handled for you is probably a very good thing, considering how it was
+hard to me to get that in place. It can be especially important for a
+technical book.
+
+Also, your book may end up in brick and mortar stores and be part of a
+collection, both improving visibility. That may improve your book's selling,
+though the editor and all the intermediaries are going to keep the largest
+amount of the money anyway.
+
+- "Oh, you will publish it yourself, great. So you will print it and sell it
+  to people?"
+- "Not really."
+
+I've heard good stories about people using [Gumroad](http://gumroad.com) to
+sell electronic contents, so after looking for competitors in that market, I
+picked them. I also had the idea to sell the book with Bitcoins, so I
+settled on [Coinbase](http://coinbase.com), because they have a nice API to
+do that.
+
+Setting up everything was quite straight-forward, especially with Gumroad.
+It only took me a few hours to do so. Writing the Coinbase application took
+a few hours too.
+
+- "Oh, you will sell it only as an ebook? That's too bad. You need a paper
+  version. Many people will want a paper version."
+
+My initial plan was to only sell online an electronic version. On the other
+hand, since I kept hearing that a printed version should exist, I decided to
+give it a try. I chose to work with [Lulu](http://lulu.com) because I knew
+people using it, and it was pretty simple to set up.
+
+# The launch
+
+Once I had everything ready, I built the selling page and connected
+everything between Mailchimp, Gumroad, Coinbase, Google Analytics, etc.
+
+Writing the launch email was really exciting. I used Mailchimp feature to
+send the launch mail in several batches, just to have some margin in case of
+a sudden last minute problem. But everything went fine. Hurrah!
+
+I distributed around 200 copies of the ebook in the first 48 hours, for
+about $5000. That covered all the cost I had from the writing the book, and
+even more, so I was already pretty happy with the launch.
+
+<figure>
+<img src="/media/images/thgtp-sell-graph.png" class="illustration">
+</figure>
+
+# Retrospective
+
+In retrospect, something that I didn't do the best way possible is probably
+to build a solid mailing list of people interested, and to build an
+important anticipation and incentive to buy the book at launch date. My
+mailing list counted around 1500 people subscribed because they were
+interested in the launch of the book subscribed; in the end, probably only
+10-15% of them bought the book during the launch, which is probably a bit
+lower than what I could expect.
+
+But more than a month later, I distributed in total almost 500 copies of the
+book (including physical units) for more than $10000, so I tend to think
+that this was a success. I still sell a few copies of the book each weeks,
+but the number are small compared to the launch.
+
+I sold less than 10 copies of the ebook using Bitcoins, and I admit I'm a
+bit disappointed and surprised about that.
+
+Physical copies represents 10% of the book distribution. It's probably a lot
+lower than most people that pushed me to do it thought it would be. But it
+still higher of what I thought it would be. So I still would advise to have
+a paperback version of your book. At least because it's nice to have it in
+your library.
+
+<figure>
+<img src="/media/images/thgtp-paperback.jpg"
+     class="illustration img-thumbnail"
+     style="max-width: 50%;">
+</figure>
+
+I only got positive feedbacks, a few typo notices, and absolutely no refund
+demand, which I really find amazing.
+
+The good news is also that I've been contacted with a couple of Korean and
+Chinese editors to get the book translated and published in those countries.
+If everything goes well, the book should be translated in the upcoming
+months and be available on these markets in 2015!
+
+If you didn't get a copy,
+[it's still time to do so]((/books/the-hacker-guide-to-python))!
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
