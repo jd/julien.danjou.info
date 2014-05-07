@@ -84,7 +84,7 @@
           <a class="navbar-brand" href="/">{{ site_title }}</a>
           <ul class="nav navbar-nav">
             <li{% if resource.node == site.content %} class="active"{% endif %}>
-              <a href="/"><span class="glyphicon glyphicon-{{site.content.meta.icon}}"></span> Consulting</a>
+              <a href="/"><span class="glyphicon glyphicon-{{site.content.meta.icon}}"></span> About</a>
             </li>
             {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
             {% if menu_item.name != "media" %}
