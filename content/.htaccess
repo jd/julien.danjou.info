@@ -16,6 +16,7 @@ RedirectPermanent /freelance http://julien.danjou.info/
 # Typo :(
 RedirectPermanent /blog/2013/lips-and-openstack-with-cl-openstack-client http://julien.danjou.info/blog/2013/lisp-and-openstack-with-cl-openstack-client
 RedirectPermanent /blog/2013/guide-python-static-class-astract-methods http://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods
+RedirectPermanent /blog/2013/openstack-ceilometer-head-graduated http://julien.danjou.info/blog/2013/openstack-ceilometer-heat-graduated
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^.*$ %{REQUEST_FILENAME}.html
