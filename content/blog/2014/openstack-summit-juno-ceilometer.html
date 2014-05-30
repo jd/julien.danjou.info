@@ -1,0 +1,147 @@
+---
+title: "OpenStack Design Summit Juno, from a Ceilometer point of view"
+created: !!timestamp '2014-05-30 16:49:45'
+image: /media/images/blog/2014/openstack-summit-juno.jpg
+tags:
+    - openstack
+    - ceilometer
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Last week was the
+[OpenStack Design Summit](https://www.openstack.org/summit/openstack-summit-atlanta-2014/)
+in Atlanta, GA where we, developers, discussed and designed the new
+OpenStack release (Juno) coming up. I've been there mainly to discuss
+Ceilometer upcoming developments.
+
+{% endmark %}
+{% endblock %}
+
+<img class="illustration" src="/media/images/blog/2014/openstack-summit-juno.jpg">
+
+The summit has been great. It was my third OpenStack design summit, and the
+first one not being a PTL, meaning it was a largely more relaxed summit for
+me!
+
+On Monday, we started by a 2.5 hours meeting with Ceilometer core developers
+and contributors about the Gnocchi experimental project that I've started a
+few weeks ago. It was a great and productive afternoon, and allowed me to
+introduce and cover this topic extensively, something that would not have
+been possible in the allocated session we had later in the week.
+
+Ceilometer had his design sessions running mainly during Wednesday. We noted
+a lot of things and commented during the sessions in our
+[Etherpads instances](https://wiki.openstack.org/wiki/Summit/Juno/Etherpads#Ceilometer).
+Here is a short summary of the sessions I've attended.
+
+# Scaling the central agent
+
+I was in charge of the first session, and introduced the work that was done
+so far in the scaling of the central agent. Six months ago, during the
+Havana summit, I proposed to scale the central agent by distributing the
+tasks among several node, using a library to handle the group membership
+aspect of it. That led to the creation of the
+[tooz](https://pypi.python.org/pypi/tooz) library that we worked on at
+eNovance during the last 6 months.
+
+Now that we have this foundation available, Cyril Roelandt started to
+replace the Ceilometer alarming job repartition code by Taskflow and Tooz.
+Starting with the central agent is simpler and will be a first proof of
+concept to be used by the central agent then. We plan to get this merged for
+Juno.
+
+For the central agent, the same work needs to be done, but since it's a bit
+more complicated, it will be done after the alarming evaluators are
+converted.
+
+# Test strategy
+
+The next session discussed the test strategy and how we could improve
+Ceilometer unit and functional testing. There is a lot in this area to be
+done, and this is going to be one of the main focus of the team in the
+upcoming weeks. Having Tempest tests run was a goal for Havana, and even if
+we made a lot of progress, we're still no there yet.
+
+# Complex queries and per-user/project data collection
+
+This session, led by Ildikó Váncsa, was about adding finer-grained
+configuration into the pipeline configuration to allow per-user and
+per-project data retrieval. This was not really controversial, though how to
+implement this exactly is still to be discussed, but the idea was well
+received. The other part of the session was about adding more in the complex
+queries feature provided by the v2 API.
+
+# Rethinking Ceilometer as a Time-Series-as-a-Service
+
+This was my main session, the reason we met on Monday for a few hours, and
+one of the most promising session – I hope – of the week.
+
+It appears that the way Ceilometer designed its API and storage backends a
+long time ago is now a problem to scale the data storage. Also, the events
+API we introduced in the last release partially overlaps some of the
+functionality provided by the samples API that causes us scaling troubles.
+
+Therefore, I've started to rethink the Ceilometer API by building it as a
+time series read/write service, letting the audit part of our previous
+sample API to the event subsystem. After a few researches and experiments,
+I've designed a new project called
+[Gnocchi](https://wiki.openstack.org/Gnocchi), which provides exactly that
+functionality in a hopefully scalable way.
+
+Gnocchi is split in two parts: a time series API and its driver, and a
+resource indexing API with its own driver. Having two distinct driver sets
+allows it to use different technologies to store each data type in the best
+storage engine possible. The canonical driver for time series handling is
+based on [Pandas](http://pandas.pydata.org/) and
+[Swift](https://launchpad.net/swift). The canonical resource indexer driver
+is based on [SQLAlchemy](http://sqlalchemy.org).
+
+The idea and project was well received and looked pretty exciting to most
+people. Our hope is to design a version 3 of the Ceilometer API around
+Gnocchi at some point during the Juno cycle, and have it ready as some sort
+of preview for the final release.
+
+# Revisiting the Ceilometer data model
+
+This session led by Alexei Kornienko, kind of echoed the previous session,
+as it clearly also tried to address the Ceilometer scalability issue, but in
+a different way.
+
+Anyway, the SQL driver limitations have been discussed and Mehdi Abaakouk
+implemented some of the suggestions during the week, so we should very soon
+see more performances in Ceilometer with the current default storage driver.
+
+# Ceilometer devops session
+
+We organized this session to get feedbacks from the devops community about
+deploying Ceilometer. It was very interesting, and the list of things we
+could improve is long, and I think will help us to drive our future efforts.
+
+# SNMP inspectors
+
+This session, led by Lianhao Lu, discussed various details of the future of
+SNMP support in Ceilometer.
+
+# Alarm and logs improvements
+
+This mixed session, led by Nejc Saje and Gordon Chung, was about possible
+improvements on the alarm evaluation system provided by Ceilometer, and
+making logging in Ceilometer more effective. Both half-sessions were
+interesting and led to several ideas on how to improve both systems.
+
+# Conclusion
+
+Considering the current QA problems with Ceilometer, Eoghan Glynn, the new
+_Project Technical Leader_ for Ceilometer, clearly indicated that this will
+be the main focus of the release cycle.
+
+Personally, I will be focused on working on Gnocchi, and will likely be
+joined by others in the next weeks. Our idea is to develop a complete
+solution with a high velocity in the next weeks, and then works on its
+integration with Ceilometer itself.
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
