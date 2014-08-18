@@ -390,11 +390,6 @@ img.reference-logo {
     margin-top: 15px;
 }
 
-.bio .illustration > img {
-    border-radius: 1000px;
-    max-width: 100%;
-}
-
 .bio > h2 {
     color: #333;
     text-align: center;
