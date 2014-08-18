@@ -67,8 +67,10 @@ sharding solution, making data storage scalability painful.
 
 It turns out that the Ceilometer REST API is unable to handle most of the
 requests in a timely manner as most operations are *O(n)* where *n* is the
-number of samples recorded. That number of samples can grow very rapidly in
-an environment of thousands of metered nodes and with a data retention of
+number of samples recorded (see
+[big O notation](http://en.wikipedia.org/wiki/Big_O_notation) if you're
+unfamiliar with it). That number of samples can grow very rapidly in an
+environment of thousands of metered nodes and with a data retention of
 several weeks. There is a few optimizations to make things smoother in
 general cases fortunately, but as soon as you run specific queries, the API
 gets barely usable.
