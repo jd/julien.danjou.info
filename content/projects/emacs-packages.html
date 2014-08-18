@@ -144,9 +144,9 @@ it:
 (add-to-list 'org-capture-templates
              '("c" "Contacts" entry (file "~/Org/contacts.org")
                "* %(org-contacts-template-name)
-                  :PROPERTIES:
-                  :EMAIL: %(org-contacts-template-email)
-                  :END:"))
+:PROPERTIES:
+:EMAIL: %(org-contacts-template-email)
+:END:"))
 {% endsyntax %}
 {% markdown %}
 The *org-contacts-template-name* and *org-contacts-template-email* functions
