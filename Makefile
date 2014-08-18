@@ -16,7 +16,7 @@ clean:
 	rm -rf deploy
 	rm -f content/blog/tags/*.html
 
-web: deploy
+web:
 	hyde serve -p 8080
 
 content/media/images/blog/2012/openstack-swift-storage.png: content/blog/2012/openstack-swift-storage.ditaa
