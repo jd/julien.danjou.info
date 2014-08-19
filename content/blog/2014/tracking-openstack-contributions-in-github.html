@@ -1,0 +1,58 @@
+---
+title: "Tracking OpenStack contributions in GitHub"
+created: !!timestamp '2014-08-19 17:00:00'
+image: /media/images/blog/2014/octocat-on-openstack.png
+tags:
+    - openstack
+    - github
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+I've switched my Git repositories to [GitHub](https://github.com) recently,
+and started to watch my contributions statistics, which were very low
+considering I spend my days hacking on open source software, especially
+[OpenStack](https://openstack.org).
+
+{% endmark %}
+{% endblock %}
+
+<figure class="pull-right illustration clear" style="width: 30%;">
+  <img src="/media/images/blog/2014/octocat-on-openstack.png"
+      style="max-width: 100%;">
+</figure>
+
+OpenStack hosts its Git repositories on its own infrastructure at
+[git.openstack.org](http://git.openstack.org), but also mirrors them on
+GitHub. Logically, I was expecting GitHub to track my commits there too, as
+I'm using the same email address everywhere.
+
+It turns out that it was not the case, and the
+[help page about that](https://help.github.com/articles/why-are-my-contributions-not-showing-up-on-my-profile)
+on GitHub describes the rule in place to compute statistics. Indeed,
+according to GitHub, I had no relations to the OpenStack repositories, as I
+never forked them nor opened a pull request on them (OpenStack uses
+[Gerrit](http://review.openstack.org)).
+
+Starring a repository is enough to build a relationship between a user and a
+repository, so this is was the only thing needed to inform GitHub that I
+have contributed to those repositories. Considering OpenStack has hundreds
+of repositories, I decided to star them all by using a small Python script.
+
+<div class="clear">
+   <script
+   src="https://gist.github.com/jd/20d2ffd4b1e6ce3a8b07.js"></script>
+</div>
+
+And voilà, [my statistics](https://github.com/jd) are now including all my
+contributions to OpenStack!
+
+<figure class="illustration">
+  <img src="/media/images/blog/2014/github-openstack-stats.png"
+      style="max-width: 100%;">
+</figure>
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
