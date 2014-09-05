@@ -91,10 +91,8 @@ article img, article video, article > img, article > video {
 
 .illustration {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
+//    margin-top: 25px;
+    margin-bottom: 20px;
     max-width: 100%;
 }
 
@@ -114,13 +112,13 @@ figcaption {
 }
 
 .illustration.pull-left {
-    margin-right: 25px;
-    margin-bottom: 25px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .illustration.pull-right {
-    margin-left: 25px;
-    margin-bottom: 25px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 .taglist {
