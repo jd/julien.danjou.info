@@ -11,7 +11,7 @@
       <h4 class="media-heading"><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
       {% refer to res.relative_deploy_path as post %}
       {{ post.excerpt|markdown }}
-      <p><a class="btn" href="{{ content_url(res.url) }}">Read more</a></p>
+      <p><a class="btn btn-primary" href="{{ content_url(res.url) }}">Read more</a></p>
       <p>
         <span class="glyphicon glyphicon-calendar"></span> {{ res.meta.created.strftime('%d %b %Y') }}
         {% if res.meta.tags %}
