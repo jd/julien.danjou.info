@@ -130,15 +130,15 @@ should exists – but why not.
 Usage of loops could also be made more Pythonic:
 
 {% syntax python %}
-  for i,archive in enumerate(archiveList):
-    if i == len(archiveList) - 1:
-      break
+for i,archive in enumerate(archiveList):
+  if i == len(archiveList) - 1:
+    break
 {% endsyntax %}
 
 could be actually:
 
 {% syntax python %}
-  for i, archive in enumerate(itertools.islice(archiveList, len(archiveList) - 1):
+for i, archive in enumerate(itertools.islice(archiveList, len(archiveList) - 1):
 {% endsyntax %}
 
 That reduce the code size and makes it easier to read through the code.
@@ -238,23 +238,23 @@ the function in different context is near impossible.
 There are race conditions, for example in `create()` (see added comment):
 
 {% syntax python %}
-  if os.path.exists(path):
-    raise InvalidConfiguration("File %s already exists!" % path)
-  fh = None
-  try:
-    # TOO LATE I ALREADY CREATED THE FILE IN ANOTHER PROCESS YOU ARE GOING TO
-    # FAIL WITHOUT GIVING ANY USEFUL INFORMATION TO THE CALLER :-(
-    fh = open(path,'wb')
+if os.path.exists(path):
+  raise InvalidConfiguration("File %s already exists!" % path)
+fh = None
+try:
+  # TOO LATE I ALREADY CREATED THE FILE IN ANOTHER PROCESS YOU ARE GOING TO
+  # FAIL WITHOUT GIVING ANY USEFUL INFORMATION TO THE CALLER :-(
+  fh = open(path,'wb')
 {% endsyntax %}
 
 That code should be:
 
 {% syntax python %}
-  try:
-    fh = os.fdopen(os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL), 'wb')
-  except OSError as e:
-    if e.errno = errno.EEXIST:
-      raise InvalidConfiguration("File %s already exists!" % path)
+try:
+  fh = os.fdopen(os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL), 'wb')
+except OSError as e:
+  if e.errno = errno.EEXIST:
+    raise InvalidConfiguration("File %s already exists!" % path)
 {% endsyntax %}
 
 to avoid any race condition.
