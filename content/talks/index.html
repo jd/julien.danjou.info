@@ -9,15 +9,15 @@ default_block: None
 {% block main %}
 
 {% macro render_talk(title, event, link_event, place, country, country_code, date,
-                     speakers, slides_thumb, slides, extra) %}
+                     speakers, slides_thumb, slides, extra, class) %}
 <div style="margin-bottom: 60px; padding-bottom: 30px; padding-left: 30px;
                      padding-right: 30px;" class="panel panel-default">
   <div class="panel-body">
     <h3><strong>
-    {{ title }}
     {% if class == "primary" %}
     <span class="pull-right label label-danger">UPCOMING</span>
     {% endif %}
+    {{ title }}
     </strong></h3>
   </div>
   <div>
@@ -45,6 +45,18 @@ default_block: None
   </div>
 </div>
 {% endmacro %}
+{{ render_talk("Rethinking Ceilometer metric storage with Gnocchi: Time-series as a Service",
+               "OpenStack Design Summit Kilo",
+               "https://www.openstack.org/summit/openstack-paris-summit-2014/",
+               "Paris",
+               "France",
+               "fr",
+               "5th November 2014",
+               "Julien Danjou, Eoghan Glynn, Dina Belova",
+               "",
+               "",
+               "",
+               "primary") }}
 
 {{ render_talk("OpenStack & PostgreSQL",
                "PostgreSQL Meetup Paris #3",
