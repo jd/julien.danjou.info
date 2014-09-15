@@ -251,8 +251,8 @@ That code should be:
 
 {% syntax python %}
   try:
-    fh = open(path,'wb')
-  except IOError as e:
+    fh = os.fdopen(os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL), 'wb')
+  except OSError as e:
     if e.errno = errno.EEXIST:
       raise InvalidConfiguration("File %s already exists!" % path)
 {% endsyntax %}
