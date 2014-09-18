@@ -138,7 +138,7 @@ for i,archive in enumerate(archiveList):
 could be actually:
 
 {% syntax python %}
-for i, archive in enumerate(itertools.islice(archiveList, len(archiveList) - 1):
+for i, archive in itertools.islice(archiveList, len(archiveList) - 1):
 {% endsyntax %}
 
 That reduce the code size and makes it easier to read through the code.
