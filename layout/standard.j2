@@ -25,8 +25,6 @@
 {% endif %}
 
 {% block prearticle %}
-{% endblock prearticle %}
-
 {% if resource.meta.tags %}
 <div class="taglist">
 <span class="glyphicon glyphicon-tags"></span>
@@ -35,9 +33,10 @@
 {% endfor %}
 </div>
 {% endif %}
+{% endblock prearticle %}
 
 {% block article %}
-<article class="page-content">
+<article class="page-content clear">
   {% block premain %}
   {% mark article -%}
   {% block main %}{% endblock %}

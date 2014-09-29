@@ -20,9 +20,17 @@ body {
     padding-bottom: 10px;
 }
 
+/* Socialite.js + Flattr, should use the same values */
 .socialite {
     display: inline;
     float: left;
+    padding-left: 10px;
+}
+
+.FlattrButton {
+    display: inline;
+    float: left;
+    margin-left: 10px;
 }
 
 header h1 {
@@ -61,18 +69,12 @@ time.label {
     margin-bottom: 20px;
 }
 
-.socialised {
-    display: inline-block;
-    width: 120px;
-}
-
-.socialised > .FlattrButton {
-    display: inline-block;
-    width: 120px;
-}
-
 .clear {
     clear: both;
+}
+
+.page-content {
+    padding-top: 15px;
 }
 
 article.page-content > iframe {
@@ -124,9 +126,12 @@ figcaption {
 .taglist {
     margin-bottom: 10px;
     float: right;
-    clear: both;
-    max-width: 100px;
+    clear: right;
     text-align: right;
+}
+
+.social {
+    margin-bottom: 30px;
 }
 
 .project-logo {
@@ -146,8 +151,10 @@ img.cv-logo {
     margin-top: 75px;
 }
 
+
 #thgtp-form {
-    margin-top: 50px;
+    margin-top: 10px;
+    margin-bottom: 50px;
 }
 
 #social-logos {
