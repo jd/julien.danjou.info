@@ -22,11 +22,15 @@ default_block: None
   </div>
   <div>
     <div class="media">
+      {% if slides %}
       <a class="pull-left" href="{{ slides }}">
         {% if slides_thumb %}
         <img class="media-object img-thumbnail" src="{{ slides_thumb }}">
+        {% else%}
+        <span class="label label-default">Slides</span>
         {% endif %}
       </a>
+      {% endif %}
       <div class="media-body">
         {{ extra }}
         <a href="{{ link_event }}">
@@ -67,9 +71,7 @@ default_block: None
                "25th October 2014",
                "Julien Danjou",
                "",
-               "",
-               "",
-               "primary") }}
+               "/talks/oslo-technical-debt.html") }}
 
 {{ render_talk("OpenStack & PostgreSQL",
                "PostgreSQL Meetup Paris #3",
