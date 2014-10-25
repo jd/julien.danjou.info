@@ -115,6 +115,9 @@ extends:
 
         <section data-background="/media/images/openstack-conceptual-diagram.jpg"
                  data-background-transition="slide">
+          <aside class="notes">
+            SoA
+          </aside>
         </section>
 
         <section>
@@ -122,18 +125,23 @@ extends:
           <ul>
             <li>Nova: 260 kSLOC</li>
             <li>Glance: 57 kSLOC</li>
+            <li>Swift: 23 kSLOC</li>
+            <li>Keystone: 58 kSLOC</li>
+            <li>Neutron: 172 kSLOC</li>
+            <li>Horizon: 8 kSLOC</li>
             <li>Cinder: 145 kSLOC</li>
             <li>Ceilometer: 46 kSLOC</li>
-            <li>Horizon: 8 kSLOC</li>
             <li>Heat: 83 kSLOC</li>
-            <li>Neutron: 172 kSLOC</li>
-            <li>Keystone: 58 kSLOC</li>
-            <li>(Swift: 23 kSLOC)</li>
             <li>Client libraries: 110 kSLOC</li>
           </ul>
-          <strong class="fragment fade">
+          <strong>
             <hr>Total: 962 kSLOC
           </strong>
+
+          <aside class="notes">
+            Spin-off
+          </aside>
+
         </section>
 
         <section data-background="/media/images/cat-copier.jpg">
@@ -239,6 +247,9 @@ extends:
                  data-background-size="contain"
                  data-background-color="#835E34">
           <h1>One project do not care :'(</h1>
+          <aside class="notes">
+            Even written their own version of webob
+          </aside>
         </section>
 
         <section data-background="/media/images/happy-beach.jpg">
