@@ -1,0 +1,145 @@
+---
+title: Distributed group management and locking in Python with tooz
+created: !!timestamp '2014-11-21 12:10:00'
+image: /media/images/blog/2014/icon_group.png
+tags:
+    - python
+    - tooz
+    - openstack
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+With [OpenStack](http://openstack.org) embracing the
+[Tooz](http://launchpad.net/python-tooz) library more and more over the past
+year, I think it's a good start to write a bit about it.
+
+{% endmark %}
+{% endblock %}
+
+# A bit of history
+
+A little more than year ago, with my colleague Yassine Lamgarchal and others at
+[eNovance](http://enovance.com), we investigated on how to solve a problem often
+encountered inside OpenStack: synchronization of multiple distributed workers.
+And while many people in our ecosystem continue to drive development by adding
+new bells and whistles, we made a point of solving new problems with a generic
+solution able to address the technical debt at the same time.
+
+Yassine wrote the first ideas of what should be the
+[group membership service](https://wiki.openstack.org/wiki/Oslo/blueprints/service-sync)
+that was needed for OpenStack, identifying several projects that could make use
+of this. I've presented this concept during the
+[OpenStack Summit in Hong-Kong](https://www.openstack.org/summit/openstack-summit-hong-kong-2013/)
+during an Oslo session. It turned out that the idea was well-received, and the
+week following the summit we started the
+[tooz](http://launchpad.net/python-tooz) project on
+[StackForge](http://ci.openstack.org/stackforge.html).
+
+# Goals
+
+Tooz is a Python library that provides a coordination API. Its primary goal is to
+handle groups and membership of these groups in distributed systems.
+
+Tooz also provides another useful feature which is distributed locking. This
+allows distributed nodes to acquire and release locks in order to synchronize
+themselves (for example to access a shared resource).
+
+# The architecture
+
+If you are familiar with distributed systems, you might be thinking that there
+are a lot of solutions already available to solve these issues:
+[ZooKeeper](http://zookeeper.apache.org/), the
+[Raft consensus algorithm](http://raftconsensus.github.io/) or even
+[Redis](http://redis.io/) for example.
+
+You'll be thrilled to learn that Tooz is not the result of the
+[NIH](http://en.wikipedia.org/wiki/Not_invented_here) syndrome, but is an
+abstraction layer on top of all these solutions. It uses drivers to provide the
+real functionalities behind, and does not try to do anything fancy.
+
+All the drivers do not have the same amount of functionality of robustness, but
+depending on your environment, any available driver might be suffice. Like most
+of OpenStack, we let the deployers/operators/developers chose whichever backend
+they want to use, informing them of the potential trade-offs they will make.
+
+So far, Tooz provides drivers based on:
+
+- [Kazoo](https://pypi.python.org/pypi/kazoo) (ZooKeeper)
+- [Zake](https://pypi.python.org/pypi/zake)
+- [memcached](http://memcached.org)
+- [redis](http://redis.io)
+- [SysV IPC](http://www.tldp.org/LDP/lpg/node21.html) (only for distributed locks for now)
+- [PostgreSQL](http://postgresql.org) (only for distributed locks for now)
+- [MySQL](http://mysql.org) (only for distributed locks for now)
+
+All drivers are distributed across processes. Some can be distributed across the
+network (ZooKeeper, memcached, redis…) and some are only available on the same
+host (IPC).
+
+Also note that the Tooz API is completely asynchronous, allowing it to be more
+efficient, and potentially included in an event loop.
+
+# Features
+
+## Group membership
+
+<img src="/media/images/blog/2014/icon_group.png"
+    class="illustration pull-right"
+    style="max-width: 7%;">
+
+Tooz provides an API to manage group membership. The basic operations provided
+are: the creation of a group, the ability to join it, leave it and list its
+members. It's also possible to be notified as soon as a member joins or leaves a
+group.
+
+## Leader election
+
+<img src="/media/images/blog/2014/icon_leader.png"
+    class="illustration pull-right"
+    style="max-width: 7%;">
+
+Each group can have a leader elected. Each member can decide if it wants to run
+for the election. If the leader disappears, another one is elected from the list
+of current candidates. It's possible to be notified of the election result and
+to retrieve the leader of a group at any moment.
+
+## Distributed locking
+
+<img src="/media/images/blog/2014/icon_cloud_lock.png"
+    class="illustration pull-right"
+    style="max-width: 7%;">
+
+When trying to synchronize several workers in a distributed environment, you may
+need a way to lock access to some resources. That's what a distributed lock can
+help you with.
+
+# Adoption in OpenStack
+
+[Ceilometer](http://launchpad.net/ceilometer) is the first project in OpenStack
+to use Tooz. It has replaced part of the old alarm distribution system, where
+RPC was used to detect active alarm evaluator workers. The group membership
+feature of Tooz was leveraged by Ceilometer to coordinate between alarm
+evaluator workers.
+
+Another new feature part of the Juno release of Ceilometer is the distribution
+of polling tasks of the central agent among multiple workers. There's again a group
+membership issue to know which nodes are online and available to receive polling
+tasks, so Tooz is also being used here.
+
+The [Oslo](http://wiki.openstack.org/Oslo) team
+[has accepted the adoption of Tooz](https://review.openstack.org/#/c/122439/)
+during this release cycle. That means that it will be maintained by more
+developers, and will be part of the OpenStack release process.
+
+This opens the door to push Tooz further in OpenStack. Our next candidate would
+be write a service group driver for [Nova](http://launchpad.net/nova).
+
+The [complete documentation for Tooz is available online](http://tooz.rtfd.org/)
+and has examples for the various features described here, go read it if you're
+curious and adventurous!
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
