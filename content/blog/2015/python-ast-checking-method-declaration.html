@@ -1,0 +1,312 @@
+---
+title: "Hacking Python AST: checking methods declaration"
+created: !!timestamp '2015-02-16 11:39:00'
+image: /media/images/blog/2015/python-ast.png
+tags:
+    - python
+    - openstack
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+A few months ago, I wrote
+[the definitive guide about Python method declaration](https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods),
+which had quite a good success. I still fight every day in
+[OpenStack](http://openstack.org) to have the developers declare their methods
+correctly in the patches they submit.
+
+{% endmark %}
+{% endblock %}
+
+# Automation plan
+
+The thing is, I really dislike doing the same things over and over again.
+Furthermore, I'm not perfect either, and I miss a lot of these kind of problems
+in the reviews I made. So I decided to replace me by a program – a more
+scalable and less error-prone version of my brain.
+
+In OpenStack, we rely on *[flake8](http://flake8.readthedocs.org/en/2.2.3/)* to
+do static analysis of our Python code in order to spot common programming
+mistakes.
+
+But we are really pedantic, so we wrote some extra hacking rules that we
+enforce on our code. To that end, we wrote a *flake8* extension called
+*[hacking](https://pypi.python.org/pypi/hacking)*. I really like these rules, I
+even recommend to apply them in your own project. Though I might be biased or
+victim of Stockholm syndrome. Your call.
+
+Anyway, it's pretty clear that I need to add a check for method declaration in
+*hacking*. Let's write a *flake8* extension!
+
+# Typical error
+
+The typical error I spot is the following:
+
+{% syntax python %}
+class Foo(object):
+    # self is not used, the method does not need
+    # to be bound, it should be declared static
+    def bar(self, a, b, c):
+        return a + b - c
+{% endsyntax %}
+
+That would be correct version:
+
+{% syntax python %}
+class Foo(object):
+    def bar(a, b, c):
+        return a + b - c
+{% endsyntax %}
+
+This kind of mistake is not a show-stopper. It's just not optimized. Why you
+have to manually declare static or class methods might be a language issue, but
+I don't want to debate about Python misfeatures or design flaws.
+
+# Strategy
+
+We could probably use some big magical regular expression to catch this
+problem. *flake8* is based on the *[pep8](https://pypi.python.org/pypi/pep8)*
+tool, which can do a line by line analysis of the code. But this method would
+make it very hard and error prone to detect this pattern.
+
+Though it's also possible to do an <acronym title="Abstract Syntax
+Tree">AST</acronym> based analysison on a per-file basis with *pep8*. So that's
+the method I pick as it's the most solid.
+
+# AST analysis
+
+I won't dive deeply into Python AST and how it works. You can find plenty of
+sources on the Internet, and I even talk about it a bit in my book
+*[The Hacker's Guide to Python](https://julien.danjou.info/books/the-hacker-guide-to-python)*.
+
+<img src="/media/images/blog/2015/python-ast.png"
+    class="illustration"
+    style="max-width: 50%;">
+
+To check correctly if all the methods in a Python file are correctly declared,
+we need to do the following:
+
+* Iterate over all the statement node of the AST
+* Check that the statement is a class definition (`ast.ClassDef`)
+* Iterate over all the function definitions (`ast.FunctionDef`) of that class
+  statement to check if it is already declared with `@staticmethod` or not
+* If the method is not declared static, we need to check if the first argument
+  (`self`) is used somewhere in the method
+
+# *Flake8* plugin
+
+In order to register a new plugin in *flake8* via *hacking*, we just need to
+add an entry in `setup.cfg`:
+
+{% syntax %}
+[entry_points]
+flake8.extension =
+    […]
+    H904 = hacking.checks.other:StaticmethodChecker
+    H905 = hacking.checks.other:StaticmethodChecker
+{% endsyntax %}
+
+We register 2 *hacking* codes here. As you will notice later, we are actually
+going to add an extra check in our code for the same price. Stay tuned.
+
+The next step is to write the actual plugin. Since we are using an AST based
+check, the plugin needs to be a class following a certain signature:
+
+{% syntax python %}
+@core.flake8ext
+class StaticmethodChecker(object):
+    def __init__(self, tree, filename):
+        self.tree = tree
+
+    def run(self):
+        pass
+{% endsyntax %}
+
+So far, so good and pretty easy. We store the tree locally, then we just need
+to use it in `run()` and `yield` the problem we discover following `pep8`
+expected signature, which is a tuple of `(lineno, col_offset, error_string,
+code)`.
+
+# This AST is made for walking ♪ ♬ ♩
+
+The `ast` module provides the `walk` function, that allow to iterate easily on
+a tree. We'll use that to run through the AST. First, let's write a loop that
+ignores the statement that are not class definition.
+
+{% syntax python %}
+@core.flake8ext
+class StaticmethodChecker(object):
+    def __init__(self, tree, filename):
+        self.tree = tree
+
+    def run(self):
+        for stmt in ast.walk(self.tree):
+            # Ignore non-class
+            if not isinstance(stmt, ast.ClassDef):
+                continue
+{% endsyntax %}
+
+We still don't check for anything, but we know how to ignore statement that are
+not class definitions. The next step need to be to ignore what is not function
+definition. We just iterate over the attributes of the class definition.
+
+{% syntax python %}
+for stmt in ast.walk(self.tree):
+    # Ignore non-class
+    if not isinstance(stmt, ast.ClassDef):
+        continue
+    # If it's a class, iterate over its body member to find methods
+    for body_item in stmt.body:
+        # Not a method, skip
+        if not isinstance(body_item, ast.FunctionDef):
+            continue
+{% endsyntax %}
+
+We're all set for checking the method, which is `body_item`. First, we need to
+check if it's already declared as static. If so, we don't have to do any
+further check and we can bail out.
+
+{% syntax python %}
+for stmt in ast.walk(self.tree):
+    # Ignore non-class
+    if not isinstance(stmt, ast.ClassDef):
+        continue
+    # If it's a class, iterate over its body member to find methods
+    for body_item in stmt.body:
+        # Not a method, skip
+        if not isinstance(body_item, ast.FunctionDef):
+            continue
+        # Check that it has a decorator
+        for decorator in body_item.decorator_list:
+            if (isinstance(decorator, ast.Name)
+               and decorator.id == 'staticmethod'):
+                # It's a static function, it's OK
+                break
+        else:
+            # Function is not static, we do nothing for now
+            pass
+{% endsyntax %}
+
+Note that we use the special `for/else` form of Python, where the `else` is
+evaluated unless we used `break` to exit the `for` loop.
+
+{% syntax python %}
+for stmt in ast.walk(self.tree):
+    # Ignore non-class
+    if not isinstance(stmt, ast.ClassDef):
+        continue
+    # If it's a class, iterate over its body member to find methods
+    for body_item in stmt.body:
+        # Not a method, skip
+        if not isinstance(body_item, ast.FunctionDef):
+            continue
+        # Check that it has a decorator
+        for decorator in body_item.decorator_list:
+            if (isinstance(decorator, ast.Name)
+               and decorator.id == 'staticmethod'):
+                # It's a static function, it's OK
+                break
+        else:
+            try:
+                first_arg = body_item.args.args[0]
+            except IndexError:
+                yield (
+                    body_item.lineno,
+                    body_item.col_offset,
+                    "H905: method misses first argument",
+                    "H905",
+                )
+                # Check next method
+                continue
+{% endsyntax %}
+
+We finally added some check! We grab the first argument from the method
+signature. Unless it fails, and in that case, we know there's a problem: you
+can't have a bound method without the `self` argument, therefore we raise the
+`H905` code to signal a method that misses its first argument.
+
+Now you know why we registered this second `pep8` code along with `H904` in
+`setup.cfg`. We have here a good opportunity to kill two birds with one stone.
+
+The next step is to check if that first argument is used in the code of the
+method.
+
+{% syntax python %}
+for stmt in ast.walk(self.tree):
+    # Ignore non-class
+    if not isinstance(stmt, ast.ClassDef):
+        continue
+    # If it's a class, iterate over its body member to find methods
+    for body_item in stmt.body:
+        # Not a method, skip
+        if not isinstance(body_item, ast.FunctionDef):
+            continue
+        # Check that it has a decorator
+        for decorator in body_item.decorator_list:
+            if (isinstance(decorator, ast.Name)
+               and decorator.id == 'staticmethod'):
+                # It's a static function, it's OK
+                break
+        else:
+            try:
+                first_arg = body_item.args.args[0]
+            except IndexError:
+                yield (
+                    body_item.lineno,
+                    body_item.col_offset,
+                    "H905: method misses first argument",
+                    "H905",
+                )
+                # Check next method
+                continue
+            for func_stmt in ast.walk(body_item):
+                if six.PY3:
+                    if (isinstance(func_stmt, ast.Name)
+                       and first_arg.arg == func_stmt.id):
+                        # The first argument is used, it's OK
+                        break
+                else:
+                    if (func_stmt != first_arg
+                       and isinstance(func_stmt, ast.Name)
+                       and func_stmt.id == first_arg.id):
+                        # The first argument is used, it's OK
+                        break
+            else:
+                yield (
+                    body_item.lineno,
+                    body_item.col_offset,
+                    "H904: method should be declared static",
+                    "H904",
+                )
+{% endsyntax %}
+
+To that end, we iterate using `ast.walk` again and we look for the use of the
+same variable named (usually `self`, but if could be anything, like `cls` for
+`@classmethod`) in the body of the function. If not found, we finally yield the
+`H904` error code. Otherwise, we're good.
+
+# Conclusion
+
+I've
+[submitted this patch to *hacking*](https://review.openstack.org/#/c/151952/),
+and, finger crossed, it might be merged one day. If it's not I'll create a new
+Python package with that check for flake8. The actual submitted code is a bit
+more complex to take into account the use of
+[`abc`](https://docs.python.org/2/library/abc.html) module and include some
+tests.
+
+As you may have notice, the code walks over the module AST definition several
+times. There might be a couple of optimization to browse the AST in only one
+pass, but I'm not sure it's worth it considering the actual usage of the tool.
+I'll let that as an exercise for the reader interested in contributing to
+OpenStack. 😉
+
+Happy hacking!
+
+{% from "macros.j2" import thgtp_form %}
+{{ thgtp_form() }}
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
