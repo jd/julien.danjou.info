@@ -44,6 +44,15 @@
     <script>$(Socialite.load);</script>
     {% endblock basejs %}
 
+    <script type="text/javascript">
+	var $mcGoal = {'settings':{'uuid':'53ceb9eb499d62f6ee37c8167','dc':'us7'}};
+	(function() {
+		 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+		sp.src = ('https:' == document.location.protocol ? 'https://s3.amazonaws.com/downloads.mailchimp.com' : 'http://downloads.mailchimp.com') + '/js/goal.min.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+    </script>
+
     {% block endjs %}
     {% endblock endjs %}
 
