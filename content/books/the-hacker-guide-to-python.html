@@ -301,6 +301,16 @@ default_block: None
               <input type="email" class="form-control" id="input-email"
                      placeholder="you@example.com">
           </div>
+          <br>
+          <br>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon
+                           glyphicon-user"></span>
+            </span>
+            <input class="form-control" id="input-firstname"
+                   placeholder="Your firstname">
+          </div>
         </div>
         <br>
         <br>
@@ -622,7 +632,8 @@ function sendSample(event) {
      url: "/stork/send-sample",
      type: 'POST',
      data: JSON.stringify({
-              email: $("form#get-sample").find("input").val()}
+              email: $("#input-email").val(),
+              firstname: $("#input-firstname").val()}
            ),
     contentType: "application/json; charset=utf-8",
     success: checkSampleSent
