@@ -617,7 +617,7 @@ function checkSampleSent (data) {
   if(data == "Mail is on its way!") {
     $("form#get-sample").after("<div id=\"sample-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Sample on its way!</h4></div>");
     _gaq.push(['_trackEvent', 'THGTP', 'SampleSent', 'OK']);
-    $.getScript("http://www.googleadservices.com/pagead/conversion.js");
+    $.getScript("https://www.googleadservices.com/pagead/conversion.js");
   } else {
     $("form#get-sample").after("<div id=\"sample-submit-alert\" class=\"alert alert-error\"><h4 class=\"alert-heading\">Failed!</h4> Try again?</div>");
     $("form#get-sample").find("button").removeAttr("disabled");
