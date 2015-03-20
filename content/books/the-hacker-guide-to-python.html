@@ -307,6 +307,14 @@ default_block: None
         </div>
         <br>
         <br>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="input-course" checked> Yes, I'd like to receive a free 30 days
+            course on how I can make the most out of Python.
+          </label>
+        </div>
+        <br>
+        <br>
         <button type="submit" class="btn btn-primary">
           Send me the sample chapter
         </button>
@@ -625,8 +633,9 @@ function sendSample(event) {
      type: 'POST',
      data: JSON.stringify({
               email: $("#input-email").val(),
-              firstname: $("#input-firstname").val()}
-           ),
+              firstname: $("#input-firstname").val(),
+              course: $("#input-course").prop("checked")
+           }),
     contentType: "application/json; charset=utf-8",
     success: checkSampleSent
     });
