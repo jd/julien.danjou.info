@@ -647,7 +647,9 @@ function sendSample(event) {
     twttr.conversion.trackPid('l5r3o', { tw_sale_amount: 0, tw_order_quantity: 0});
 
     if(subscribe_course) {
-        twttr.conversion.trackPid('l5r3p', { tw_sale_amount: 0, tw_order_quantity: 0 });
+        twttr.conversion.trackPid('l5r3p', { tw_sale_amount: 0,
+                                             tw_order_quantity: 0 });
+        _gaq.push(['_trackEvent', 'THGTP', 'Python course', 'OK']);
     }
 }
 
