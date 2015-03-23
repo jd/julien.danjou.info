@@ -611,6 +611,8 @@ at the Statistical Office of Cantabria, Spain</small>
 
 
 {% block endjs %}
+<script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 function checkSampleSent (data) {
   $("[id=sample-submit-alert]").detach();
@@ -626,19 +628,27 @@ function checkSampleSent (data) {
 }
 
 function sendSample(event) {
-   event.preventDefault()
-   $("form#get-sample").find("button").attr("disabled", true);
-   $.ajax({
-     url: "/stork/send-sample",
-     type: 'POST',
-     data: JSON.stringify({
-              email: $("#input-email").val(),
-              firstname: $("#input-firstname").val(),
-              course: $("#input-course").prop("checked")
-           }),
-    contentType: "application/json; charset=utf-8",
-    success: checkSampleSent
+    event.preventDefault()
+    $("form#get-sample").find("button").attr("disabled", true);
+    var subscribe_course = $("#input-course").prop("checked");
+    $.ajax({
+        url: "/stork/send-sample",
+        type: 'POST',
+        data: JSON.stringify({
+            email: $("#input-email").val(),
+            firstname: $("#input-firstname").val(),
+            course: subscribe_course
+        }),
+        contentType: "application/json; charset=utf-8",
+        success: checkSampleSent
     });
+
+    // Track the chapter sent
+    twttr.conversion.trackPid('l5r3o', { tw_sale_amount: 0, tw_order_quantity: 0});
+
+    if(subscribe_course) {
+        twttr.conversion.trackPid('l5r3p', { tw_sale_amount: 0, tw_order_quantity: 0 });
+    }
 }
 
 $(function () {
