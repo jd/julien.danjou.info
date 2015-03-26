@@ -51,7 +51,7 @@ urlcleaner:
 
 context:
     data:
-        site_url: http://julien.danjou.info
+        site_url: https://julien.danjou.info
         site_title: Julien Danjou
         blog_title: jd:/dev/blog
         author:
