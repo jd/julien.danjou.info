@@ -6,12 +6,12 @@ media_url: /media # URL where the media files are served from.
 
 plugins:
   - hyde.ext.plugins.meta.MetaPlugin
-  - hyde.ext.plugins.auto_extend.AutoExtendPlugin
-  - hyde.ext.plugins.syntext.SyntextPlugin
-  - hyde.ext.plugins.textlinks.TextlinksPlugin
+  - hyde.ext.plugins.meta.AutoExtendPlugin
+  - hyde.ext.plugins.text.SyntextPlugin
+  - hyde.ext.plugins.text.TextlinksPlugin
   - hyde.ext.plugins.urls.UrlCleanerPlugin
-  - hyde.ext.plugins.sorter.SorterPlugin
-  - hyde.ext.plugins.tagger.TaggerPlugin
+  - hyde.ext.plugins.meta.SorterPlugin
+  - hyde.ext.plugins.meta.TaggerPlugin
 
 syntax:
   use_figure: False
