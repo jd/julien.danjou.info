@@ -264,14 +264,14 @@ default_block: None
   <h2>Get a free sample chapter</h2>
   <div class="row-fluid">
     <div class="span6">
-      <a href="/media/the-hacker-guide-to-python-sample.pdf">
+      <a id="link-chapter" href="/media/the-hacker-guide-to-python-sample.pdf">
         <img style="max-width: 400px;
                     margin-top: -20px;
                     margin-bottom: -20px;"
              alt="Open book"
              src="/media/images/the-hacker-guide-to-python-opened.png">
       </a>
-      <small><a href="/media/the-hacker-guide-to-python-toc.pdf">You can also download
+      <small><a id="link-toc" href="/media/the-hacker-guide-to-python-toc.pdf">You can also download
           the full table of contents</a></small>
     </div>
     <div class="span6">
@@ -664,6 +664,13 @@ function sendSample(event) {
 
 $(function () {
     $("form#get-sample").submit(sendSample);
+    $("a#link-chapter").click(function () {
+        _gaq.push(['_trackEvent', 'THGTP', 'SampleDownloaded', 'OK']);
+        twttr.conversion.trackPid('l5r3o', { tw_sale_amount: 0, tw_order_quantity: 0});
+    });
+    $("a#link-toc").click(function () {
+        _gaq.push(['_trackEvent', 'THGTP', 'TOCDownloaded', 'OK']);
+    });
 });
 </script>
 {% endblock %}
