@@ -1,48 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% block starthead %}{% endblock starthead %}
     <meta charset="{{ resource.meta.charset }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>
     {% block title %}
-    {{ resource.meta.title|striptags }} | {{ site_title }}
+    {{ resource.meta.title|striptags }}
     {% endblock %}
+    | {{ site_title }}
     </title>
-    <meta name="author" content="{{ resource.meta.author }}">
-    <meta name="description" content="Julien Danjou's homepage">
-    <meta name="keywords" content="julien, danjou, python, openstack,
-                                   ceilometer, lisp, emacs, awesome, x11">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+    <link href="/media/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/media/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/media/css/animate.css" rel="stylesheet">
+    <link href="/media/css/style.css" rel="stylesheet">
+    <link href="/media/css/style-jd.css" rel="stylesheet">
+    <link href="/media/css/pygments.css" rel="stylesheet">
+    <link href="{{ media_url('css/flag-icon.min.css') }}" rel="stylesheet">
+    <style>@import url(http://fonts.googleapis.com/css?family=Raleway:400,300);@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);</style>
+    {% if resource.next_by_time %}
+    <link href="{{ resource.next_by_time.full_url }}" rel="prev">
+    {% endif %}
+    {% if resource.prev_by_time %}
+    <link href="{{ resource.prev_by_time.full_url }}" rel="next">
+    {% endif %}
 
-    <link rel="author" href="https://plus.google.com/+JulienDanjou/posts"/>
-    <link rel="publisher" href="https://plus.google.com/+JulienDanjou"/>
-    <link rel="icon" href="/media/images/jd.jpg">
-    <link type="application/atom+xml" rel="alternate" href="/blog/index.xml"/>
+    {% if resource.meta.created %}
+    <meta property="og:title" content="{{resource.meta.title}}">
+    <meta property="og:description" content="{{self.excerpt()|markdown|striptags|truncate(200, end="…")|forceescape}}">
+    <meta property="og:image" content="{{site_url}}{{resource.meta.image}}">
 
-    {% block basecss %}
-    <link href="{{ media_url('css/bootstrap.min.css') }}" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ media_url('css/bootstrap-responsive.min.css') }}" rel="stylesheet">
-    <link href="{{ media_url('css/style.css') }}" rel="stylesheet">
-    <link href="{{ media_url('css/pygments.css') }}" rel="stylesheet">
-    <link href="{{ media_url('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href='//fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,700,300' rel='stylesheet' type='text/css'>
-    {% endblock basecss %}
-    {% block css %}{% endblock %}
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@juldanjou"/>
+    <meta name="twitter:image:src" content='{{site_url}}{{resource.meta.image}}'/>
+    <meta name="twitter:title" content="{{resource.meta.title}}"/>
+    <meta name="twitter:domain" content="julien.danjou.info"/>
+    <meta name="twitter:description" content="{{
+                                              self.excerpt()|markdown|striptags
+                                              |truncate(200, end="…")|forceescape }}"/>
+    {% endif %}
 
-    {% block headjs %}
-    {% endblock headjs %}
+  </head>
+  <body class="archive">
 
-    {% block basejs %}
-    <!-- Javascript at the bottom for fast page loading -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
-    type="text/javascript"></script>
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-    <script src="{{ media_url('js/bootstrap.min.js') }}"></script>
+    <!-- HEADER -->
+    <header class="header header-dark no-sticky">
+      <nav class="navbar container">
+	<div class="col-sm-12">
+	  <a class="navbar-brand" href="/">
+            <img src="/media/images/jd.jpg"
+                 class="img-circle img-thumbnail"
+                 alt="Julien Danjou">
+            Julien Danjou
+          </a>
+	  <div id="navbar" class="navbar-collapse collapse">
+	    <ul class="nav navbar-nav pull-right">
+              {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
+              {% if menu_item.name != "media" %}
+              <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
+                <a href="{{ menu_item.full_url }}">
+                  {% if menu_item.meta.icon %}
+                  <span class="glyphicon glyphicon-{{menu_item.meta.icon}}"></span>
+                  {% endif %}
+                  {{ menu_item.meta.title|capitalize }}
+                </a>
+              </li>
+              {% endif %}
+              {%- endfor %}
+            </ul>
+	  </div>
+	</div>
+      </nav>
+    </header>
+    <!-- /.header -->
+
+    <!-- WRAPPER -->
+    <div class="wrapper">
+
+      {% block wrapper %}
+      {% if resource.meta.image %}
+      <div class="headcontent headcontent-md bg-sl-center overlay"
+           style="background-image: url('{{ resource.meta.image }}');">
+	<div class="container inforow">
+	  <div class="col-sm-8">
+	    <h1 class="white">
+      {% else %}
+      <div class="headcontent">
+        <div class="container">
+	  <div class="col-sm-8">
+	    <h1>
+      {% endif %}
+      {% block page_title %}
+      {{ resource.meta.title }}
+      {% endblock %}
+            </h1>
+	  </div>
+	  <div class="col-sm-4 text-right">
+	    <ol class="breadcrumb breadcrumb-arrow">
+              {% for node in resource.node.rwalk()|reverse %}
+              {% if not loop.first %}
+              <li{% if loop.last %} class="active"{% endif %}>
+                <a href="{{ node.full_url }}">
+                  {% if node.meta.icon and loop.index == 2 %}
+                  <span class="glyphicon glyphicon-{{node.meta.icon}}"></span>
+                  {% endif %}
+                  {{node.name|capitalize }}
+                </a>
+              </li>
+              {% endif %}
+              {% endfor %}
+	    </ol>
+          </div>
+        </div>
+      </div>
+
+      {% block container %}
+      <div class="container">
+        {% block content %}
+        {% endblock %}
+      </div>
+      {% endblock %}
+      {% endblock wrapper %}
+    </div>
+    <!-- /.wrapper -->
+
+    <!-- FOOTER -->
+    <footer class="footer footer-dark">
+      <div class="container">
+
+	<hr />
+
+	<div class="row">
+	  <div class="col-sm-6">
+	    <p class="copyright">
+              Created by <a href="{{ author.url }}">{{ author.name }}</a> using
+              <a href="https://github.com/hyde/hyde">Hyde</a>.
+              <a href="https://github.com/jd/julien.danjou.info">Sources are
+                available</a>.
+              This work is licensed under a
+              <a rel="license"
+                 href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
+                Commons Attribution-ShareAlike 3.0 Unported License</a>.
+              <br>
+              <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">
+                <img alt="Creative Commons License" style="border-width:0"
+                     src="/media/images/creative-commons.png">
+              </a>
+            </p>
+	  </div>
+	  <div class="col-sm-6 text-right">
+	    <nav>
+	      <h4>Follow Me</h4>
+              <p>
+                <a href="/blog/index.xml">
+                  <i class="fa fa-rss"></i></a>
+	        <a href="https://twitter.com/juldanjou">
+                  <i class="fa fa-twitter"></i></a>
+	        <a href="https://facebook.com/julien.danjou">
+                  <i class="fa fa-facebook"></i></a>
+                <a href="https://github.com/jd">
+                  <i class="fa fa-github"></i></a>
+                <a href="http://linkedin.com/in/juliendanjou">
+                  <i class="fa fa-linkedin"></i></a>
+                <a href="http://plus.google.com/108793797474967511035?prsrc=3">
+                  <i class="fa fa-google-plus"></i>
+                </a>
+              </p>
+	    </nav>
+	  </div>
+	</div>
+      </div>
+    </footer>
+    <!-- /.footer -->
+
+    <!-- ScrollTop -->
+    <a href="#" class="scrolltop"><i></i></a>
+
+    <!-- SCRIPTS -->
+    <script src="/media/js/jquery-2.1.3.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+    <script src="/media/js/plugins.js"></script>
+    <script src="/media/js/custom.js"></script>
+    <script type="text/javascript"
+            src="https://apis.google.com/js/plusone.js"></script>
     <script src="{{ media_url('js/bootstrap-tab-bookmark.js') }}"></script>
     <script src="{{ media_url('js/socialite/socialite.js') }}"></script>
     <script>$(Socialite.load);</script>
-    {% endblock basejs %}
 
     <script type="text/javascript">
 	var $mcGoal = {'settings':{'uuid':'53ceb9eb499d62f6ee37c8167','dc':'us7'}};
@@ -53,21 +198,6 @@
 	})();
     </script>
 
-    {% block endjs %}
-    {% endblock endjs %}
-
-    {% if resource.next_by_time %}
-    <link href="{{ resource.next_by_time.full_url }}" rel="prev">
-    {% endif %}
-
-    {% if resource.prev_by_time %}
-    <link href="{{ resource.prev_by_time.full_url }}" rel="next">
-    {% endif %}
-
-
-    {% block endhead %}{% endblock endhead %}
-
-    {% block analytics %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
       var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
@@ -81,65 +211,9 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    {% endblock analytics %}
 
-  </head>
+    {% block js %}
+    {% endblock %}
 
-  <body>
-
-    {% block body %}
-
-    <nav class="navbar navbar-static-top navbar-inverse" id="main-navbar">
-      {% block navbar %}
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="navbar-brand" href="/">{{ site_title }}</a>
-          <ul class="nav navbar-nav">
-            <li{% if resource.node == site.content %} class="active"{% endif %}>
-              <a href="/"><span class="glyphicon glyphicon-{{site.content.meta.icon}}"></span> About</a>
-            </li>
-            {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
-            {% if menu_item.name != "media" %}
-            <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
-              <a href="{{ menu_item.full_url }}">
-              {% if menu_item.meta.icon %}
-              <span class="glyphicon glyphicon-{{menu_item.meta.icon}}"></span>
-              {% endif %}
-              {{ menu_item.meta.title|capitalize }}
-              </a>
-            </li>
-            {% endif %}
-            {%- endfor %}
-          </ul>
-        </div>
-      </div>
-      {% endblock navbar %}
-    </nav>
-
-    <section class="container">
-      <div class="content">
-        {% block content %}
-        {% endblock %}
-      </div>
-    </section>
-
-    <footer>
-      {% block footer %}
-      <p>
-        Created by <a href="{{ author.url }}">{{ author.name }}</a> using
-        <a href="https://github.com/hyde/hyde">Hyde</a>.
-        <a href="https://github.com/jd/julien.danjou.info">Sources</a>.
-        <br>
-        This work is licensed under a <a rel="license"
-                                         href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
-          Commons Attribution-ShareAlike 3.0 Unported License</a>.<br>
-        <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">
-          <img alt="Creative Commons License" style="border-width:0"
-               src="//i.creativecommons.org/l/by-sa/3.0/88x31.png">
-        </a>
-      </p>
-      {% endblock footer %}
-    </footer>
-    {% endblock body %}
   </body>
 </html>

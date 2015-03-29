@@ -1,178 +1,189 @@
 ---
 title: "Talks"
-default_block: None
 ---
-{% block css %}
-    <link href="{{ media_url('css/flags.css') }}" rel="stylesheet">
-{% endblock %}
 
-{% block main %}
+{% set years = {} %}
 
-{% macro render_talk(title, event, link_event, place, country, country_code, date,
-                     speakers, slides_thumb, slides, extra, class) %}
-<div style="margin-bottom: 60px; padding-bottom: 30px; padding-left: 30px;
-                     padding-right: 30px;" class="panel panel-default">
-  <div class="panel-body">
-    <h3><strong>
-    {% if class == "primary" %}
-    <span class="pull-right label label-danger">UPCOMING</span>
-    {% endif %}
-    {{ title }}
-    </strong></h3>
-  </div>
-  <div>
-    <div class="media">
-      {% if slides %}
-      <a class="pull-left" href="{{ slides }}">
-        {% if slides_thumb %}
-        <img class="media-object img-thumbnail" src="{{ slides_thumb }}">
-        {% else%}
-        <span class="label label-default">Slides</span>
+{% macro render_talk(title, event, link_event, place, country, country_code,
+                     year, date,
+                     speakers, slides_thumb, slides, video) %}
+  <div class="row">
+    <div class="col-sm-5">
+      <h4>{{ title }}</h4>
+      <ul>
+        <li><strong>Speakers:</strong> {{ speakers }}</li>
+        <li><strong>Event:</strong> <a href="{{ link_event }}">{{ event }}</a></li>
+        <li><strong>Place:</strong> {{ place }} – {{ country }}
+          <span class="flag-icon flag-icon-{{country_code }}"></span>
+        </li>
+      </p>
+    </div>
+    <div class="col-sm-2 no-all-padding hidden-xs">
+      <div class="date">
+        {% if year not in years %}
+	  <div class="year">{{ year }}</div>
+          {% do years.update({year: True}) %}
         {% endif %}
-      </a>
-      {% endif %}
-      <div class="media-body">
-        {{ extra }}
-        <a href="{{ link_event }}">
-          <h4 class="media-heading">{{ event }}</h4>
-        </a>
-        <br>
-        <span class="glyphicon glyphicon-map-marker"></span>
-        {{ place }}
-        <img class="flag flag-{{ country_code }}" alt="{{ country }}"/>
-        <br>
-        <span class="glyphicon glyphicon-calendar"></span> {{ date }}
-        <br>
-        <span class="glyphicon glyphicon-user"></span> {{ speakers }}
+	<small>{{ date }}</small>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="slider oneslider">
+	<ul>
+          {% if slides_thumb %}
+	    <li>
+              <a href="{{ slides }}"><img src="{{ slides_thumb }}"></a>
+	    </li>
+          {% endif %}
+          {% if video %}
+	    <li>
+              <iframe height="360" width="100%" src="{{ video }}" allowfullscreen></iframe>
+	    </li>
+          {% endif %}
+	</ul>
+	<nav class="nav-pages"></nav>
       </div>
     </div>
   </div>
-</div>
 {% endmacro %}
-{{ render_talk("Rethinking Ceilometer metric storage with Gnocchi: Time-series as a Service",
+
+  <div class="timeline inforow appear-wrap">
+
+    {{ render_talk("Rethinking Ceilometer metric storage with Gnocchi: Time-series as a Service",
                "OpenStack Design Summit Kilo",
-               "https://www.openstack.org/summit/openstack-paris-summit-2014/",
-               "Paris",
-               "France",
-               "fr",
-               "5th November 2014",
-               "Julien Danjou, Eoghan Glynn, Dina Belova",
-               "/media/images/talks/ceilometer-gnocchi.png",
-               "/talks/ceilometer-gnocchi.pdf",
-               "<iframe class=\"pull-right\" width=\"320\" height=\"180\" src=\"//www.youtube.com/embed/j5DOz8XOqdg\" frameborder=\"0\" allowfullscreen></iframe>") }}
+    "https://www.openstack.org/summit/openstack-paris-summit-2014/",
+    "Paris",
+    "France",
+    "fr",
+    "2014",
+    "5th November",
+    "Julien Danjou, Eoghan Glynn, Dina Belova",
+    "/media/images/talks/ceilometer-gnocchi.png",
+    "/talks/ceilometer-gnocchi.pdf",
+    "//www.youtube.com/embed/j5DOz8XOqdg") }}
 
-{{ render_talk("How The Oslo Program Reduces The Technical Debt",
-               "PyCon FR",
-               "http://www.pycon.fr/2014/schedule/presentation/31/",
-               "Lyon",
-               "France",
-               "fr",
-               "25th October 2014",
-               "Julien Danjou",
-               "/media/images/talks/oslo-technical-debt.jpg",
-               "/talks/oslo-technical-debt.html") }}
+    {{ render_talk("How The Oslo Program Reduces The Technical Debt",
+    "PyCon FR",
+    "http://www.pycon.fr/2014/schedule/presentation/31/",
+    "Lyon",
+    "France",
+    "fr",
+    "2014",
+    "25th October",
+    "Julien Danjou",
+    "/media/images/talks/oslo-technical-debt.jpg",
+    "/talks/oslo-technical-debt.html") }}
 
-{{ render_talk("OpenStack & PostgreSQL",
-               "PostgreSQL Meetup Paris #3",
-               "http://www.meetup.com/PostgreSQL-User-Group-Paris/events/173590252/",
-               "Paris",
-               "France",
-               "fr",
-               "16th April 2014",
-               "Julien Danjou",
-               "/media/images/talks/openstack-and-postgresql.png",
-               "/talks/openstack-and-postgresql.html") }}
+    {{ render_talk("OpenStack & PostgreSQL",
+    "PostgreSQL Meetup Paris #3",
+    "http://www.meetup.com/PostgreSQL-User-Group-Paris/events/173590252/",
+    "Paris",
+    "France",
+    "fr",
+    "2014",
+    "16th April",
+    "Julien Danjou",
+    "/media/images/talks/openstack-and-postgresql.png",
+    "/talks/openstack-and-postgresql.html") }}
 
-{{ render_talk("From Ceilometer to Telemetry: not so alarming!",
-               "OpenStack in action 4!",
-               "https://www.eventbrite.com/e/openstack-in-action-4-tickets-7645801799",
-               "Paris",
-               "France",
-               "fr",
-               "5th December 2013",
-               "Julien Danjou, Nick Barcet",
-               "/talks/From Ceilometer to Telemetry- not so alarming!.png",
-               "/talks/From Ceilometer to Telemetry- not so alarming!.pdf",
-               "<iframe class=\"pull-right\" width=\"320\" height=\"180\" src=\"//www.youtube.com/embed/yHJVTa5LyKs\" frameborder=\"0\" allowfullscreen></iframe>") }}
+    {{ render_talk("From Ceilometer to Telemetry: not so alarming!",
+    "OpenStack in action 4!",
+    "https://www.eventbrite.com/e/openstack-in-action-4-tickets-7645801799",
+    "Paris",
+    "France",
+    "fr",
+    "2013",
+    "5th December",
+    "Julien Danjou, Nick Barcet",
+    "/talks/From Ceilometer to Telemetry- not so alarming!.png",
+    "/talks/From Ceilometer to Telemetry- not so alarming!.pdf",
+    "//www.youtube.com/embed/yHJVTa5LyKs") }}
 
-{{ render_talk("Ceilometer+Heat=Alarming",
-               "OpenStack Design Summit Icehouse",
-               "http://www.openstack.org/summit/openstack-summit-hong-kong-2013/",
-               "Hong-Kong",
-               "Hong-Kong",
-               "hk",
-               "8th November 2013",
-               "Nick Barcet, Eoghan Glynn, Julien Danjou",
-               "/media/images/talks/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.png",
-               "/talks/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.pdf",
-               "<iframe class=\"pull-right\" width=\"320\" height=\"180\" src=\"//www.youtube.com/embed/-U6cyeWkiSc\" frameborder=\"0\" allowfullscreen></iframe>") }}
+    {{ render_talk("Ceilometer+Heat=Alarming",
+    "OpenStack Design Summit Icehouse",
+    "http://www.openstack.org/summit/openstack-summit-hong-kong-2013/",
+    "Hong-Kong",
+    "Hong-Kong",
+    "hk",
+    "2013",
+    "8th November",
+    "Nick Barcet, Eoghan Glynn, Julien Danjou",
+    "/media/images/talks/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.png",
+    "/talks/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.pdf",
+    "//www.youtube.com/embed/-U6cyeWkiSc") }}
 
-{{ render_talk("Hy, Lisp on Python",
-               "PyCon FR",
-               "http://www.pycon.fr/2013/",
-               "Strasbourg",
-               "France",
-               "fr",
-               "26th October 2013",
-               "Julien Danjou",
-               "/media/images/talks/hy-lisp-on-python.png",
-               "/talks/hy-lisp-on-python.html",
-               "<iframe class=\"pull-right\" width=\"320\" height=\"180\" src=\"//www.youtube.com/embed/-_w4hRObGhY\" frameborder=\"0\" allowfullscreen></iframe>") }}
+    {{ render_talk("Hy, Lisp on Python",
+    "PyCon FR",
+    "http://www.pycon.fr/2013/",
+    "Strasbourg",
+    "France",
+    "fr",
+    "2013",
+    "26th October",
+    "Julien Danjou",
+    "/media/images/talks/hy-lisp-on-python.png",
+    "/talks/hy-lisp-on-python.html",
+    "//www.youtube.com/embed/-_w4hRObGhY") }}
 
-{{ render_talk("OpenStack & Debian: How OpenStack and Debian work together",
-               "Debian en action, projet, production et cloud",
-               "http://www.meetup.com/Technologies-libres-open-source/events/113804162/",
-               "Paris",
-               "France",
-               "fr",
-               "22nd May 2013",
-               "Julien Danjou",
-               "/media/images/OpenStack & Debian.png",
-               "/media/OpenStack & Debian.pdf") }}
+    {{ render_talk("OpenStack & Debian: How OpenStack and Debian work together",
+    "Debian en action, projet, production et cloud",
+    "http://www.meetup.com/Technologies-libres-open-source/events/113804162/",
+    "Paris",
+    "France",
+    "fr",
+    "2013",
+    "22nd May",
+    "Julien Danjou",
+    "/media/images/OpenStack & Debian.png",
+    "/media/OpenStack & Debian.pdf") }}
 
-{{ render_talk("Ceilometer: From Metering to Metrics",
-               "OpenStack Design Summit Havana",
-               "http://www.openstack.org/summit/portland-2013/",
-               "Portland, OR",
-               "USA",
-               "us",
-               "15th April 2013",
-               "Julien Danjou, Nick Barcet",
-               "/media/images/Ceilometer presentation ODS Havana.png",
-               "/media/Ceilometer presentation ODS Havana.pdf") }}
+    {{ render_talk("Ceilometer: From Metering to Metrics",
+    "OpenStack Design Summit Havana",
+    "http://www.openstack.org/summit/portland-2013/",
+    "Portland, OR",
+    "USA",
+    "us",
+    "2013",
+    "15th April",
+    "Julien Danjou, Nick Barcet",
+    "/media/images/Ceilometer presentation ODS Havana.png",
+    "/media/Ceilometer presentation ODS Havana.pdf") }}
 
-{{ render_talk("Measuring OpenStack: the Ceilometer Project",
-               "FOSDEM 2013",
-               "https://fosdem.org/2013/schedule/event/openstack_ceilometer/",
-               "Brussels",
-               "Belgium",
-               "be",
-               "3rd February 2013",
-               "Nick Barcet, Eoghan Glynn, Julien Danjou",
-               "/media/images/Ceilometer presentation FOSDEM 2013.png",
-               "/media/Ceilometer presentation FOSDEM 2013.pdf") }}
+    {{ render_talk("Measuring OpenStack: the Ceilometer Project",
+    "FOSDEM 2013",
+    "https://fosdem.org/2013/schedule/event/openstack_ceilometer/",
+    "Brussels",
+    "Belgium",
+    "be",
+    "2013",
+    "3rd February",
+    "Nick Barcet, Eoghan Glynn, Julien Danjou",
+    "/media/images/Ceilometer presentation FOSDEM 2013.png",
+    "/media/Ceilometer presentation FOSDEM 2013.pdf") }}
 
-{{ render_talk("Ceilometer, The OpenStack Metering Project",
-               "OpenStack France Meetup #2",
-               "http://www.meetup.com/OpenStack-France/events/84177022/",
-               "Paris",
-               "France",
-               "fr",
-               "5th November 2012",
-               "Julien Danjou",
-               "/media/images/Ceilometer presentation OpenStack France meetup %232.png",
-               "/media/Ceilometer presentation OpenStack France meetup %232.pdf") }}
+    {{ render_talk("Ceilometer, The OpenStack Metering Project",
+    "OpenStack France Meetup #2",
+    "http://www.meetup.com/OpenStack-France/events/84177022/",
+    "Paris",
+    "France",
+    "fr",
+    "2012",
+    "5th November",
+    "Julien Danjou",
+    "/media/images/Ceilometer presentation OpenStack France meetup %232.png",
+    "/media/Ceilometer presentation OpenStack France meetup %232.pdf") }}
 
 
-{{ render_talk("Ceilometer, The OpenStack Metering Project",
-               "XLCloud Technical Workshop",
-               "http://xlcloud.org/bin/view/Events/XLcloud+Technical+Workshop+Thursday+July+26+2012",
-               "Paris",
-               "France",
-               "fr",
-               "26th July 2012",
-               "Julien Danjou",
-               "/media/images/Ceilometer presentation XLCloud.png",
-               "/media/Ceilometer presentation XLCloud.pdf") }}
+    {{ render_talk("Ceilometer, The OpenStack Metering Project",
+    "XLCloud Technical Workshop",
+    "http://xlcloud.org/bin/view/Events/XLcloud+Technical+Workshop+Thursday+July+26+2012",
+    "Paris",
+    "France",
+    "fr",
+    "2012",
+    "26th July",
+    "Julien Danjou",
+    "/media/images/Ceilometer presentation XLCloud.png",
+    "/media/Ceilometer presentation XLCloud.pdf") }}
 
-{% endblock %}
+</div>

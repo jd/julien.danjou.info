@@ -1,11 +1,9 @@
 ---
 title: "rebuildd"
 ---
-{% mark excerpt %}
+{% filter markdown %}
 
 *rebuildd* is a build daemon to rebuild Debian packages.
-
-{% endmark %}
 
 # A bit of history
 ## Once upon a time
@@ -49,6 +47,7 @@ mainly because I never heavily used it.
 ## Overview
 Here is the diagram of what 5 days of coding gave, giving the first 0.1.0
 release:
+
 ![rebuildd UML diagram](/media/images/rebuildd/rebuildd_uml.jpg)
 
 The main specifications of *rebuildd* is multi-threading, and probably, a
@@ -144,3 +143,5 @@ This only works if you start rebuildd-httpd. You'll see something like that:
 
 There's also a command line tool which can manipulate database, called
 rebuildd-job.
+
+{% endfilter %}

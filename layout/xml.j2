@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="{{site_url}}">
+  <title>
+    {% block title %}{{ blog_title }}{% endblock %}
+  </title>
+  {% block self_url %}
+  <link href="{{site_url}}{{ resource.full_url }}" rel="self" />
+  {% endblock %}
+
+  {% block site_url %}
+  <link href="{{site_url}}/blog/"/>
+  {% endblock %}
+
+  {% block feed_extra %}
+  {% endblock %}
+
+  <updated>{{ time_now|xmldatetime }}</updated>
+
+  <id>{{site_url}}{{resource.full_url}}</id>
+
+  {% block content %}
+  {% endblock %}
+
+</feed>

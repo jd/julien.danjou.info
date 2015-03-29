@@ -1,183 +1,164 @@
 ---
 title: "Projects"
 ---
-<div class="well">
-  <div id="BigFlattrButton">
-    <a class="FlattrButton" style="display:none;" href="http://julien.danjou.info"></a>
-    <noscript><a href="//flattr.com/thing/48024/Support-me" target="_blank">
-        <img src="//api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this"/></a></noscript>
-  </div>
-  <p class="lead">
-    Here is a list of Free Software (or related) projects I maintain or contribute to. I only list the projects for which I made a significant contribution, or the ones where I'm one of the author or developer.
-  </p>
-  <p>
-    There's also a lot of small contributions I did all over the years. Some of them are referenced on
-    <a href="https://www.openhub.net/accounts/jdanjou">Open HUB</a>.
-  </p>
-</div>
+
+{# This is needed for mix list to be enabled #}
+<div class="nav-category"></div>
+
+<p>
+  Here is a list of Free Software (or related) projects I maintain or contribute to. I only list the projects for which I made a significant contribution, or the ones where I'm one of the author or developer.
+</p>
+<p>
+  There's also a lot of small contributions I did all over the years. Some of them are referenced on
+  <a href="https://www.openhub.net/accounts/jdanjou">Open HUB</a>.
+</p>
 
 {% macro render_software(name, url, logo, text) %}
-<div class="span4 listing-entry">
-  <h2>
-    <a href="{{ url }}">
-      {% if logo %}
-      <img class="listing-logo" src="{{logo}}">
-      {% else %}
-      {{name}}
-      {% endif %}
-    </a>
-  </h2>
-  <div class="caption">
-    {% if logo %}
-    <h4><a href="{{ url }}">{{name}}</a></h4>
-    {% endif %}
-    <p>
-      {{ text }}
-    </p>
-  </div>
-</div>
+  <li class="col-sm-4 col-xs-6 mix">
+    <div class="fig">
+      <img src="{{ logo }}" alt="{{ name }}">
+      <a href="{{ url }}" class="mask"><i class="fa fa-chevron-right"></i></a>
+    </div>
+    <div>
+      <h4>{{ name }}</h4>
+      <p><small>{{ text }}</small></p>
+    </div>
+  </li>
 {% endmacro %}
 
+<div class="no-mix no-padding-bottom">
+  <ul>
+    {{ render_software("Debian",
+    "http://debian.org",
+    "/media/images/projects/debian.png",
+    "I am a Debian developer since 2002, (co-)maintaining
+    <a href=\"http://qa.debian.org/developer.php?login=acid\">a lot of
+      packages</a>. I've been an
+      <a href=\"https://nm.debian.org/public/whoisam\">Application Manager</a>, a
+      Stable Release Manager and founded the
+      <a href=\"http://alioth.debian.org/projects/pkg-xen/\">Xen</a> and the
+      <a href=\"http://alioth.debian.org/projects/openstack/\">OpenStack</a>
+      packaging team.") }}
 
-<div class="row-fluid">
-  {{ render_software("Debian",
-  "http://debian.org",
-  "/media/images/projects/debian.png",
-  "I am a Debian developer since 2002, maintaining <a href=\"http://qa.debian.org/developer.php?login=acid\">more than 50 packages</a>. I've been an <a href=\"https://nm.debian.org/public/whoisam\">Application Manager</a>, a Stable Release Manager and founded the <a href=\"http://alioth.debian.org/projects/pkg-xen/\">Xen</a> and the <a href=\"http://alioth.debian.org/projects/openstack/\">OpenStack</a> packaging team.") }}
+      {{ render_software("OpenStack", "http://openstack.org",
+      "/media/images/projects/openstack.png", "Since 2011, I work on
+      <a href=\"http://openstack.org\">OpenStack</a>. I also lead the
+      development of
+      <a href=\"https://launchpad.net/ceilometer\">Ceilometer</a> and
+      <a href=\"http://launchpad.net/gnocchi\">Gnocchi</a>, and seated at the
+      Technical Committee.") }}
 
-  {{ render_software("OpenStack",
-  "http://openstack.org",
-  "/media/images/projects/openstack.png",
-  "Since 2011, I'm working on <a href=\"http://openstack.org\">OpenStack</a>
-  and its various components. I contributed to almost every components of
-  it, and set up the packaging for Debian too. I am also leading the
-  development of
-  <a href=\"https://launchpad.net/ceilometer\">Ceilometer</a>, and seated at
-  the Technical Committee.") }}
+      {{ render_software("Hy",
+      "http://hylang.org",
+      "/media/images/hylang.png",
+      "I work with others on a Lisp implementation on top of Python, called
+      <a href=\"http://hylang.org\">Hy</a>.") }}
 
-  {{ render_software("Hy",
-  "http://hylang.org",
-  "/media/images/hylang.png",
-  "I'm working with others on a Lisp implementation on top of Python, called
-  <a href=\"http://hylang.org\">Hy</a>.") }}
-</div>
-<div class="row-fluid">
-  {{ render_software("Common Lisp",
-  "http://common-lisp.net",
-  None,
-  "I've started to use Common Lisp in 2012, and now co-maintain
-  <a href=\"http://common-lisp.net/project/cl-irc/\">CL-IRC</a>.") }}
+      {{ render_software("Common Lisp",
+      "http://common-lisp.net",
+      "/media/images/projects/common-lisp.png",
+      "I've started to use Common Lisp in 2012, and now co-maintain
+      <a href=\"http://common-lisp.net/project/cl-irc/\">CL-IRC</a>.") }}
 
-  {{ render_software("awesome",
-  "http://awesome.naquadah.org",
-  "/media/images/projects/awesome.png",
-  "I had enough of non working window manager, so I started the <a href=\"http://awesome.naquadah.org\">awesome window manager</a> project in 2007.") }}
+      {{ render_software("awesome",
+      "http://awesome.naquadah.org",
+      "/media/images/projects/awesome.png",
+      "I had enough of non working window manager, so I started the <a href=\"http://awesome.naquadah.org\">awesome window manager</a> project in 2007.") }}
 
-  {{ render_software("GNU Emacs",
-  "http://www.gnu.org/software/emacs/",
-  "/media/images/projects/emacs.png",
-  "I use <a href=\"http://www.gnu.org/software/emacs/\">Emacs</a> since 2010, and am a commiter. I wrote some <a href=\"/projects/emacs-packages\">packages</a> like rainbow-mode, google-maps, etc.") }}
-</div>
-<div class="row-fluid">
-  {{ render_software("XCB",
-  "http://xcb.freedesktop.org",
-  "/media/images/projects/xcb.png",
-  "I've contributed and co-maintained the <a href=\"http://xcb.freedesktop.org\">X C bindings</a> since 2008, mentoring for the <a href=\"http://www.google-melange.com/gsoc/project/google/gsoc2009/mceier/2001\">GSoC in 2009</a>. I'm also maintaining <a href=\"http://cgit.freedesktop.org/xcb/xpyb/\">xpyb</a>.") }}
+      {{ render_software("GNU Emacs",
+      "http://www.gnu.org/software/emacs/",
+      "/media/images/projects/emacs.png",
+      "I use <a href=\"http://www.gnu.org/software/emacs/\">Emacs</a> since 2010, and am a commiter. I wrote some <a href=\"/projects/emacs-packages\">packages</a> like rainbow-mode, google-maps, etc.") }}
 
-  {{ render_software("startup-notification",
-  "http://freedesktop.org/wiki/Software/startup-notification",
-  "/media/images/projects/freedesktop.png",
-  "I've ported <a href=\"http://freedesktop.org/wiki/Software/startup-notification\">startup-notification</a> to XCB for awesome, and thus I became a de facto maintainer.") }}
-  {{ render_software("Gnus",
-  "http://www.gnus.org",
-  "/media/images/projects/gnus.png",
-  "Using Emacs is nice, but reading e-mail with it is better. Therefore I became a <a href=\"http://gnus.org\">Gnus</a> developer in 2010.") }}
-</div>
-<div class="row-fluid">
-  {{ render_software("Org-mode",
-  "http://orgmode.org",
-  "/media/images/projects/org-mode.png",
-  "I like to be organized using Emacs, so I'm an <a href=\"http://orgmode.org\">Org-mode</a> developer since 2010.") }}
+      {{ render_software("XCB",
+      "http://xcb.freedesktop.org",
+      "/media/images/projects/xcb.png",
+      "I've contributed and co-maintained the <a href=\"http://xcb.freedesktop.org\">X C bindings</a> since 2008, mentoring for the <a href=\"http://www.google-melange.com/gsoc/project/google/gsoc2009/mceier/2001\">GSoC in 2009</a>. I'm also maintaining <a href=\"http://cgit.freedesktop.org/xcb/xpyb/\">xpyb</a>.") }}
 
-  {{ render_software("PyMuninCli",
-  "/projects/pymunincli",
-  None,
-  "This <a href=\"http://python.org\">Python</a> package allow you to fetch
-  data from <a href=\"http://munin-monitoring.org/\">Munin</a> node
-  daemon.") }}
+      {{ render_software("startup-notification",
+      "http://freedesktop.org/wiki/Software/startup-notification",
+      "/media/images/projects/freedesktop.png",
+      "I've ported <a href=\"http://freedesktop.org/wiki/Software/startup-notification\">startup-notification</a> to XCB for awesome, and thus I became a de facto maintainer.") }}
+      {{ render_software("Gnus",
+      "http://www.gnus.org",
+      "/media/images/projects/gnus.png",
+      "Using Emacs is nice, but reading e-mail with it is better. Therefore I became a <a href=\"http://gnus.org\">Gnus</a> developer in 2010.") }}
 
-  {{ render_software("rebuildd",
-  "/projects/rebuildd",
-  None,
-  "If you want to rebuild the whole Debian archive, this is the tool I wrote
-  to do it.") }}
-</div>
-<div class="row-fluid">
-  {{ render_software("sysrqd",
-  "/projects/sysrqd",
-  None,
-  "<a href=\"/projects/sysrqd/\">sysrqd</a> is a very special and very optimized daemon that enables you to use <a href=\"http://fr.wikipedia.org/wiki/Magic_SysRq_key\">magic SysRq keys</a> over IP, via telnet.") }}
+      {{ render_software("Org mode",
+      "http://orgmode.org",
+      "/media/images/projects/org-mode.png",
+      "I liked to be organized using Emacs, so I'm an <a href=\"http://orgmode.org\">Org-mode</a> developer since 2010.") }}
 
-  {{ render_software("telak",
-  "/projects/telak",
-  None,
-  "Once upon a time, before starting to write
-  <a href=\"http://awesome.naquadah.org\">awesome</a>, I wanted to have pictures
-  from the Internet displayed on my root window and I wrote
-  <a href=\"/projects/telak\">telak</a>.") }}
+      {{ render_software("PyMuninCli",
+      "/projects/pymunincli",
+      "/media/images/projects/munin.png",
+      "This <a href=\"http://python.org\">Python</a> package allow you to fetch
+      data from <a href=\"http://munin-monitoring.org/\">Munin</a> node
+      daemon.") }}
 
-  {{ render_software("VARMon",
-  "/projects/varmon",
-  None,
-  "<a href=\"/projects/varmon/\">VARMon</a> is a text-based tool to monitor
-  DAC 960/1100 based RAID controllers. I took over its maintenance in
-  2004.") }}
-</div>
-<div class="row-fluid">
-  {{ render_software("libparportled",
-  "/projects/libparportled",
-  None,
-  "Ever wanted to light some LEDs using your parallel port? I wanted to so
-  in 2003, so <a href=\"/projects/libparportled\">libparportled</a> was
-  born.") }}
+      {{ render_software("rebuildd",
+      "/projects/rebuildd",
+      "/media/images/rebuildd/rebuildd_uml.jpg",
+      "If you want to rebuild the whole Debian archive, this is the tool I wrote
+      to do it.") }}
 
-  {{ render_software("mod_defensible",
-  "/projects/mod_defensible",
-  None,
-  "An Apache HTTPD module made to blocks requests from spammers using DNSBL.") }}
-</div>
+      {{ render_software("sysrqd",
+      "/projects/sysrqd",
+      "/media/images/projects/sysrq.jpg",
+      "<a href=\"/projects/sysrqd/\">sysrqd</a> is a very special and very optimized daemon that enables you to use <a href=\"http://fr.wikipedia.org/wiki/Magic_SysRq_key\">magic SysRq keys</a> over IP.") }}
 
-<hr>
-<h3>Former projects</h3>
+      {{ render_software("telak",
+      "/projects/telak",
+      "/media/images/telak/telak_0.2.jpg",
+      "Once upon a time, before starting to write
+      <a href=\"http://awesome.naquadah.org\">awesome</a>, I wanted to have pictures
+      from the Internet displayed on my root window and I wrote
+      <a href=\"/projects/telak\">telak</a>.") }}
 
-This is a list of past projects that I don't belong to anymore.
+      {{ render_software("VARMon",
+      "/projects/varmon",
+      "/media/images/projects/varmon.png",
+      "<a href=\"/projects/varmon/\">VARMon</a> is a text-based tool to monitor
+      DAC 960/1100 based RAID controllers. I took over its maintenance in
+      2004.") }}
 
-<div class="row-fluid">
-  {{ render_software("el-get",
-  "https://github.com/dimitri/el-get",
-  "/media/images/projects/el-get.png",
-  "I co-maintained <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
-  {{ render_software("XLcloud",
-  "http://xlcloud.org",
-  "/media/images/projects/xlcloud.jpg",
-  "I worked on XLcloud during 2012-2013, particularly on the
-  <a href=\"http://launchpad.net/ceilometer\">Ceilometer</a> usage.") }}
+      {{ render_software("libparportled",
+      "/projects/libparportled",
+      "/media/images/libparportled/leds.jpg",
+      "Ever wanted to light some LEDs using your parallel port? I wanted to so
+      in 2003, so <a href=\"/projects/libparportled\">libparportled</a> was
+      born.") }}
 
-  {{ render_software("CompatibleOne",
-  "http://www.compatibleone.org",
-  "/media/images/projects/compatibleone.png",
-  "I worked on CompatibleOne between 2011 and 2012 and particularly on EZVM and <a href=\"http://occi-wg.org\">OCCI</a>.") }}
-</div>
+      {{ render_software("mod_defensible",
+      "/projects/mod_defensible",
+      "/media/images/projects/blacklist.jpg",
+      "An Apache HTTPD module made to block requests from spammers using DNSBL.") }}
 
-<div class="row-fluid">
-  {{ render_software("TuxFamily",
-  "http://www.tuxfamily.org",
-  "/media/images/projects/tuxfamily.png",
-  "I managed TuxFamily.org in 2006 as president, and also have been a system
-  administrator between 2002 and 2006.") }}
+      {{ render_software("el-get",
+      "https://github.com/dimitri/el-get",
+      "/media/images/projects/el-get.png",
+      "I co-maintained <a href=\"http://github.com/dimitri/el-get\">el-get</a>, an Emacs package installer, with my friend <a href=\"http://blog.tapoueh.org\">Dimitri</a>.") }}
+      {{ render_software("XLcloud",
+      "http://xlcloud.org",
+      "/media/images/projects/xlcloud.png",
+      "I worked on XLcloud during 2012-2013, particularly on the
+      <a href=\"http://launchpad.net/ceilometer\">Ceilometer</a> usage.") }}
 
-  {{ render_software("VHFFS",
-  "http://vhffs.org",
-  "/media/images/projects/vhffs.png",
-  "I was one of the author of the <a href=\"http://vhffs.org\">VHFFS</a> platform between 2001 and 2006. It is the platform initiated and used by <a href=\"http://tuxfamily.org\">TuxFamily</a>.") }}
+      {{ render_software("CompatibleOne",
+      "http://www.compatibleone.org",
+      "/media/images/projects/compatibleone.png",
+      "I worked on CompatibleOne between 2011 and 2012 and particularly on EZVM and <a href=\"http://occi-wg.org\">OCCI</a>.") }}
+
+      {{ render_software("TuxFamily",
+      "http://www.tuxfamily.org",
+      "/media/images/projects/tuxfamily.png",
+      "I managed TuxFamily.org in 2006 as president, and also have been a system
+      administrator between 2002 and 2006.") }}
+
+      {{ render_software("VHFFS",
+      "http://vhffs.org",
+      "/media/images/projects/vhffs.jpg",
+      "I was one of the author of the <a href=\"http://vhffs.org\">VHFFS</a> platform between 2001 and 2006. It is the platform initiated and used by <a href=\"http://tuxfamily.org\">TuxFamily</a>.") }}
+
+  </ul>
 </div>

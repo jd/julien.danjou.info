@@ -1,218 +1,118 @@
-{% extends "standard.j2" %}
+{% extends "base.j2" %}
 
-{% if resource.name != "index.html" %}
-{% block headjs %}
-{{ super() }}
-<script type="text/javascript">
-  /* <![CDATA[ */
-    (function() {
-        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = '//api.flattr.com/js/0.6/load.js?mode=auto';
-        t.parentNode.insertBefore(s, t);
-    })();
-/* ]]> */
-</script>
-{% endblock %}
-{% endif %}
-
-
-{% if resource.meta.created %}
-{% block endhead %}
-<meta property="og:title" content="{{resource.meta.title}}">
-<meta property="og:description" content="{{self.excerpt()|markdown|striptags|truncate(200, end="…")|forceescape}}">
-<meta property="og:image" content="{{site_url}}{{resource.meta.image}}">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:site" content="@juldanjou"/>
-<meta name="twitter:image:src" content='{{site_url}}{{resource.meta.image}}'/>
-<meta name="twitter:title" content="{{resource.meta.title}}"/>
-<meta name="twitter:domain" content="julien.danjou.info"/>
-<meta name="twitter:description" content="{{
-                                          self.excerpt()|markdown|striptags
-                                          |truncate(200, end="…")|forceescape }}"/>
-{% endblock endhead %}
-{% endif %}
-
-{% block content %}
-  <div class="row-fluid">
-    <div class="span9">
-      {{ super() }}
+{% block container %}
+  <div class="container post">
+    <header class="entry-header">
+      <div class="social">
+        <a class="socialite twitter-share" href="http://twitter.com/share"
+           data-text="{{resource.meta.title}}" data-via="juldanjou"
+           data-count="vertical" data-url="{{site_url}}{{resource.full_url}}"
+           rel="nofollow" target="_blank">
+           Share on Twitter
+        </a>
+        <a class="socialite googleplus-one"
+           href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url={{site_url}}{{resource.full_url}}"
+           rel="nofollow" target="_blank" data-size="tall"
+           data-url="{{site_url}}{{resource.full_url}}">
+           Share on Google+
+        </a>
+        <a class="socialite linkedin-share"
+           href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{site_url}}{resource.full_url}}&amp;title={{resource.meta.title}}"
+           data-counter="top"
+           data-url="{{site_url}}{{resource.full_url}}" rel="nofollow"
+           target="_blank">
+           Share on LinkedIn
+        </a>
+        <a class="socialite facebook-like"
+           href="http://www.facebook.com/sharer.php?u={{site_url}}{{resource.full_url}}&amp;t={{resource.meta.title}}"
+           data-send="false"
+           data-layout="box_count" data-width="60" data-show-faces="true"
+           rel="nofollow" target="_blank">
+           Share on Facebook
+        </a>
+      </div>
+      <div class="meta">
+	<small><i class="fa fa-calendar"></i>{{resource.meta.created.strftime('%A %d %B %Y') }}</small>
+	<small>
+          <i class="fa fa-folder"></i>
+          {% for tag in resource.meta.tags %}
+            <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
+          {% endfor %}
+	</small>
+      </div>
+    </header>
+    <div class="entry-content padding-bottom">
+      {% filter markdown -%}
+        {% block article %} {% endblock %}
+      {%- endfilter %}
     </div>
-    <aside class="span3">
-      <div class="bio">
-        <div class="illustration">
-          <img class="img-thumbnail img-circle" src="/media/images/jd.jpg" alt="Julien Danjou">
+
+    {% for tag in resource.meta.tags if tag == "Python" %}
+      <div id="thgtp-form" class="row well text-center">
+        <div class="col-sm-10">
+          <h3>
+            <a href="/books/the-hacker-guide-to-python">
+              Check out <strong>The Hacker's Guide to Python</strong>!
+            </a>
+          </h3>
+          <p>
+            This is a book I wrote talking about designing Python applications, state
+            of the art, advice to apply when building your application, various
+            Python tips, etc. Interested?
+            <br>
+            <br>
+            <a role="button" class="btn btn-default"
+               href="/books/the-hacker-guide-to-python">Check it out.</a>
+          </p>
         </div>
-        <h2>Julien Danjou</h2>
-        <div class="clear"></div>
-        <p>
-          <strong>Free Software
-            <a href="http://en.wikipedia.org/wiki/Hacker_(programmer_subculture)">hacker</a></strong>,
-          <strong>senior software engineer</strong> working at
-          <a href="http://redhat.com">Red Hat</a>.
-        </p>
-
-        <p>
-          Former <em>Project Technical Leader</em> for
-          <strong><a href="http://launchpad.net/ceilometer">OpenStack
-          Ceilometer</a></strong> and former member of the
-          <strong><a href="http://openstack.org">OpenStack</a> technical
-          committee</strong>.
-        </p>
-
-        <p>
-          Also a <strong><a href="http://debian.org">Debian</a>
-          developer</strong>, the original author of the
-          <strong><a href="http://awesome.naquadah.org">awesome window
-          manager</a></strong> and a developer of <strong>GNU
-          Emacs</strong>.
-        </p>
-
-        <p class="text-center">
-          Author of <strong>The Hacker's Guide to Python</strong>.
+        <div class="col-sm-2 text-center">
           <a href="/books/the-hacker-guide-to-python">
             <img src="/media/images/the-hacker-guide-to-python.png"
-                 style="max-width: 80%;">
-          </a>
-        </p>
-
-        <hr/>
-
-        <div id="social-logos">
-          <a href="mailto:julien@danjou.info">
-            <img src="/media/images/webicon-mail-m.png" alt="E-mail">
-          </a>
-          <a href="/blog/index.xml">
-            <img src="/media/images/webicon-rss-m.png" alt="RSS feed">
-          </a>
-          <br>
-          <a href="https://github.com/jd" title="jd on GitHub">
-            <img src="/media/images/webicon-github-m.png" alt="GitHub logo"/>
-          </a>
-          <a href="http://twitter.com/juldanjou" title="juldanjou on Twitter">
-            <img src="/media/images/webicon-twitter-m.png" alt="Twitter logo"/>
-          </a>
-          <a href="http://facebook.com/julien.danjou" title="Julien Danjou on Facebook">
-            <img src="/media/images/webicon-facebook-m.png" alt="Facebook logo"/>
-          </a>
-          <a href="http://plus.google.com/108793797474967511035?prsrc=3" title="Julien Danjou on Google+">
-            <img src="/media/images/webicon-googleplus-m.png" alt="Google+ logo"/>
-          </a>
-          <a href="http://linkedin.com/in/juliendanjou" title="juliendanjou on LinkedIn">
-            <img src="/media/images/webicon-linkedin-m.png" alt="LinkedIn logo"/>
+                 alt="The Hacker's Guide to Python">
           </a>
         </div>
-
-        <a class="twitter-timeline" href="https://twitter.com/juldanjou" data-widget-id="268005727774318593">Tweets by @juldanjou</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
       </div>
-    </aside>
-  {% endblock %}
 
-{% block prearticle %}
-<div class="social">
-  <a class="socialite twitter-share" href="http://twitter.com/share"
-     data-text="{{resource.meta.title}}" data-via="juldanjou"
-     data-count="vertical" data-url="{{site_url}}{{resource.full_url}}"
-     rel="nofollow" target="_blank">
-     Share on Twitter
-  </a>
-  <a class="socialite googleplus-one"
-     href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url={{site_url}}{{resource.full_url}}"
-     rel="nofollow" target="_blank" data-size="tall"
-     data-url="{{site_url}}{{resource.full_url}}">
-     Share on Google+
-  </a>
-  <a class="socialite linkedin-share"
-     href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{site_url}}{resource.full_url}}&amp;title={{resource.meta.title}}"
-     data-counter="top"
-     data-url="{{site_url}}{{resource.full_url}}" rel="nofollow"
-     target="_blank">
-     Share on LinkedIn
-  </a>
-  <a class="socialite facebook-like"
-     href="http://www.facebook.com/sharer.php?u={{site_url}}{{resource.full_url}}&amp;t={{resource.meta.title}}"
-     data-send="false"
-     data-layout="box_count" data-width="60" data-show-faces="true"
-     rel="nofollow" target="_blank">
-     Share on Facebook
-  </a>
-  <a class="FlattrButton" style="display:none;" href="{{site_url}}{{resource.full_url}}"
-     title="{{resource.meta.title}}"
-     rev="flattr;uid:jd">
-  </a>
-</div>
-{{ super() }}
-{% endblock %}
+      <div class="padding"></div>
+    {% endfor %}
+  </div>
 
-{% block premain %}
-{% mark article -%}
-{% filter markdown %}
-{% block main %}{% endblock %}
-{% endfilter %}
-{% endmark %}
-{% endblock %}
+  <div id="subscribe" class="newsletter bg-sl-center overlay overlay-light"
+       style="background-image: url('/media/images/photo-notepad.jpg');">
+    <div class="container inforow middle">
+      <div class="col-sm-6">
+	<p>Get notified of my next blog post</p>
+      </div>
+      <div class="col-sm-6">
+	<div id="feedback-form">
+	  <form action="//danjou.us7.list-manage.com/subscribe/post?u=53ceb9eb499d62f6ee37c8167&amp;id=d80a8d25c4" method="post">
+	    <input name="EMAIL" placeholder="Enter your email address" required type="email">
+	    <button type="submit" class="btn btn-default">Subscribe</button>
+	  </form>
+	  <div class="success-block"></div>
+	</div>
+      </div>
+    </div>
+  </div>
 
-{% block postarticle %}
-{% if resource.name != "index.html" %}
-  <form action="https://danjou.us7.list-manage.com/subscribe/post?u=53ceb9eb499d62f6ee37c8167&amp;id=d80a8d25c4"
-	method="post"
-        class="form-inline"
-	role="form" target="_blank"
-        id="mc_embed_signup">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <span class="glyphicon glyphicon-envelope"></span>
-            Receive next articles by mail:
-          </span>
-          <input id="mce-EMAIL" name="EMAIL" type="email" class="form-control" placeholder="your@email.com"
-                 required>
-                 <span class="input-group-btn">
-                   <button type="submit" name="subscribe"
-                           id="mc-embedded-subscribe"
-	                   class="btn btn-primary">Subscribe</button>
-                 </span>
+  <div class="container padding-top">
+    <nav class="nav-single clearfix">
+      {% if resource.next_by_time %}
+        <div class="nav-previous text-left">
+          <a href="{{ resource.next_by_time.full_url }}">
+	    <small>Previous Post</small>
+	    <span>{{ resource.next_by_time.meta.title }}</span>
+          </a>
         </div>
-        or subscribe using <a href="/blog/index.xml"><i class="fa fa-rss"></i> RSS</a>
-  </form>
-{% endif %}
-
-{% if resource.meta.created %}
-{% if resource.next_by_time or resource.prev_by_time%}
-<nav>
-  <ul class="pager">
-{% endif %}
-<div class="row-fluid">
-  {% if resource.next_by_time %}
-    <div class="span6">
-      <li class="previous">
-        <a rel="prev" href="{{ resource.next_by_time.full_url }}">
-          <span class="glyphicon glyphicon-arrow-left"></span>
-          <strong>Previous post:</strong>
-          {{resource.next_by_time.meta.title}}
-        </a>
-      </li>
-    </div>
-  {% endif %}
-  {% if resource.prev_by_time %}
-    <div class="span6">
-      <li class="next">
-        <a rel="next" href="{{ resource.prev_by_time.full_url }}">
-          <strong>Next post:</strong>
-          {{resource.prev_by_time.meta.title}}
-          <span class="glyphicon glyphicon-arrow-right"></span>
-        </a>
-      </li>
-    </div>
-  {% endif %}
-  {% if resource.next_by_time or resource.prev_by_time%}
-</div>
-  </ul>
-</nav>
-{% endif %}
-{% endif %}
-
-{% endblock postarticle %}
+      {% endif %}
+      {% if resource.prev_by_time %}
+        <div class="nav-next text-right">
+          <a href="{{ resource._by_time.full_url }}">
+	    <small>Next Post</small>
+	    <span>{{ resource.prev_by_time.meta.title }}</span>
+          </a>
+        </div>
+      {% endif %}
+    </nav>
+  </div>
+{% endblock %}

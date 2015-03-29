@@ -1,39 +1,22 @@
 ---
-title: jd:/dev/blog
-subtitle: <span class="rss-logo"><a href="/blog/index.xml"><img alt="RSS" src="/media/images/blog/rss.png"></a></span>
+extends: false
 default_block: None
-extends: standard.j2
+title: jd:/dev/blog
+paginator:
+    sorter: time
+    size: 10
+    file_pattern: page$PAGE$EXT
 ---
-{% block main %}
-{% from "macros.j2" import render_blog_listing with context %}
-<div class="row-fluid">
-  <div class="tabbable span10">
-    <ul class="nav nav-tabs nav-container">
-    {% for node in resource.node.child_nodes|sort(attribute="name")|reverse if node.name.startswith("2") %}
-      <li{% if loop.first %} class="active" {% endif %}><a href="#{{node.name}}" data-toggle="tab">{{ node.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <div class="tab-content">
-    {% for node in resource.node.child_nodes|sort(attribute="name")|reverse if node.name.startswith("2")%}
-      <div class="tab-pane fade in{% if loop.first %} active{% endif %}" id="{{node.name}}">
-      {{ render_blog_listing(node.walk_resources_sorted_by_time()) }}
-      </div>
-    {% endfor %}
-    </div>
-  </div>
-  <div class="span2">
-    <h2><span class="glyphicon glyphicon-tags"></span> Tags</h2>
-    {% for tag, meta in site.tagger.tags %}
-    <a href="/blog/tags/{{tag}}.html"><span class="label label-default"
-    style="line-height: {{ 18 + (meta.resources|length) / 2 }}px; font-size:
-    {{ 9 + (meta.resources|length) / 2 }}px;">{{tag}} ({{(meta.resources|length)}})</span></a>
-    {% endfor %}
-  </div>
-</div>
+{% set post_list = resource.page.posts %}
+
+{% extends "blog-list.j2" %}
+
+{# If we are rendering a year, just replace the title #}
+{% block page_title %}
+  {% if resource.node.parent.name == "blog" %}
+    Blog posts for year {{ resource.node.name }}
+  {% else %}
+    {{ super() }}
+  {% endif %}
 {% endblock %}
 
-{% block endjs %}
-<script type="text/javascript">
-bootstrap_tab_bookmark();
-</script>
-{% endblock %}

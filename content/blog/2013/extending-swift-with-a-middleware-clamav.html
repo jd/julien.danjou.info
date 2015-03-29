@@ -3,14 +3,12 @@ title: "Extending Swift with middleware: example with ClamAV"
 created: !!timestamp '2013-01-22 09:37:45'
 image: /media/images/openstack-virus.jpg
 tags:
-    - swift
-    - clamav
-    - openstack
+    - Swift
+    - ClamAV
+    - OpenStack
 ---
 
-<div class="pull-left">
-    <img width="120" src="/media/images/openstack-virus.jpg">
-</div>
+<img class="pull-left col-xs-2" src="/media/images/openstack-virus.jpg">
 
 {% block excerpt %}
 {% mark excerpt %}
@@ -29,11 +27,11 @@ analyses, we'll use [ClamAV](http://www.clamav.net).
 
 # WSGI, paste and middleware
 
-<div class="span3 pull-right thumbnail">
+<figure class="col-xs-3 pull-right">
     <img src="/media/images/lolcat-tube.jpg">
-    <p>In a pipeline, a black cat can become a white cat with the help of
-some middleware.</p>
-</div>
+    <figcaption>In a pipeline, a black cat can become a white cat with the help of
+some middleware.</figcaption>
+</figure>
 
 To do our content analysis, the best place to hook in the Swift architecture
 is at the beginning of every request, on **swift-proxy**, before the file is
@@ -71,9 +69,7 @@ authenticated!
 
 # ClamAV
 
-<div class="pull-left">
-    <img width="100" src="/media/images/clamav.png">
-</div>
+<img class="pull-left col-xs-3" width="100" src="/media/images/clamav.png">
 
 If you don't know [ClamAV](http://clamav.org), it's an antivirus engine
 designed for detecting trojans, viruses, malware and other malicious
@@ -126,9 +122,7 @@ requests it receives to the final application, and returns the result.
 
 # Testing our basic middleware
 
-<div class="pull-right thumbnail">
-    <img width="180" src="/media/images/lolcat-testing.jpg">
-</div>
+<img class="pull-right col-xs-2" src="/media/images/lolcat-testing.jpg">
 
 Now is a really good time to add unit tests. I hope you didn't think we were
 going to write code without some tests, right? It's really easy to test a

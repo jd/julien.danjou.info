@@ -3,9 +3,9 @@ title: OpenStack Swift eventual consistency analysis & bottlenecks
 created: !!timestamp '2012-04-23 12:06:00'
 image: /media/images/blog/2012/openstack-swift-storage.png
 tags:
-    - openstack
-    - swift
-    - python
+    - OpenStack
+    - Swift
+    - Python
 ---
 
 {% block excerpt %}
@@ -58,7 +58,9 @@ values divided in equivalent parts. Each part of this space is called a
 The following schema (stolen from the [Riak](http://wiki.basho.com/)
 project) shows the principle nicely:
 
-![Consistent hashing ring](/media/images/blog/2012/riak-ring.png)
+<img class="illustration"
+     alt="Consistent hashing ring"
+     src="/media/images/blog/2012/riak-ring.png">
 
 In a simple world, if you wanted to store some objects and distribute them
 on 4 nodes, you would split your hash space in 4. You would have 4
@@ -143,7 +145,9 @@ using regular files.
 Note that this 3 rings can be stored and managed on 3 completely different
 set of servers.
 
-![Swift storage schema](/media/images/blog/2012/openstack-swift-storage.png)
+<img class="illustration"
+     alt="Swift storage schema"
+     src="/media/images/blog/2012/openstack-swift-storage.png">
 
 # Data replication
 
@@ -156,7 +160,9 @@ or an object) it is uploaded into all the zones responsible for the ring
 partition the object belongs to. This upload into the different zones is the
 responsibility of the *swift-proxy* daemon.
 
-![Swift proxy schema](/media/images/blog/2012/openstack-swift-replication.png)
+<img class="illustration"
+     alt="Swift proxy schema"
+     src="/media/images/blog/2012/openstack-swift-replication.png">
 
 But if one of the zone is failing, you can't upload all your copies in all
 zones at the upload time. So you need a mechanism to be sure the failing
@@ -224,9 +230,9 @@ partitions and nodes.
 
 # Replication process bottlenecks
 
-<span class="pull-right">
-![Copycat](/media/images/blog/2012/copy-cat.jpg)
-</span>
+<img class="illustration pull-right"
+     alt="Copycat"
+     src="/media/images/blog/2012/copy-cat.jpg">
 
 ## File accesses
 

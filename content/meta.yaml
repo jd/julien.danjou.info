@@ -1,5 +1,5 @@
-extends: standard.j2
-default_block: main
+extends: base.j2
+default_block: content
 author: Julien Danjou
 charset: UTF-8
 icon: user

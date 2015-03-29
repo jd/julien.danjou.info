@@ -3,9 +3,9 @@ title: Rant about Github pull-request workflow implementation
 created: !!timestamp '2013-05-10 17:55:00'
 image: /media/images/github.svg
 tags:
-    - github
-    - openstack
-    - gerrit
+    - GitHub
+    - OpenStack
+    - Gerrit
 ---
 
 {% block excerpt %}
@@ -27,7 +27,7 @@ isn't that good.</p>&mdash; Julien Danjou (@juldanjou)
 
 # The problems with Github pull-requests
 
-<img class="illustration pull-right" width="150" src="/media/images/github.svg">
+<img class="illustration pull-right col-xs-2" src="/media/images/github.svg">
 
 I always looked at Github from a distant eye, mainly because I always
 disliked their pull-request handling, and saw no value in the social hype it
@@ -73,9 +73,8 @@ mistake, commit, fix this mistake, commit, etc. This kind of branch is
 composed of the whole brain's construction process of your contributor, and
 is a real pain to review. To the point I quite often give up.
 
-<figure>
-<img class="illustration"
-src="/media/images/blog/2013/github-pull-request-iterative.png">
+<figure class="illustration">
+<img src="/media/images/blog/2013/github-pull-request-iterative.png">
 <figcaption>
 A typical case: 3 commits to build a 4 lines long file.
 </figcaption>
@@ -109,19 +108,18 @@ the following of the iterative discussions that the patch triggered.
 Of course, it would be possible for Github to enhance this and fix it, but
 currently it doesn't handle this use case correctly..
 
-<figure>
-<a href="https://github.com/hylang/hy/pull/157">
-<img class="illusration"
-src="/media/images/blog/2013/hylang-pull-request-157.png">
-</a>
+<figure class="illustration">
+  <a href="https://github.com/hylang/hy/pull/157">
+    <img src="/media/images/blog/2013/hylang-pull-request-157.png">
+  </a>
 <figcaption>
-Exercise for the doubtful readers: good luck finding all revisions of my
-patch in the pull-request #157 of Hy.</figcaption>
+  Exercise for the doubtful readers: good luck finding all revisions of my
+  patch in the pull-request #157 of Hy.</figcaption>
 </figure>
 
 # A quick look at OpenStack workflow
 
-<img class="illustration pull-right" width="150" src="/media/images/projects/openstack.png">
+<img class="illustration pull-right col-xs-2" src="/media/images/projects/openstack.png">
 
 It's not a secret for anyone that I've been contributing to OpenStack as a
 daily routine for the last 18 months. The more I contribute, the more I like

@@ -1,9 +1,0 @@
-{% extends "standard.j2" %}
-
-{% block premain %}
-{% mark article -%}
-{% filter markdown %}
-{% block main %}{% endblock %}
-{% endfilter %}
-{% endmark %}
-{% endblock %}

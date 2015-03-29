@@ -1,11 +1,9 @@
 ---
 title: "sysrqd"
 ---
-{% mark excerpt %}
+{% filter markdown %}
 
 *sysrqd* is a small daemon intended to manage Linux Sysrq over network.
-
-{% endmark %}
 
 Its philosophy is to be very responsive under heavy load and try to be
 somehow reliable. Authentication is made by clear password.
@@ -31,3 +29,5 @@ sysrq> q
 **s** will do a Emergency Sync, **q** will exit the session.
 Other command like **b** (reBoot), **o** (pOweroff) or
 **u** (Umount) are available, and so on.
+
+{% endfilter %}

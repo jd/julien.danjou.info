@@ -1,13 +1,10 @@
 ---
 title: PyMuninCli
 ---
-
-{% mark excerpt %}
+{% filter markdown %}
 
 *PyMuninCli* is a Python library made to access
 [Munin](http://munin-monitoring.org/) daemons.
-
-{% endmark %}
 
 ## Download
 
@@ -31,3 +28,5 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> client.config('users')
 {'graph_category': 'system', 'tty': {'draw': 'AREASTACK', 'colour': '00FF00', 'label': 'tty'}, 'pty': {'draw': 'AREASTACK', 'colour': '0000FF', 'label': 'pty'}, 'pts': {'draw': 'AREASTACK', 'colour': '00FFFF', 'label': 'pts'}, 'graph_vlabel': 'Users', 'graph_title': 'Logged in users', 'graph_printf': '%3.0lf', 'X': {'info': 'Users logged in on an X display', 'draw': 'AREASTACK', 'colour': '000000', 'label': 'X displays'}, 'graph_args': '--base 1000 -l 0', 'graph_scale': 'no', 'other': {'info': 'Users logged in by indeterminate method', 'colour': 'FF0000', 'label': 'Other users'}}
 {% endsyntax %}
+
+{% endfilter %}

@@ -1,0 +1,49 @@
+{% extends "base.j2" %}
+
+{% block content %}
+{% from "macros.j2" import render_blog_listing with context %}
+
+  <div class="col-md-9 col-sm-7 posts">
+    {{ render_blog_listing(post_list) }}
+
+    <div class="container pagination-bar text-center">
+      <ul class="pagination">
+        {% if resource.page.previous  %}
+          <li><a href="{{ resource.page.previous.resource.full_url }}" class="prev"></a></li>
+        {% endif %}
+        {% for page in resource.pages %}
+          <li{% if page == resource.page %} class="active"{% endif %}><a href="{{ page.resource.full_url }}">{{ page.number }}</a></li>
+        {% endfor %}
+        {% if resource.page.next  %}
+          <li><a href="{{ resource.page.next.resource.full_url }}" class="next"></a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+
+  <aside class="col-md-3 col-sm-5 sidebar m-center">
+    <!-- .widget -->
+    <div class="widget">
+      <h4>Tags</h4>
+      <ul class="category-list flat">
+        {% set tag_dict = {} %}
+        {% for tag, meta in site.tagger.tags %}
+          {% do tag_dict.update({meta:meta.resources|count})%}
+        {% endfor %}
+        {% for meta, post_count in tag_dict|dictsort(by='value')|reverse %}
+        <li>
+	  <a{% if tag == meta %} class="active"{% endif %}
+               href="/blog/tags/{{ meta.name }}">
+               {{ meta.name }}
+            <span class="pull-right">
+              {{(post_count) }}
+            </span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- /.widget -->
+  </aside>
+
+{% endblock %}

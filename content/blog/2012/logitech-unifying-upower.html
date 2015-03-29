@@ -3,9 +3,9 @@ title: Logitech Unifying devices support in UPower
 created: !!timestamp '2012-11-16 10:44:00'
 image: /media/images/upower.png
 tags:
-    - logitech
-    - upower
-    - freedesktop
+    - Logitech
+    - UPower
+    - Freedesktop
 ---
 
 {% block excerpt %}
@@ -25,9 +25,9 @@ Logitech devices.
 
 # HID++
 
-<span class="pull-right">
-![UPower](/media/images/m705.jpg)
-</span>
+<div class="pull-right col-xs-2 illustration">
+  <img alt="M705" src="/media/images/m705.jpg">
+</div>
 
 As I discovered late in my first reverse engineering attempt, Logitech
 developed a custom HID protocol named HID++. This protocol exists in two
@@ -54,9 +54,9 @@ the K750 keyboard.
 
 # UPower support
 
-<span class="pull-left">
-![UPower](/media/images/upower.png)
-</span>
+<div class="pull-right col-xs-2 illustration">
+  <img alt="UPower" src="/media/images/upower.png">
+</div>
 
 It took me sometime to get a full understanding of the protocol, its
 different version etc. After reverse engineering my K750 keyboard, I've also
@@ -76,7 +76,9 @@ add support for Logitech Unifying devices (over USB only) and should work
 with at least Logitech M705 and K750 devices. This should be available with
 the next version of UPower, which should be 0.9.19.
 
-![gnome-power-statistics for K750](/media/images/gnome-power-statistics-k750.png)
+<figure class="illustration">
+  <img alt="gnome-power-statistics for K750" src="/media/images/gnome-power-statistics-k750.png">
+</figure>
 
 So far, Logitech has been kind enough to help me understanding part of the
 protocol and even sent me a few devices so I can play and test my work with

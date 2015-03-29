@@ -1,53 +1,37 @@
 {% macro render_blog_listing(walker) %}
-<div>
   {% for res in walker %}
-  <div class="media">
-    <a href="{{content_url(res.url)}}" class="pull-left">
-      {% if res.meta.image %}
-        <img class="media-object blog-post-logo" src="{{res.meta.image}}" alt="">
-      {% endif %}
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading"><strong><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></strong></h4>
-      {% refer to res.relative_deploy_path as post %}
-      {{ post.excerpt|markdown }}
-      <p><a class="btn btn-primary" href="{{ content_url(res.url) }}">Read more</a></p>
-      <p>
-        <span class="glyphicon glyphicon-calendar"></span> {{ res.meta.created.strftime('%d %b %Y') }}
-        {% if res.meta.tags %}
-        | <span class="glyphicon glyphicon-tags"></span> Tags:
-        {% for tag in res.meta.tags %}
-        <a href="{{ content_url('blog/tags/'~tag~'.html') }}"><span class="label label-default">{{tag}}</span></a>
-        {% endfor %}
-        {% endif %}
-      </p>
+    <div class="container post format-image">
+      <div class="entry">
+	<header class="entry-header">
+	  <h2><a href="{{ res.full_url }}">{{ res.meta.title }}</a></h2>
+	  <div class="meta">
+	    <small><i class="fa fa-calendar"></i>{{res.meta.created.strftime('%A %d %B %Y') }}</small>
+	    <small>
+	      <i class="fa fa-folder"></i>
+              {% for tag in res.meta.tags %}
+                <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
+              {% endfor %}
+	    </small>
+	  </div>
+	</header>
+	<div class="entry-content">
+          {% if res.meta.image %}
+            <a href="{{ res.full_url }}">
+              <div class="blog-title-image" style="background-image: url('{{ res.meta.image }}');">
+              </div>
+            </a>
+          {% endif %}
+          {% refer to res.relative_deploy_path as post %}
+          {{ post.excerpt|markdown }}
+	  <a href="{{ res.full_url }}" class="btn btn-default white">Read More</a>
+	</div>
+      </div>
     </div>
-  </div>
+    <hr>
   {% endfor %}
-</div>
 {% endmacro %}
 
 {% macro render_xml_blog_listing(walker) %}
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:base="{{site_url}}">
-  <title>
-    {% block title %}{{ blog_title }}{% endblock %}
-  </title>
-  {% block self_url %}
-  <link href="{{site_url}}{{ resource.full_url }}" rel="self" />
-  {% endblock %}
-
-  {% block site_url %}
-  <link href="{{site_url}}/blog/"/>
-  {% endblock %}
-
-  {% block feed_extra %}
-  {% endblock %}
-
-  <updated>{{ time_now|xmldatetime }}</updated>
-
-  <id>{{site_url}}{{resource.full_url}}</id>
-
   {% for res in walker() %}
   <entry>
     <title type="html">{{ res.meta.title|forceescape }}</title>
@@ -70,30 +54,4 @@
     </content>
   </entry>
   {% endfor %}
-</feed>
-{% endmacro %}
-
-{% macro thgtp_form() %}
-<div id="thgtp-form" class="well well-sm row-fluid">
-  <div class="col-lg-9">
-    <div style="text-align: center;">
-      <h4><strong>
-          <a href="/books/the-hacker-guide-to-python">
-            The Hacker's Guide to Python</a>
-      </strong></h4>
-    </div>
-    <p>
-      A book I wrote talking about designing Python applications, state of
-      the art, advice to apply when building your application, various
-      Python tips, etc. Interested?
-      <a href="/books/the-hacker-guide-to-python">Check it out.</a>
-    </p>
-  </div>
-  <div class="col-lg-3">
-    <a href="/books/the-hacker-guide-to-python">
-        <img src="/media/images/the-hacker-guide-to-python.png"
-             style="max-width: 120px;">
-    </a>
-  </div>
-</div>
 {% endmacro %}

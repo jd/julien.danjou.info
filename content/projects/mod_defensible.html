@@ -1,11 +1,10 @@
 ---
 title: "mod_defensible"
 ---
-{% mark excerpt %}
+{% filter markdown %}
 
 *mod_defensible* is an Apache 2.x module intended to block spammers using DNSBL servers.
 
-{% endmark %}
 
 It will look at the client IP and check it in one or several DNSBL servers and return
 a 403 Forbidden page to the client.
@@ -47,3 +46,5 @@ DnsblNameserver 192.168.3.254
 # Why?
 
 mod_ **d** efe **ns** i **bl** e
+
+{% endfilter %}
