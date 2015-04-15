@@ -22,14 +22,9 @@ body {
     margin-bottom: 1.5em;
 }
 
-/* Social button icons in blog posts */
-.social {
-    float: right;
-}
-
 .socialite {
     /* At least needed for the Facebook icon */
-    float: left;
+    float: right;
     display: inline;
     padding-left: 10px;
 }
@@ -122,6 +117,11 @@ h1,
 
 .newsletter {
     height: 100%;
+}
+
+/* Add padding left at least for mobile */
+.archive .post .entry-header, .archive .post .entry-content {
+    padding-left: 30px;
 }
 
 /* Fixes a bug with pattern where text has wrong z-index */

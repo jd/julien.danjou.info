@@ -2,8 +2,17 @@
 
 {% block container %}
   <div class="container post">
-    <header class="entry-header">
-      <div class="social">
+    <header class="row entry-header">
+      <div class="col-sm-6 meta">
+	<small><i class="fa fa-calendar"></i>{{ resource.meta.created.strftime('%A %d %B %Y') }}</small>
+	<small>
+          <i class="fa fa-folder"></i>
+          {% for tag in resource.meta.tags %}
+            <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
+          {% endfor %}
+	</small>
+      </div>
+      <div class="col-sm-6">
         <a class="socialite twitter-share" href="http://twitter.com/share"
            data-text="{{resource.meta.title}}" data-via="juldanjou"
            data-count="vertical" data-url="{{site_url}}{{resource.full_url}}"
@@ -30,15 +39,6 @@
            rel="nofollow" target="_blank">
            Share on Facebook
         </a>
-      </div>
-      <div class="meta">
-	<small><i class="fa fa-calendar"></i>{{resource.meta.created.strftime('%A %d %B %Y') }}</small>
-	<small>
-          <i class="fa fa-folder"></i>
-          {% for tag in resource.meta.tags %}
-            <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
-          {% endfor %}
-	</small>
       </div>
     </header>
     <div class="entry-content padding-bottom">
