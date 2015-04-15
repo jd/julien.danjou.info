@@ -7,13 +7,16 @@
 
 {% block container %}
   <div class="container post">
-    <header class="padding-bottom entry-header">
-      <small><i class="fa fa-calendar"></i>{{ resource.meta.created.strftime('%A %d %B %Y') }}
-        <i class="fa fa-folder"></i>
-        {% for tag in resource.meta.tags %}
-          <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
-        {% endfor %}
-      </small>
+    <header class="entry-header">
+      <div class="meta">
+        <small><i class="fa fa-calendar"></i>{{resource.meta.created.strftime('%A %d %B %Y') }}</small>
+        <small>
+          <i class="fa fa-folder"></i>
+          {% for tag in resource.meta.tags %}
+            <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
+          {% endfor %}
+        </small>
+      </div>
     </header>
     <div class="entry-content padding-bottom">
       {% filter markdown -%}
