@@ -1,6 +1,3 @@
-[submodule "content/media/js/socialite"]
-	path = content/media/js/socialite
-	url = https://github.com/dbushell/Socialite.git
 [submodule "content/media/js/reveal.js"]
 	path = content/media/js/reveal.js
 	url = https://github.com/hakimel/reveal.js.git

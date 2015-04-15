@@ -1,45 +1,19 @@
 {% extends "base.j2" %}
 
+{% block js %}
+  {{ super () }}
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4eaacbb674bf94f0" async="async"></script>
+{% endblock %}
+
 {% block container %}
   <div class="container post">
-    <header class="row entry-header">
-      <div class="col-sm-6 meta">
-	<small><i class="fa fa-calendar"></i>{{ resource.meta.created.strftime('%A %d %B %Y') }}</small>
-	<small>
-          <i class="fa fa-folder"></i>
-          {% for tag in resource.meta.tags %}
-            <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
-          {% endfor %}
-	</small>
-      </div>
-      <div class="col-sm-6">
-        <a class="socialite twitter-share" href="http://twitter.com/share"
-           data-text="{{resource.meta.title}}" data-via="juldanjou"
-           data-count="vertical" data-url="{{site_url}}{{resource.full_url}}"
-           rel="nofollow" target="_blank">
-           Share on Twitter
-        </a>
-        <a class="socialite googleplus-one"
-           href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url={{site_url}}{{resource.full_url}}"
-           rel="nofollow" target="_blank" data-size="tall"
-           data-url="{{site_url}}{{resource.full_url}}">
-           Share on Google+
-        </a>
-        <a class="socialite linkedin-share"
-           href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{site_url}}{resource.full_url}}&amp;title={{resource.meta.title}}"
-           data-counter="top"
-           data-url="{{site_url}}{{resource.full_url}}" rel="nofollow"
-           target="_blank">
-           Share on LinkedIn
-        </a>
-        <a class="socialite facebook-like"
-           href="http://www.facebook.com/sharer.php?u={{site_url}}{{resource.full_url}}&amp;t={{resource.meta.title}}"
-           data-send="false"
-           data-layout="box_count" data-width="60" data-show-faces="true"
-           rel="nofollow" target="_blank">
-           Share on Facebook
-        </a>
-      </div>
+    <header class="padding-bottom entry-header">
+      <small><i class="fa fa-calendar"></i>{{ resource.meta.created.strftime('%A %d %B %Y') }}
+        <i class="fa fa-folder"></i>
+        {% for tag in resource.meta.tags %}
+          <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
+        {% endfor %}
+      </small>
     </header>
     <div class="entry-content padding-bottom">
       {% filter markdown -%}

@@ -22,13 +22,6 @@ body {
     margin-bottom: 1.5em;
 }
 
-.socialite {
-    /* At least needed for the Facebook icon */
-    float: right;
-    display: inline;
-    padding-left: 10px;
-}
-
 .meta {
     height: 50px;
 }
