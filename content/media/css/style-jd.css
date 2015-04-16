@@ -125,3 +125,7 @@ h1,
 .middle {
     transition: all 2s;
 }
+
+.jumbotron {
+    height: auto;
+}
