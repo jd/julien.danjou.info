@@ -121,3 +121,7 @@ h1,
 .pattern > * {
     position: relative;
 }
+
+.middle {
+    transition: all 2s;
+}
