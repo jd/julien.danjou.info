@@ -19,9 +19,11 @@
       </div>
     </header>
     <div class="entry-content padding-bottom">
+      {% mark article %}
       {% filter markdown -%}
         {% block article %} {% endblock %}
       {%- endfilter %}
+      {% endmark %}
     </div>
 
     {% for tag in resource.meta.tags if tag == "Python" %}
