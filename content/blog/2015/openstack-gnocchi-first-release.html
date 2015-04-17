@@ -1,0 +1,479 @@
+---
+title: "Gnocchi 1.0: storing metrics and resources at scale"
+created: !!timestamp '2015-04-21 15:00:00'
+image: /media/images/gnocchi-bg.jpg
+tags:
+    - OpenStack
+    - Ceilometer
+    - Gnocchi
+---
+
+<figure class="pull-right illustration" style="width: 33%;">
+  <img src="/media/images/gnocchi-logo.jpg">
+</figure>
+
+{% block excerpt %}
+{% mark excerpt %}
+
+A few months ago, I wrote a long post about what I called back then the
+"[Gnocchi experiment](/blog/2014/openstack-ceilometer-the-gnocchi-experiment)".
+Time passed and we – me and the rest of the Gnocchi team – continued to work on
+that project, finalizing it.
+
+It's with a great pleasure that we are going to release our first *1.0* version
+this month, roughly at the same time that the integrated
+[OpenStack](http://openstack.org) projects release their Kilo milestone. The
+[first release candidate numbered 1.0.0rc1](https://pypi.python.org/pypi/gnocchi)
+has been released this morning!
+
+{% endmark %}
+{% endblock %}
+
+# The problem to solve
+
+Before I dive into Gnocchi details, it's important to have a good view of what
+problems Gnocchi is trying to solve.
+
+Most of the IT infrastructures out there consists of a set of resources. These
+resources have properties: some of them are simple attributes whereas others
+might be measurable quantities (also known as metrics).
+
+And in this context, the cloud infrastructures make no exception. We talk about
+instances, volumes, networks… which are all different kind of resources. The
+problems that are arising with the cloud trend and is the scalability of
+storing all this data and be able to request them later, for whatever usage.
+
+What Gnocchi provides is a REST API that allows the user to manipulate
+resources (CRUD) and their attributes, while preserving the history of those
+resources and their attributes.
+
+Gnocchi is fully documented and the
+[documentation is available online](http://docs.openstack.org/developer/gnocchi).
+We are the first OpenStack project to require patches to *integrate the
+documentation*. We want to raise the bar, so we took a stand on that. That's
+part of our policy, the same way it's part of the OpenStack policy to require
+unit tests.
+
+I'm not going to paraphrase the whole Gnocchi documentation, which covers
+things like installation (super easy), but I'll guide you through some basics
+of the features provided by the REST API. I will show you some example so you
+can have a better understanding of what you could leverage Gnocchi!
+
+# Handling metrics
+
+<img src="/media/images/blog/2015/barchart_icon.png"
+    class="illustration pull-right"
+    style="max-width: 7%;">
+
+Gnocchi provides a full REST API to manipulate time-series that are called
+_metrics_. You can easily create a metric using a simple HTTP request:
+
+{% syntax %}
+POST /v1/metric HTTP/1.1
+Content-Type: application/json
+
+{
+  "archive_policy_name": "low"
+}
+
+HTTP/1.1 201 Created
+Location: http://localhost/v1/metric/387101dc-e4b1-4602-8f40-e7be9f0ed46a
+Content-Type: application/json; charset=UTF-8
+
+{
+  "archive_policy": {
+    "aggregation_methods": [
+      "std",
+      "sum",
+      "mean",
+      "count",
+      "max",
+      "median",
+      "min",
+      "95pct"
+    ],
+    "back_window": 0,
+    "definition": [
+      {
+        "granularity": "0:00:01",
+        "points": 3600,
+        "timespan": "1:00:00"
+      },
+      {
+        "granularity": "0:30:00",
+        "points": 48,
+        "timespan": "1 day, 0:00:00"
+      }
+    ],
+    "name": "low"
+  },
+  "created_by_project_id": "e8afeeb3-4ae6-4888-96f8-2fae69d24c01",
+  "created_by_user_id": "c10829c6-48e2-4d14-ac2b-bfba3b17216a",
+  "id": "387101dc-e4b1-4602-8f40-e7be9f0ed46a",
+  "name": null,
+  "resource_id": null
+}
+{% endsyntax %}
+
+The `archive_policy_name` parameter defines how the measures that are being
+sent are going to be aggregated. You can also define archive policies using the
+API and specify what kind of aggregation period and granularity you want. In
+that case , the _low_ archive policy keeps 1 hour of data aggregated over 1
+second and 1 day of data aggregated to 30 minutes. The functions used for
+aggregations are the mathematical functions standard deviation, minimum,
+maximum, … and even 95th percentile. All of that is obviously customizable and
+you can create your own archive policies.
+
+If you don't want to specify the archive policy manually for each metric, you
+can also create _archive policy rule_, that will apply a specific archive
+policy based on the metric name, e.g. metrics matching `disk.*` will be high
+resolution metrics so they will use the `high` archive policy.
+
+It's also worth noting Gnocchi is precise up to the nanosecond and is not tied
+to the current time. You can manipulate and inject measures that are years old
+and precise to the nanosecond. You can also inject points with old timestamps
+(i.e. old compared to the most recent one in the timeseries) with an archive
+policy allowing it (see `back_window` parameter).
+
+It's then possible to send measure to this metric:
+
+{% syntax %}
+POST /v1/metric/387101dc-e4b1-4602-8f40-e7be9f0ed46a/measures HTTP/1.1
+Content-Type: application/json
+
+[
+  {
+    "timestamp": "2014-10-06T14:33:57",
+    "value": 43.1
+  },
+  {
+    "timestamp": "2014-10-06T14:34:12",
+    "value": 12
+  },
+  {
+    "timestamp": "2014-10-06T14:34:20",
+    "value": 2
+  }
+  ]
+  
+HTTP/1.1 204 No Content
+{% endsyntax %}
+
+<figure class="illustration pull-right" style="width: 5%;">
+  <img src="/media/images/swift-bird.png">
+</figure>
+<figure class="illustration pull-right" style="width: 5%;">
+  <img src="/media/images/ceph-logo.png">
+</figure>
+
+These measure are synchronously aggregated and stored into the storage backend
+configured. Our most scalable storage drivers for now are either based on
+[Swift](http://launchpad.net/swift) or [Ceph](http://ceph.com) which are both
+scalable storage objects systems.
+
+It's then possible to retrieve these values:
+
+{% syntax %}
+GET /v1/metric/387101dc-e4b1-4602-8f40-e7be9f0ed46a/measures HTTP/1.1
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+
+[
+  [
+    "2014-10-06T14:30:00.000000Z",
+    1800.0,
+    19.033333333333335
+  ],
+  [
+    "2014-10-06T14:33:57.000000Z",
+    1.0,
+    43.1
+  ],
+  [
+    "2014-10-06T14:34:12.000000Z",
+    1.0,
+    12.0
+  ],
+  [
+    "2014-10-06T14:34:20.000000Z",
+    1.0,
+    2.0
+  ]
+]
+{% endsyntax %}
+
+As older Ceilometer users might notice here, metrics are only storing points
+and values, nothing fancy such as metadata anymore.
+
+By default, values eagerly aggregated using mean are returned for all supported
+granularities. You can obviously specify a time range or a different
+aggregation function using the `aggregation`, `start` and `stop` query
+parameter.
+
+Gnocchi also supports doing aggregation across aggregated metrics:
+
+{% syntax %}
+GET /v1/aggregation/metric?metric=65071775-52a8-4d2e-abb3-1377c2fe5c55&metric=9ccdd0d6-f56a-4bba-93dc-154980b6e69a&start=2014-10-06T14:34&aggregation=mean HTTP/1.1
+
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+
+[
+  [
+    "2014-10-06T14:34:12.000000Z",
+    1.0,
+    12.25
+  ],
+  [
+    "2014-10-06T14:34:20.000000Z",
+    1.0,
+    11.6
+  ]
+]
+{% endsyntax %}
+
+This computes the mean of mean for the metric
+`65071775-52a8-4d2e-abb3-1377c2fe5c55` and
+`9ccdd0d6-f56a-4bba-93dc-154980b6e69a` starting on 6th October 2014 at 14:34
+UTC.
+
+# Indexing your resources
+
+<img src="/media/images/blog/2015/index_icon.png"
+    class="illustration pull-right"
+    style="max-width: 7%;">
+
+Another object and concept that Gnocchi provides is the ability to manipulate
+resources. There is a basic type of resource, called _generic_, which has very
+few attributes. You can extend this type to specialize it, and that's what
+Gnocchi does by default by providing resource types known for OpenStack such as
+_instance_, _volume_, _network_ or even _image_.
+
+{% syntax %}
+POST /v1/resource/generic HTTP/1.1
+
+Content-Type: application/json
+
+{
+  "id": "75C44741-CC60-4033-804E-2D3098C7D2E9",
+  "project_id": "BD3A1E52-1C62-44CB-BF04-660BD88CD74D",
+  "user_id": "BD3A1E52-1C62-44CB-BF04-660BD88CD74D"
+}
+
+HTTP/1.1 201 Created
+Location: http://localhost/v1/resource/generic/75c44741-cc60-4033-804e-2d3098c7d2e9
+ETag: "e3acd0681d73d85bfb8d180a7ecac75fce45a0dd"
+Last-Modified: Fri, 17 Apr 2015 11:18:48 GMT
+Content-Type: application/json; charset=UTF-8
+
+{
+  "created_by_project_id": "ec181da1-25dd-4a55-aa18-109b19e7df3a",
+  "created_by_user_id": "4543aa2a-6ebf-4edd-9ee0-f81abe6bb742",
+  "ended_at": null,
+  "id": "75c44741-cc60-4033-804e-2d3098c7d2e9",
+  "metrics": {},
+  "project_id": "bd3a1e52-1c62-44cb-bf04-660bd88cd74d",
+  "revision_end": null,
+  "revision_start": "2015-04-17T11:18:48.696288Z",
+  "started_at": "2015-04-17T11:18:48.696275Z",
+  "type": "generic",
+  "user_id": "bd3a1e52-1c62-44cb-bf04-660bd88cd74d"
+}
+{% endsyntax %}
+
+The resource is created with the UUID provided by the user. Gnocchi handles the
+history of the resource, and that's what the `revision_start` and
+`revision_end` fields are for. They indicates the lifetime of this revision of
+the resource. The `ETag` and `Last-Modified` headers are also unique to this
+resource revision and can be used in a subsequent request using `If-Match` or
+`If-Not-Match` header, for example:
+
+{% syntax %}
+GET /v1/resource/generic/75c44741-cc60-4033-804e-2d3098c7d2e9 HTTP/1.1
+If-Not-Match: "e3acd0681d73d85bfb8d180a7ecac75fce45a0dd"
+
+HTTP/1.1 304 Not Modified
+{% endsyntax %}
+
+Which is useful to synchronize and update any view of the resources you might
+have in your application.
+
+You can use the `PATCH` HTTP method to modify properties of the resource, which
+will create a new revision of the resource. The history of the resources are
+available via the REST API obviously.
+
+The `metrics` properties of the resource allow you to link metrics to a
+resource. You can link existing metrics or create new one dynamically:
+
+{% syntax %}
+POST /v1/resource/generic HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "AB68DA77-FA82-4E67-ABA9-270C5A98CBCB",
+  "metrics": {
+    "temperature": {
+      "archive_policy_name": "low"
+    }
+  },
+  "project_id": "BD3A1E52-1C62-44CB-BF04-660BD88CD74D",
+  "user_id": "BD3A1E52-1C62-44CB-BF04-660BD88CD74D"
+}
+
+HTTP/1.1 201 Created
+Location: http://localhost/v1/resource/generic/ab68da77-fa82-4e67-aba9-270c5a98cbcb
+ETag: "9f64c8890989565514eb50c5517ff01816d12ff6"
+Last-Modified: Fri, 17 Apr 2015 14:39:22 GMT
+Content-Type: application/json; charset=UTF-8
+
+{
+  "created_by_project_id": "cfa2ebb5-bbf9-448f-8b65-2087fbecf6ad",
+  "created_by_user_id": "6aadfc0a-da22-4e69-b614-4e1699d9e8eb",
+  "ended_at": null,
+  "id": "ab68da77-fa82-4e67-aba9-270c5a98cbcb",
+  "metrics": {
+    "temperature": "ad53cf29-6d23-48c5-87c1-f3bf5e8bb4a0"
+  },
+  "project_id": "bd3a1e52-1c62-44cb-bf04-660bd88cd74d",
+  "revision_end": null,
+  "revision_start": "2015-04-17T14:39:22.181615Z",
+  "started_at": "2015-04-17T14:39:22.181601Z",
+  "type": "generic",
+  "user_id": "bd3a1e52-1c62-44cb-bf04-660bd88cd74d"
+}
+{% endsyntax %}
+
+# Haystack, needle? Find!
+
+With such a system, it becomes very easy to index all your resources, meter
+them and retrieve this data. What's even more interesting is to query the
+system to find and list the resources you are interested in!
+
+You can search for a resource based on any field, for example:
+
+{% syntax %}
+POST /v1/search/resource/instance HTTP/1.1
+Content-Type: application/json
+
+{
+  "=": {
+    "user_id": "bd3a1e52-1c62-44cb-bf04-660bd88cd74d"
+  }
+}
+{% endsyntax %}
+
+That query will return a list of all resources owned by the `user_id`
+`bd3a1e52-1c62-44cb-bf04-660bd88cd74d`.
+
+You can do fancier queries such as retrieving all the instances started by a
+user this month:
+
+{% syntax %}
+POST /v1/search/resource/instance HTTP/1.1
+Content-Type: application/json
+Content-Length: 113
+
+{
+  "and": [
+    {
+      "=": {
+        "user_id": "bd3a1e52-1c62-44cb-bf04-660bd88cd74d"
+      }
+    },
+    {
+      ">=": {
+        "started_at": "2015-04-01"
+      }
+    }
+  ]
+}
+{% endsyntax %}
+
+And you can even do fancier queries than the fancier ones (still following?).
+What if we wanted to retrieve all the instances that were on host `foobar` the
+15th April and who had already 30 minutes of uptime? Let's ask Gnocchi to look
+in the history!
+
+{% syntax %}
+POST /v1/search/resource/instance?history=true HTTP/1.1
+Content-Type: application/json
+Content-Length: 113
+
+{
+  "and": [
+    {
+      "=": {
+        "host": "foobar"
+      }
+    },
+    {
+      ">=": {
+        "lifespan": "1 hour"
+      }
+    },
+    {
+      "<=": {
+        "revision_start": "2015-04-15"
+      }
+    }
+
+  ]
+}
+{% endsyntax %}
+
+I could also mention the fact that you can
+[search for value in metrics](http://docs.openstack.org/developer/gnocchi/rest.html#searching-for-values-in-metrics).
+One feature that I will very likely include in Gnocchi 1.1 is the ability to
+search for resource whose specific metrics matches some value. For example,
+having the ability to search for instances whose CPU consumption was over 80%
+during a month.
+
+# Cherries on the cake
+
+While Gnocchi is well integrated and based on common OpenStack technology,
+please do note that it is completely able to function without any other
+OpenStack component and is pretty straight-forward to deploy.
+
+Gnocchi also implements a full RBAC system based on the
+[OpenStack standard oslo.policy](http://docs.openstack.org/developer/oslo.policy/)
+and which allows pretty fine grained control of permissions.
+
+<figure class="illustration pull-right" style="width: 33%;">
+  <a href="/media/images/blog/2015/gnocchi-resource-html.png">
+    <img src="/media/images/blog/2015/gnocchi-resource-html.png">
+  </a>
+</figure>
+
+There is also some work ongoing to have HTML rendering when browsing the API
+using a Web browser. While still simple, we'd like to have a minimal Web
+interface served on top of the API for the same price!
+
+Ceilometer alarm subsystem supports Gnocchi with the Kilo release, meaning you
+can use it to trigger actions when a metric value crosses some threshold. And
+OpenStack [Heat](http://launchpad.net/heat) also supports auto-scaling your
+instances based on Ceilometer+Gnocchi alarms.
+
+And there are a few more API calls that I didn't talked about here, so don't
+hesitate to take a peek at the
+[full documentation](http://docs.openstack.org/developer/gnocchi/)!
+
+# Towards Gnocchi 1.1!
+
+Gnocchi is a different beast in the OpenStack community. It is under the
+umbrella of the Ceilometer program, but it's one of the first projects that is
+not part of the (old) integrated release. Therefore we decided to have a
+release schedule not directly linked to the OpenStack and we'll do release more
+often that the rest of the old OpenStack components – probably once every 2
+months or the like.
+
+What's coming next is a close integration with Ceilometer (e.g. moving the
+dispatcher code from Gnocchi to Ceilometer) and probably more features as we
+have more requests from our users. We are also exploring different backends
+such as InfluxDB (storage) or MongoDB (indexer).
+
+Stay tuned, and happy hacking!
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
