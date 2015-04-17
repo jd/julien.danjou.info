@@ -17,7 +17,10 @@ clean:
 	rm -f content/blog/tags/*.html
 
 web: deploy
-	hyde serve -p 8080
+	cd deploy && python -m SimpleHTTPServer
+	# Really I wish I could use that but it's way too buggy. It keeps
+	# regenerating the web site for fucking ever
+	# hyde serve -p 8080
 
 content/media/images/blog/2012/openstack-swift-storage.png: content/blog/2012/openstack-swift-storage.ditaa
 	ditaa --overwrite $< $@
