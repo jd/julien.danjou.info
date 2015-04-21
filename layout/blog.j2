@@ -86,7 +86,7 @@
       {% endif %}
       {% if resource.prev_by_time %}
         <div class="nav-next text-right">
-          <a href="{{ resource._by_time.full_url }}">
+          <a href="{{ resource.prev_by_time.full_url }}">
 	    <small>Next Post</small>
 	    <span>{{ resource.prev_by_time.meta.title }}</span>
           </a>
