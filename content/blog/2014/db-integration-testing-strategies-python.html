@@ -159,14 +159,14 @@ wait_for_line () {
     cat "$2" >/dev/null &
 }
 
-check_for_cmd mongod
+check_for_cmd postgres
 
 trap "clean_exit" EXIT
 
 # Start PostgreSQL process for tests
 PGSQL_DATA=`mktemp -d /tmp/PGSQL-XXXXX`
 PGSQL_PATH=`pg_config --bindir`
-{PGSQL_PATH}/initdb ${PGSQL_DATA}
+${PGSQL_PATH}/initdb ${PGSQL_DATA}
 mkfifo ${PGSQL_DATA}/out
 ${PGSQL_PATH}/postgres -F -k ${PGSQL_DATA} -D ${PGSQL_DATA} &> ${PGSQL_DATA}/out &
 # Wait for PostgreSQL to start listening to connections
