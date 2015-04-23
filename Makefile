@@ -1,5 +1,17 @@
 BRANCH=$(shell git branch | grep '^*' | cut -d' ' -f2)
-deploy: site.yaml clean content/media/images/blog/2012/openstack-swift-storage.png content/media/images/blog/2012/openstack-swift-replication.png
+
+DYNAMIC_CONTENT=content/media/images/blog/2012/openstack-swift-storage.png
+DYNAMIC_CONTENT+=content/media/images/blog/2012/openstack-swift-replication.png
+DYNAMIC_CONTENT+=content/media/images/talks/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.png
+DYNAMIC_CONTENT+=content/media/images/talks/ceilometer-to-telemetry.png
+DYNAMIC_CONTENT+=content/media/images/talks/ceilometer-gnocchi.png
+DYNAMIC_CONTENT+=content/media/images/talks/OpenStack-and-Debian.png
+DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-OpenStack-France-meetup-\#2.png
+DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-XLCloud.png
+DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-ODS-Havana.png
+DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-FOSDEM-2013.png
+
+deploy: site.yaml clean $(DYNAMIC_CONTENT)
 	hyde gen
 
 pub: deploy
@@ -14,7 +26,7 @@ pub: deploy
 
 clean:
 	rm -rf deploy
-	rm -f content/blog/tags/*.html
+	rm -rf content/blog/tags
 
 web: deploy
 	cd deploy && python -m SimpleHTTPServer
@@ -27,5 +39,11 @@ content/media/images/blog/2012/openstack-swift-storage.png: content/blog/2012/op
 
 content/media/images/blog/2012/openstack-swift-replication.png: content/blog/2012/openstack-swift-replication.ditaa
 	ditaa --overwrite $< $@
+
+
+content/media/images/talks/%.png: content/talks/%.pdf
+	convert $<[0] $@
+	pngcrush $@ $@crush
+	mv $@crush $@
 
 .PHONY: clean web pub
