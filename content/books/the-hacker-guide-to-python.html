@@ -715,14 +715,6 @@ default_block: None
 
 {% block js %}
 <script type="text/javascript" src="https://gumroad.com/js/gumroad.js"></script>
-<script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-  $(document).on('coinbase_payment_complete', function(event, code){
-  window.location = "/books/confirmation.html";
-  });
-</script>
-
 <script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
 
 <script type="text/javascript">
