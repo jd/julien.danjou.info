@@ -110,14 +110,6 @@ h1,
         font-size: 60px;
 }
 
-.pricing [class*=col-].bg-primary {
-    border-radius: 0;
-}
-
-.btn {
-    border-radius: 0;
-}
-
 .newsletter {
     height: 100%;
 }
