@@ -9,7 +9,8 @@ body {
     vertical-align: middle;
     margin-right: 12px;
     padding: 2px;
-
+    /* Boostrap set "block" but since I put my name on the side, it's no good */
+    display: inline;
 }
 
 /* Used in blog listing for blog image */
