@@ -21,13 +21,3 @@ RedirectPermanent /blog/2013/openstack-ceilometer-head-graduated https://julien.
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^.*$ %{REQUEST_FILENAME}.html
-
-ExpiresActive On
-ExpiresByType video/ogg "access plus 3 months"
-ExpiresByType image/gif "access plus 1 month"
-ExpiresByType image/jpeg "access plus 1 month"
-ExpiresByType image/jpg "access plus 1 month"
-ExpiresByType image/png "access plus 1 month"
-ExpiresByType text/x-javascript "access plus 1 week"
-ExpiresByType text/css "access plus 1 day"
-ExpiresDefault "access plus 1 day"
