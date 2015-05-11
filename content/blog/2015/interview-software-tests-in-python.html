@@ -1,0 +1,171 @@
+---
+title: "My interview about software tests and Python"
+created: !!timestamp '2015-05-11 13:39:00'
+image: /media/images/blog/2015/penguin-robot.jpg
+tags:
+    - Python
+    - Books
+    - TDD
+    - OpenStack
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+I've recently been contacted by [Johannes Hubertz](http://hubertz.de/blog/),
+who is writing a new book about Python in German called <em>"Softwaretests mit
+Python"</em> which will be published by <em>Open Source Press, Munich</em> this
+summer. His book will feature some interviews, and he was kind enough to let me
+write a bit about software testing. This is the interview that I gave for his
+book. Johannes translated to German and it will be included in Johannes' book,
+and I decided to publish it on my blog today. Following is the original
+version.
+
+{% endmark %}
+{% endblock %}
+
+## How did you come to Python?
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/hydra.png">
+</div>
+
+I don't recall exactly, but around ten years ago, I saw more and more people
+using it and decided to take a look. Back then, I was more used to Perl. I
+didn't really like Perl and was not getting a good grip on its object system.
+
+As soon as I found an idea to work on – if I remember correctly that was
+[rebuildd](https://julien.danjou.info/projects/rebuildd) – I started to code in
+Python, learning the language at the same time.
+
+I liked how Python worked, and how fast I was to able to develop and learn it,
+so I decided to keep using it for my next projects. I ended up diving into
+Python core for some reasons, even doing things like briefly hacking on
+projects like Cython at some point, and finally ended up working on OpenStack.
+
+OpenStack is a cloud computing platform entirely written in Python. So I've
+been writing Python every day since working on it.
+
+That's what pushed me to write
+<em>[The Hacker's Guide to Python](/books/the-hacker-guide-to-python)</em> in
+2013 and then self-publish it a year later in 2014, a book where I talk about
+doing smart and efficient Python.
+
+It had a great success, has even been translated in Chinese and Korean, so I'm
+currently working on a second edition of the book. It has been an amazing
+adventure!
+
+## Zen of Python: Which line is the most important for you and why?
+
+<div class="illustration pull-right icon">
+   <img src="/media/images/blog/2015/zengate.png">
+</div>
+
+I like the "There should be one – and preferably only one – obvious way to do
+it". The opposite is probably something that scared me in languages like Perl.
+But having one obvious way to do it is and something I tend to like in
+functional languages like Lisp, which are in my humble opinion, even better at
+that.
+
+## For a python newbie, what are the most difficult subjects in Python?
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/stairs.png">
+</div>
+
+I haven't been a newbie since a while, so it's hard for me to say. I
+don't think the language is hard to learn. There are some subtlety in
+the language itself when you deeply dive into the internals, but for
+beginners most of the concept are pretty straight-forward. If I had to
+pick, in the language basics, the most difficult thing would be around
+the generator objects (yield).
+
+Nowadays I think the most difficult subject for new comers is what
+version of Python to use, which libraries to rely on, and how to package
+and distribute projects. Though things get better, fortunately.
+
+## When did you start using Test Driven Development and why?
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/crashcar.png">
+</div>
+
+I learned unit testing and TDD at school where teachers forced me to
+learn Java, and I hated it. The frameworks looked complicated, and I had
+the impression I was losing my time. Which I actually was, since I was
+writing disposable programs – that's the only thing you do at school.
+
+Years later, when I started to write real and bigger programs (e.g. rebuildd),
+I quickly ended up fixing bugs… I already fixed. That recalled me about unit
+tests and that it may be a good idea to start using them to stop fixing the
+same things over and over again.
+
+For a few years, I wrote less Python and more C code and Lua (for the
+[awesome window manager](http://awesome.naquadah.org)), and I didn't use any
+testing. I probably lost hundreds of hours testing manually and fixing
+regressions – that was a good lesson. Though I had good excuses at that time –
+it is/was way harder to do testing in C/Lua than in Python.
+
+Since that period, I never stopped to write "tests". When I started to hack on
+OpenStack, the project was adopting a "no test? no merge!" policy due to the
+high number of regressions it had during the first releases.
+
+I honestly don't think I could work on any project that does not have – at
+least a minimal – test coverage. It's impossible to hack efficiently on a code
+base that you're not able to test in just a simple command. It's also a real
+problem for new comers in the open source world. When they are no test, you can
+hack something and send a patch, and get a "you broke this" in response.
+Nowadays, this kind of response sounds unacceptable to me: if there is no test,
+then I didn't break anything!
+
+In the end, it's just too much frustration to work on non tested projects as I
+demonstrated in
+[my study of whisper source code](/blog/2014/python-bad-practice-concrete-case).
+
+## What do you think to be the most often seen pitfalls of TDD and how to avoid them best?
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/pitfall.png">
+</div>
+
+The biggest problems are when and at what rate writing tests.
+
+On one hand, some people starts to write too precise tests way too soon. Doing
+that slows you down, especially when you are prototyping some idea or concept
+you just had. That does not mean that you should not do test at all, but you
+should probably start with a light coverage, until you are pretty sure that
+you're not going to rip every thing and start over. On the other hand, some
+people postpone writing tests for ever, and end up with no test all or a too
+thin layer of test. Which makes the project with a pretty low coverage.
+
+Basically, your test coverage should reflect the state of your project. If it's
+at start, you should a thin layer of test so you can hack it on it easily and
+remodel it if needed. The more your project grow, the more you should make it
+sold and lay more tests.
+
+Having too detailed tests is painful to make the project evolve at the start.
+Having not enough in a big project makes it painful to maintain it.
+
+## Do you think, TDD fits and scales well for the big projects like OpenStack?
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/expand.png">
+</div>
+
+Not only I think it fits and scales well, but I also think it's just impossible
+to not use TDD in such big projects.
+
+When unit and functional tests coverage was weak in OpenStack – at its
+beginning – it was just impossible to fix a bug or write a new feature without
+breaking a lot of things without even noticing. We would release version N, and
+a ton of old bugs present in N-2 – but fixed in N-1 – were reopened.
+
+For big projects, with a lot of different use cases, configuration options,
+etc, you need belt and braces. You cannot throw code in a repository thinking
+it's going to work ever, and you can't afford to test everything manually at
+each commit. That's just insane.
+
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}

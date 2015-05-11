@@ -47,6 +47,10 @@ body {
   margin-bottom: 20px;
 }
 
+.illustration.icon {
+    max-width: 75px;
+}
+
 /* Clear float before code sections */
 .highlight {
     clear: both;
