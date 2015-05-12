@@ -2,8 +2,8 @@
  [ Master Stylesheet ] 
 
  Project: Gatwick - Responsive Multipurpose Template 
- Version: 1.1 
- Last change: 14/03/15 
+ Version: 1.2 
+ Last change: 22/04/15 
  -------------------------------------------------------------------*/
 
  /*------------------------------------------------------------------
@@ -860,6 +860,10 @@ address + .dl-horizontal {
 	font-size: 22px;
 	vertical-align: top;
 	display: inline-block;
+}
+
+.scrolldown-link:last-child {
+	margin-bottom: 25px;
 }
 
 p + .scrolldown-link {
@@ -3960,6 +3964,10 @@ button:hover .ico-sidebar-r {
 	padding: 0;
 }
 
+.navbar-brand > img {
+	max-height: 90px;
+}
+
 .navbar-brand:hover {
 	color: #E6940E;
 }
@@ -5531,12 +5539,17 @@ form fieldset + .btn {
 }
 
 [class*=bg-sl-],
-[data-stellar-background-ratio] {
+[data-stellar-background-ratio],
+.background {
 	background-size: cover;
 	background-position: 50% 0;
 	background-repeat: no-repeat;
 	z-index: 0;
 	position: relative;
+}
+
+.background {
+	background-position: 50% 50%;
 }
 
 [class*=bg-sl-parallax]:before {
@@ -9110,6 +9123,11 @@ ul.twitter-list .date {
 	width: 100%;
 }
 
+.mobile .html-video {
+	opacity: 0;
+	visibility: hidden;
+}
+
 .single-video {
 	background-color: #000;
 	margin: 30px 0;
@@ -10270,7 +10288,7 @@ ul.twitter-list .date {
 		padding: 50px 0;
 	}
 
-	.jumbotron.no-height .middle {
+	.jumbotron .middle {
 		margin-top: 0 !important;
 	}
 
@@ -10443,6 +10461,12 @@ ul.twitter-list .date {
 	.fullscreen img.img-circle,
 	.slider-fixheight img.img-circle {
 		max-width: 140px;
+	}
+
+	.fullscreen .jumbotron,
+	.slider-fixheight .jumbotron {
+		padding-bottom: 60px;
+		padding-top: 30px;
 	}
 
 	.fullscreen .jumbotron h1,
