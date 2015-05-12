@@ -1,8 +1,57 @@
 {% extends "base.j2" %}
 
-{% block content %}
-{% from "macros.j2" import render_blog_listing with context %}
+{% block js %}
+  {{ super() }}
 
+  <script type="text/javascript">
+    var disqus_shortname = 'jdanjou';
+
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+  </script>
+{% endblock %}
+
+{% macro render_blog_listing(walker) %}
+  {% for res in walker %}
+    <div class="container post format-image">
+      <div class="entry">
+	<header class="entry-header">
+	  <h2><a href="{{ res.full_url }}">{{ res.meta.title }}</a></h2>
+	  <div class="meta">
+	    <small><i class="fa fa-calendar"></i>{{res.meta.created.strftime('%A %d %B %Y') }}</small>
+	    <small>
+	      <i class="fa fa-folder"></i>
+              {% for tag in res.meta.tags %}
+                <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
+              {% endfor %}
+	    </small>
+            <a href="{{ site_url }}{{ res.full_url }}#disqus_thread">
+              <i class="fa fa-comment"></i> Comments
+            </a>
+	  </div>
+	</header>
+	<div class="entry-content">
+          {% if res.meta.image %}
+            <a href="{{ res.full_url }}">
+              <div class="blog-title-image" style="background-image: url('{{ res.meta.image }}');">
+              </div>
+            </a>
+          {% endif %}
+          {% refer to res.relative_deploy_path as post %}
+          {{ post.excerpt|markdown }}
+	  <a href="{{ res.full_url }}" class="btn btn-default white">Read More</a>
+	</div>
+      </div>
+    </div>
+    <hr>
+  {% endfor %}
+{% endmacro %}
+
+{% block content %}
   <div class="col-md-9 col-sm-7 posts">
     {{ render_blog_listing(post_list) }}
 

@@ -2,7 +2,22 @@
 
 {% block js %}
   {{ super () }}
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4eaacbb674bf94f0" async="async"></script>
+
+  <script type="text/javascript"
+          src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4eaacbb674bf94f0"
+          async="async">
+  </script>
+
+  <script type="text/javascript">
+    var disqus_shortname = 'jdanjou';
+
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+  </script>
 {% endblock %}
 
 {% block container %}
@@ -16,6 +31,9 @@
             <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
           {% endfor %}
         </small>
+        <a href="{{ site_url }}{{ resource.full_url }}#disqus_thread">
+          <i class="fa fa-comment"></i> Comments
+        </a>
       </div>
     </header>
     <div class="entry-content padding-bottom">
@@ -77,10 +95,8 @@
   <div class="container" id="disqus_thread"></div>
 
   <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = 'jdanjou';
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
