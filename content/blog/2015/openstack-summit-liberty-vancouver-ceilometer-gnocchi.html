@@ -1,0 +1,105 @@
+---
+title: "OpenStack Summit Liberty from a Ceilometer & Gnocchi point of view"
+created: !!timestamp '2015-05-26 09:39:00'
+image: /media/images/blog/2015/summit-vancouver-bkgd.jpg
+tags:
+    - OpenStack
+    - Ceilometer
+    - Gnocchi
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Last week I was in [Vancouver, BC](http://vancouver.ca/) for the
+[OpenStack Summit](https://www.openstack.org/summit/vancouver-2015/),
+discussing the new Liberty version that will be released in 6 months.
+
+I've attended the summit mainly to discuss and follow-up new developments on
+Ceilometer, Gnocchi and Oslo. It has been a pretty good week and we were able
+to discuss and plan a few interesting things.
+
+{% endmark %}
+{% endblock %}
+
+## Ops feedback
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/feedback.png">
+</div>
+
+We had half a dozen Ceilometer sessions, and the first one was dedicated to
+getting feedbacks from operators using Ceilometer. We had a few operators
+present, and a few of the Ceilometer team. We had constructive discussion, and
+my feeling is that operators struggles with 2 things so far: scaling Ceilometer
+storage and having Ceilometer not killing the rest of OpenStack.
+
+We discussed the first point as being addressed by
+[Gnocchi](http://launchpad.net/gnocchi), and I presented a bit Gnocchi itself,
+as well as how and why it will fix the storage scalability issue operators
+encountered so far.
+
+Ceilometer putting down the OpenStack installation is more interesting problem.
+Ceilometer pollsters request information from Nova, Glance… to gather
+statistics. Until Kilo, Ceilometer used to do that regularly and at fixed
+interval, causing high pike load in OpenStack. With the
+[introduction of jitter](http://docs.openstack.org/developer/ceilometer/architecture.html#polling-agents-asking-for-data)
+in Kilo, this should be less of a problem. However, Ceilometer hits various
+endpoints in OpenStack that are poorly designed, and hitting those endpoints of
+Nova or other components triggers a lot of load on the platform.
+Unfortunately, this makes operators blame Ceilometer rather than blaming the
+components being guilty of poor designs. We'd like to push forward improving
+these components, but it's probably going to take a long time.
+
+## Componentisation
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/puzzle.png">
+</div>
+
+When I started the Gnocchi project last year, I pretty soon realized that we
+would be able to split Ceilometer itself in different smaller components that
+could work independently, while being able to leverage each others. For
+example, Gnocchi can run standalone and store your metrics even if you don't
+use Ceilometer – nor even OpenStack itself.
+
+My fellow developer [Chris Dent](http://burningchrome.com/) had the same idea
+about splitting Ceilometer a few months ago and drafted a proposal. The idea is
+to have Ceilometer split in different parts that people could assemble together
+or run on their owns.
+
+Interestingly enough, we had three 40 minutes sessions planned to talk and
+debate about this division of Ceilometer, though we all agreed in 5 minutes
+that this was the good thing to do. Five more minutes later, we agreed on which
+part to split. The rest of the time was allocated to discuss various details of
+that split, and I engaged to start doing the work with Ceilometer alarming
+subsystem.
+
+I wrote a [specification](https://review.openstack.org/#/c/184307/) on the
+plane bringing me to Vancouver, that should be approved pretty soon now. I
+already started doing the implementation work. So fingers crossed, Ceilometer
+should have a new components in Liberty handling alarming on its own.
+
+This would allow users for example to only deploys Gnocchi and Ceilometer
+alarm. They would be able to feed data to Gnocchi using their own system, and
+build alarms using Ceilometer alarm subsystem relying on Gnocchi's data.
+
+## Gnocchi
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/pasta.png">
+</div>
+
+We didn't have a Gnocchi dedicated slot – mainly because I indicated I didn't
+feel we needed one. We anyway discussed a few points around coffee, and I've
+been able to draw a few new ideas and changes I'd like to see in Gnocchi.
+Mainly changing the API contract to be more asynchronously so we can support
+[InfluxDB](http://influxdb.com/) more correctly, and improve Carbonara (the
+library we created to manipulate timeseries) based drivers to be faster.
+
+All of those should – plus a few Oslo tasks I'd like to tackle – should keep me
+busy for the next cycle!
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
