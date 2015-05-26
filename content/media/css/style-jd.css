@@ -66,6 +66,29 @@ body {
     background-position: center;
 }
 
+.shadow-box {
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+.margin-top {
+    margin-top: 50px;
+}
+
+.margin-bottom {
+    margin-bottom: 50px;
+}
+
+.margin {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.margin-side {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 /* Override some from default style that are… weird */
 ul > li:before,
 ol > li:before {
