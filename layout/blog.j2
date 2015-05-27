@@ -18,6 +18,8 @@
       (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
   </script>
+
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 {% endblock %}
 
 {% block container %}
@@ -34,6 +36,7 @@
         <a href="{{ site_url }}{{ resource.full_url }}#disqus_thread">
           <i class="fa fa-comment"></i> Comments
         </a>
+        <a href="https://twitter.com/juldanjou" class="twitter-follow-button" data-show-count="true" data-show-screen-name="true">Follow @juldanjou</a>
       </div>
     </header>
     <div class="entry-content padding-bottom">
