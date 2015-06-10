@@ -2,456 +2,506 @@
 title: The Hacker's Guide to Python
 default_block: None
 ---
-{% block head %}
-{{ super() }}
-<!-- Google Analytics Content Experiment code -->
-<script>function utmx_section(){}function utmx(){}(function(){var
-k='49876462-1',d=document,l=d.location,c=d.cookie;
-if(l.search.indexOf('utm_expid='+k)>0)return;
-function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-'<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-'://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-'" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-</script><script>utmx('url','A/B');</script>
-<!-- End of Google Analytics Content Experiment code -->
-{% endblock %}
-
 {% block container %}
 <div class="container padding type-product inforow">
-  <div class="col-sm-5 text-center magnific-wrap">
+  <div class="col-sm-4 text-center magnific-wrap">
     <img src="/media/images/the-hacker-guide-to-python-darken-v2.png"
          data-animate="fadeInLeft" class="animate"
          alt="The Hacker's Guide to Python">
   </div>
-  <div class="col-sm-7">
-    <h3>Learn everything you need to build a successful Python project</h3>
+  <div class="col-sm-8">
+    <h2>Improve your productivity in Python</h2>
     <hr/>
     <p class="lead">
-      Python is a wonderful programming language that is being used more and
-      more in many different industries. It is fast, flexible, and it comes
-      with batteries included.
+      A lot of software engineers learn Python at some point in their career.
+      Being for writing scripts or Web applications, they often invest little
+      time in learning the language basics. Then they start writing
+      applications right ahead, having a lot of questions left unanswered and
+      losing large amount of time Googling around.
     </p>
     <p class="lead">
-      Most of the books you read about Python will teach you the language
-      basics – but once you've learnt them, you’re on your own in designing
-      your application and discovering best practice.
+      Does that sound familiar? We all have been there and lost hundreds of
+      hours looking for answers online without necessarily the good answer to a
+      problem, wishing it was more clear.
     </p>
     <p class="lead">
-      In this book, we'll see how you can leverage Python to efficiently
-      tackle your problems and build great Python applications.
+      But it does not have to be this way. I've been writing Python
+      applications for the last few years, at a scale only a few people have
+      seen. I've had the chance to work with great teams and engineers and to
+      be able to build answers to most questions about Python that you are
+      struggling with.
     </p>
-    <p class="lead">
-      <a role="button" class="btn btn-default" href="#packages">
-        Buy the book
-      </a>
-    </p>
-  </div>
-</div>
-
-<div class="bg-sl-thgtp-section overlay overlay-night pattern pattern-lines"
-     style="background-image: url('/media/images/photo-keyboard-typing.jpg');">
-     <div class="padding inforow white">
-       <h2 class="padding-top text-center">What will you learn?</h2>
-       <div class="row padding">
-         <div class="col-sm-3">
-           <div class="col-sm-3 text-center">
-             <span class="icon glyphicon glyphicon-ok-sign"></span>
-           </div>
-           <div class="col-sm-9">
-             <h4>
-               Best practice
-             </h4>
-             <p>
-               Methods & advice you should follow when building your application.
-               These will help you get the most out of Python, and build a
-               future-proof program. If you're already working on something, you'll
-               be able to apply the techniques discussed right away to enhance your
-               current work.
-             </p>
-           </div>
-         </div>
-         <div class="col-sm-3">
-           <div class="col-sm-3 text-center">
-             <span class="icon glyphicon glyphicon-fire"></span>
-           </div>
-           <div class="col-sm-9">
-             <h4>
-               Problem-solving
-             </h4>
-             <p>
-               Real issues and real solutions to tackle problems such as testing,
-               porting, or scaling Python applications and libraries. Great tips
-               included will help you to avoid making the mistakes that others have
-               made, thereby saving you time. We'll discuss strategies that will
-               help you maintain your software in the long term.
-             </p>
-           </div>
-         </div>
-         <div class="col-sm-3">
-           <div class="col-sm-3 text-center">
-             <span class="icon fa fa-code"></span>
-           </div>
-           <div class="col-sm-9">
-             <h4>
-               Sample source code</h4>
-               <p>
-                 The source code provided with the book is the code used on this Web site
-                 to send out sample chapters, and to sell the book using
-                 <a href="https://coinbase.com">Coinbase</a>. It's a complete Python
-                 package which applies some of the tips and methods described in the
-                 book. You can learn from it and use it as a reference or boilerplate
-                 template.
-               </p>
-           </div>
-         </div>
-         <div class="col-sm-3">
-           <div class="col-sm-3 text-center">
-             <span class="icon glyphicon glyphicon-cog"></span>
-           </div>
-           <div class="col-sm-9">
-             <h4>Language internals</h4>
-             <p>
-               This book will explain and introduce you to some of the Python
-               internals so you will have a better understanding of how to write
-               more efficient code, and gain a greater insight into the inner
-               workings of the language.
-             </p>
-           </div>
-         </div>
-       </div>
-     </div>
-</div>
-
-
-<div class="container">
-  <div class="col-sm-2 text-center">
-    <img src="/media/images/thgtp-side.png"
-         style="width: 50;">
-  </div>
-  <div class="col-sm-9 col-sm-offset-1">
-    <div class="page-header text-center">
-      <h3>Writing a Python application does not have to be hard</h3>
-    </div>
-    <p>
-      Whatever your plan is – writing a new open source software or the next
-      killer SaaS application – you need to do it now, do it fast and iterate
-      from that.
-    </p>
-    <p>
-      But starting a Python application is hard. You have absolutely no clue
-      where to begin and no idea where to look for help. Sure, you could look
-      on a search engine for hours and compile your own set of resources. Or
-      you could spend that time writing your actual application.
-    </p>
-    <p>
-      I know it because I started a few Python applications and libraries
-      already, and like many of the people featured in this book, I started
-      from nothing and then ending up maintaing Python projects at large scale.
-      This is a costly process that one have to learn by experience.
-    </p>
-  </div>
-</div>
-
-<div class="container">
-  <div class="col-sm-9">
-    <div class="page-header text-center">
-      <h3>Follow a plan, improve your experience</h3>
-    </div>
-    <p>
-      Let's be clear, this book is not going to teach you Python if you never
-      wrote a line with it. There are plenty of resources out there to do that.
-      <br>
-      And despite all the benefits of this book I wouldn't want you to get the
-      wrong idea and think that this book is going to write your application
-      for you. Nothing could be further from the truth. And a book cannot cover
-      all the fields an application can apply to. But honestly, that wouldn't
-      be fun, right?
-    </p>
-    <p>
-      But with some hints, leads and advice, it's going to be much easier for
-      you to develop and enhance your application and reach your goal,
-      following battlefield-tested guidelines and using state of the art tools
-      from the Python ecosystem.
-    </p>
-    <p>
-      Interested?
-    </p>
-  </div>
-  <div class="col-sm-2 col-sm-offset-1 text-center">
-    <img src="/media/images/thgtp-snake.png">
-  </div>
-</div>
-
-<div class="bg-sl-thgtp-section overlay overlay-night pattern pattern-lines"
-     style="background-image: url('/media/images/people-mountain.jpg');">
-     <div class="container slider inforow white font-raleway">
-       <h3 class="padding-bottom">What they say about it</h3>
-       <ul data-auto="true">
-         <li>
-           <div class="col-sm-2 text-center">
-             <img class="img-xs img-circle img-thumbnail"
-                  alt="Gonéri Le Bouder"
-                  src="/media/images/glebouder.jpg">
-           </div>
-           <div class="col-sm-10">
-             <blockquote>
-               <p>
-                 “I bought this book some month ago and already recommended it to
-                 some friends. The book share the experience of some long-time
-                 Python developers and introduce modern programming advices.
-                 Useful for anyone who already know Python and is interested by
-                 large Python project like OpenStack.”
-               </p>
-             </blockquote>
-             <h5>Gonéri Le Bouder</h5>
-             <small>Software Engineer at Red Hat</small>
-           </div>
-         </li>
-         <li>
-           <div class="col-sm-2 text-center">
-             <img class="img-xs img-circle img-thumbnail"
-                  alt="Sylvestre Ledru"
-                  src="/media/images/sledru.jpg">
-           </div>
-           <div class="col-sm-10">
-             <blockquote>
-               <p>
-                 “Great book. Usually, Python books just explain the basic of
-                 the language. This book goes way further and explain what are
-                 the good guidelines in current and state of the art projects.
-                 Of course, this is not for Python beginners but every
-                 intermediate or experienced Python developers are going to
-                 learn something.”
-               </p>
-             </blockquote>
-             <h5>Sylvestre Ledru</h5>
-             <small>Firefox release manager at Mozilla</small>
-           </div>
-         </li>
-         <li>
-           <blockquote>
-             <p>
-               “I started reading the ebook the other day after ordering it and all I can
-               say is that it is exactly what I would want coming to any new language. The
-               details not normally covered in a standard programming book, the hard found
-               lessons and idioms. Great job Julien! Can't wait to finish it!”
-             </p>
-           </blockquote>
-           <h5>Stephen Walker</h5>
-         </li>
-         <li>
-           <blockquote>
-             <p>
-               “Congratulations for your book. I've started reading it and it's
-               already being useful to me. It's one of the best Python books I've
-               seen so far.”
-             </p>
-           </blockquote>
-           <h5>Miguel Expósito <small>Responsible of the statistical computing area
-               at the Statistical Office of Cantabria, Spain</small></h5>
-         </li>
-         <li>
-           <blockquote>
-             <p>
-               “I just started reading The Hacker Guide, (free) chapter on unit
-               testing. I write tests every day, I thought that I knew everything
-               (it turns out I don’t; testscenarios? Yes!). Thanks for the
-               contribution.”
-             </p>
-           </blockquote>
-           <h5>Mike Waters <small>Software Engineering at Dealertrack</small></h5>
-         </li>
-       </ul>
-       <a href="" class="arrow prev"><i></i></a>
-       <a href="" class="arrow next"><i></i></a>
-       <nav class="nav-pages"></nav>
-     </div>
-</div>
-
-<div class="container">
-  <div class="page-header text-center">
-    <div class="subheader">
-      <span class="icon glyphicon glyphicon-comment"></span>
-      <h2>
-        Learn from the experts
-      </h2>
-    </div>
-  </div>
-  Read advice, opinions and tips from great hackers in the Open-Source and
-  Python communities. <i>The Hacker’s Guide to Python</i> features many
-  interviews with experts on the various areas explored.
-  <hr>
-</div>
-<div class="container no-padding">
-  <div class="col-sm-3">
-    <img class="img-xs img-circle img-thumbnail"
-         alt="Paul Tagliamonte"
-         src="/media/images/books/ptagliamonte.png">
-         <p>
-           <h4><strong>Paul Tagliamonte</strong></h4>
-           <small>
-             Debian developer, Software Engineer at Sunlight Fondation.
-           </small>
-         </p>
-    <p>Explore the internals of Python and its AST and learn about the Hy
-      project.</p>
-  </div>
-  <div class="col-sm-3">
-    <img class="img-xs img-circle img-thumbnail"
-         alt="Dimitri Fontaine"
-         src="/media/images/books/dfontaine.png">
-         <p>
-           <h4><strong>Dimitri Fontaine</strong></h4>
-           <small>
-             PostgreSQL Major Contributor, President at 2ndQuadrant France.
-           </small>
-         </p>
-    <p>Learn what mistakes you should not make when using a RDBMS and an
-      ORM, and how you can levarage your database to write less and more
-      efficient code.</p>
-  </div>
-  <div class="col-sm-3">
-    <img class="img-xs img-circle img-thumbnail"
-         alt="Doug Hellmann"
-         src="/media/images/books/dhellmann.png">
-         <p>
-           <h4><strong>Doug Hellmann</strong></h4>
-           <small>
-             Python core developer, author of <em>The Python Standard Library by
-             Example</em>, Senior Cloud Engineer at DreamHost.
-           </small>
-         </p>
-    <p>
-      Read about how Doug starts new projects and how you can leverage Python
-      standard library.
-    </p>
-  </div>
-  <div class="col-sm-3">
-    <img class="img-xs img-circle img-thumbnail"
-         alt="Nick Coghlan"
-         src="/media/images/books/ncoghlan.png">
-         <p>
-           <h4><strong>Nick Coghlan</strong></h4>
-           <small>
-             Python core developer, Software Engineer at Red Hat.
-           </small>
-         </p>
-    <p>
-      Know more about the Python packaging process, workflow, tools and future.
-    </p>
-  </div>
-</div>
-<div class="container">
-  <div class="col-sm-3">
-    <img class="img-xs img-circle img-thumbnail"
-         alt="Victor Stinner"
-         src="/media/images/books/vstinner.png">
-         <p>
-           <h4><strong>Victor Stinner</strong></h4>
-           <small>
-             Python core developer, Software Engineer at Red Hat.
-           </small>
-         </p>
-    <p>
-      Learn how Victor optimizes its Python programs from top to bottom.
-    </p>
-  </div>
-  <div class="col-sm-3">
-    <img class="img-xs img-circle img-thumbnail"
-         alt="Robert Collins"
-         src="/media/images/books/rcollins.png">
-         <p>
-           <h4><strong>Robert Collins</strong></h4>
-           <small>
-             Python developer, Distinguished Technologist at HP Cloud Services.
-           </small>
-         </p>
-    <p>Robert write test frameworks for Python so he has some clues about
-      how you should test your application.</p>
-  </div>
-  <div class="col-sm-3">
-    <img class="img-xs img-circle img-thumbnail"
-         alt="Christophe de Vienne"
-         src="/media/images/books/cdevienne.png">
-         <p>
-           <h4><strong>Christophe de Vienne</strong></h4>
-           <small>
-             Python developer, CTO at UNLISH.
-           </small>
-         </p>
-    <p>As the author of a few Python modules, Christophe explains how you
-      should design your API.
-    </p>
-  </div>
-  <div class="col-sm-3">
-    <img class="img-xs img-circle img-thumbnail"
-         alt="Joshua Harlow"
-         src="/media/images/jharlow.jpg">
-         <p>
-           <h4><strong>Joshua Harlow</strong></h4>
-           <small>
-             Software Engineer, Python developer, Technical Lead on the
-             OpenStack team at Yahoo!.
-           </small>
-         </p>
-    <p>Joshua is an experienced developer and talks about what he loves and
-      hates about the Python language</p>
   </div>
 </div>
 
 <div class="bg-sl-thgtp-section overlay overlay-night pattern pattern-lines"
      style="background-image: url('/media/images/kindle.jpg');">
-     <div class="container middle inforow">
-       <div class="col-sm-5 text-center">
-         <h2 class="white"><a id="link-chapter" href="/media/the-hacker-guide-to-python-sample.pdf">Get a free sample chapter</a></h2>
-         <small><a id="link-toc"
-                   href="/media/the-hacker-guide-to-python-toc.pdf">
-                   You can also download the full table of contents</a>
-         </small>
-       </div>
-       <div class="col-sm-7">
-         <form class="form-inline" id="get-sample">
-           <div class="form-group">
-             <label class="sr-only" for="input-email">Email address</label>
-             <div class="input-group">
-               <span class="input-group-addon">
-                 <span class="glyphicon
-                              glyphicon-envelope"></span>
-               </span>
-               <input type="email" class="form-control" id="input-email"
-                      placeholder="Your email address">
-             </div>
-           </div>
-           <span></span> {# Hack for the CSS to not add margin-top on button #}
-           <button type="submit" class="btn btn-default">
-             Get a free chapter
-           </button>
-           <br>
-           <br>
-           <div class="checkbox">
-             <label>
-               <input type="checkbox" id="input-course"
-                      checked>
-                      Yes, I'd like to receive a free 30 days
-                      course on how I can make the most out of Python.
-             </label>
-           </div>
-           <p>
-             <small>You'll never receive spam. Unsubscribe at any
-               time.</small>
-           </p>
-         </form>
-       </div>
-     </div>
+  <div class="container middle inforow">
+    <div class="col-sm-5 text-center">
+      <h2 class="white"><a id="link-chapter" href="/media/the-hacker-guide-to-python-sample.pdf">Get a free sample chapter</a></h2>
+    </div>
+    <div class="col-sm-7">
+      <form class="form-inline" id="get-sample">
+        <div class="form-group">
+          <label class="sr-only" for="input-email">Email address</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon
+                           glyphicon-envelope"></span>
+            </span>
+            <input type="email" class="form-control" id="input-email"
+                   placeholder="Your email address">
+          </div>
+        </div>
+        <span></span> {# Hack for the CSS to not add margin-top on button #}
+        <button type="submit" class="btn btn-default">
+          Send me the sample chapter
+        </button>
+        <br>
+        <br>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="input-course"
+                   checked>
+            Yes, I'd like to receive a free 30 days
+            course on how I can make the most out of Python.
+          </label>
+        </div>
+        <p>
+          <small>You'll never receive spam. Unsubscribe at any
+            time.</small>
+        </p>
+      </form>
+    </div>
+  </div>
 </div>
 
-<div class="container pricing" id="packages">
+<div class="container margin-top shadow-box">
+  <div class="row padding-bottom">
+    <div class="col-sm-offset-1 col-sm-2 text-center">
+      <img src="/media/images/thgtp-side.png"
+           style="width: 50;">
+    </div>
+    <div class="col-sm-7 col-sm-offset-1">
+      <div class="page-header text-center">
+        <h3>Stop writing bad code and refactoring for ever</h3>
+      </div>
+      <p>
+        Whatever your plan is – writing a new open source software or the
+        next killer SaaS application – you need to do it now, do it fast and
+        iterate from that.
+      </p>
+      <p>
+        And starting a Python application can be hard. You have absolutely no
+        clue where to begin and no idea where to look for help. Sure, you
+        could look on a search engine for hours and compile your own set of
+        resources. Or you could spend that time writing your actual
+        application.
+      </p>
+      <p>
+        I know it because I started a few Python applications and libraries
+        already, and like many of the people featured in this book, I started
+        from nothing and then ending up maintaing Python projects at large
+        scale. This is a costly process that one have to learn by experience
+        – or by learning from others!
+      </p>
+    </div>
+    <div class="col-sm-offset-1">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-7 col-sm-offset-1">
+      <div class="page-header text-center">
+        <h3>Most books are boring</h3>
+      </div>
+      <p>
+        Let's be clear, this book is not going to teach you Python if you never
+        wrote a line with it. There are plenty of resources out there to do that.
+        <br>
+        Honestly, most books are boring. I always had a hard time reading any
+        book on programming languages as they are always too high level and
+        tedious. This one is different. It's going to be me teaching you all I
+        learned the hard way these last years.
+        <br>
+         Despite all the benefits of this book I wouldn't want you to get the
+        wrong idea and think that this book is going to write your application
+        for you. Nothing could be further from the truth. And a book cannot
+        cover all the fields an application can apply to. But honestly, that
+        wouldn't be fun, right?
+      </p>
+      <p>
+        But with some hints, leads and advice, it's going to be much easier for
+        you to develop and enhance your application and reach your goal,
+        following battlefield-tested guidelines and using state of the art
+        tools from the Python ecosystem.
+      </p>
+      <p>
+        Interested?
+      </p>
+    </div>
+    <div class="col-sm-2 col-sm-offset-1 text-center">
+      <img src="/media/images/thgtp-snake.png">
+    </div>
+    <div class="col-sm-offset-1">
+    </div>
+  </div>
+</div>
+
+<div class="container shadow-box margin">
+  <h2 class="text-center">Key points you will learn through that guide:</h2>
+  <div class="row padding-top">
+    <div class="col-sm-6">
+      <div class="col-sm-3 text-center">
+        <span class="icon glyphicon glyphicon-ok-sign"></span>
+      </div>
+      <div class="col-sm-9">
+        <h4>
+          Best practice
+        </h4>
+        <p>
+          Methods & advice you should follow when building your application.
+          These will help you get the most out of Python, and build a
+          future-proof program. If you're already working on something, you'll
+          be able to apply the techniques discussed right away to enhance your
+          current work.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="col-sm-3 text-center">
+        <span class="icon glyphicon glyphicon-fire"></span>
+      </div>
+      <div class="col-sm-9">
+        <h4>
+          Problem-solving
+        </h4>
+        <p>
+          Real issues and real solutions to tackle problems such as testing,
+          porting, or scaling Python applications and libraries. Great tips
+          included will help you to avoid making the mistakes that others have
+          made, thereby saving you time. We'll discuss strategies that will
+          help you maintain your software in the long term.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row padding">
+    <div class="col-sm-6">
+      <div class="col-sm-3 text-center">
+        <span class="icon fa fa-code"></span>
+      </div>
+      <div class="col-sm-9">
+        <h4>
+          Sample source code</h4>
+        <p>
+          The source code provided with the book is the code used on this Web site
+          to send out sample chapters, and to sell the book using
+          <a href="https://coinbase.com">Coinbase</a>. It's a complete Python
+          package which applies some of the tips and methods described in the
+          book. You can learn from it and use it as a reference or boilerplate
+          template.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="col-sm-3 text-center">
+        <span class="icon glyphicon glyphicon-cog"></span>
+      </div>
+      <div class="col-sm-9">
+        <h4>Language internals</h4>
+        <p>
+          This book will explain and introduce you to some of the Python
+          internals so you will have a better understanding of how to write
+          more efficient code, and gain a greater insight into the inner
+          workings of the language.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="bg-sl-thgtp-section overlay overlay-night pattern pattern-lines"
+     style="background-image: url('/media/images/people-mountain.jpg');">
+  <div class="container inforow white shadow-box margin font-raleway"
+       style="background-color: rgba(0, 0, 0, 0.2);">
+    <h3 class="padding-bottom margin-side">How it improved engineers workflow:</h3>
+    <div class="row padding-bottom">
+      <div class="col-sm-2 text-center">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Gonéri Le Bouder"
+             src="/media/images/glebouder.jpg">
+      </div>
+      <div class="col-sm-10">
+        <blockquote>
+          <p>
+            “I bought this book some month ago and already recommended it to
+            some friends. The book share the experience of some long-time
+            Python developers and introduce modern programming advices.
+            Useful for anyone who already know Python and is interested by
+            large Python project like OpenStack.”
+          </p>
+        </blockquote>
+        <h5>Gonéri Le Bouder <small>Software Engineer at Red Hat</small></h5>
+      </div>
+    </div>
+    <div class="row padding-bottom">
+      <div class="col-sm-2 text-center">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Sylvestre Ledru"
+             src="/media/images/sledru.jpg">
+      </div>
+      <div class="col-sm-10">
+        <blockquote>
+          <p>
+            “Great book. Usually, Python books just explain the basic of
+            the language. This book goes way further and explain what are
+            the good guidelines in current and state of the art projects.
+            Of course, this is not for Python beginners but every
+            intermediate or experienced Python developers are going to
+            learn something.”
+          </p>
+        </blockquote>
+        <h5>Sylvestre Ledru <small>Firefox release manager at Mozilla</small></h5>
+      </div>
+    </div>
+    <div class="row padding-bottom">
+      <div class="col-sm-2 text-center">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Stephen Walker"
+             src="/media/images/swalker.jpg">
+      </div>
+      <div class="col-sm-10">
+        <blockquote>
+          <p>
+            “I started reading the ebook the other day after ordering it and all I can
+            say is that it is exactly what I would want coming to any new language. The
+            details not normally covered in a standard programming book, the hard found
+            lessons and idioms. Great job Julien! Can't wait to finish it!”
+          </p>
+        </blockquote>
+        <h5>Stephen Walker</h5>
+      </div>
+    </div>
+    <div class="row padding-bottom">
+      <div class="col-sm-2 text-center">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Miguel Expósito"
+             src="/media/images/mexposito.jpg">
+      </div>
+      <div class="col-sm-10">
+        <blockquote>
+          <p>
+            “Congratulations for your book. I've started reading it and it's
+            already being useful to me. It's one of the best Python books I've
+            seen so far.”
+          </p>
+        </blockquote>
+        <h5>Miguel Expósito <small>Responsible of the statistical computing area
+            at the Statistical Office of Cantabria, Spain</small></h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 text-center">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Mike Waters"
+             src="/media/images/mwaters.jpg">
+      </div>
+      <div class="col-sm-10">
+        <blockquote>
+          <p>
+            “I just started reading The Hacker Guide, chapter on unit testing.
+            I write tests every day, I thought that I knew everything (it turns
+            out I don’t; testscenarios? Yes!). Thanks for the contribution.”
+          </p>
+        </blockquote>
+        <h5>Mike Waters <small>Principal Software Engineer at Dealertrack</small></h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container shadow-box margin">
+  <div class="margin-side">
+    <div class="text-center">
+      <div class="subheader">
+        <span class="icon glyphicon glyphicon-comment"></span>
+        <h2>
+          Learn from the experts
+        </h2>
+      </div>
+    </div>
+    Read advice, opinions and tips from great hackers in the Open-Source and
+    Python communities. <i>The Hacker’s Guide to Python</i> features many
+    interviews with experts on the various areas explored:
+    <hr>
+    <div class="row">
+      <div class="col-sm-3">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Paul Tagliamonte"
+             src="/media/images/books/ptagliamonte.png">
+        <p>
+          <h4><strong>Paul Tagliamonte</strong></h4>
+          <small>
+            Debian developer, Software Engineer at Sunlight Fondation.
+          </small>
+        </p>
+        <p>Explore the internals of Python and its AST and learn about the Hy
+          project.</p>
+      </div>
+      <div class="col-sm-3">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Dimitri Fontaine"
+             src="/media/images/books/dfontaine.png">
+        <p>
+          <h4><strong>Dimitri Fontaine</strong></h4>
+          <small>
+            PostgreSQL Major Contributor, President at 2ndQuadrant France.
+          </small>
+        </p>
+        <p>Learn what mistakes you should not make when using a RDBMS and an
+          ORM, and how you can levarage your database to write less and more
+          efficient code.</p>
+      </div>
+      <div class="col-sm-3">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Doug Hellmann"
+             src="/media/images/books/dhellmann.png">
+        <p>
+          <h4><strong>Doug Hellmann</strong></h4>
+          <small>
+            Python core developer, author of <em>The Python Standard Library by
+              Example</em>, Senior Cloud Engineer at DreamHost.
+          </small>
+        </p>
+        <p>
+          Read about how Doug starts new projects and how you can leverage Python
+          standard library.
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Nick Coghlan"
+             src="/media/images/books/ncoghlan.png">
+        <p>
+          <h4><strong>Nick Coghlan</strong></h4>
+          <small>
+            Python core developer, Software Engineer at Red Hat.
+          </small>
+        </p>
+        <p>
+          Know more about the Python packaging process, workflow, tools and future.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Victor Stinner"
+             src="/media/images/books/vstinner.png">
+        <p>
+          <h4><strong>Victor Stinner</strong></h4>
+          <small>
+            Python core developer, Software Engineer at Red Hat.
+          </small>
+        </p>
+        <p>
+          Learn how Victor optimizes its Python programs from top to bottom.
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Robert Collins"
+             src="/media/images/books/rcollins.png">
+        <p>
+          <h4><strong>Robert Collins</strong></h4>
+          <small>
+            Python developer, Distinguished Technologist at HP Cloud Services.
+          </small>
+        </p>
+        <p>Robert write test frameworks for Python so he has some clues about
+          how you should test your application.</p>
+      </div>
+      <div class="col-sm-3">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Christophe de Vienne"
+             src="/media/images/books/cdevienne.png">
+        <p>
+          <h4><strong>Christophe de Vienne</strong></h4>
+          <small>
+            Python developer, CTO at UNLISH.
+          </small>
+        </p>
+        <p>As the author of a few Python modules, Christophe explains how you
+          should design your API.
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <img class="img-xs img-circle img-thumbnail"
+             alt="Joshua Harlow"
+             src="/media/images/jharlow.jpg">
+        <p>
+          <h4><strong>Joshua Harlow</strong></h4>
+          <small>
+            Software Engineer, Python developer, Technical Lead on the
+            OpenStack team at Yahoo!.
+          </small>
+        </p>
+        <p>Joshua is an experienced developer and talks about what he loves and
+          hates about the Python language</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-sl-thgtp-section overlay overlay-night pattern pattern-lines white"
+     style="background-image: url('/media/images/jd-background.jpg');">
+  <div class="container font-raleway shadow-box margin"
+       style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="col-sm-3 text-center">
+      <img src="/media/images/jd.jpg" class="img-circle img-sm img-thumbnail"
+           alt="Julien Danjou">
+    </div>
+    <h3>Who's behind this?</h3>
+    <div class="col-sm-9">
+      <blockquote>
+        <p>
+          “Hi, I'm Julien Danjou! I've been a Free Software hacker for more than
+          14 years now. I wear multiple hats in the Free and Open Source
+          community, among them: <a href="http://debian.org">Debian</a>
+          developer, <a href="http://freedesktop.org">Freedesktop</a>
+          contributor, <a href="http://www.gnu.org/software/emacs/">GNU Emacs</a>
+          committer, the <a href="http://awesome.naquadah.org">awesome</a> window
+          manager creator, and more recently, <em>Project Technical Leader</em>
+          for <a href="http://openstack.org">OpenStack</a>
+          <a href="http://launchpad.net/ceilometer">Ceilometer</a>.
+        </p>
+        <p>
+          For the last few years, I've been hacking using Python a lot,
+          especially when working on
+          <a href="http://openstack.org">OpenStack</a>, a cloud-computing
+          platform. During that time, I've had the chance to work with many
+          fabulous Python hackers, and I've learned a lot from them and the
+          surrounding community.
+        </p>
+        <p>I live in Paris, France, and like to travel once in a while. You
+          should follow me on Twitter so we can keep in touch!”
+        </p>
+        <p>
+          <a href="https://twitter.com/juldanjou" class="twitter-follow-button" data-show-count="false">Follow @juldanjou</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </p>
+      </blockquote>
+    </div>
+  </div>
+</div>
+
+<div class="container pricing shadow-box margin" id="packages">
   <div class="page-header text-center">
     <h3>The Packages</h3>
+  </div>
+  <div class="margin margin-side">
+    Pick any of the packages you like, click on buy, and you will receive your
+    book and all associated content a few seconds later!
   </div>
   <div class="col-sm-3">
     <h3>Eco</h3>
@@ -460,14 +510,14 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
     <ul>
       <li class="list-unstyled"><span class="glyphicon glyphicon-book"></span>
         271 pages book in PDF format.</li>
-        <li class="list-unstyled"><span class="glyphicon glyphicon-phone"></span>
-          The book in EPUB and MOBI format,
-          to read on your e-book reader.</li>
-          <li class="list-unstyled"><span class="fa fa-html5"></span>
-            The book in a single
-            page HTML format, for easy reference and searching while
-            developing.
-          </li>
+      <li class="list-unstyled"><span class="glyphicon glyphicon-phone"></span>
+        The book in EPUB and MOBI format,
+        to read on your e-book reader.</li>
+      <li class="list-unstyled"><span class="fa fa-html5"></span>
+        The book in a single
+        page HTML format, for easy reference and searching while
+        developing.
+      </li>
       <li class="list-unstyled"><span class="glyphicon glyphicon-import"></span>
         Future updates and editions of the book.
       </li>
@@ -476,7 +526,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
     <p class="text-center">
       <a role="button" class="btn btn-default"
          href="https://gum.co/thgtp?wanted=true&locale=true">
-         <span class="fa fa-credit-card"></span> Buy now!
+        <span class="fa fa-credit-card"></span> Buy now!
       </a>
     </p>
     <p class="text-center">
@@ -497,14 +547,14 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
     <ul>
       <li class="list-unstyled"><span class="glyphicon glyphicon-book"></span>
         271 pages book in PDF format.</li>
-        <li class="list-unstyled"><span class="glyphicon glyphicon-phone"></span>
-          The book in EPUB and MOBI format,
-          to read on your e-book reader.</li>
-          <li class="list-unstyled"><span class="fa fa-html5"></span>
-            The book in a single
-            page HTML format, for easy reference and searching while
-            developing.
-          </li>
+      <li class="list-unstyled"><span class="glyphicon glyphicon-phone"></span>
+        The book in EPUB and MOBI format,
+        to read on your e-book reader.</li>
+      <li class="list-unstyled"><span class="fa fa-html5"></span>
+        The book in a single
+        page HTML format, for easy reference and searching while
+        developing.
+      </li>
       <li class="list-unstyled"><span class="glyphicon glyphicon-import"></span>
         Future updates and editions of the book.
       </li>
@@ -522,7 +572,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
     <p class="text-center">
       <a role="button" class="btn btn-info btn-sm" id="bitcoin-button-2"
          href="https://coinbase.com/checkouts/3d3a414aea4734d8d4cfb7c686ee6d2f">
-         <span class="fa fa-btc"></span> Buy with Bitcoin
+        <span class="fa fa-btc"></span> Buy with Bitcoin
       </a>
       <div class="coinbase-button"
            data-code="3d3a414aea4734d8d4cfb7c686ee6d2f"
@@ -536,10 +586,10 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
     <ul>
       <li class="list-unstyled"><span class="glyphicon glyphicon-book"></span>
         271 pages book in PDF format.</li>
-        <li class="list-unstyled"><span class="glyphicon glyphicon-phone"></span>
-          The book in EPUB and MOBI format,
-          to read on your e-book reader.
-        </li>
+      <li class="list-unstyled"><span class="glyphicon glyphicon-phone"></span>
+        The book in EPUB and MOBI format,
+        to read on your e-book reader.
+      </li>
       <li class="list-unstyled"><span class="fa fa-html5"></span>
         The book in a single
         page HTML format, for easy reference and searching while
@@ -565,7 +615,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
     <p class="text-center">
       <a role="button" class="btn btn-info btn-sm" id="bitcoin-button-3"
          href="https://coinbase.com/checkouts/a224b20a1fd16e47c859bf0db24cee9a">
-         <span class="fa fa-btc"></span> Buy with Bitcoin
+        <span class="fa fa-btc"></span> Buy with Bitcoin
       </a>
       <div class="coinbase-button"
            data-code="a224b20a1fd16e47c859bf0db24cee9a"
@@ -605,51 +655,13 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
         <a role="button" class="btn btn-default"
            href="http://www.lulu.com/shop/julien-danjou/the-hackers-guide-to-python/paperback/product-21549566.html">
           <span class="fa fa-truck"></span>
-           Buy on Lulu
+          Buy on Lulu
         </a>
       </p>
     </ul>
   </div>
 </div>
 
-<div class="bg-sl-thgtp-section overlay overlay-night pattern pattern-lines white"
-     style="background-image: url('/media/images/jd-background.jpg');">
-     <div class="container font-raleway">
-       <div class="col-sm-3 text-center">
-         <img src="/media/images/jd.jpg" class="img-circle img-sm img-thumbnail"
-              alt="Julien Danjou">
-       </div>
-       <h3>Who's behind this?</h3>
-       <div class="col-sm-9">
-         <blockquote>
-           <p>
-             “Hi, I'm Julien Danjou! I've been a Free Software hacker for more than
-             14 years now. I wear multiple hats in the Free and Open Source
-             community, among them: <a href="http://debian.org">Debian</a>
-             developer, <a href="http://freedesktop.org">Freedesktop</a>
-             contributor, <a href="http://www.gnu.org/software/emacs/">GNU Emacs</a>
-             committer, the <a href="http://awesome.naquadah.org">awesome</a> window
-             manager creator, and more recently, <em>Project Technical Leader</em>
-             for <a href="http://openstack.org">OpenStack</a>
-             <a href="http://launchpad.net/ceilometer">Ceilometer</a>.
-           </p>
-           <p>
-             For the last few years, I've been hacking using Python a lot,
-             especially when working on
-             <a href="http://openstack.org">OpenStack</a>, a cloud-computing
-             platform. During that time, I've had the chance to work with many
-             fabulous Python hackers, and I've learned a lot from them and the
-             surrounding community.
-           </p>
-           <p>I live in Paris, France, and like to travel once in a while. You
-             should follow me on Twitter so we can keep in touch!”
-             <a href="https://twitter.com/juldanjou" class="twitter-follow-button" data-show-count="false">Follow @juldanjou</a>
-             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-           </p>
-         </blockquote>
-       </div>
-     </div>
-</div>
 
 <div class="container">
   <div class="page-header text-center">
@@ -662,7 +674,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
         packed with code samples and tips that will get you on the right path,
         right away.</dd>
 
-        <dt>Can I upgrade later on?</dt>
+      <dt>Can I upgrade later on?</dt>
       <dd>Absolutely! Just reply to your confirmation email that you'd like to
         upgrade and I'll set it up for you.</dd>
 
@@ -680,12 +692,12 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
       <dd>Well if you're not happy, I don't want your money. Just reply to
         your receipt email within 7 days and you'll get a full refund.</dd>
 
-        <dt>Can I have the electronic version if I buy the paperback
-          edition?</dt>
-          <dd>No problem. Just send me
-            <a href="mailto:julien+thgtp@danjou.info">an email</a> with a proof
-            of purchase and I will send you the electronic version.
-          </dd>
+      <dt>Can I have the electronic version if I buy the paperback
+        edition?</dt>
+      <dd>No problem. Just send me
+        <a href="mailto:julien+thgtp@danjou.info">an email</a> with a proof
+        of purchase and I will send you the electronic version.
+      </dd>
     </div>
   </dl>
 </div>
@@ -756,9 +768,6 @@ $(function () {
     $("a#link-chapter").click(function () {
         _gaq.push(['_trackEvent', 'THGTP', 'SampleDownloaded', 'OK']);
         twttr.conversion.trackPid('l5r3o', { tw_sale_amount: 0, tw_order_quantity: 0});
-    });
-    $("a#link-toc").click(function () {
-        _gaq.push(['_trackEvent', 'THGTP', 'TOCDownloaded', 'OK']);
     });
 });
 </script>
