@@ -745,8 +745,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 function checkSampleSent (data) {
   $("[id=sample-submit-alert]").detach();
   if(data == "Mail is on its way!") {
-    $("form#get-sample").after("<div id=\"sample-submit-alert\" class=\"alert
-alert-success\"><h4 class=\"alert-heading\">Sample on its way!</h4></div>");
+    $("form#get-sample").after("<div id=\"sample-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Sample on its way!</h4></div>");
     ga.push('send', 'event', 'THGTP', 'SampleSent', 'OK');
     $.getScript("https://www.googleadservices.com/pagead/conversion.js");
   } else {
