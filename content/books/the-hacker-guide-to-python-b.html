@@ -511,12 +511,12 @@ function checkSampleSent (data) {
   $("[id=sample-submit-alert]").detach();
   if(data == "Mail is on its way!") {
     $("form#get-sample").after("<div id=\"sample-submit-alert\" class=\"alert alert-success\"><h4 class=\"alert-heading\">Sample on its way!</h4></div>");
-    ga.push('send', 'event', 'THGTP', 'SampleSent', 'OK');
+    ga('send', 'event', 'THGTP', 'SampleSent', 'OK');
     $.getScript("https://www.googleadservices.com/pagead/conversion.js");
   } else {
     $("form#get-sample").after("<div id=\"sample-submit-alert\" class=\"alert alert-error\"><h4 class=\"alert-heading\">Failed!</h4> Try again?</div>");
     $("form#get-sample").find("button").removeAttr("disabled");
-    ga.push('send', 'event', 'THGTP', 'SampleSent', 'ERROR');
+    ga('send', 'event', 'THGTP', 'SampleSent', 'ERROR');
   }
 }
 
@@ -542,14 +542,14 @@ function sendSample(event) {
     if(subscribe_course) {
         twttr.conversion.trackPid('l5r3p', { tw_sale_amount: 0,
                                              tw_order_quantity: 0 });
-        ga.push('send', 'event', 'THGTP', 'Python course', 'OK');
+        ga('send', 'event', 'THGTP', 'Python course', 'OK');
     }
 }
 
 $(function () {
     $("form#get-sample").submit(sendSample);
     $("a#link-chapter").click(function () {
-        ga.push('send', 'event', 'THGTP', 'SampleDownloaded', 'OK');
+        ga('send', 'event', 'THGTP', 'SampleDownloaded', 'OK');
         twttr.conversion.trackPid('l5r3o', { tw_sale_amount: 0, tw_order_quantity: 0});
     });
 });
