@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% block head %}
-    {% endblock %}
     <meta charset="{{ resource.meta.charset }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>
@@ -11,7 +9,10 @@
     {% endblock %}
     | {{ site_title }}
     </title>
+    {% block favicon %}
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    {% endblock %}
+    {% block css %}
     <link href="/media/css/bootstrap.min.css" rel="stylesheet">
     <link href="/media/css/font-awesome.min.css" rel="stylesheet">
     <link href="/media/css/animate.css" rel="stylesheet">
@@ -22,6 +23,7 @@
     <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet">
+    {% endblock %}
 
     {% if resource.next_by_time %}
     <link href="{{ resource.next_by_time.full_url }}" rel="prev">
@@ -56,7 +58,7 @@
     </script>
   </head>
   <body class="archive">
-
+    {% block body %}
     <!-- HEADER -->
     <header class="header header-dark no-sticky">
       <nav class="navbar container">
@@ -184,6 +186,9 @@
     <!-- ScrollTop -->
     <a href="#" class="scrolltop"><i></i></a>
 
+    {% endblock body %}
+
+    {% block js %}
     <!-- SCRIPTS -->
     <script src="/media/js/jquery-2.1.3.min.js"></script>
     <script src="/media/js/bootstrap.min.js"></script>
@@ -200,7 +205,6 @@
 	})();
     </script>
 
-    {% block js %}
     {% endblock %}
 
   </body>
