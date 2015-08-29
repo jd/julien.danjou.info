@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% block head %}
     <meta charset="{{ resource.meta.charset }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>
@@ -54,7 +55,7 @@
 
       ga('create', '{{ google_analytics_id }}', 'auto');
       ga('send', 'pageview');
-
+    {% endblock %}
     </script>
   </head>
   <body class="archive">
