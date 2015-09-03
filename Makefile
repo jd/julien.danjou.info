@@ -43,7 +43,9 @@ content/media/images/blog/2012/openstack-swift-replication.png: content/blog/201
 
 content/media/images/talks/%.png: content/talks/%.pdf
 	convert $<[0] $@
-	pngcrush $@ $@crush
-	mv $@crush $@
+	pngcrush -ow $@
 
-.PHONY: clean web pub
+pngcrush:
+	find content -name '*.png' -exec pngcrush -ow {} \;
+
+.PHONY: clean web pub pngcrush
