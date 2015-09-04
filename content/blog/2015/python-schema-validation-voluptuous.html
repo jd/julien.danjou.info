@@ -1,0 +1,222 @@
+---
+title: "Data validation in Python with voluptuous"
+created: !!timestamp '2015-09-04 12:55:00'
+image: /media/images/blog/2015/windows.jpg
+tags:
+    - Python
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Continuing my post series on the tools I use these days in Python, this time I
+would like to talk about a library I really like, named
+_[voluptuous](https://pypi.python.org/pypi/voluptuous)_.
+
+{% endmark %}
+{% endblock %}
+
+It's no secret that most of the time, when a program receives data from the
+outside, it's a big deal to handle it. Indeed, most of the time your program
+has no guarantee that the stream is valid and that it contains what is
+expected.
+
+The [robustness principle](https://en.wikipedia.org/wiki/Robustness_principle)
+says you should be liberal in what you accept, though
+[that is not always a good idea](http://cacm.acm.org/magazines/2011/8/114933-the-robustness-principle-reconsidered/fulltext)
+neither. Whatever policy you chose, you need to process those data and
+implement a policy that will work – lax or not.
+
+That means that the program need to look into the data received, check that it
+finds everything it needs, complete what might be missing (e.g. set some
+default), transform some data, and maybe reject those data in the end.
+
+<div class="text-center illustration">
+  <img style="max-height: 100px" src="/media/images/blog/2015/approved-stamp.png">
+</div>
+
+## Data validation
+
+The first step is to validate the data, which means checking all the fields are
+there and all the types are right or understandable (parseable). _Voluptuous_
+provides a single interface for all that called a `Schema`.
+
+{% syntax python %}
+>>> from voluptuous import Schema
+>>> s = Schema({
+...   'q': str,
+...   'per_page': int,
+...   'page': int,
+... })
+>>> s({"q": "hello"})
+{'q': 'hello'}
+>>> s({"q": "hello", "page": "world"})
+voluptuous.MultipleInvalid: expected int for dictionary value @ data['page']
+>>> s({"q": "hello", "unknown": "key"})
+voluptuous.MultipleInvalid: extra keys not allowed @ data['unknown']
+{% endsyntax %}
+
+The argument to `voluptuous.Schema` should be the data structure that you
+expect. _Voluptuous_ accepts any kind of data structure, so it could also be a
+simple string or an array of dict of array of integer. You get it.
+Here it's a `dict` with a few keys that if present should be validated as
+certain types. By default, _Voluptuous_ does not raise an error if some keys
+are missing. However, it is invalid to have extra keys in a dict by default. If
+you want to allow extra keys, it is possible to specify it.
+
+{% syntax python %}
+>>> from voluptuous import Schema
+>>> s = Schema({"foo": str}, extra=True)
+>>> s({"bar": 2})
+{"bar": 2}
+{% endsyntax %}
+
+It is also possible to make some keys mandatory.
+
+{% syntax python %}
+>>> from voluptuous import Schema, Required
+>>> s = Schema({Required("foo"): str})
+>>> s({})
+voluptuous.MultipleInvalid: required key not provided @ data['foo']
+{% endsyntax %}
+
+You can create custom data type very easily. _Voluptuous_ data types are
+actually just functions that are called with one argument, the value, and that
+should either return the value or raise an `Invalid` or `ValueError` exception.
+
+{% syntax python %}
+>>> from voluptuous import Schema, Invalid
+>>> def StringWithLength5(value):
+...     if isinstance(value, str) and len(value) == 5:
+...             return value
+...     raise Invalid("Not a string with 5 chars")
+...
+>>> s = Schema(StringWithLength5)
+>>> s("hello")
+'hello'
+>>> s("hello world")
+voluptuous.MultipleInvalid: Not a string with 5 chars
+{% endsyntax %}
+
+Most of the time though, there is no need to create your own data types.
+_Voluptuous_ provides logical operators that can, combined with a few others
+provided primitives such as `voluptuous.Length` or `voluptuous.Range`, create a
+large range of validation scheme.
+
+{% syntax python %}
+>>> from voluptuous import Schema, Length, All
+>>> s = Schema(All(str, Length(min=3, max=5)))
+>>> s("hello")
+"hello"
+>>> s("hello world")
+voluptuous.MultipleInvalid: length of value must be at most 5
+{% endsyntax %}
+
+The [voluptuous documentation](https://pypi.python.org/pypi/voluptuous) has a
+good set of examples that you can check to have a good overview of what you can
+do.
+
+## Data transformation
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/document-validation.png">
+</div>
+
+What's important to remember, is that each data type that you use is a function
+that is called and returns a value, if the value is considered valid. That
+value returned is what is actually used and returned after the schema
+validation:
+
+{% syntax python %}
+>>> import uuid
+>>> from voluptuous import Schema
+>>> def UUID(value):
+...     return uuid.UUID(value)
+...
+>>> s = Schema({"foo": UUID})
+>>> data_converted = s({"foo": "uuid?"})
+voluptuous.MultipleInvalid: not a valid value for dictionary value @ data['foo']
+>>> data_converted = s({"foo": "8B7BA51C-DFF5-45DD-B28C-6911A2317D1D"})
+>>> data_converted
+{'foo': UUID('8b7ba51c-dff5-45dd-b28c-6911a2317d1d')}
+{% endsyntax %}
+
+By defining a custom `UUID` function that converts a value to a UUID, the
+schema converts the string passed in the data to a Python UUID object –
+validating the format at the same time.
+
+Note a little trick here: it's not possible to use directly `uuid.UUID` in the
+schema, otherwise _Voluptuous_ would check that the data is actually an
+instance of `uuid.UUID`:
+
+{% syntax python %}
+>>> from voluptuous import Schema
+>>> s = Schema({"foo": uuid.UUID})
+>>> s({"foo": "8B7BA51C-DFF5-45DD-B28C-6911A2317D1D"})
+voluptuous.MultipleInvalid: expected UUID for dictionary value @ data['foo']
+>>> s({"foo": uuid.uuid4()})
+{'foo': UUID('60b6d6c4-e719-47a7-8e2e-b4a4a30631ed')}
+{% endsyntax %}
+
+And that's not what is wanted here.
+
+That mechanism is really neat to transform, for example, strings to timestamps.
+
+{% syntax python %}
+>>> import datetime
+>>> from voluptuous import Schema
+>>> def Timestamp(value):
+...     return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
+...
+>>> s = Schema({"foo": Timestamp})
+>>> s({"foo": '2015-03-03T12:12:12'})
+{'foo': datetime.datetime(2015, 3, 3, 12, 12, 12)}
+>>> s({"foo": '2015-03-03T12:12'})
+voluptuous.MultipleInvalid: not a valid value for dictionary value @ data['foo']
+{% endsyntax %}
+
+## Recursive schemas
+
+So far, _Voluptuous_ has one limitation so far: the ability to have recursive
+schemas. The simplest way to circumvent it is by using another function as an
+indirection.
+
+{% syntax python %}
+>>> from voluptuous import Schema, Any
+>>> def _MySchema(value):
+...     return MySchema(value)
+...
+>>> from voluptuous import Any
+>>> MySchema = Schema({"foo": Any("bar", _MySchema)})
+>>> MySchema({"foo": {"foo": "bar"}})
+{'foo': {'foo': 'bar'}}
+>>> MySchema({"foo": {"foo": "baz"}})
+voluptuous.MultipleInvalid: not a valid value for dictionary value @ data['foo']['foo']
+{% endsyntax %}
+
+## Usage in REST API
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/cloud-api.png">
+</div>
+
+I started to use _Voluptuous_ to validate data in a the REST API provided by
+[Gnocchi](http://launchpad.net/gnocchi). So far it has been a really good tool,
+and we've been able to
+[create a complete REST API](http://docs.openstack.org/developer/gnocchi/rest.html)
+that is very easy to validate on the server side. I would definitely recommend
+it for that. It blends with any Web framework easily.
+
+One of the upside compared to solution like
+[JSON Schema](http://json-schema.org/), is the ability to create or re-use your
+own custom data types while converting values at validation time. It is also
+very Pythonic, and extensible – it's pretty great to use for all of that. It's
+also not tied to any serialization format.
+
+On the other hand, JSON Schema is language agnostic and is serializable itself
+as JSON. That makes it easy to be exported and provided to a consumer so it can
+understand the API and validate the data potentially on its side.
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
