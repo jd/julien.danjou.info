@@ -23,7 +23,7 @@
     <link href="{{ media_url('css/flag-icon.min.css') }}" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
     {% endblock %}
 
     {% if resource.next_by_time %}
@@ -104,12 +104,12 @@
       <div class="headcontent headcontent-md bg-sl-center overlay"
            style="background-image: url('{{ resource.meta.image }}');">
 	<div class="container inforow">
-	  <div class="col-sm-8">
+	  <div class="col-sm-10">
 	    <h1 class="white">
       {% else %}
       <div class="headcontent">
         <div class="container">
-	  <div class="col-sm-8">
+	  <div class="col-sm-10">
 	    <h1>
       {% endif %}
       {% block page_title %}
@@ -117,7 +117,7 @@
       {% endblock %}
             </h1>
 	  </div>
-	  <div class="col-sm-4 text-right">
+	  <div class="col-sm-2 text-right">
 	    <ol class="breadcrumb breadcrumb-arrow">
               {% for node in resource.node.rwalk()|reverse %}
               {% if not loop.first %}
