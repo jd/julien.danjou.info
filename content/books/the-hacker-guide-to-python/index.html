@@ -739,6 +739,10 @@ title: The Hacker's Guide to Python
     <script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
 
     <script type="text/javascript">
+
+     ga('require', 'linker');
+     ga('linker:autoLink', ['gumroad.com'] );
+
     function checkSampleSent (data) {
       $("[id=sample-submit-alert]").detach();
       if(data == "Mail is on its way!") {
