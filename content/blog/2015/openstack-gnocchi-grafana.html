@@ -1,0 +1,96 @@
+---
+title: "Visualize your OpenStack cloud: Gnocchi & Grafana"
+created: !!timestamp '2015-09-14 16:58:00'
+image: /media/images/blog/2015/london-lights.jpg
+tags:
+    - OpenStack
+    - Gnocchi
+    - Grafana
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+We've been hard working with the Gnocchi team these last months to store your
+metrics, and I guess it's time to show off a bit.
+
+{% endmark %}
+{% endblock %}
+
+So far Gnocchi offers scalable metric storage and resource indexation,
+especially for OpenStack cloud – but not only, we're generic. It's cool to
+store metrics, but it can be even better to have a way to visualize them!
+
+## Prototyping
+
+We very soon started to build a little HTML interface. Being REST-friendly
+guys, we enabled it on the same endpoints that were being used to retrieve
+information and measures about metric, sending back `text/html` instead of
+`application/json` if you were requesting those pages from a Web browser.
+
+But let's face it: we are back-end developers, we suck at any kind front-end
+development. CSS, HTML, JavaScript? Bwah! So what we built was a starting
+point, hoping some magical Web developer would jump in and finish the job.
+
+Obviously it never happened.
+
+## Ok, so what's out there?
+
+It turns out there are back-end agnostic solutions out there, and we decided to
+pick [Grafana](http://grafana.org). Grafana is a complete graphing dashboard
+solution that can be plugged on top of any back-end. It already supports
+timeseries databases such as Graphite, InfluxDB and OpenTSDB.
+
+That was largely enough for that my fellow developer
+[Mehdi Abaakouk](https://blog.sileht.net/) to jump in and start writing a
+Gnocchi plugin for Grafana! Consequently, there is now a basic but solid and
+working back-end for Grafana that lies in the
+_[grafana-plugins](https://github.com/grafana/grafana-plugins/tree/master/datasources/gnocchi)_
+repository.
+
+<div class="illustration text-center">
+  <img class="img-thumbnail" src="/media/images/blog/2015/gnocchi-grafana.png">
+</div>
+
+With that plugin, you can graph anything that is stored in Gnocchi, from raw
+metrics to metrics tied to resources. You can use templating, but no annotation
+yet.
+The back-end supports Gnocchi with or without Keystone involved, and any type
+of authentication (basic auth or Keystone token). So yes, it even works if
+you're not running Gnocchi with the rest of OpenStack.
+
+<div class="illustration text-center">
+  <img class="img-thumbnail" src="/media/images/blog/2015/gnocchi-grafana-group.png">
+</div>
+
+It also supports advanced queries, so you can search for resources based on
+some criterion and graphs their metrics.
+
+## I want to try it!
+
+If you want to deploy it, all you need to do is to install Grafana and its
+plugins, and create a new datasource pointing to Gnocchi. It is that simple.
+There's some CORS middleware configuration involved if you're planning on using
+Keystone authentication, but it's pretty straightforward – just set the
+`cors.allowed_origin` option to the URL of your Grafana dashboard.
+
+We added support of Grafana directly in Gnocchi devstack plugin. If you're
+running [DevStack](http://devstack.org) you can follow
+[the instructions](http://docs.openstack.org/developer/gnocchi/devstack.html) –
+which are basically adding the line `enable_service gnocchi-grafana`.
+
+## Moving to Grafana core
+
+[Mehdi just opened a pull request](https://github.com/grafana/grafana/pull/2716)
+a few days ago to merge the plugin into Grafana core. It's actually one of the
+most unit-tested plugin in Grafana so far, so it should be on a good path to be
+merged in the future and have support of Gnocchi directly into Grafana without
+any plugin involved.
+
+<div class="illustration text-center">
+  <img class="img-thumbnail" src="/media/images/blog/2015/grafana-gnocchi-unittests.png">
+</div>
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
