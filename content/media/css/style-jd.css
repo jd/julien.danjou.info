@@ -132,6 +132,12 @@ h1,
     line-height: 1.2em;
 }
 
+h2,
+.h2 {
+    font-size: 34px;
+    font-family: 'Raleway', sans-serif;
+}
+
 .breadcrumb li {
     margin-left: 0;
 }
