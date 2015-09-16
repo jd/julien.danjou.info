@@ -33,6 +33,11 @@
     <link href="{{ resource.prev_by_time.full_url }}" rel="next">
     {% endif %}
 
+    {% block rss %}
+    <link rel="alternate" type="application/rss+xml"
+          href="/blog/index.xml" title="jd:/dev/blog">
+    {% endblock %}
+
     {% if resource.meta.created %}
     <meta property="og:title" content="{{resource.meta.title}}">
     <meta property="og:description" content="{{self.excerpt()|markdown|striptags|truncate(200, end="…")|forceescape}}">

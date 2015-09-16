@@ -2,6 +2,10 @@
 
 {% extends "blog-list.j2" %}
 
+{% block rss %}
+<link rel="alternate" type="application/rss+xml" href="/blog/tags/{{tag}}.xml" title="jd:/dev/blog – {{tag}}">
+{% endblock %}
+
 {% block title %}Posts with tag {{tag}}{% endblock %}
 
 {% block page_title %}Posts with tag <strong>{{tag}}</strong>{% endblock %}
