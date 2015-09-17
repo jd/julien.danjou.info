@@ -1,0 +1,266 @@
+---
+title: "My interview in le Journal du Hacker"
+created: !!timestamp '2015-09-17 17:15:00'
+image: /media/images/blog/2015/jumping.jpg
+tags:
+    - OpenStack
+    - Books
+    - Python
+    - Work
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+A few days ago, the French equivalent of
+[Hacker News](https://news.ycombinator.com/), called
+"[Le Journal du Hacker](https://www.journalduhacker.net/)",
+[interviewed me](https://www.journalduhacker.net/s/l5qktw/journal_du_hacker_entretien_avec_julien_danjou_d_veloppeur_openstack)
+about my work on [OpenStack](http://openstack.org), my job at
+[Red Hat](http://redhat.com) and my self-published book
+[The Hacker's Guide to Python](/books/the-hacker-guide-to-python). I've spent
+some time translating it into English so you can read it if you don't
+understand French! I hope you'll enjoy it.
+
+{% endmark %}
+{% endblock %}
+
+> Hi Julien, and thanks for participating in this interview for the Journal du
+> Hacker. For our readers who don't know you, can you introduce you briefly?
+
+You're welcome! My name is Julien, I'm 31 years old, and I live in Paris. I now
+have been developing free software for around fifteen years. I had the pleasure
+to work (among other things) on [Debian](http://debian.org),
+[Emacs](https://www.gnu.org/software/emacs/) and
+[awesome](http://awesome.naquadah.org) these last years, and more recently on
+OpenStack. Since a few months now, I work at Red Hat, as a Principal Software
+Engineer on [OpenStack](http://opensack.org). I am in charge of doing upstream
+development for that cloud-computing platform, mainly around the Ceilometer,
+Aodh and Gnocchi projects.
+
+> Being myself a system architect, I follow your work in
+> [OpenStack](http://openstack.org) since a while. It's uncommon to have the
+> point of view of someone as implied as you are. Can you give us a summary of
+> the state of the project, and then detail your activities in this project?
+
+The [OpenStack](http://openstack.org) project has grown and changed a lot since
+I started 4 years ago. It started as a few projects providing the basics, like
+[Nova](https://launchpad.net/nova) (compute),
+[Swift](https://launchpad.net/swift) (object storage),
+[Cinder](https://launchpad.net/cinder) (volume),
+[Keystone](https://launchpad.net/keystone) (identity) or even
+[Neutron](https://launchpad.net/neutron) (network) who are basis for a
+cloud-computing platform, and finally became composed of a lot more projects.
+
+For a while, the inclusion of projects was the subject of a strict review from
+the technical committee. But since a few months, the rules have been relaxed,
+and we see a lot more projects connected to cloud-computing
+[joining us](http://governance.openstack.org/reference/projects/).
+
+As far as I'm concerned, I've started with a few others people the
+[Ceilometer](http://governance.openstack.org/reference/projects/ceilometer.html)
+project in 2012, devoted to handling metrics of OpenStack platforms. Our goal
+is to be able to collect all the metrics and record them to analyze them later.
+We also have a module providing the ability to trigger actions on threshold
+crossing (alarm).
+
+The project grew in a monolithic way, and in a linear way for the number of
+contributors, during the first two years. I was the PTL (Project Technical
+Leader) for a year. This leader position asks for a lot of time for
+bureaucratic things and people management, so I decided to leave my spot in
+order to be able to spend more time solving the technical challenges that
+Ceilometer offered.
+
+I've started the [Gnocchi](https://launchpad.net/gnocchi) project in 2014. The
+first stable version (1.0.0) was released a few months ago. It's a timeseries
+database offering a REST API and a strong ability to scale. It was a necessary
+development to solve the problems tied to the large amount of metrics created
+by a cloud-computing platform, where tens of thousands of virtual machines have
+to be metered as often as possible. This project works as a standalone
+deployment or with the rest of OpenStack.
+
+More recently, I've started [Aodh](https://launchpad.net/aodh), the result of
+moving out the code and features of Ceilometer related to threshold action
+triggering (alarming). That's the logical suite to what we started with
+Gnocchi. It means Ceilometer is to be split into independent modules that can
+work together – with or without OpenStack. It seems to me that the features
+provided by Ceilometer, Aodh and Gnocchi can also be interesting for operators
+running more classical infrastructures. That's why I've pushed the projects
+into that direction, and also to have a more service-oriented architecture
+([SOA](https://fr.wikipedia.org/wiki/Architecture_orient%C3%A9e_services))
+
+> I'd like to stop for a moment on Ceilometer. I think that this solution was
+> very expected, especially by the cloud-computing providers using OpenStack
+> for billing resources sold to their customers. I remember reading a blog post
+> where you were talking about the high-speed construction of this brick, and
+> features that were not supposed to be there. Nowadays, with Gnocchi and Aodh,
+> what is the quality of the brick Ceilometer and the programs it relies on?
+
+Indeed, one of the first use-case for Ceilometer was tied to the ability to get
+metrics to feed a billing tool. That's now a reached goal since we have billing
+tools for OpenStack using Ceilometer, such as
+[CloudKitty](https://wiki.openstack.org/wiki/CloudKitty).
+
+However, other use-cases appeared rapidly, such as the ability to trigger
+alarms. This feature was necessary, for example, to implement the auto-scaling
+feature that [Heat](http://launchpad.net/heat) needed. At the time, for
+technical and political reasons, it was not possible to implement this feature
+in a new project, and the functionality ended up in Ceilometer, since it was
+using the metrics collected and stored by Ceilometer itself.
+
+Though, like I said, this feature is now in its own project, Aodh. The alarm
+feature is used since a few cycles in production, and the Aodh project brings
+new features on the table. It allows to trigger threshold actions and is one of
+the few solutions able to work at high scale with several thousands of alarms.
+It's impossible to make Nagios run with millions of instances to fetch metrics
+and triggers alarms. Ceilometer and Aodh can do that easily on a few tens of
+nodes automatically.
+
+On the other side, Ceilometer has been for a long time painted as slow and
+complicated to use, because its metrics storage system was by default using
+[MongoDB](https://www.mongodb.org/). Clearly, the data structure model picked
+was not optimal for what the users were doing with the data.
+
+That's why I started Gnocchi last year, which is perfectly designed for this
+use case. It allows linear access time to metrics (O(1) complexity) and fast
+access time to the resources data via an index.
+
+Today, with 3 projects having their own perimeter of features defined – and
+which can work together – Ceilometer, Aodh and Gnocchi finally erased the
+biggest problems and defects of the initial project.
+
+> To end with OpenStack, one last question. You're a
+> [Python](http://www.python.org/) developer for a long time and a fervent user
+> of software testing and
+> [test-driven development](https://en.wikipedia.org/wiki/Test_driven_development).
+> Several of your blogs posts point how important their usage are. Can you tell
+> us more about the usage of tests in OpenStack, and the test prerequisites to
+> contribute to OpenStack?
+
+I don't know any project that is as tested on every layer as OpenStack is. At
+the start of the project, there was a vague test coverage, made of a few unit
+tests. For each release, a bunch of new features were provided, and you had to
+keep your fingers crossed to have them working. That's already almost
+unacceptable. But the big issue was that there was also a lot of regressions,
+et things that were working were not anymore. It was often corner cases that
+developers forgot about that stopped working.
+
+Then the project decided to change its policy and started to refuse all patches
+– new features or bug fix – that would not implement a minimal set of unit
+tests, proving the patch would work. Quickly, regressions were history, and the
+number of bugs largely reduced months after months.
+
+Then came the functional tests, with the
+[Tempest](http://launchpad.net/tempest) project, which runs a test battery on a
+complete OpenStack deployment.
+
+OpenStack now possesses a
+[complete test infrastructure](http://status.openstack.org/zuul/), with
+operators hired full-time to maintain them. The developers have to write the
+test, and the operators maintain an architecture based on Gerrit, Zuul, and
+Jenkins, which runs the test battery of each project for each patch sent.
+
+Indeed, for each version of a patch sent, a full OpenStack is deployed into a
+virtual machine, and a battery of thousands of unit and functional tests is run
+to check that no regressions are possible.
+
+To contribute to OpenStack, you need to know how to write a unit test – the
+policy on functional tests is laxer. The tools used are standard Python tools,
+unittest for the framework and [tox](https://pypi.python.org/pypi/tox) to run a
+virtual environment (venv) and run them.
+
+It's also possible to use
+[DevStack](http://docs.openstack.org/developer/devstack/) to deploy an
+OpenStack platform on a virtual machine and run functional tests. However,
+since the project infrastructure also do that when a patch is submitted, it's
+not mandatory to do that yourself locally.
+
+> The tools and tests you write for OpenStack are written in Python, a language
+> which is very popular today. You seem to like it more than you have to, since
+> you wrote a book about it,
+> [The Hacker's Guide to Python](/books/the-hacker-guide-to-python), that I
+> really enjoyed. Can you explain what brought you to Python, the main strong
+> points you attribute to this language (quickly) and how you went from
+> developer to author?
+
+I stumbled upon Python by chance, around 2005. I don't remember how I hear
+about it, but I bought a first book to discover it and started toying with that
+language. At that time, I didn't find any project to contribute to or to start.
+My first project with Python was [rebuildd](/projects/rebuildd) for Debian in
+2007, a bit later.
+
+I like Python for its simplicity, its object orientation rather clean, its
+easiness to be deployed and its rich open source ecosystem. Once you get the
+basics, it's very easy to evolve and to use it for anything, because the
+ecosystem makes it easy to find libraries to solve any kind of problem.
+
+I became an author by chance, writing blog posts from time to time about Python.
+I finally realized that after a few years studying Python internals (CPython),
+I learned a lot of things. While writing a post about
+[the differences between method types in Python](/blog/2013/guide-python-static-class-abstract-methods)
+– which is still one of the most read post on my blog – I realized that a lot
+of things that seemed obvious to me where not for other developers.
+
+I wrote that initial post after thousands of hours spent doing code reviews on
+OpenStack. I, therefore, decided to note all the developers pain points and to
+write a book about that. A compilation of what years of experience taught me
+and taught to the other developers I decided to interview in the book.
+
+> I've been very interested by the publication of your book, for the subject
+> itself, but also the process you chose. You self-published the book, which
+> seems very relevant nowadays. Is that a choice from the start? Did you look
+> for an editor? Can you tell use more about that?
+
+I've been lucky to find out about others self-published authors, such as
+[Nathan Barry](http://nathanbarry.com/) – who even wrote a book on that
+subject, called [Authority](http://nathanbarry.com/authority/). That's what
+convinced me it was possible and gave me hints for that project.
+
+I've started to write in August 2013, and I ran the firs interviews with other
+developers at that time. I started to write the table of contents and then
+filled the pages with what I knew and what I wanted to share. I manage to
+finish the book around January 2014. The proof-reading took more time than I
+expected, so the book was only released in March 2014. I wrote a
+[complete report](/blog/2014/making-of-the-hacker-guide-to-python) on that on
+my blog, where I explain the full process in detail, from writing to launching.
+
+I did not look for editors though I've been proposed some. The idea of
+self-publishing really convince me, so I decided to go on my own, and I have no
+regret. It's true that you have to wear two hats at the same time and handle a
+lot more things, but with a minimal audience and some help from the Internet,
+anything's possible!
+
+I've been reached by two editors since then, a
+[Chinese](http://item.jd.com/11685556.html) and
+[Korean](https://twitter.com/juldanjou/status/552056642322583552) one. I gave
+them rights to translate and publish the books in their countries, so you can
+buy the Chinese and Korean version of the first edition of the book out there.
+
+Seeing how successful it was, I decided to launch a second edition in Mai 2015,
+and it's likely that a third edition will be released in 2016.
+
+> Nowadays, you work for [Red Hat](http://www.redhat.com), a company that
+> represents the success of using Free Software as a commercial business model.
+> This company fascinates a lot in our community. What can you say about your
+> employer from your point of view?
+
+It only has been a year since I joined Red Hat (when they bought
+[eNovance](http://www.enovance.com/)), so my experience is quite recent.
+
+Though, Red Hat is really a special company on every level. It's hard to see
+from the outside how open it is, and how it works. It's really close to and it
+really looks like an open source project. For more details, you should read
+[The Open Organization](https://www.redhat.com/en/explore/the-open-organization-book),
+a book wrote by Jim Whitehurst (CEO of Red Hat), which he just published. It
+describes perfectly how Red Hat works. To summarize, meritocracy and the lack
+of organization in silos is what makes Red Hat a strong organization and puts
+them as
+[one of the most innovative company](http://www.forbes.com/innovative-companies/list/).
+
+In the end, I'm lucky enough to be autonomous for the project I work on with my
+team around OpenStack, and I can spend 100% working upstream and enhance the
+Python ecosystem.
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
