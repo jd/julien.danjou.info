@@ -12,7 +12,7 @@ DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-ODS-Havana.p
 DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-FOSDEM-2013.png
 
 deploy: site.yaml clean $(DYNAMIC_CONTENT)
-	hyde gen
+	hyde -x gen
 
 pub: deploy
 	if [ "$(BRANCH)" = "master" ]; then \
