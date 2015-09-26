@@ -100,7 +100,7 @@ node, but on 2 others. So Swift adds another concept: zones. A zone is an
 isolated space that does not depends on other zone, so in case of an outage
 on a zone, the other zones are still available. Concretely, a zone is likely
 to be a disk, a server, or a whole cabinet, depending on the size of your
-cluster. It's up to you to chose anyway.
+cluster. It's up to you to choose anyway.
 
 Consequently, each partitions has not to be mapped to 1 host only anymore,
 but to N hosts. Each node will therefore store this number of partitions:
@@ -292,7 +292,7 @@ containers and, finally, the account.
 
 On a pretty big server, I measured the replications to be done at a speed of
 around 350 {account,container,object-partitions}/second, which can be a real
-problem if you chose to build a lots of partition and you have a low
+problem if you choose to build a lots of partition and you have a low
 *number_of_node ⁄ number_of_replicas* ratio.
 
 For example, the default parameters runs the container replication every 30
@@ -305,7 +305,7 @@ will increase**.
 # Conclusion
 
 Until some of the code is fixed (the HTTP connection pooling probably being
-the "easiest" one), I warmly recommend to chose correctly the different
+the "easiest" one), I warmly recommend to choose correctly the different
 Swift parameters for your setup. The replication process optimization
 consists in having the minimum amount of partitions per node, which can be
 done by:
