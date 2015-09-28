@@ -47,7 +47,19 @@ title: "Talks"
   </div>
 {% endmacro %}
 
-  <div class="timeline inforow appear-wrap">
+<div class="timeline inforow appear-wrap">
+
+    {{ render_talk("OpenStack Gnocchi",
+    "OpenStack Paris meetup #16",
+    "http://www.meetup.com/OpenStack-France/events/225227112/",
+    "Paris",
+    "France",
+    "fr",
+    "2015",
+    "28th September",
+    "Julien Danjou",
+    "/media/images/talks/openstack-gnocchi-paris-meetup.png",
+    "/talks/openstack-gnocchi-paris-meetup.pdf") }}
 
     {{ render_talk("Rethinking Ceilometer metric storage with Gnocchi: Time-series as a Service",
                "OpenStack Design Summit Kilo",

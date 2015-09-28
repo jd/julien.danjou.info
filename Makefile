@@ -10,6 +10,7 @@ DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-OpenStack-Fr
 DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-XLCloud.png
 DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-ODS-Havana.png
 DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-FOSDEM-2013.png
+DYNAMIC_CONTENT+=content/media/images/talks/openstack-gnocchi-paris-meetup.png
 
 deploy: site.yaml clean $(DYNAMIC_CONTENT)
 	hyde -x gen
