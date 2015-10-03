@@ -30,10 +30,10 @@ body {
 /* Image in blog posts use that most of the time */
 .illustration {
   display: block;
-  padding-bottom: 20px;
   max-width: 100%;
   text-align: center;
   margin: auto;
+  margin-bottom: 20px;
   clear: both;
 }
 
