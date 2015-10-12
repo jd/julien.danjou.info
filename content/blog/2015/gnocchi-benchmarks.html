@@ -1,0 +1,400 @@
+---
+title: "Benchmarking Gnocchi for fun & profit"
+created: !!timestamp '2015-10-13 11:58:00'
+image: /media/images/blog/2015/air-squadron.jpg
+default_block: None
+tags:
+    - OpenStack
+    - Gnocchi
+    - Ceilometer
+---
+
+{% block article %}
+
+{% block excerpt %}
+{% mark excerpt %}
+
+We got pretty good feedback on [Gnocchi](http://launchpad.net/gnocchi) so far,
+even if we only had little. Recently, in order to have a better feeling of
+where we were at, we wanted to know how fast (or slow) Gnocchi was.
+
+{% endmark %}
+{% endblock %}
+
+The
+[early benchmarks that some of the Mirantis engineers ran last year](/blog/2014/openstack-ceilometer-the-gnocchi-experiment.html)
+showed pretty good signs. But a year later, it was time to get real numbers and
+have a good understanding of Gnocchi capacity.
+
+## Benchmark tools
+
+The first thing I realized when starting that process, is that we were lacking
+of tools to run benchmarks. Therefore I started to write some benchmark tools
+in [python-gnocchiclient](https://launchpad.net/python-gnocchiclient), which
+provides a command line tool to interrogate Gnocchi. I added a few basic
+commands to measure metric performance, such as:
+
+{% syntax shell %}
+$ gnocchi benchmark metric create -w 48 -n 10000 -a low
++----------------------+------------------+
+| Field                | Value            |
++----------------------+------------------+
+| client workers       | 48               |
+| create executed      | 10000            |
+| create failures      | 0                |
+| create failures rate | 0.00 %           |
+| create runtime       | 8.80 seconds     |
+| create speed         | 1136.96 create/s |
+| delete executed      | 10000            |
+| delete failures      | 0                |
+| delete failures rate | 0.00 %           |
+| delete runtime       | 39.56 seconds    |
+| delete speed         | 252.75 delete/s  |
++----------------------+------------------+
+{% endsyntax %}
+
+The command line tool supports the `--verbose` switch to have detailed progress
+report on the benchmark progression. So far it supports metric operations only,
+but that's the most interesting part of Gnocchi.
+
+## Spinning up some hardware
+
+I got a couple of bare metal servers to test Gnocchi on. I dedicated the first
+one to Gnocchi, and used the second one as the benchmark client, plugged on the
+same network. Each server is made of
+2×[Intel Xeon E5-2609 v3](http://ark.intel.com/products/81897/Intel-Xeon-Processor-E5-2609-v3-15M-Cache-1_90-GHz)
+(12 cores in total) and 32 GB of RAM. That provides a lot of CPU to handle
+requests in parallel.
+
+Then I simply performed a basic
+[RHEL 7](http://www.redhat.com/en/technologies/linux-platforms/enterprise-linux)
+installation and ran [devstack](http://devstack.org) to spin up an installation
+of Gnocchi based on the master branch, disabling all of the others OpenStack
+components. I then tweaked the Apache httpd configuration to use the worker MPM
+and increased the maximum number of clients that can sent request
+simultaneously.
+
+I configured Gnocchi to use the _PostsgreSQL_ indexer, as it's the recommended
+one, and the _file_ storage driver, based on Carbonara (Gnocchi own storage
+engine). That means files were stored locally rather than in Ceph or Swift.
+Using the _file_ driver is less scalable (you have to run on only one node or
+uses a technology like NFS to share the files), but it was good enough for this
+benchmark and to have some numbers and profiling the beast.
+
+The OpenStack Keystone authentication middleware was not enabled in this setup,
+as it would add some delay validating the authentication token.
+
+## Metric CRUD operations
+
+Metric creation is pretty fast. I managed to attain 1500 metric/s created
+pretty easily. Deletion is now asynchronous, which means it's faster than in
+Gnocchi 1.2, but it's still slower than creation: 300 metric/s can be deleted.
+That does not sound like a huge issue since metric deletion is actually barely
+used in production.
+
+Retrieving metric information is also pretty fast and goes up to 800 metric/s.
+It'd be easy to achieve very higher throughput for this one, as it'd be easy to
+cache, but we didn't feel the need to implement it so far.
+
+Another important thing is that all of these numbers are constant and barely
+depends on the number of the metric already managed by Gnocchi.
+
+<canvas id="metric_crud" width="600" height="400" class="illustration"></canvas>
+
+<table class="table table-striped">
+ <thead>
+  <tr>
+   <th>Operation</th>
+   <th>Details</th>
+   <th>Rate</th>
+  </tr>
+  </thead>
+  <tbody>
+ <tr>
+  <th>Create metric</th>
+  <td>Created 100k metrics in 77 seconds</td>
+  <td>1300 metric/s</td>
+ </tr>
+
+ <tr>
+  <th>Delete metric</th>
+  <td>Deleted 100k metrics in 190 seconds</td>
+  <td>524 metric/s</td>
+ </tr>
+
+ <tr>
+  <th>Show metric</th>
+  <td>Show a metric 100k times in 149 seconds</td>
+  <td>670 metric/s</td>
+  </tr>
+  </tbody>
+</table>
+
+## Sending and getting measures
+
+Pushing measures into metrics is one of the hottest topic. Starting with
+Gnocchi 1.1, the measures pushed are treated asynchronously, which makes it
+much faster to push new measures. Getting new numbers on that feature was
+pretty interesting.
+
+The number of metric per second you can push depends on the batch size, meaning
+the number of actual measurements you send per call. The naive approach is to
+push 1 measure per call, and in that case, Gnocchi is able to handle around 600
+measures/s. With a batch containing 100 measures, the number of calls per
+second goes down to 450, but since you push 100 measures each time, that means
+45k measures per second pushed into Gnocchi!
+
+I've pushed the test further, inspired by the recent
+[blog post of InfluxDB claiming to achieve 300k points per second](https://influxdb.com/blog/2015/10/07/the_new_influxdb_storage_engine_a_time_structured_merge_tree.html)
+with their new engine. I ran the same benchmark on the hardware I had, which is
+roughly two times smaller than the one they used. I achieved to push Gnocchi to
+a little more than 120k measurement per second. If I had same hardware as they
+used, I could interpolate the results to achieve almost 250k measures/s pushed.
+Obviously, you can't strictly compare Gnocchi and InfluxDB since they are not
+doing exactly the same thing, but it still looks way better than what I
+expected.
+
+Using smaller batch sizes of 1k or 2k improve the throughput further to around
+125k measures/s.
+
+<canvas id="measures_push" width="600" height="400" class="illustration"></canvas>
+
+<table class="table table-striped">
+ <thead>
+  <tr>
+   <th>Operation</th>
+   <th>Details</th>
+   <th>Rate</th>
+  </tr>
+ </thead>
+
+ <tbody>
+ <tr>
+  <th>Push metric 5k</th>
+  <td>Push 5M measures with batch of 5k measures in 40 seconds</td>
+  <td>122k measures/s</td>
+ </tr>
+
+ <tr>
+  <th>Push metric 4k</th>
+  <td>Push 5M measures with batch of 4k measures in 40 seconds</td>
+  <td>125k measures/s</td>
+ </tr>
+
+ <tr>
+  <th>Push metric 3k</th>
+  <td>Push 5M measures with batch of 3k measures in 40 seconds</td>
+  <td>123k measures/s</td>
+ </tr>
+
+ <tr>
+  <th>Push metric 2k</th>
+  <td>Push 5M measures with batch of 2k measures in 41 seconds</td>
+  <td>121k measures/s</td>
+ </tr>
+
+ <tr>
+  <th>Push metric 1k</th>
+  <td>Push 5M measures with batch of 1k measures in 44 seconds</td>
+  <td>113k measures/s</td>
+ </tr>
+
+ <tr>
+  <th>Push metric 500</th>
+  <td>Push 5M measures with batch of 500 measures in 51 seconds</td>
+  <td>98k measures/s</td>
+ </tr>
+
+ <tr>
+  <th>Push metric 100</th>
+  <td>Push 5M measures with batch of 100 measures in 112 seconds</td>
+  <td>45k measures/s</td>
+ </tr>
+
+  <tr>
+   <th>Push metric 10</th>
+   <td>Push 5M measures with batch of 10 measures in 852 seconds</td>
+   <td>6k measures/s</td>
+   </tr>
+
+  <tr>
+   <th>Push metric 1</th>
+   <td>Push 500k measures with batch of 1 measure in 800 seconds</td>
+   <td>624 measures/s</td>
+  </tr>
+
+  <tr>
+   <th>Get measures</th>
+   <td>Push 43k measures of 1 metric</td>
+   <td>260k measures/s</td>
+  </tr>
+
+ </tbody>
+ </table>
+
+What about getting measures? Well, it's actually pretty fast too. Retrieving a
+metric with 1 month of data with 1 minute interval (that's 43k points) takes
+less than 2 second.
+
+Though it's actually slower than what I expected. The reason seems to be that
+the JSON is 2 MB big and encoding it takes a lot of time for Python. I'll
+investigate that. Another point I discovered, is that by default Gnocchi
+returns all the datapoints for each granularities available for the asked
+period, which might double the size of the returned data for nothing if you
+don't need it. It'll be easy to add an option to the API to only retrieve what
+you need though!
+
+Once benchmarked, that meant I was able to retrieve 6 metric/s per second,
+which translates to around 260k measures/s.
+
+## _Metricd_ speed
+
+New measures that are pushed into Gnocchi are processed asynchronously by the
+`gnocchi-metricd` daemon. When doing the benchmarks above, I ran into a very
+interesting issue: sending 10k measures on a metric would make
+`gnocchi-metricd` uses up to 2 GB RAM and 120 % CPU for more than 10 minutes.
+
+After further investigation, I found that the naive approach we used to
+resample datapoints in Carbonara using [Pandas](http://pandas.pydata.org/) was
+causing that. I
+[reported a bug on Pandas](https://github.com/pydata/pandas/issues/11217) and
+the upstream author was kind enough to provide a nice workaround, that I sent
+as [a pull request](https://github.com/pydata/pandas/pull/11242) to Pandas
+documentation.
+
+I wrote a fix for Gnocchi based on that, and started using it. Computing the
+standard aggregation methods set (std, count, 95pct, min, max, sum, median,
+mean) for 10k batches of 1 measure (worst case scenario) for one metric with
+10k measures now takes only 20 seconds and uses 100 MB of RAM – 45× faster.
+That means that in normal operations, where only a few new measures are
+processed, the operation of updating a metric only takes a few milliseconds.
+Awesome!
+
+## Comparison with Ceilometer
+
+For comparison sake, I've quickly run some read operations benchmark in
+Ceilometer. I've fed it with one month of samples for 100 instances polled
+every minute. That represents roughly 4.3M samples injected, and that took a
+while – almost 1 hour whereas it would have taken less than a minute in
+Gnocchi. Then I tried to retrieve some statistics in the same way that we
+provide them in Gnocchi, which mean aggregating them over a period of 60
+seconds over a month.
+
+<canvas id="measures_get" width="600" height="400" class="illustration"></canvas>
+
+<table class="table table-striped">
+ <thead>
+  <tr>
+   <th>Operation</th>
+   <th>Details</th>
+   <th>Rate</th>
+  </tr>
+ </thead>
+
+ <tbody>
+ <tr>
+  <th>Read metric SQL</th>
+  <td>Read measures for 1 metric</td>
+  <td>2min 58s</td>
+  </tr>
+
+ <tr>
+  <th>Read metric MongoDB</th>
+  <td>Read measures for 1 metric</td>
+  <td>28s</td>
+ </tr>
+
+ <tr>
+  <th>Read metric Gnocchi</th>
+  <td>Read measures for 1 metric</td>
+  <td>2s</td>
+ </tr>
+ </tbody>
+</table>
+
+Obviously, Ceilometer is very slow. It has to look into 4M of samples to
+compute and return the result, which takes a lot of time. Whereas Gnocchi just
+has to fetch a file and pass it over. That also means that the more samples you
+have (so the more time you collect data and the more resources you have),
+slower Ceilometer will become. This is not a problem with Gnocchi, as I
+emphasized when I started designing it.
+
+Most Gnocchi operations are _O(log R)_ where R is the number of metrics or
+resources, whereas most Ceilometer operations are _O(log S)_ where S is the
+number of samples (measures). Since is R millions of time smaller than S,
+Gnocchi gets to be much faster.
+
+## Improvements
+
+There are several things to improve in Gnocchi, such as splitting Carbonara
+archives to make them more efficient, especially from drivers such as Ceph and
+Swift. It's already on my plate, and I'm looking forwarding to working on that!
+
+And if you have any questions, feel free to shoot them in the comment section. 😉
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+
+<script src="/media/js/Chart.min.js"></script>
+<script type="text/javascript">
+$(function () {
+var data = {
+    labels: ["Create", "Read", "Delete"],
+    datasets: [
+        {
+            label: "CRUD operations",
+            fillColor: "rgba(104,188,255,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: [1300, 670, 524]
+        }
+    ]
+  };
+
+var ctx = $("#metric_crud").get(0).getContext("2d");
+var metric_crud = new Chart(ctx).Bar(data, {});
+
+var data = {
+    labels: ["Push 5k", "Push 4k", "Push 3k", "Push 2k", "Push 1k", "Push 500", "Push 100", "Push 10", "Push 1", "Get"],
+    datasets: [
+        {
+            label: "Measures push/get",
+            fillColor: "rgba(104,188,255,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: [122000, 125000, 123000, 121000, 113000, 98000, 45000, 6000, 624, 260000]
+        }
+    ]
+  };
+
+var ctx = $("#measures_push").get(0).getContext("2d");
+var measures_push = new Chart(ctx).Bar(data, {});
+
+var data = {
+    labels: ["Read SQL", "Read MongoDB", "Read Gnocchi"],
+    datasets: [
+        {
+            label: "Measures get",
+            fillColor: "rgba(104,188,255,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: [178, 28, 2]
+        }
+    ]
+  };
+
+var ctx = $("#measures_get").get(0).getContext("2d");
+var measures_get = new Chart(ctx).Bar(data, {});
+
+});
+</script>
+
+{% endblock js %}
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
