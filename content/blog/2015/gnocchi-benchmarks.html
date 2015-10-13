@@ -324,6 +324,11 @@ resources, whereas most Ceilometer operations are _O(log S)_ where S is the
 number of samples (measures). Since is R millions of time smaller than S,
 Gnocchi gets to be much faster.
 
+And what's even more interesting, is that Gnocchi is entirely scalable
+horizontally. Adding more Gnocchi servers (for the API and its background
+processing worker _metricd_) will multiply Gnocchi performances by the number
+of servers added.
+
 ## Improvements
 
 There are several things to improve in Gnocchi, such as splitting Carbonara
