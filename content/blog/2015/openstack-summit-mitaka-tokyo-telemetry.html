@@ -1,0 +1,163 @@
+---
+title: "OpenStack Summit Mitaka from a Telemetry point of view"
+created: !!timestamp '2015-11-02 15:05:00'
+image: /media/images/blog/2015/tokyo.jpg
+tags:
+    - OpenStack
+    - Ceilometer
+    - Aodh
+    - Gnocchi
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Last week I was in Tokyo, Japan for the
+[OpenStack Summit](https://www.openstack.org/summit/tokyo-2015/), discussing
+the new Mitaka version that will be released in 6 months.
+
+I've attended the summit mainly to discuss and follow-up new developments on
+[Ceilometer](http://launchpad.net/ceilometer),
+[Gnocchi](http://launchpad.net/gnocchi), [Aodh](http://launchpad.net/aodh) and
+Oslo. It has been a pretty good week and we were able to discuss and plan a few
+interesting things. Below are what I found remarkable during this summit
+concerning those projects.
+
+{% endmark %}
+{% endblock %}
+
+# Distributed lock manager
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/distributed_lock_icon.png">
+</div>
+
+I did not attend this session, but I need to write something about it.
+
+See, when working in a distributed environment like OpenStack, it's almost
+obvious that sooner or later you end up needing a distributed lock mechanism.
+It started to be pretty obvious and a serious problem for us 2 years ago in
+Ceilometer. Back then, we proposed the
+[service-sync](https://wiki.openstack.org/wiki/Oslo/blueprints/service-sync)
+blueprint and talked about it during the OpenStack Icehouse Design Summit in
+Hong-Kong. The session at that time was a success, and in 20 minutes I
+convinced everyone it was the good thing to do. The night following the
+session, we picked a named, Tooz, to name this new library. It was the first
+time I met Joshua Harlow, which became one of the biggest Tooz contributor
+since then.
+
+For the following months, we tried to move the lines in OpenStack. It was very
+hard to convince people that it was the solution to their problem. Most of the
+time, they did not seem to grasp the entirety of what was at stake.
+
+This time, it seems that we managed to convince everyone that a DLM is indeed
+needed. Joshua wrote an extensive specification called
+[Chronicle of a DLM](https://review.openstack.org/#/c/209661/), which ended up
+being discussed and somehow adopted during that session in Tokyo.
+
+So yes, Tooz will be the weapon of choice for OpenStack. It will avoid a hard
+requirement on any DLM solution directly. The best driver right now is the
+[ZooKeeper](https://zookeeper.apache.org/) one, but it'll still be possible for
+operators to use e.g. Redis.
+
+This is a great achievement for us, after spending years trying to fix features
+such as the
+[Nova service group subsystem](https://blueprints.launchpad.net/nova/+spec/tooz-for-service-groups)
+and seeing our proposals postponed forever.
+
+(If you want to know more, [LWN.net](http://lwn.net) has
+[a great article about that session](https://lwn.net/Articles/662140/).)
+
+# Telemetry team name
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/group-icon.png">
+</div>
+
+With the new projects launched this last year, Aodh & Gnocchi, in parallel of
+the old Ceilometer, plus the change from programs to Big Tent in OpenSack, the
+team is having an identity issue. Being referred to as the "Ceilometer team" is
+not really accurate, as some of us only work on Aodh or on Gnocchi. So after
+discussing that, I
+[proposed to rename the team to Telemetry](https://review.openstack.org/#/c/240809/)
+instead. We'll see how it goes.
+
+# Alarms
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/bell-icon.png">
+</div>
+
+The first session was about alarms and the Aodh project. It turns out that the
+project is in pretty good shape, but probably need some more love, which I hope
+I'll be able to provide in the next months.
+
+The need for a new _aodhclient_ based on the technologies we recently used
+building _gnocchiclient_ has been reasserted, so we might end up working on
+that pretty soon. The Tempest support also needs some improvement, and we have
+a plan to enhance that.
+
+# Data visualisation
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/barchart_icon.png">
+</div>
+
+We got David Lyle in this session, the Project Technical Leader for
+[Horizon](http://openstack/horizon). It was an interesting discussion. It used
+to be technically challenging to draw charts from the data Ceilometer collects,
+but it's now very easy with Gnocchi and its API.
+
+While the technical side is resolved, the more political and user experience
+side of was to draw and how was discussed at length. We don't want to make
+people think that Ceilometer and Gnocchi are a full monitoring solution, so
+there's some precaution to take. Other than that, it would be pretty cool to
+have view of the data in Horizon.
+
+# Rolling upgrade
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/roll_icon.png">
+</div>
+
+It turns out that Ceilometer has an architecture that makes it easy to have
+rolling upgrade. We just need to write a proper documentation explaining how to
+do it and in which order the services should be upgraded.
+
+# Ceilometer splitting
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/fork_icon.png">
+</div>
+
+The split of the alarm feature of Ceilometer in its own project Aodh in the
+last cycle was a great success for the whole team. We want to split other
+pieces of Ceilometer, as they make sense on their own, makes it easier to
+manage. They are also some projects that want to use them without the whole
+stack, so that's a good idea to make it happen.
+
+# CloudKitty & Gnocchi
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/kitty_icon.png">
+</div>
+
+I attended the 2 sessions that were allocated to
+[CloudKitty](https://wiki.openstack.org/wiki/CloudKitty). It was pretty
+interesting as they want to simplify their architecture and leverage what
+Gnocchi provides. I proposed my view of the project architecture and how they
+could leverage the more of Gnocchi to retrieve and store data. They want to go
+in that direction though it's a large amount of work and refactoring on their
+side, so it'll take time.
+
+We also need to enhance the support of extension for new resources in Gnocchi,
+and that's something I hope I'll work on in the next months.
+
+Overall, this summit was pretty good and I got a tremendous amount of good
+feedback on Gnocchi. I again managed to get enough ideas and tasks to tackle
+for the next 6 months. It really looks interesting to see where the whole team
+will go from that. Stay tuned!
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}

@@ -49,6 +49,7 @@ body {
 
 .illustration.icon {
     max-width: 75px;
+    max-height: 75px;
 }
 
 .font-montserrat {
