@@ -1,0 +1,77 @@
+---
+title: "Gnocchi 1.3.0 release"
+created: !!timestamp '2015-11-04 12:58:00'
+image: /media/images/blog/2015/pasta-released.jpg
+tags:
+    - OpenStack
+    - Gnocchi
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Finally, [Gnocchi 1.3.0](https://launchpad.net/gnocchi/trunk/1.3.0) is out.
+This is our final release, more or less matching the OpenStack 6 months
+schedule, that concludes the Liberty development cycle.
+
+{% endmark %}
+{% endblock %}
+
+<figure class="pull-right illustration" style="width: 33%;">
+  <img src="/media/images/gnocchi-logo.jpg">
+</figure>
+
+This release was supposed to be released a few weeks earlier, but our
+integration test got completely blocked for several days just the week before
+the OpenStack Mitaka summit.
+
+# New website
+
+We build a new dedicated website for Gnocchi at
+[gnocchi.xyz](http://gnocchi.xyz). We want to promote Gnocchi outside of the
+[OpenStack](http://openstack.org) bubble, as it a useful timeseries database on
+its own that can work without the rest of the stack. We'll try to improve the
+documentation. If you're curious, feel free to check it out and report anything
+you miss!
+
+# The speed bump
+
+Obviously, if it was a bug in Gnocchi that we have hit, it would have been
+quick to fix. However, we found
+[a nasty bug](https://bugs.launchpad.net/python-keystoneclient/+bug/1508424) in
+Swift caused by the evil monkey-patching of Eventlet (once again) blended with
+a mixed usage of native threads and Eventlet threads in Swift. Shake all of
+that, and you got yourself pretty race conditions when using the Keystone
+middleware authentication.
+
+In the meantime, we disabled Swift multi-threading by using mod_wsgi instead of
+Eventlet in devstack.
+
+# New features
+
+So what's new in this new shiny release? A few interesting things:
+
+- Metric deletion is now asynchronous. That's not the most used feature in the
+  REST API – weirdly people do not often delete metrics – but it's now way
+  faster and reliable by being asynchronous. _Metricd_ is now in charge of
+  cleaning up things up.
+
+- Speed improvement. We are now confident to be even more faster than in the
+  [latest benchmarks I run](gnocchi-benchmarks) (around 1.5-2× faster), which
+  makes Gnocchi *really* fast with its native storage back-ends. We profiled
+  and optimized Carbonara and the REST API data validation.
+
+- Improve _metricd_ status report. It now reports the size of the backlog of
+  the whole cluster both in its log and via the REST API. Easy monitoring!
+
+- Ceph drivers enhancement. We had people testing the Ceph drivers in
+  production, so we made a few changes and fixes to it to make it more solid.
+
+And that's all we did in the last couple of months. We have a lot of things on
+the roadmap that are pretty exciting, and I'll sure talk about them in the next
+weeks.
+
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
