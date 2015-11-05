@@ -23,10 +23,6 @@ body {
     margin-bottom: 1.5em;
 }
 
-.meta {
-    height: 50px;
-}
-
 /* Image in blog posts use that most of the time */
 .illustration {
   display: block;
