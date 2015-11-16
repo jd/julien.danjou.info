@@ -1,0 +1,222 @@
+---
+title: "Profiling Python using cProfile: a concrete case"
+created: !!timestamp '2015-11-16 15:55:00'
+image: /media/images/blog/2015/speedometer.jpg
+tags:
+    - Python
+    - Gnocchi
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Writing programs is fun, but making them fast can be a pain. Python programs
+are no exception to that, but the basic profiling toolchain is actually not
+that complicated to use. Here, I would like to show you how you can quickly
+profile and analyze your Python code to find what part of the code you should
+optimize.
+
+{% endmark %}
+{% endblock %}
+
+# What's profiling?
+
+Profiling a Python program is doing a dynamic analysis that measures the
+execution time of the program and everything that compose it. That means
+measuring the time spent in each of its functions. This will give you data
+about where your program is spending time, and what area might be worth
+optimizing.
+
+It's a very interesting exercise. Many people focus on local optimizations,
+such as determining e.g. which of the Python functions `range` or `xrange` is
+going to be faster. It turns out that knowing which one is faster may never be
+an issue in your program, and that the time gained by one of the functions
+above might not be worth the time you spend researching that, or arguing about
+it with your colleague.
+
+Trying to blindly optimize a program without measuring where it is actually
+spending its time is a useless exercise. Following your guts alone is not
+always sufficient.
+
+There are many types of profiling, as there are many things you can measure. In
+this exercise, we'll focus on CPU utilization profiling, meaning the time spent
+by each function executing instructions. Obviously, we could do many more kind
+of profiling and optimizations, such as memory profiling which would measure
+the memory used by each piece of code – something I talk about in
+[The Hacker's Guide to Python](/books/the-hacker-guide-to-python).
+
+# cProfile
+
+Since Python 2.5, Python provides a C module called
+_[cProfile](https://docs.python.org/2/library/profile.html)_ which has a
+reasonable overhead and offers a good enough feature set. The basic usage goes
+down to:
+
+{% syntax python %}
+>>> import cProfile
+>>> cProfile.run('2 + 2')
+         2 function calls in 0.000 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.000    0.000 <string>:1(<module>)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+{% endsyntax %}
+
+Though you can also run a script with it, which turns out to be handy:
+
+{% syntax shell %}
+$ python -m cProfile -s cumtime lwn2pocket.py
+         72270 function calls (70640 primitive calls) in 4.481 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.004    0.004    4.481    4.481 lwn2pocket.py:2(<module>)
+        1    0.001    0.001    4.296    4.296 lwn2pocket.py:51(main)
+        3    0.000    0.000    4.286    1.429 api.py:17(request)
+        3    0.000    0.000    4.268    1.423 sessions.py:386(request)
+      4/3    0.000    0.000    3.816    1.272 sessions.py:539(send)
+        4    0.000    0.000    2.965    0.741 adapters.py:323(send)
+        4    0.000    0.000    2.962    0.740 connectionpool.py:421(urlopen)
+        4    0.000    0.000    2.961    0.740 connectionpool.py:317(_make_request)
+        2    0.000    0.000    2.675    1.338 api.py:98(post)
+       30    0.000    0.000    1.621    0.054 ssl.py:727(recv)
+       30    0.000    0.000    1.621    0.054 ssl.py:610(read)
+       30    1.621    0.054    1.621    0.054 {method 'read' of '_ssl._SSLSocket' objects}
+        1    0.000    0.000    1.611    1.611 api.py:58(get)
+        4    0.000    0.000    1.572    0.393 httplib.py:1095(getresponse)
+        4    0.000    0.000    1.572    0.393 httplib.py:446(begin)
+       60    0.000    0.000    1.571    0.026 socket.py:410(readline)
+        4    0.000    0.000    1.571    0.393 httplib.py:407(_read_status)
+        1    0.000    0.000    1.462    1.462 pocket.py:44(wrapped)
+        1    0.000    0.000    1.462    1.462 pocket.py:152(make_request)
+        1    0.000    0.000    1.462    1.462 pocket.py:139(_make_request)
+        1    0.000    0.000    1.459    1.459 pocket.py:134(_post_request)
+[…]
+{% endsyntax %}
+
+This prints out all the function called, with the time spend in each and the
+number of times they have been called.
+
+## Advanced visualization with KCacheGrind
+
+While being useful, the output format is very basic and does not make easy to
+grab knowledge for complete programs.
+For more advanced visualization, I leverage
+[KCacheGrind](https://kcachegrind.github.io/html/Home.html). If you did any C
+programming and profiling these last years, you may have used it as it is
+primarily designed as front-end for [Valgrind](http://valgrind.org/) generated
+call-graphs.
+
+In order to use, you need to generate a _cProfile_ result file, then convert it
+to KCacheGrind format. To do that, I use
+_[pyprof2calltree](https://pypi.python.org/pypi/pyprof2calltree)_.
+
+{% syntax shell %}
+$ python -m cProfile -o myscript.cprof myscript.py
+$ pyprof2calltree -k -i myscript.cprof
+{% endsyntax %}
+
+And the KCacheGrind window magically appears!
+
+<figure class="illustration">
+  <img src="/media/images/blog/2015/kcachegrind.png">
+</figure>
+
+# Concrete case: Carbonara optimization
+
+I was curious about the performances of
+[Carbonara](https://git.openstack.org/cgit/openstack/gnocchi/tree/gnocchi/carbonara.py),
+the small timeserie library I wrote for
+[Gnocchi](http://launchpad.net/gnocchi). I decided to do some basic profiling
+to see if there was any obvious optimization to do.
+
+In order to profile a program, you need to run it. But running the whole
+program in profiling mode can generate *a lot* of data that you don't care
+about, and adds noise to what you're trying to understand. Since Gnocchi has
+thousands of unit tests and a few for Carbonara itself, I decided to profile
+the code used by these unit tests, as it's a good reflection of basic features
+of the library.
+
+Note that this is a good strategy for a curious and naive first-pass profiling.
+There's no way that you can make sure that the hotspots you will see in the
+unit tests are the actual hotspots you will encounter in production. Therefore,
+a profiling in conditions and with a scenario that mimics what's seen in
+production is often a necessity if you need to push your program optimization
+further and want to achieve perceivable and valuable gain.
+
+I activated _cProfile_ using the method described above, creating a
+`cProfile.Profile` object around my tests (I actually
+[started to implement that in testtools](https://github.com/testing-cabal/testtools/pull/163)).
+I then run _KCacheGrind_ as described above. Using _KCacheGrind_, I generated
+the following figures.
+
+<figure class="illustration">
+  <img src="/media/images/blog/2015/kcachegrind-carbonara-old-list.png">
+</figure>
+
+The test I profiled here is called `test_fetch` and is pretty easy to
+understand: it puts data in a timeserie object, and then fetch the aggregated
+result. The above list shows that 88 % of the ticks are spent in `set_values`
+(44 ticks over 50). This function is used to insert values into the timeserie,
+not to fetch the values. That means that it's really slow to insert data, and
+pretty fast to actually retrieve them.
+
+Reading the rest of the list indicates that several functions share the rest of
+the ticks, `update`, `_first_block_timestamp`, `_truncate`, `_resample`, etc.
+Some of the functions in the list are not part of Carbonara, so there's no
+point in looking to optimize them. The only thing that can be optimized is,
+sometimes, the number of times they're called.
+
+<figure class="illustration">
+  <img src="/media/images/blog/2015/kcachegrind-carbonara-old-graph.png">
+</figure>
+
+The call graph gives me a bit more insight about what's going on here. Using my
+knowledge about how Carbonara works, I don't think that the whole stack on the
+left for `_first_block_timestamp` makes much sense. This function is supposed
+to find the first timestamp for an aggregate, e.g. with a timestamp of 13:34:45
+and a period of 5 minutes, the function should return 13:30:00. The way it
+works currently is by calling the `resample` function from Pandas on a
+timeserie with only one element, but that seems to be very slow. Indeed,
+currently this function represents 25 % of the time spent by `set_values` (11
+ticks on 44).
+
+Fortunately, I recently added a small function called `_round_timestamp` that
+does exactly what `_first_block_timestamp` needs that without calling any
+Pandas function, so no `resample`. So I ended up rewriting that function this
+way:
+
+{% syntax diff %}
+     def _first_block_timestamp(self):
+-        ts = self.ts[-1:].resample(self.block_size)
+-        return (ts.index[-1] - (self.block_size * self.back_window))
++        rounded = self._round_timestamp(self.ts.index[-1], self.block_size)
++        return rounded - (self.block_size * self.back_window)
+{% endsyntax %}
+
+And then I re-run the exact same test to compare the output of _cProfile_.
+
+<figure class="illustration">
+  <img src="/media/images/blog/2015/kcachegrind-carbonara-new-list.png">
+  </figure>
+
+The list of function seems quite different this time. The number of time spend
+used by `set_values` dropped from 88 % to 71 %.
+
+<figure class="illustration">
+  <img src="/media/images/blog/2015/kcachegrind-carbonara-new-graph.png">
+</figure>
+
+The call stack for `set_values` shows that pretty well: we can't even see the
+`_first_block_timestamp` function as it is so fast that it totally disappeared
+from the display. It's now being considered insignificant by the profiler.
+
+So we just speed up the whole insertion process of values into Carbonara by a
+nice 25 % in a few minutes. Not that bad for a first naive pass, right?
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
