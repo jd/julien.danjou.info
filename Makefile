@@ -6,6 +6,7 @@ DYNAMIC_CONTENT+=content/media/images/talks/CeilometerPlusHeatEqualsAlarming-Ope
 DYNAMIC_CONTENT+=content/media/images/talks/ceilometer-to-telemetry.png
 DYNAMIC_CONTENT+=content/media/images/talks/ceilometer-gnocchi.png
 DYNAMIC_CONTENT+=content/media/images/talks/OpenStack-and-Debian.png
+DYNAMIC_CONTENT+=content/media/images/talks/How_awesome_ended_with_Lua_and_not_Guile.png
 DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-OpenStack-France-meetup-\#2.png
 DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-XLCloud.png
 DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-ODS-Havana.png
