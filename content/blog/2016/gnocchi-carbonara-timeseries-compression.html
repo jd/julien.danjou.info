@@ -1,0 +1,146 @@
+---
+title: "Timeseries storage and data compression"
+created: !!timestamp '2016-02-15 10:21:00'
+image: /media/images/blog/2016/photo-road-country.jpg
+tags:
+    - Python
+    - Gnocchi
+    - OpenStack
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+The first major version of the scalable timeserie database I work on,
+[Gnocchi](http://gnocchi.xyz) was a released a few months ago. In this first
+iteration, it took a rather naive approach to data storage. We had little ideas
+about if and how our distributed back-ends were going to be heavily used, so we
+stuck to the code of the first proof-of-concept written a couple of years ago.
+
+Recently we got more feedbacks from our users, ran a few
+[benchmarks](../2015/gnocchi-benchmarks). That gave us enough feedback to start
+investigating in improving our storage strategy.
+
+
+{% endmark %}
+{% endblock %}
+
+## Data split
+
+Up to Gnocchi 1.3, all data for a single metric are stored in a single gigantic
+file per aggregation method (_min_, _max_, _average_…). This means that the
+file can grow to several megabytes in size, which make it slow to manipulate.
+For the next version of Gnocchi, our first work has been to rework that storage
+and split the data into smaller parts.
+
+<img class="illustration"
+     alt="Gnocchi Carbonara archives split"
+     src="/media/images/blog/2016/gnocchi-carbonara-split.png">
+
+The diagram above shows how data are organized inside Gnocchi. Until version
+1.3, there would have been only one file for each aggregation methods.
+
+In the upcoming 2.0 version, Gnocchi will split all these data into smaller
+parts, where each data split is stored in a file/object. This allows to
+manipulate smaller pieces of data and to increase the parallelism of the CRUD
+operations on the back-end – leading to large speed improvement.
+
+In order to split timeseries into several chunks, Gnocchi defines a maximum
+number of N points to keep per chunk, to limit their maximum size. It then
+defines a hash function that produces a non-unique key for any timestamp. It
+makes it easy to find in which chunk any timestamp should be stored or
+retrieved.
+
+## Data compression
+
+Up to Gnocchi 1.3, the data stored for each metric is simply serialized using
+[msgpack](http://msgpack.org), a fast and small serialization format. Though,
+this format does not provide any compression. That means that storing data
+points needs 8 bytes for a timestamp (64 bits timestamp with nanosecond
+precision) and 8 bytes for a value (64 bits double-precision floating-point),
+plus some overhead (extra information and _msgpack_ itself).
+
+After looking around on how to compress all these measures, I stumbled upon a
+paper from some [Facebook](http://facebook) engineers called about Gorilla,
+their in-memory timeserie database, entitled
+"_[Gorilla: A Fast, Scalable, In-Memory Time Series Database](http://www.vldb.org/pvldb/vol8/p1816-teller.pdf)_".
+For reference, part of this encoding is also used by
+[InfluxDB](https://docs.influxdata.com/influxdb/v0.9/concepts/storage_engine/)
+in its new storage engine.
+
+The first technique I implemented is easy enough, and it's inspired from
+delta-of-delta encoding. Instead of storing each timestamp for each data point,
+and since all the data points are aggregated on a regular interval, we
+transpose points to be the time difference divided by the interval. For
+example, the suite of timestamps `timestamps =
+[41230, 41235, 41240, 41250, 41255]` is encoded into `timestamps =
+[41230, 1, 1, 2, 1], interval = 5`. This allows regular compression algorithms
+to reduce the size of the integer list using
+[run-length encoding](https://en.wikipedia.org/wiki/Run-length_encoding).
+
+To actually compress the values, I tried two different algorithms:
+
+* [LZ4](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm), a fast
+  compression/decompression algorithm
+
+* The XOR based compression scheme described in the Gorilla paper mentioned
+above – that
+[I had to implement myself](https://gist.github.com/jd/b0aa5cbfa42f4eb23eb9).
+For reference, it also exists a [Go](http://golang.org) implementation in
+[go-tsz](https://github.com/dgryski/go-tsz).
+
+I then benchmarked these solutions:
+
+<img class="illustration margin"
+     alt="Gnocchi Carbonara compression speed"
+     src="/media/images/blog/2016/gnocchi-carbonara-compression-speed.png">
+
+The XOR algorithm implemented in Python is pretty slow, compared to LZ4. Truth
+is that [python-lz4](https://github.com/steeve/python-lz4) is fully implemented
+in C, which makes it fast. I've profiled my XOR implementation in Python, to
+discover that one operation took 20 % of the time:
+`count_lead_and_trail_zeroes`, which is in charge of counting the number of
+leading and trailing zeroes in a binary number.
+
+<img class="illustration"
+     alt="Gnocchi Carbonara compression XOR profiling"
+     src="/media/images/blog/2016/gnocchi-carbonara-xor-profiling.png">
+
+I tried 2 Python implementations of the same algorithm (and submitted them to
+my friend and Python developer
+[Victor Stinner](http://haypo-notes.readthedocs.org/) by the way).
+
+<script src="https://gist.github.com/jd/303809d1f6c6425cf5e9.js"></script>
+
+The first version using string search with `.index()` is 10× faster than the
+second one that only do integer computation. Ah, Python… As Victor explained,
+each Python operation is slow and there's a lot in the second version, whereas
+`.index()` is implemented in C and really well optimized and only needs 2
+Python operations.
+
+Finally, I ended up optimizing that code by leveraging
+[cffi](https://cffi.readthedocs.org/en/latest/) to use directly `ffsll()` and
+`flsll()`. That decreased the run-time of `count_lead_and_trail_zeroes` by
+45 %, making the entire XOR compression code speed increased by a small 7 %.
+This is not enough to catch up with LZ4 speed. At this stage, the only solution
+to achieve a high-speed would probably to go with a full C implementation.
+
+<img class="illustration"
+     alt="Gnocchi Carbonara compression size"
+     src="/media/images/blog/2016/gnocchi-carbonara-compression-size.png">
+
+Considering the compression ratio of the different algorithms, they are pretty
+much identical. The worst case scenario (random values) for LZ4 compress down
+to 9 bytes per data point, whereas XOR can go down to 7.38 bytes per data
+point. In general XOR encoding beats LZ4 by 15 %, except for cases where all
+values are 0 or 1. However, LZ4 is faster than XOR by a factor of 4×-70×
+depending on cases.
+
+That means that we'll use LZ4 for data compression in Gnocchi 2.0. It's
+possible that we could achieve as fast compression/decompression algorithm, but
+I don't think it's worth the effort right now – it'd represent a lot of code to
+write and to maintain.
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
