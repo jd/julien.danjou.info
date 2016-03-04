@@ -327,7 +327,7 @@ int main(void)
 
         for (int altsetting_index = 0; altsetting_index < iface->num_altsetting; altsetting_index++)
         {
-            const struct libusb_interface_descriptor *iface_desc = &iface->altsetting[al>tsetting_index];
+            const struct libusb_interface_descriptor *iface_desc = &iface->altsetting[altsetting_index];
 
             if (iface_desc->bInterfaceClass == LIBUSB_CLASS_HID)
             {
