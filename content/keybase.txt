@@ -1,0 +1,72 @@
+==================================================================
+https://keybase.io/jdanjou
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://julien.danjou.info
+  * I am jdanjou (https://keybase.io/jdanjou) on keybase.
+  * I have a public key with fingerprint 5361 BD40 015B 7438 2739  101A 611B A950 8B78 A5C2
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01011ce2196507018de578c26301a6bb9c888d8d45fab8b3e00737a368afec9a79820a",
+            "fingerprint": "5361bd40015b74382739101a611ba9508b78a5c2",
+            "host": "keybase.io",
+            "key_id": "611ba9508b78a5c2",
+            "kid": "01011ce2196507018de578c26301a6bb9c888d8d45fab8b3e00737a368afec9a79820a",
+            "uid": "17327c57928bb1e974d3ece41a30eb00",
+            "username": "jdanjou"
+        },
+        "service": {
+            "hostname": "julien.danjou.info",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1457601172,
+    "expire_in": 157680000,
+    "prev": "2a3754541b01f3b4514572ad00c71dfd886695394baa151df19b5d3f632b5e13",
+    "seqno": 10,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtkmtMVEcYhpebiQuCgiWoNDRHqYKn23O/LCRciiGFNrSRNqQtrDPnzO4epHtn
+RXBNS90GSltUMBStISGxhYISFVPi/UIFIxcpBf+URgmtQqi4tFIDW9pzaP3Xn50/
+k3nnfZ/5vi9zcE2YTh8CNrW/UVdx4nrI7Wmoe/u+8VgVBu3yXsxYhe1GKxsqk5Hb
+Y9qtyJgRI0iCJCVEkSLHEjxBCjJieUGiOJogAQehKAmCIAsyw5oBFCCNCIKneUBz
+AjAjSQS8KFAEwHDMrNgsyOVwKTaPimVpjoQyQxAkC3mGFiieFkmNSJIQiCwhQF4A
+rESpQavdrSXU4iBwI4NiVzX1YFop7z/8/3Pd5Ss4kqcpXmJ5kRIgJJHIMzKNJMSQ
+gCYQJAjN6EYuG3gfqe5SGdhK7eWYD8dU0atISJur1sgzQ3mZgmyGf2wGxWbWmnK4
+7B67ZC9T760ej8Nt1PKevQ4tsAdB078oE1RssjpMNeFFLrdit2FGUnVKHkVjkwzL
+c2rvPIVjqMKhuJBJ0RyqKhDq0t5BXhVJgRKaZxmWISFBmmnIsFqUAjJBSDwpm2VB
+4DiRpUUGAkCyqkKKkJVpM0dTkEUkjWndOW12Fa5SPcCiQt2KxQY85S6E+fS1oYnh
+uhC9blVEqPbPdPrVa599vqRv1uoarPXV/nPM5qt9PcEDAcvOh7fx+N8jQ7bNDy9c
+2x7d6rUs5gxueHWC7V16ITphY356+bvPh/brGyKN+OSlB429YhA/mXuOdU9uiH+4
+Ojtqj25k8fU/vl8OLmzLeJFoDC96+eRcXgHVFn0K3tkRebH66UBc7dajG9dtHlpK
+Kk6xhqYURJclorzxa1mXoioOrJlrKHQcf6VjOaDXD956wt844tx1fXhgzFrYlWiY
+Cd7k3vJ9y6Co0yxoDVa2jqW15LffScg4vNPyZf2n+Uv3mtqafHWZfee/SBuv+CR3
+OHV9OnVmqK45Z3z9z07HO+dbL+xraU4dCGSPn82bOpIdW8pd+DH0/l9Kw5X5Ej49
+mTPm48l/ZkbhHz7+4IfP+wbvioaWXUd3hPfm+7uRR5pOvjXpze15bWZrxKyxL6fu
+wSMD3plZfLpwpmPEX1Yd5fJw4S/FRNcf7rr4Vdjo7L24qYlfwdPvKrGMLTUjy09+
+m52JG7LmXf440N9eYsb3B1LufjbockYGmxrGlJj4ia7nrjTdnB9xngmrSesf/SjL
+sW8m28ecYmKOdXvl/s6I/Zfntjhj/ND/U83ZWljUXps2pI+s2n7ol6+XLGxPTw3+
+qHIgy/Beamxz6cLCjcbjsUnLswWD3ZWdHWjT4uOrh9ozTW2riqYq/QkLo9O+4jcP
+LoedqAbrcr1/Aw==
+=zrKN
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jdanjou
+
+==================================================================
