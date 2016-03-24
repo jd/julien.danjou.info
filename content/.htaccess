@@ -2,6 +2,7 @@
 extends:
 ---
 RedirectMatch ^/$ /blog/
+RedirectPermanent /projects/sysrqd https://github.com/jd/sysrqd
 RedirectPermanent /software/rainbow-mode https://julien.danjou.info/projects/emacs-packages#rainbow-mode
 RedirectPermanent /software/google-weather.el https://julien.danjou.info/projects/emacs-packages#google-weather
 RedirectPermanent /software/google-maps.el https://julien.danjou.info/projects/emacs-packages#google-maps
