@@ -15,20 +15,28 @@ DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/openstack-gnocchi-paris-mee
 
 deploy: site.yaml clean $(DYNAMIC_DEPLOY)
 	hyde -x gen
+	# I wish I could generate files without the .html extension but the
+	# TaggerPlugin from Hyde can't do that yet
+	cd deploy/blog/tags && find . -name '*.html' | while read tag; do cp "$$tag" "`basename "$$tag" .html`"; done
+
+clean-pub:
+	aws s3 rm --recursive --region eu-west-1 s3://julien.danjou.info
 
 pub: deploy
 	if [ "$(BRANCH)" = "master" ]; then \
 		if ! git status | egrep -q '^nothing to commit.*working directory clean'; then echo Untracked files, not pushing && exit 1; fi; \
 		echo "==> RSYNC TO PROD"; \
-		rsync -Pavz --delete deploy/ julien.danjou.info:/var/www/julien.danjou.info/; \
+		aws s3 sync deploy --region eu-west-1 s3://julien.danjou.info --exclude 'blog/*'; \
+		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*.xml' --content-type text/html; \
+		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*' --include '*.xml' --content-type application/xml; \
 	else \
 		echo "==> RSYNC TO DEV"; \
-		rsync -Pavz --delete deploy/ julien.danjou.info:/var/www/dev.julien.danjou.info/; \
+		echo "no dev yet"; \
 	fi
 
 clean:
 	rm -rf deploy/[^media]
-	rm -rf content/blog/tags
+	rm -rf content/blog/tags deploy/blog/tags
 
 web: deploy
 	cd deploy && python -m SimpleHTTPServer
@@ -51,4 +59,4 @@ deploy/media/images/talks/thumbnails/%.png: deploy/talks/%.pdf
 pngcrush:
 	find deploy -name '*.png' -exec pngcrush -ow {} \;
 
-.PHONY: clean web pub pngcrush
+.PHONY: clean web pub pngcrush clean-pub

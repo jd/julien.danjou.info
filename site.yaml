@@ -21,13 +21,13 @@ sorter:
   name:
     attr: name
     filters:
-      source_file.kind: html
+      # source_file.kind: html
       is_processable: True
   time:
      attr: meta.created
      reverse: True
      filters:
-       source_file.kind: html
+       # source_file.kind: html
        is_processable: True
 
 tagger:
@@ -42,7 +42,6 @@ tagger:
       source: blog
       target: blog/tags
       template: tag.j2
-      extension: html
 
 urlcleaner:
   index_file_names:
