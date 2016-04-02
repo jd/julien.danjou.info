@@ -2,6 +2,7 @@
 extends:
 ---
 RedirectMatch ^/$ /blog/
+RedirectPermanent /media/the-hacker-guide-to-python-sample.pdf https://thehackerguidetopython.com/the-hacker-guide-to-python-sample.pdf
 RedirectPermanent /books/the-hacker-guide-to-python https://thehackerguidetopython.com
 RedirectPermanent /projects/sysrqd https://github.com/jd/sysrqd
 RedirectPermanent /software/rainbow-mode https://julien.danjou.info/projects/emacs-packages#rainbow-mode
