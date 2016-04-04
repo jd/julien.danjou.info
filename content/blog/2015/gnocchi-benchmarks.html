@@ -86,9 +86,9 @@ as it would add some delay validating the authentication token.
 
 ## Metric CRUD operations
 
-Metric creation is pretty fast. I managed to attain 1500 metric/s created
+Metric creation is pretty fast. I managed to attain 1300 metric/s created
 pretty easily. Deletion is now asynchronous, which means it's faster than in
-Gnocchi 1.2, but it's still slower than creation: 300 metric/s can be deleted.
+Gnocchi 1.2, but it's still slower than creation: 500 metric/s can be deleted.
 That does not sound like a huge issue since metric deletion is actually barely
 used in production.
 
@@ -110,23 +110,23 @@ depends on the number of the metric already managed by Gnocchi.
   </tr>
   </thead>
   <tbody>
- <tr>
-  <th>Create metric</th>
-  <td>Created 100k metrics in 77 seconds</td>
-  <td>1300 metric/s</td>
- </tr>
+    <tr>
+     <th>Create metric</th>
+     <td>Created 100k metrics in 77 seconds</td>
+     <td>1300 metric/s</td>
+    </tr>
 
- <tr>
-  <th>Delete metric</th>
-  <td>Deleted 100k metrics in 190 seconds</td>
-  <td>524 metric/s</td>
- </tr>
+    <tr>
+     <th>Show metric</th>
+     <td>Show a metric 100k times in 149 seconds</td>
+     <td>670 metric/s</td>
+    </tr>
 
- <tr>
-  <th>Show metric</th>
-  <td>Show a metric 100k times in 149 seconds</td>
-  <td>670 metric/s</td>
-  </tr>
+    <tr>
+     <th>Delete metric</th>
+     <td>Deleted 100k metrics in 190 seconds</td>
+     <td>524 metric/s</td>
+    </tr>
   </tbody>
 </table>
 
