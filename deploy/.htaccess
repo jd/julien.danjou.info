@@ -1,6 +1,3 @@
----
-extends:
----
 RedirectMatch ^/$ /blog/
 RedirectPermanent /media/the-hacker-guide-to-python-sample.pdf https://thehackerguidetopython.com/the-hacker-guide-to-python-sample.pdf
 RedirectPermanent /books/the-hacker-guide-to-python https://thehackerguidetopython.com

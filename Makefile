@@ -1,19 +1,19 @@
 BRANCH=$(shell git branch | grep '^*' | cut -d' ' -f2)
 
-DYNAMIC_CONTENT=content/media/images/blog/2012/openstack-swift-storage.png
-DYNAMIC_CONTENT+=content/media/images/blog/2012/openstack-swift-replication.png
-DYNAMIC_CONTENT+=content/media/images/talks/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.png
-DYNAMIC_CONTENT+=content/media/images/talks/ceilometer-to-telemetry.png
-DYNAMIC_CONTENT+=content/media/images/talks/ceilometer-gnocchi.png
-DYNAMIC_CONTENT+=content/media/images/talks/OpenStack-and-Debian.png
-DYNAMIC_CONTENT+=content/media/images/talks/How_awesome_ended_with_Lua_and_not_Guile.png
-DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-OpenStack-France-meetup-\#2.png
-DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-XLCloud.png
-DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-ODS-Havana.png
-DYNAMIC_CONTENT+=content/media/images/talks/Ceilometer-presentation-FOSDEM-2013.png
-DYNAMIC_CONTENT+=content/media/images/talks/openstack-gnocchi-paris-meetup.png
+DYNAMIC_DEPLOY=deploy/media/images/blog/2012/openstack-swift-storage.png
+DYNAMIC_DEPLOY+=deploy/media/images/blog/2012/openstack-swift-replication.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/ceilometer-to-telemetry.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/ceilometer-gnocchi.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/OpenStack-and-Debian.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/How_awesome_ended_with_Lua_and_not_Guile.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-OpenStack-France-meetup-\#2.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-XLCloud.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-ODS-Havana.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-FOSDEM-2013.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/openstack-gnocchi-paris-meetup.png
 
-deploy: site.yaml clean $(DYNAMIC_CONTENT)
+deploy: site.yaml clean $(DYNAMIC_DEPLOY)
 	hyde -x gen
 
 pub: deploy
@@ -27,7 +27,7 @@ pub: deploy
 	fi
 
 clean:
-	rm -rf deploy
+	rm -rf deploy/[^media]
 	rm -rf content/blog/tags
 
 web: deploy
@@ -36,18 +36,19 @@ web: deploy
 	# regenerating the web site for fucking ever
 	# hyde serve -p 8080
 
-content/media/images/blog/2012/openstack-swift-storage.png: content/blog/2012/openstack-swift-storage.ditaa
+deploy/media/images/blog/2012/openstack-swift-storage.png: content/blog/2012/openstack-swift-storage.ditaa
 	ditaa --overwrite $< $@
 
-content/media/images/blog/2012/openstack-swift-replication.png: content/blog/2012/openstack-swift-replication.ditaa
+deploy/media/images/blog/2012/openstack-swift-replication.png: content/blog/2012/openstack-swift-replication.ditaa
 	ditaa --overwrite $< $@
 
 
-content/media/images/talks/%.png: content/talks/%.pdf
+deploy/media/images/talks/thumbnails/%.png: deploy/talks/%.pdf
+	mkdir -p deploy/media/images/talks/thumbnails
 	convert $<[0] $@
 	pngcrush -ow $@
 
 pngcrush:
-	find content -name '*.png' -exec pngcrush -ow {} \;
+	find deploy -name '*.png' -exec pngcrush -ow {} \;
 
 .PHONY: clean web pub pngcrush
