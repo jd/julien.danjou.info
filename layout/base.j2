@@ -86,7 +86,11 @@
             {% for menu_item in site.content.child_nodes|sort(attribute='name') %}
             {% if menu_item.name != "media" %}
             <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
+              {% if menu_item.meta.url %}
+              <a href="{{ menu_item.meta.url }}">
+              {% else %}
               <a href="{{ menu_item.full_url }}">
+              {% endif %}
                 {% if menu_item.meta.icon %}
                 <span class="glyphicon glyphicon-{{menu_item.meta.icon}}"></span>
                 {% endif %}

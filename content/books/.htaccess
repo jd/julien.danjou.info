@@ -1,5 +1,0 @@
----
-extends:
----
-RedirectMatch ^/books$ /books/the-hacker-guide-to-python
-RedirectMatch ^/books/$ /books/the-hacker-guide-to-python
