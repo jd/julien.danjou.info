@@ -1,1 +1,1 @@
-https://github.com/hyde/hyde/archive/master.tar.gz#egg=hyde
+hyde>=0.8.9
