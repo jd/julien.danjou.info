@@ -14,7 +14,7 @@ DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-FOS
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/openstack-gnocchi-paris-meetup.png
 
 deploy: site.yaml $(DYNAMIC_DEPLOY)
-	hyde -x gen
+	hyde -x gen -r
 	# I wish I could generate files without the .html extension but the
 	# TaggerPlugin from Hyde can't do that yet
 	cd deploy/blog/tags && find . -name '*.html' | while read tag; do cp "$$tag" "`basename "$$tag" .html`"; done
