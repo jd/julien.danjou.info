@@ -11,8 +11,7 @@ tags:
 {% mark excerpt %}
 
 Apache 2.4 being out, I noticed that my good old
-[mod_defensible](http://julien.danjou.info/software/mod_defensible) did not
-compile anymore.
+[mod_defensible](http://github.com/jd/mod_defensible) did not compile anymore.
 
 {% endmark %}
 {% endblock %}
@@ -26,8 +25,6 @@ Honestly, I'm not sure that this module is really used into the wild, but I
 still think that it can serve as a good prototype for doing other things so
 I like keeping it around. :-)
 
-All this has been triggered by the Apache 2.4 arrival into Debian
-experimental. Therefore [I've updated the mod_defensible package to use the
-new
-dh_apache2](http://git.naquadah.org/?p=mod_defensible.git;a=shortlog;h=refs/heads/debian/unstable),
+All this has been triggered by the Apache 2.4 arrival into Debian experimental.
+Therefore [I've updated the mod_defensible package to use the new dh_apache2,
 and imported it into Git at the same time.

@@ -29,7 +29,7 @@ rendered for this !@#$ spammers.
 
 Consequently, I decided to write a Apache 2.x module which will just drop a
 *403 Forbidden* error page in the spammers' head using DNSBL servers. Here it
-is, and it is called [mod_defensible]({{site.url}}/software/mod_defensible).
+is, and it is called [mod_defensible](https://github.com/jd/mod_defensible).
 
 I'm using it since 3 days now, and I got some pretty interesting result and
 less load on my Web server, so *c'est tout bon*.
