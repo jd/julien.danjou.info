@@ -8,7 +8,7 @@ tags:
 {% mark excerpt %}
 
 This has been 4 years since I released a new upstream release of
-[VARMon](http://julien.danjou.info/software/varmon), the DAC960
+[VARMon](http://github.com/jd/varmon), the DAC960
 administration tool.
 
 {% endmark %}
