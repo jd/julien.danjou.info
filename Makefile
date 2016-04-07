@@ -39,7 +39,7 @@ clean:
 	git clean -xdf deploy content
 
 web: deploy
-	cd deploy && python -m SimpleHTTPServer
+	cd deploy && PYTHONPATH=.. python -m HTTPServer
 	# Really I wish I could use that but it's way too buggy. It keeps
 	# regenerating the web site for fucking ever
 	# hyde serve -p 8080
