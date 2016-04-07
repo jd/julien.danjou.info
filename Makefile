@@ -13,7 +13,7 @@ DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-ODS
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-FOSDEM-2013.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/openstack-gnocchi-paris-meetup.png
 
-deploy: site.yaml clean $(DYNAMIC_DEPLOY)
+deploy: site.yaml $(DYNAMIC_DEPLOY)
 	hyde -x gen
 	# I wish I could generate files without the .html extension but the
 	# TaggerPlugin from Hyde can't do that yet
@@ -59,4 +59,4 @@ deploy/media/images/talks/thumbnails/%.png: deploy/talks/%.pdf
 pngcrush:
 	find deploy -name '*.png' -exec pngcrush -ow {} \;
 
-.PHONY: clean web pub pngcrush clean-pub
+.PHONY: clean web pub pngcrush clean-pub deploy
