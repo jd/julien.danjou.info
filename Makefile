@@ -26,7 +26,8 @@ pub: deploy
 	if [ "$(BRANCH)" = "master" ]; then \
 		if ! git status | egrep -q '^nothing to commit.*working directory clean'; then echo Untracked files, not pushing && exit 1; fi; \
 		echo "==> RSYNC TO PROD"; \
-		aws s3 sync deploy --region eu-west-1 s3://julien.danjou.info --exclude 'blog/*'; \
+		aws s3 sync deploy --region eu-west-1 s3://julien.danjou.info --exclude 'blog/*' --exclude 'projects/*'; \
+		aws s3 sync deploy/projects --region eu-west-1 s3://julien.danjou.info/projects --content-type text/html; \
 		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*.xml' --content-type text/html; \
 		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*' --include '*.xml' --content-type application/xml; \
 	else \
@@ -35,8 +36,7 @@ pub: deploy
 	fi
 
 clean:
-	rm -rf deploy/[^media]
-	rm -rf content/blog/tags deploy/blog/tags
+	git clean -xdf deploy content
 
 web: deploy
 	cd deploy && python -m SimpleHTTPServer
