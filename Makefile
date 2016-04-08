@@ -28,8 +28,10 @@ pub: deploy
 		echo "==> RSYNC TO PROD"; \
 		aws s3 sync deploy --region eu-west-1 s3://julien.danjou.info --exclude 'blog/*' --exclude 'projects/*'; \
 		aws s3 sync deploy/projects --region eu-west-1 s3://julien.danjou.info/projects --content-type text/html; \
+		aws s3 sync deploy/blog/tags --region eu-west-1 s3://julien.danjou.info/blog --exclude '*.xml' --content-type text/html --cache-control max-age=3600; \
 		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*.xml' --content-type text/html; \
-		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*' --include '*.xml' --content-type application/xml; \
+		aws s3 cp deploy/blog/index.html --region eu-west-1 s3://julien.danjou.info/blog/index.html --cache-control max-age=3600; \
+		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*' --include '*.xml' --cache-control max-age=3600; \
 	else \
 		echo "==> RSYNC TO DEV"; \
 		echo "no dev yet"; \
