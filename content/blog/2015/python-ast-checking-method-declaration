@@ -1,7 +1,7 @@
 ---
 title: "Hacking Python AST: checking methods declaration"
 created: !!timestamp '2015-02-16 11:39:00'
-image: /blog/2015/ancestral-home.jpg
+image: /media/images/blog/2015/ancestral-home.jpg
 tags:
     - Python
     - OpenStack
