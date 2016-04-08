@@ -44,10 +44,10 @@ web: deploy
 	# regenerating the web site for fucking ever
 	# hyde serve -p 8080
 
-deploy/media/images/blog/2012/openstack-swift-storage.png: content/blog/2012/openstack-swift-storage.ditaa
+deploy/media/images/blog/2012/openstack-swift-storage.png: deploy/blog/2012/openstack-swift-storage.ditaa
 	ditaa --overwrite $< $@
 
-deploy/media/images/blog/2012/openstack-swift-replication.png: content/blog/2012/openstack-swift-replication.ditaa
+deploy/media/images/blog/2012/openstack-swift-replication.png: deploy/blog/2012/openstack-swift-replication.ditaa
 	ditaa --overwrite $< $@
 
 
