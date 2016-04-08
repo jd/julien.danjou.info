@@ -183,3 +183,21 @@ h2,
 .jumbotron {
     height: auto;
 }
+
+/* Hack for Google Custom Search Engine not showing icon */
+input.gsc-search-button {
+    width: auto !important;
+    height: auto !important;
+    vertical-align: middle;
+}
+
+/* Hack so the search box looks at the right place */
+div.gsc-control-cse {
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+/* Display result title are overflowing */
+.gsc-thumbnail-inside div.gs-title {
+    height: inherit;
+}
