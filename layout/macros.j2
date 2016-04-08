@@ -1,5 +1,5 @@
 {% macro render_xml_blog_listing(walker) %}
-  {% for res in walker() %}
+  {% for res in walker()|top(10) %}
   <entry>
     <title type="html">{{ res.meta.title|forceescape }}</title>
     <author><name>{{ res.meta.author }}</name></author>
