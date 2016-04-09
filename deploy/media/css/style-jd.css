@@ -201,3 +201,8 @@ div.gsc-control-cse {
 .gsc-thumbnail-inside div.gs-title {
     height: inherit;
 }
+
+/* Disqus do not need that padding */
+#disqus_thread {
+    padding: 0;
+}

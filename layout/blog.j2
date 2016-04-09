@@ -55,25 +55,9 @@
 
     {% for tag in resource.meta.tags if tag == "Python" %}
     <script src="https://app.convertkit.com/landing_pages/40155.js"></script>
+    {% else %}
+    <script src="https://app.convertkit.com/landing_pages/40222.js"></script>
     {% endfor %}
-  </div>
-
-  <div id="subscribe" class="newsletter bg-sl-center overlay overlay-light"
-       style="background-image: url('/media/images/photo-notepad.jpg');">
-    <div class="container inforow middle">
-      <div class="col-sm-6">
-	<p>Get notified of my next blog post</p>
-      </div>
-      <div class="col-sm-6">
-	<div id="feedback-form">
-	  <form action="//danjou.us7.list-manage.com/subscribe/post?u=53ceb9eb499d62f6ee37c8167&amp;id=d80a8d25c4" method="post">
-	    <input name="EMAIL" placeholder="Enter your email address" required type="email">
-	    <button type="submit" class="btn btn-default">Subscribe</button>
-	  </form>
-	  <div class="success-block"></div>
-	</div>
-      </div>
-    </div>
   </div>
 
   <div class="container" id="disqus_thread"></div>
