@@ -14,3 +14,7 @@ stork.cfg
 resources/
 deploy/media/js/custom.min.js
 deploy/media/js/plugins.min.js
+deploy/media/css/animate.min.css
+deploy/media/css/pygments.min.css
+deploy/media/css/style-jd.min.css
+deploy/media/css/style.min.css

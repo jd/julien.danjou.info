@@ -14,6 +14,10 @@ DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-FOS
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/openstack-gnocchi-paris-meetup.png
 DYNAMIC_DEPLOY+=deploy/media/js/custom.min.js
 DYNAMIC_DEPLOY+=deploy/media/js/plugins.min.js
+DYNAMIC_DEPLOY+=deploy/media/css/animate.min.css
+DYNAMIC_DEPLOY+=deploy/media/css/style.min.css
+DYNAMIC_DEPLOY+=deploy/media/css/style-jd.min.css
+DYNAMIC_DEPLOY+=deploy/media/css/pygments.min.css
 
 deploy: site.yaml $(DYNAMIC_DEPLOY)
 	hyde -x gen -r
@@ -62,6 +66,9 @@ deploy/media/images/talks/thumbnails/%.png: deploy/talks/%.pdf
 
 deploy/media/js/%.min.js: deploy/media/js/%.js
 	uglifyjs $< > $@
+
+deploy/media/css/%.min.css: deploy/media/css/%.css
+	uglifycss $< > $@
 
 pngcrush:
 	find deploy -name '*.png' -exec pngcrush -ow {} \;
