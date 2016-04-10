@@ -48,10 +48,6 @@ body {
     max-height: 75px;
 }
 
-.font-montserrat {
-	font-family: "MontSerrat", sans-serif;
-}
-
 /* Clear float before code sections */
 .highlight {
     clear: both;
