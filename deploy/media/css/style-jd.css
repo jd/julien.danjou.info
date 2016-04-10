@@ -53,21 +53,6 @@ body {
     clear: both;
 }
 
-#thgtp-form {
-    clear: both;
-}
-
-.bg-sl-thgtp-section {
-    background-size: cover;
-    box-shadow: inset 0px 0px 30px 20px rgba(0,0,0,.6);
-    background-position: center;
-}
-
-.thgtp-section {
-  background-color: #f5f5f5;
-  box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,.1);
-}
-
 img.img-icon {
     max-width: 128px;
 }
