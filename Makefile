@@ -38,6 +38,7 @@ pub: deploy
 		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*.xml' --content-type text/html; \
 		aws s3 cp deploy/blog/index.html --region eu-west-1 s3://julien.danjou.info/blog/index.html --cache-control max-age=3600; \
 		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*' --include '*.xml' --cache-control max-age=3600; \
+		aws cloudfront create-invalidation --distribution-id E3VAGUK2EGPNCJ --paths /blog/index.html /blog/index.xml; \
 	else \
 		echo "==> RSYNC TO DEV"; \
 		echo "no dev yet"; \
