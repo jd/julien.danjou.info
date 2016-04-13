@@ -1,0 +1,76 @@
+---
+title: "Gnocchi 2.1 release"
+created: !!timestamp '2016-04-13 15:58:00'
+image: /media/images/blog/2016/paints.jpg
+tags:
+    - Gnocchi
+    - OpenStack
+---
+
+<figure class="pull-right illustration" style="width: 30%;">
+  <img src="/media/images/gnocchi-logo.jpg">
+</figure>
+
+{% block excerpt %}
+{% mark excerpt %}
+
+A little less than 2 months after our latest major release, here is the new
+minor version of Gnocchi, stamped
+[2.1.0](https://launchpad.net/gnocchi/2.1/2.1.0). It was a smooth release, but
+with one major feature implemented by my fellow fantastic developer Mehdi
+Abaakouk: the ability to create resource types dynamically.
+
+{% endmark %}
+{% endblock %}
+
+## Resource types REST API
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2016/icon-batch.png">
+</div>
+
+This new version of Gnocchi offers the long-awaited ability to create resource
+types dynamically. What does that mean? Well, until version 2.0, the resources
+that you were able to create in Gnocchi had a particular type that was defined
+in the code: instance, volume, SNMP host, Swift account, etc. All of them were
+tied to OpenStack, since it was our primary use case.
+
+Now,
+[the API allows to create resource types dynamically](http://gnocchi.xyz/rest.html#resource-types).
+This means you can create your own custom types to describe your own
+architecture. You then can exploit the same features that were offered before:
+history of your resources, searching through them, associating metrics, etc!
+
+## Performances improvement
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2016/icon-increase.png">
+</div>
+
+We did some profiling on Gnocchi, and some benchmarks, and with the help of my
+fellow developer Gordon Chung, improved the metric performances.
+
+The API speed improved a bit, and I've measured the Gnocchi API endpoint of
+being able to ingest up to 190k measures/s with only one node (the same as used
+in my
+[previous benchmark](https://julien.danjou.info/blog/2015/gnocchi-benchmarks))
+using [uwsgi](https://uwsgi-docs.readthedocs.org/), so a 50 % improvement. The
+time required to compute aggregation on new measures is now also metered and
+displayed in the `gnocchi-metricd` log in debug mode. Handy to have an idea of
+how fast your measures are treated.
+
+## Ceph backend optimization
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2016/icon-database.png">
+</div>
+
+The Ceph back-end has been improved again by Mehdi. We're now relying on OMAP
+rather than xattr for finer grained control and better performance.
+
+We already have a few new features being prepared for our next release, so stay
+tuned! And if you have any suggestion, feel free to say a word.
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
