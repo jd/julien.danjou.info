@@ -3,6 +3,9 @@ simple_copy:
   - media/*
 media_root: media # Relative path from content folder.
 media_url: /media # URL where the media files are served from.
+server:
+  extensions:
+    default: text/html
 
 plugins:
   - hyde.ext.plugins.meta.MetaPlugin

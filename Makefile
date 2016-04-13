@@ -47,10 +47,7 @@ clean:
 	git clean -xdf deploy content
 
 web: deploy
-	cd deploy && PYTHONPATH=.. python -m HTTPServer
-	# Really I wish I could use that but it's way too buggy. It keeps
-	# regenerating the web site for fucking ever
-	# hyde serve -p 8080
+	hyde -x serve -p 8080
 
 deploy/media/images/blog/2012/openstack-swift-storage.png: deploy/blog/2012/openstack-swift-storage.ditaa
 	ditaa --overwrite $< $@
