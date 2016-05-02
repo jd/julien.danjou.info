@@ -1,0 +1,178 @@
+---
+title: "OpenStack Summit Newton from a Telemetry point of view"
+created: !!timestamp '2016-05-02 15:00:00'
+image: /media/images/blog/2016/Austin_Evening.jpg
+tags:
+    - OpenStack
+    - Ceilometer
+    - Gnocchi
+    - Aodh
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+It's again that time of the year, where we all fly out to a different country
+to chat about OpenStack and what we'll do during the next 6 months. This time,
+it was in [Austin, TX](https://en.wikipedia.org/wiki/Austin,_Texas) and we
+chatted about the new Newton release that will be out in October.
+
+{% endmark %}
+{% endblock %}
+
+As the _Project Team Leader_ for the Telemetry project, I set up and animated
+the week for our team. We had 9 discussion slots of 40 minutes assigned, but
+finally only used 8. We also, somehow, canceled the contributor team meet-up on
+the last day, as only a few of us developers were there and available.
+
+We took
+[a few notes in our Etherpads](https://wiki.openstack.org/wiki/Design_Summit/Newton/Etherpads#Telemetry),
+but I think most of them were pretty sparse, as there was nothing really
+important we talked about. Actually, many topics were already discussed and
+covered 6 months ago in Tokyo during the previous summit. We just did not have
+time to implement everything we wanted, so talking over it again would not have
+been of a great help.
+
+## Reference architecture
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2014/testtube_icon.png">
+</div>
+
+Unfortunately, nor Gordon Chung nor the
+[OpenStack Innovation Center](https://osic.org/) had time to run the tests and
+benchmarks they wanted to run before the summit. We still discussed their plan
+to run tests and benchmark of the whole Telemetry suite (Ceilometer, Gnocchi &
+Aodh). They should run their tests for 3 weeks, no more, in a few weeks. The
+window to run tests being narrow, they want to be sure they are prepared, and
+will reach to us for help, ideas, and validation.
+
+I've also requested them to, if possible, provide us some profiling (e.g.
+cProfile) data so we can have better knowledge of the area we can optimize.
+
+## Gnocchi, next steps
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/gnocchi-logo.jpg">
+</div>
+
+This session was particularly smooth since most people in the room were not
+up-to-date with Gnocchi 2.1. Some people expressed concerned about the InfluxDB
+driver removal, though they were not aware of the bugs it had, and that Gnocchi
+was actually performing better – so they may very likely be testing Gnocchi
+directly instead.
+
+No particular fancy feature was requested, only a few bugs and ideas noted on
+Launchpad were discussed.
+
+## Enhancing Ceilometer polling
+
+This session was not particularly productive, as everything was we wanted to
+discuss was already on the Etherpad from… Tokyo, 6 months ago. It turns out
+nobody had time to pursue this project, so we'll see what happens. There's
+definitely some work to do to pursue our goal of splitting the pipeline
+definition into smaller files.
+
+## Aodh roadmap & improvements
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/bell-icon.png">
+</div>
+
+First, we decided to definitely kill the combination alarm in the future, in
+favor of the new composite alarms definition that we like better.
+
+We should switch to
+[OpenStackClient](http://docs.openstack.org/developer/python-openstackclient/)
+in the future for
+[aodhclient](http://docs.openstack.org/developer/python-aodhclient/). The OSC
+team indicated they are willing to provide a way to keep the "aodh" CLI command
+on its own, which is something that blocked us to move to OSC.
+
+A bunch of people indicated that had support for alarms CRUD in the Horizon
+dashboard. They should work together with the Horizon team to complete what has
+been started in Horizon recently to add Aodh support.
+
+## Ceilometer splitting
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2015/fork_icon.png">
+</div>
+
+A year ago, we decided to split Ceilometer and its alarm feature: Aodh was
+born. We did discuss doing it again 6 months ago, but nothing happened as we
+already had so many stuff on our plate.
+
+As far as I'm concerned, I think it's now time to split some Ceilometer
+functionality again, so I'm going to do that this time with the event part.
+Gordon found a name, and this new project will be named *Panko*.
+
+## Documentation
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/blog/2016/icon-documentation.png">
+</div>
+
+We have then discussed our documentation. Users present in the room were
+particularly happy with the Gnocchi policy that we apply since the beginning:
+no doc = no merge of your patch. The consensus is to move forward on this
+policy for all Telemetry projects, especially since it's now clear that the
+documentation team is not going to help us more. Ildikó, our documentation
+wizard, will take care of making some links between the official OpenStack
+documentation and our projects, avoid content duplication.
+
+For this cycle, my personal plan is to document Aodh up to roughly 80 %, and
+then force that policy on newly implemented changes.
+
+## Events management
+
+The event management part of Ceilometer and API (soon to be split in its own
+project as stated above) was discussed in this session. Nothing really exciting
+coming here, as nobody is willing to enhance it for now. Which, again, makes it
+a great candidate for splitting it out of Ceilometer.
+
+## Vitrage
+
+<div class="illustration pull-right icon">
+  <img src="/media/images/vitrage-logo.png">
+</div>
+
+The last session was dedicated to
+[Vitrage](https://wiki.openstack.org/wiki/Vitrage), a root cause analysis tool
+built on OpenStack. The Vitrage team had a few features that they wanted to see
+in Aodh, so we discussed that at length. Notably, more support for sending
+notifications on events (alarm creation, deletion…) should be added in this
+next release.
+
+Also, a new alarm type that would be entirely managed and triggered over HTTP
+would be very useful for external projects such as Vitrage. We'll try to make
+that happen during this cycle too.
+
+## Talks
+
+There were a few interesting talks about our telemetry projects during this
+summit, among other I highly recommend watching:
+
+* [OpenStack Ceilometer with Gnocchi and Aodh Feature](https://www.youtube.com/watch?v=W5KT5GJKJw8),
+  where Amol and Paul from Ericsson explain what Gnocchi and Aodh do and how
+  they work, and then help people deploy it on their lab.
+* [DPDK, Collectd & Ceilometer The Missing Link](https://www.youtube.com/watch?v=BdebhsBFEJs),
+  where Ryota Mibu, one of the contributor to Aodh explains why he implemented
+  the event alarm feature
+* [Showback & Chargeback!! OpenStack Gnocchi + Cloudkitty as a Whole Billing System](https://www.youtube.com/watch?v=-K8NI38LPtU),
+  where Maximiliano Venesio (Nubeliu) and Stéphane Albert (Objectif Libre) talk
+  about how they built an amazing scalable billing solution using
+  [Gnocchi](http://gnocchi.xyz) and
+  [CloudKitty](https://wiki.openstack.org/wiki/CloudKitty)
+* [Using Ceilometer Data for Effective Witch-Hunting](https://www.youtube.com/watch?v=0Q8pfbwxMb8),
+  where Mike explain how Overstock.com leveraged Ceilometer to track anomalies
+  in their cloud.
+
+All of this should keep myself and the team busy for the next cycle. If you
+have any question about what has been discussed or the future of our projects,
+don't hesitate to leave a comment or ask us on the
+[OpenStack development mailing list](http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-dev).
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
