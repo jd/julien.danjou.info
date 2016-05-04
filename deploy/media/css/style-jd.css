@@ -2,6 +2,11 @@ body {
     font-family: "Open Sans", sans-serif;
 }
 
+small {
+    font-size: 80%;
+    line-height: 1.5;
+}
+
 /* My face near the brand in the navbar */
 .navbar-brand > img {
     max-width: 60px;
