@@ -85,6 +85,10 @@ img.img-icon-xs {
     margin-right: 50px;
 }
 
+.overlay-mid-dark.overlay:before {
+	opacity: .6;
+}
+
 /* Override some from default style that are… weird */
 ul > li:before,
 ol > li:before {
