@@ -400,21 +400,6 @@ h6,
 	margin: 0 0 15px;
 }
 
-sup {
-	font-size: 14px;
-	line-height: 26px;
-	padding: 2px 10px 0;
-	position: relative;
-	top: -12px;
-	margin-left: 8px;
-	vertical-align: top;
-	display: inline-block;
-	border: 2px solid #E6E6E6;
-	border-radius: 4px;
-	color: #808080;
-	transition: all .3s ease;
-}
-
 p {
 	margin-bottom: 25px;
 	color: #808080;
