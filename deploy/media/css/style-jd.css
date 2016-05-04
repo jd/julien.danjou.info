@@ -90,6 +90,11 @@ img.img-icon-xs {
 }
 
 /* Override some from default style that are… weird */
+.headcontent.headcontent-md {
+    /* Reduce from the default */
+    padding: 80px;
+}
+
 ul > li:before,
 ol > li:before {
     content: none;
