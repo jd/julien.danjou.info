@@ -168,9 +168,9 @@ summit, among other I highly recommend watching:
   where Mike explain how Overstock.com leveraged Ceilometer to track anomalies
   in their cloud.
 
-All of this should keep myself and the team busy for the next cycle. If you
-have any question about what has been discussed or the future of our projects,
-don't hesitate to leave a comment or ask us on the
+All of this should keep me and the team busy for the next cycle. If you have
+any question about what has been discussed or the future of our projects, don't
+hesitate to leave a comment or ask us on the
 [OpenStack development mailing list](http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-dev).
 
 {# Local Variables: #}
