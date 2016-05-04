@@ -62,11 +62,6 @@ img.img-icon-xs {
     vertical-align: middle;
 }
 
-.shadow-box {
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.15);
-}
-
 .margin-top {
     margin-top: 50px;
 }
