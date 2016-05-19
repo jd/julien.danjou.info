@@ -12,6 +12,7 @@ DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-XLC
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-ODS-Havana.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Ceilometer-presentation-FOSDEM-2013.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/openstack-gnocchi-paris-meetup.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/gnocchi-paris-meetup-monitoring.png
 DYNAMIC_DEPLOY+=deploy/media/js/custom.min.js
 DYNAMIC_DEPLOY+=deploy/media/js/plugins.min.js
 DYNAMIC_DEPLOY+=deploy/media/css/animate.min.css
