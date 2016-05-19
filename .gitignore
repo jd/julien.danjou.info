@@ -1,7 +1,7 @@
 .hyde_deps
 content/blog/tags
 deploy/sitemap.xml
-deploy/talks/
+deploy/talks/index.html
 deploy/about/
 deploy/projects/
 deploy/books/
