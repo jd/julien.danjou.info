@@ -1,0 +1,57 @@
+---
+title: "Gnocchi talk at the Paris Monitoring Meetup #6"
+created: !!timestamp '2016-05-27 13:54:00'
+image: /media/images/blog/2016/jd-gnocchi-paris-monitoring-meetup-6-far.jpg
+tags:
+    - Meetup
+    - Monitoring
+    - Gnocchi
+---
+
+<img src="/media/images/paris-monitoring.png"
+    class="illustration pull-right"
+    style="max-width: 20%;">
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Last week was the sixth edition of the
+[Paris Monitoring Meetup](http://www.meetup.com/Paris-Monitoring/events/230515751/),
+where I was invited as a speaker to present and talk about
+[Gnocchi](http://gnocchi.xyz).
+
+There was around 50 persons in the room, listening to my presentation of
+Gnocchi.
+
+<figure class="illustration img-thumbnail"  style="width: 50%;">
+  <img src="/media/images/blog/2016/jd-gnocchi-paris-monitoring-meetup-6.jpg">
+</figure>
+
+The talk went fine and I had a few interesting questions and feedback. One
+interesting point that keeps coming when talking about Gnocchi, is its
+OpenStack label, which scares away a lot of people. We definitely need to
+continue explaining that the project work stand-alone has a no dependency on
+OpenStack, just a great integration with it.
+
+The
+[slides are available online](https://julien.danjou.info/talks/gnocchi-paris-meetup-monitoring.pdf)
+for those who are interested and may have not been present that day!
+
+The [Monitoring-fr](http://www.monitoring-fr.org/) organization also
+[interviewed me](http://www.monitoring-fr.org/2016/05/meetup-paris-monitoring-6-interview-de-julien-danjou-pour-gnocchi-metric-as-a-service/)
+after the meetup about Gnocchi. The interview is in French, obviously. I talk
+about Gnocchi, what it does, how it does it and why we started the project a
+couple of years ago. Enjoy, and let me know what you think!
+
+<audio controls="controls">
+<source src="http://cedrictemple.net/Monitoring-fr/meetup_paris_monitoring_20160518/MeetupParisMonitoring_6_20160518__Interview_de_Julien%20Danjou__Gnocchi_Metric_as_a_service.ogg" type="audio/ogg">
+<source
+src=http://cedrictemple.net/Monitoring-fr/meetup_paris_monitoring_20160518/MeetupParisMonitoring_6_20160518__Interview_de_Julien%20Danjou__Gnocchi_Metric_as_a_service.mp3" type="audio/mpeg">
+</audio>
+
+{% endmark %}
+{% endblock %}
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
