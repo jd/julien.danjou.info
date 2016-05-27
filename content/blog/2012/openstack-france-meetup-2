@@ -5,6 +5,7 @@ image: /media/images/openstack-france.png
 tags:
     - OpenStack
     - Ceilometer
+    - Meetup
 ---
 
 {% block excerpt %}
