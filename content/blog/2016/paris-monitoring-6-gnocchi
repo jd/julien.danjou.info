@@ -20,6 +20,9 @@ Last week was the sixth edition of the
 where I was invited as a speaker to present and talk about
 [Gnocchi](http://gnocchi.xyz).
 
+{% endmark %}
+{% endblock %}
+
 There was around 50 persons in the room, listening to my presentation of
 Gnocchi.
 
@@ -48,9 +51,6 @@ couple of years ago. Enjoy, and let me know what you think!
 <source
 src=http://cedrictemple.net/Monitoring-fr/meetup_paris_monitoring_20160518/MeetupParisMonitoring_6_20160518__Interview_de_Julien%20Danjou__Gnocchi_Metric_as_a_service.mp3" type="audio/mpeg">
 </audio>
-
-{% endmark %}
-{% endblock %}
 
 {# Local Variables: #}
 {# mode: markdown #}
