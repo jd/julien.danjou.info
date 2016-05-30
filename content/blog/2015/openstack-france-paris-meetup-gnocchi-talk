@@ -6,6 +6,7 @@ tags:
     - OpenStack
     - Ceilometer
     - Gnocchi
+    - Meetup
 ---
 
 {% block excerpt %}
