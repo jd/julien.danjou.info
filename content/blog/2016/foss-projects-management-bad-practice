@@ -98,8 +98,8 @@ I fixed typos in the documentation.
 I contributed to [Org-mode](http://orgmode.org) for a few years.
 [My first patch to orgmode](http://repo.or.cz/org-mode.git/commit/a153f5a31dffbc6b78a8c5d8d027961abe585a38)
 was about fixing a docstring. Then, I sent 56 patches, fixing bugs and adding
-fancy features and also wrote a few external modules. To this day, I'm still
-#16 in the top-committer list of Org-mode who contains 390 contributors. So not
+fancy features and also wrote a few external modules. To this day, I'm still #16
+in the top-committer list of Org-mode who contains 390 contributors. So not
 that would call a small contributor. I am sure the community is glad they did
 not despise my documentation fix.
 
