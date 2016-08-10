@@ -2,6 +2,8 @@ BRANCH=$(shell git branch | grep '^*' | cut -d' ' -f2)
 
 DYNAMIC_DEPLOY=deploy/media/images/blog/2012/openstack-swift-storage.png
 DYNAMIC_DEPLOY+=deploy/media/images/blog/2012/openstack-swift-replication.png
+DYNAMIC_DEPLOY+=deploy/media/images/blog/2016/python2-exceptions-graph.png
+DYNAMIC_DEPLOY+=deploy/media/images/blog/2016/python3-exceptions-graph.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/ceilometer-to-telemetry.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/ceilometer-gnocchi.png
@@ -57,6 +59,13 @@ deploy/media/images/blog/2012/openstack-swift-storage.png: deploy/blog/2012/open
 deploy/media/images/blog/2012/openstack-swift-replication.png: deploy/blog/2012/openstack-swift-replication.ditaa
 	ditaa --overwrite $< $@
 
+deploy/media/images/blog/2016/python2-exceptions-graph.png: bin/generate-python-exceptions-graph.py
+	python2 bin/generate-python-exceptions-graph.py | dot -T png > $@
+	pngcrush -ow $@
+
+deploy/media/images/blog/2016/python3-exceptions-graph.png: bin/generate-python-exceptions-graph.py
+	python3 bin/generate-python-exceptions-graph.py | dot -T png > $@
+	pngcrush -ow $@
 
 deploy/media/images/talks/thumbnails/%.png: deploy/talks/%.pdf
 	mkdir -p deploy/media/images/talks/thumbnails

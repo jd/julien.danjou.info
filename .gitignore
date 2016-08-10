@@ -8,6 +8,8 @@ deploy/books/
 deploy/blog/
 deploy/media/images/blog/2012/openstack-swift-storage.png
 deploy/media/images/blog/2012/openstack-swift-replication.png
+deploy/media/images/blog/2016/python2-exceptions-graph.png
+deploy/media/images/blog/2016/python3-exceptions-graph.png
 deploy/media/images/talks/thumbnails/
 stork.cfg
 .DS_Store
