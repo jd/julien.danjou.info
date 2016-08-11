@@ -95,6 +95,10 @@ img.img-icon-xs {
     padding: 80px;
 }
 
+p {
+    margin-bottom: 20px;
+}
+
 ul > li:before,
 ol > li:before {
     content: none;
