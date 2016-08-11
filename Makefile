@@ -33,7 +33,7 @@ clean-pub:
 
 pub: deploy
 	if [ "$(BRANCH)" = "master" ]; then \
-		if ! git status | egrep -q '^nothing to commit.*working directory clean'; then echo Untracked files, not pushing && exit 1; fi; \
+		if ! git status | egrep -q '^nothing to commit.*working .+ clean'; then echo Untracked files, not pushing && exit 1; fi; \
 		echo "==> RSYNC TO PROD"; \
 		aws s3 sync deploy --region eu-west-1 s3://julien.danjou.info --exclude 'blog/*' --exclude 'projects/*'; \
 		aws s3 sync deploy/projects --region eu-west-1 s3://julien.danjou.info/projects --content-type text/html; \
