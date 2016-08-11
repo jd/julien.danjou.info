@@ -103,7 +103,7 @@ ol > li:before {
 ul li, ol li {
   list-style-type: initial;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   margin-left: 1em;
 }
 
