@@ -178,6 +178,36 @@ h2,
     height: auto;
 }
 
+/* Colors on icons! */
+#navbar .glyphicon-user {
+    color: #fca65a;
+}
+
+#navbar .glyphicon-pencil {
+    color: lightcoral;
+}
+
+#navbar .glyphicon-book {
+    color: #58bb89;
+}
+
+#navbar .glyphicon-cog {
+    color: #ffffcc;
+}
+
+#navbar .glyphicon-globe {
+    color: lightblue;
+}
+
+.navbar-nav>li.active>a {
+    weight: bolder;
+    color: white;
+}
+
+.nav>li>a:hover {
+    color: white;
+}
+
 /* Hack for Google Custom Search Engine */
 input.gsc-input {
     height: auto;
