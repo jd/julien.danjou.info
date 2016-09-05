@@ -13,7 +13,8 @@ tags:
 {% mark excerpt %}
 
 A few weeks ago, I recorded an interview with Krishnan Raghuram about what was
-discussed for this development cycle for OpenStack Telemetry.
+discussed for this development cycle for OpenStack Telemetry at the Austin
+summit.
 
 {% endmark %}
 {% endblock %}
