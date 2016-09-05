@@ -222,3 +222,12 @@ input.gsc-input {
 #disqus_thread {
     padding: 0;
 }
+
+.entry-header-blog-post {
+    border-bottom: 1px solid #ddd;
+    /* box-shadow: #ccc 2px 2px 5px; */
+    height: 2.2em;
+    margin-bottom: 50px;
+    display: inline-block;
+    margin-left: 90px;
+}
