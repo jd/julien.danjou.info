@@ -29,9 +29,11 @@
                 <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
               {% endfor %}
 	    </small>
+            <small>
             <a href="{{ site_url }}{{ res.full_url }}#disqus_thread">
-              <i class="fa fa-comment"></i> Comments
+            <i class="fa fa-comment"></i> Comments
             </a>
+            </small>
 	  </div>
 	</header>
 	<div class="entry-content">
