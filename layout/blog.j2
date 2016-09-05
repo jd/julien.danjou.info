@@ -33,15 +33,17 @@
             <a href="/blog/tags/{{tag}}.html">{{tag}}</a>{% if not loop.last -%},{%- endif %}
           {% endfor %}
         </small>
-        <a href="{{ site_url }}{{ resource.full_url }}#disqus_thread">
-          <i class="fa fa-comment"></i> Comments
-        </a>
+        <small>
+          <a href="{{ site_url }}{{ resource.full_url }}#disqus_thread">
+            <i class="fa fa-comment"></i> Comments
+          </a>
+        </small>
         <span>
-          <i class="fa fa-user-plus"></i> Follow Me
-        </span>
+          <small><i class="fa fa-user-plus"></i> Follow me</small>
+          </span>
         <div class="addthis_horizontal_follow_toolbox"
-             style="margin-top: -25px;
-             margin-left: -25px;">
+               style="margin-top: -10px;
+             margin-left: -20px;">
         </div>
       </div>
     </header>
