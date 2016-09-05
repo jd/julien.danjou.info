@@ -6,6 +6,14 @@ tags:
     - Python
 ---
 
+<p class="alert alert-warning">
+The library presented in this article is becoming obsolete and un-maintained.
+<br>
+I recommend you to read this <a style="color: yellow;"
+href="/blog/2017/python-tenacity">new article about <em>tenacity</em>
+instead</a>.
+</p>
+
 {% block excerpt %}
 {% mark excerpt %}
 
