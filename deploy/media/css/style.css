@@ -389,7 +389,7 @@ h5:last-child,
 h5 small,
 .h5 small {
 	font-size: 18px;
-	color: #808080;
+	color: #333;
 	display: block;
 	margin-top: 10px;
 }
@@ -402,7 +402,7 @@ h6,
 
 p {
 	margin-bottom: 25px;
-	color: #808080;
+	color: #333;
 	font-size: 18px;
 	line-height: 28px;
 }
@@ -417,7 +417,7 @@ p .description {
 }
 
 p .position {
-	color: #808080;
+	color: #333;
 }
 
 p:only-child,
@@ -560,7 +560,7 @@ a.white:hover {
 }
 
 .text-default {
-	color: #808080;
+	color: #333;
 }
 
 .text-warning {
@@ -668,7 +668,7 @@ ol {
 	margin-bottom: 20px;
 	list-style: none;
 	counter-reset: point;
-	color: #808080;
+	color: #333;
 }
 
 ul ul,
@@ -1004,14 +1004,14 @@ a.scrolldown-link:hover img {
 
 .btn.btn-trial {
 	background-color: transparent;
-	border: 3px solid #808080;
+	border: 3px solid #333;
 	border-radius: 6px;
-	color: #808080;
+	color: #333;
 	line-height: 45px;
 }
 
 .btn.btn-trial:hover {
-	background-color: #808080;
+	background-color: #333;
 	color: #FFF;
 }
 
@@ -1577,7 +1577,7 @@ ul.pagination li.active.no-border > a {
 }
 
 .breadcrumb a {
-	color: #808080;
+	color: #333;
 }
 
 .breadcrumb a:hover,
@@ -2260,11 +2260,11 @@ a.back:hover {
 }
 
 .alert.alert-light ul li {
-	color: #808080;
+	color: #333;
 }
 
 .alert.alert-light ul li:before {
-	color: #808080;
+	color: #333;
 }
 
 /*------------------------------------------------------------------
@@ -2722,7 +2722,7 @@ body {
 }
 
 .full-size p {
-	color: #808080;
+	color: #333;
 }
 
 .full-size.slider {
@@ -3096,7 +3096,7 @@ h4 + hr {
 
 .mix .fig + * {
 	font-size: 19px;
-	color: #808080;
+	color: #333;
 	padding: 15px 30px 40px;
 	line-height: 28px;
 	overflow: hidden;
@@ -3304,7 +3304,7 @@ img + .document {
 }
 
 .dropdown-menu > li > a {
-	color: #808080;
+	color: #333;
 	padding: 0 35px 0 25px;
 	line-height: inherit;
 }
@@ -3361,7 +3361,7 @@ img + .document {
 }
 
 .sf-mega li > a {
-	color: #808080;
+	color: #333;
 	padding: 0;
 	line-height: inherit;
 }
@@ -3443,7 +3443,7 @@ img + .document {
 .vertical-menu .navbar-nav ul > li > a {
 	font-size: 16px;
 	line-height: 28px;
-	color: #808080;
+	color: #333;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -3503,7 +3503,7 @@ img + .document {
 	font-size: 17px;
 	line-height: 24px;
 	margin-bottom: 10px;
-	color: #808080;
+	color: #333;
 	opacity: .2;
 }
 
@@ -3683,7 +3683,7 @@ button:hover .ico-sidebar-r {
 }
 
 .header.header-extra .submenu li a {
-	color: #808080;
+	color: #333;
 	font-size: 16px;
 }
 
@@ -3739,7 +3739,7 @@ button:hover .ico-sidebar-r {
 
 .header-light .cart-list > a,
 .vertical-menu .header-light .cart-list > a {
-	color: #808080;
+	color: #333;
 }
 
 .header-light .dropdown-menu,
@@ -4323,7 +4323,7 @@ textarea:-ms-input-placeholder,
 .radio,
 .radio * {
 	line-height: 1;
-	color: #808080;
+	color: #333;
 }
 
 .checkbox label,
@@ -4415,7 +4415,7 @@ form fieldset + .btn {
 
 .login-form .checkbox {
 	margin: 25px 0;
-	color: #808080;
+	color: #333;
 }
 
 /* Search Form */
@@ -4468,7 +4468,7 @@ form fieldset + .btn {
 
 .footer .subscribe-form [type=email],
 .footer .subscribe-form [type=text] {
-	border-color: #808080;
+	border-color: #333;
 	color: #B3B3B3;
 }
 
@@ -5094,7 +5094,7 @@ form fieldset + .btn {
 }
 
 .oneslider p {
-	color: #808080;
+	color: #333;
 	margin-bottom: 30px;
 }
 
@@ -5163,7 +5163,7 @@ form fieldset + .btn {
 
 .pricing h3 {
 	font-size: 32px;
-	color: #808080;
+	color: #333;
 	margin-bottom: 25px;
 }
 
@@ -6216,7 +6216,7 @@ a.nav-rounded:hover span {
 }
 
 .mfp-preloader {
-	color: #808080;
+	color: #333;
 	position: absolute;
 	top: 50%;
 	width: auto;
@@ -6291,7 +6291,7 @@ a.nav-rounded:hover span {
 	position: fixed;
 	top: 35px;
 	left: 35px;
-	color: #808080;
+	color: #333;
 	font-size: 26px;
 	line-height: 77px;
 }
@@ -6374,7 +6374,7 @@ img.mfp-img {
 .mfp-title {
 	text-align: center;
 	line-height: 28px;
-	color: #808080;
+	color: #333;
 	word-wrap: break-word;
 	font-size: 24px;
 }
@@ -6794,7 +6794,7 @@ ol.category-list a,
 .tagcloud a,
 .widget .checkbox,
 .social-links a {
-	color: #808080;
+	color: #333;
 }
 
 .category-list a.active,
@@ -6874,7 +6874,7 @@ ol.category-list a,
 }
 
 .rating-wrap {
-	color: #808080;
+	color: #333;
 	margin-bottom: 20px;
 }
 
@@ -6939,7 +6939,7 @@ ol.category-list a,
 
 .price small {
 	margin: 0;
-	color: #808080;
+	color: #333;
 	font-size: 18px;
 	text-transform: none;
 }
@@ -7064,7 +7064,7 @@ ol.category-list a,
 
 .type-product .price {
 	font-size: 26px;
-	color: #808080;
+	color: #333;
 	margin-bottom: 25px;
 	display: block;
 }
@@ -7383,7 +7383,7 @@ ol.category-list a,
 }
 
 .cart-list .total {
-	color: #808080;
+	color: #333;
 	line-height: 48px;
 	font-size: 18px;
 	margin-left: 20px;
@@ -7531,7 +7531,7 @@ ol.category-list a,
 }
 
 .mejs-container .mejs-controls .mejs-time span {
-	color: #808080;
+	color: #333;
 	font-size: 14px;
 	line-height: 1;
 	display: block;
@@ -7831,7 +7831,7 @@ ol.category-list a,
 
 .header .sidemenu h4,
 .header .sidemenu a {
-	color: #808080;
+	color: #333;
 }
 
 .header .sidemenu a:hover {
@@ -8007,7 +8007,7 @@ ol.category-list a,
 }
 
 .calendar td {
-	color: #808080;
+	color: #333;
 	text-align: center;
 	font-size: 17px;
 }
@@ -8544,7 +8544,7 @@ ol.category-list a,
 }
 
 .footer a {
-	color: #808080;
+	color: #333;
 }
 
 .footer a:hover {
@@ -8724,7 +8724,7 @@ ul.twitter-list .date {
 }
 
 .footer-light p {
-	color: #808080;
+	color: #333;
 }
 
 .footer-light p.copyright,
