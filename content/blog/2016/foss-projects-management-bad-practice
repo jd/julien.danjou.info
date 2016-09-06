@@ -8,7 +8,6 @@ tags:
     - awesome
     - Debian
     - Emacs
-    - GNU
 ---
 
 {% block excerpt %}
