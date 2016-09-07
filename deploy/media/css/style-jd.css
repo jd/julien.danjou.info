@@ -157,10 +157,6 @@ h2,
         font-size: 60px;
 }
 
-.newsletter {
-    height: 100%;
-}
-
 /* Add padding left at least for mobile */
 .archive .post .entry-header, .archive .post .entry-content {
     padding-left: 30px;
