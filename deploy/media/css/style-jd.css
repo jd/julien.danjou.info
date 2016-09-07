@@ -18,6 +18,12 @@ small {
     display: inline;
 }
 
+/* Fix display of navbar in responsive mode */
+nav.navbar {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
 /* Used in blog listing for blog image */
 .blog-title-image {
     width: 100%;
