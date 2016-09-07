@@ -8540,11 +8540,11 @@ ol.category-list a,
 }
 
 .footer p.copyright {
-	color: gray;
+	color: #333;
 }
 
 .footer a {
-	color: #bbb;
+	color: #333;
 }
 
 .footer a:hover {
@@ -8553,7 +8553,7 @@ ol.category-list a,
 
 .footer hr {
 	margin: 0 auto;
-	border-color: gray;
+	border-color: #333;
 }
 
 .footer li {
@@ -8575,7 +8575,7 @@ ol.category-list a,
 
 .footer .row:last-child {
 	padding: 50px 0;
-	color: gray;
+	color: #333;
 }
 
 .footer .row:last-child nav a {
@@ -8720,11 +8720,11 @@ ul.twitter-list .date {
 .footer-light ul.twitter-list a,
 .footer-light h4 a,
 .footer-light .navbar-brand:hover {
-	color: gray;
+	color: #333;
 }
 
 .footer-light p {
-	color: gray;
+	color: #333;
 }
 
 .footer-light p.copyright,
@@ -8743,7 +8743,7 @@ ul.twitter-list .date {
 .footer-light .subscribe-form [type=email],
 .footer-light .subscribe-form [type=text] {
 	border-color: #E6E6E6;
-	color: gray;
+	color: #333;
 }
 
 /*------------------------------------------------------------------
@@ -8864,7 +8864,7 @@ ul.twitter-list .date {
 }
 
 .error404 .footer a {
-	color: gray;
+	color: #333;
 }
 
 .error404 .footer a:hover {
