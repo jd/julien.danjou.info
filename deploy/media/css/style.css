@@ -402,7 +402,6 @@ h6,
 
 p {
 	margin-bottom: 25px;
-	color: #808080;
 	font-size: 18px;
 	line-height: 28px;
 }
@@ -668,7 +667,6 @@ ol {
 	margin-bottom: 20px;
 	list-style: none;
 	counter-reset: point;
-	color: #808080;
 }
 
 ul ul,
@@ -8264,7 +8262,7 @@ ol.category-list a,
 }
 
 .post a {
-	color: #333;
+	color: #ad7300;
 }
 
 .post a:hover {

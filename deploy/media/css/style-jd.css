@@ -162,6 +162,11 @@ h2,
     padding-left: 30px;
 }
 
+/* Set the link color to something visible */
+.post a {
+	color: #ad7300;
+}
+
 /* Fixes a bug with pattern where text has wrong z-index */
 .pattern > * {
     position: relative;
