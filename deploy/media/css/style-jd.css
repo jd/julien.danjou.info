@@ -86,11 +86,6 @@ img.img-icon-xs {
     margin-bottom: 50px;
 }
 
-.margin-side {
-    margin-left: 50px;
-    margin-right: 50px;
-}
-
 .overlay-mid-dark.overlay:before {
 	opacity: .6;
 }
