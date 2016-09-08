@@ -19,7 +19,7 @@ small {
 }
 
 /* Fix display of navbar in responsive mode */
-nav.navbar {
+nav.navbar.container {
     padding-right: 30px;
     padding-left: 30px;
 }
