@@ -112,35 +112,16 @@
       <div class="headcontent headcontent-md bg-sl-center overlay overlay-mid-dark"
            style="background-image: url('{{ resource.meta.image }}');">
 	<div class="container inforow">
-	  <div class="col-sm-10">
-	    <h1 class="white">
+	  <h1 class="white">
       {% else %}
       <div class="headcontent">
         <div class="container">
-	  <div class="col-sm-10">
-	    <h1>
+	  <h1>
       {% endif %}
       {% block page_title %}
       {{ resource.meta.title }}
       {% endblock %}
-            </h1>
-	  </div>
-	  <div class="col-sm-2 text-right">
-	    <ol class="breadcrumb breadcrumb-arrow">
-              {% for node in resource.node.rwalk()|reverse %}
-              {% if not loop.first %}
-              <li{% if loop.last %} class="active"{% endif %}>
-                <a href="{{ node.full_url }}">
-                  {% if node.meta.icon and loop.index == 2 %}
-                  <span class="glyphicon glyphicon-{{node.meta.icon}}"></span>
-                  {% endif %}
-                  {{node.name|capitalize }}
-                </a>
-              </li>
-              {% endif %}
-              {% endfor %}
-	    </ol>
-          </div>
+          </h1>
         </div>
       </div>
 
