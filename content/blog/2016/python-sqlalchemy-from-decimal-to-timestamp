@@ -79,7 +79,7 @@ Ceilometer uses `DECIMAL(20, 6)` to store UNIX timestamp values from
   storage space (and go up to year 31690708 which is a nice bonus, right?)
 
 Well, I guess the original author of the patch did not read the documentation
-entirely (`DECIMAL(20, 6` being on the MySQL documentation page as an example,
+entirely (`DECIMAL(20, 6)` being on the MySQL documentation page as an example,
 I imagine it just has been copy-pasted blindly?).
 
 The best choice for this use case would have been `DECIMAL(17, 6)` which would
