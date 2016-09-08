@@ -90,12 +90,6 @@ img.img-icon-xs {
 	opacity: .6;
 }
 
-/* Override some from default style that are… weird */
-.headcontent.headcontent-md {
-    /* Reduce from the default */
-    padding: 80px;
-}
-
 p {
     margin-bottom: 20px;
 }
