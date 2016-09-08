@@ -68,9 +68,6 @@ frameBorder="0" class="giphy-embed illustration" allowFullScreen></iframe>
 
 Wait. It's stupid because:
 
-Ceilometer uses `DECIMAL(20, 6)` to store UNIX timestamp values from
-1970 to 3170843 (that's the year for `(10^14)-1` seconds after epoch), 
-
 - `DECIMAL(20, 6)` implies that you uses 14 digits for the integer part, which
   using epoch as a reference makes you able to encode timestamp `(10^14) - 1`
   which is year 3170843. I am certain Ceilometer won't last that far.
