@@ -4,6 +4,7 @@ DYNAMIC_DEPLOY=deploy/media/images/blog/2012/openstack-swift-storage.png
 DYNAMIC_DEPLOY+=deploy/media/images/blog/2012/openstack-swift-replication.png
 DYNAMIC_DEPLOY+=deploy/media/images/blog/2016/python2-exceptions-graph.png
 DYNAMIC_DEPLOY+=deploy/media/images/blog/2016/python3-exceptions-graph.png
+DYNAMIC_DEPLOY+=deploy/media/images/blog/2016/asciidoc-book-toolchain.dot.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/CeilometerPlusHeatEqualsAlarming-OpenStackIcehouseSummit.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/ceilometer-to-telemetry.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/ceilometer-gnocchi.png
@@ -65,6 +66,10 @@ deploy/media/images/blog/2016/python2-exceptions-graph.png: bin/generate-python-
 
 deploy/media/images/blog/2016/python3-exceptions-graph.png: bin/generate-python-exceptions-graph.py
 	python3 bin/generate-python-exceptions-graph.py | dot -T png > $@
+	pngcrush -ow $@
+
+%.dot.png: %.dot
+	dot -Tpng $< > $@
 	pngcrush -ow $@
 
 deploy/media/images/talks/thumbnails/%.png: deploy/talks/%.pdf
