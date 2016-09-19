@@ -7,6 +7,12 @@ small {
     line-height: 1.5;
 }
 
+figcaption {
+    font-size: 80%;
+    line-height: 1.5em;
+    margin: 10px;
+}
+
 /* My face near the brand in the navbar */
 .navbar-brand > img {
     max-width: 60px;
