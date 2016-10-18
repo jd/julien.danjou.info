@@ -172,6 +172,7 @@ class WrongFoot(ShoeError):
 
 * Provide details about the error. This is extremely valuable to be able to log
   correctly errors or take further action and try to recover:
+  
 {% syntax python %}
 class CarError(Exception):
     """Basic exception for errors raised by cars"""
@@ -190,6 +191,7 @@ class CarCrashError(CarError):
         self.speed = speed
         self.other_car = other_car
 {% endsyntax %}
+  
   Then, any code can inspect the exception to take further action:
 {% syntax python %}
 try:
@@ -211,6 +213,7 @@ except exception.DBReferenceError as e:
         raise indexer.NoSuchArchivePolicy(archive_policy_name)
     raise
 {% endsyntax %}
+
 
 * Inherits from builtin exceptions types when it makes sense. This makes it
   easier for programs to not be specific to your application or library:
@@ -276,7 +279,7 @@ that file. It will simplify the maintenance of the code.
 Wrapping exception is the practice by which one exception is encapsulated into
 another:
 
-{% syntax %}
+{% syntax python %}
 class MylibError(Exception):
     """Generic exception for mylib"""
     def __init__(self, msg, original_exception)
