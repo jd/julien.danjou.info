@@ -138,7 +138,7 @@ set -e
 clean_exit() {
     local error_code="$?"
     kill -9 $(jobs -p) >/dev/null 2>&1 || true
-    rm -rf "PGSQL_DATA"
+    rm -rf "$PGSQL_DATA"
     return $error_code
 }
 
