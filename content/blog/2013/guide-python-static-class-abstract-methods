@@ -200,9 +200,9 @@ True
 42
 {% endsyntax %}
 
-Whatever the way you use to access this method, it will be always bound to
-the class it is attached too, and its first argument will be the class
-itself (remember that classes are objects too).
+Whatever the way you use to access this method, it will be always bound to the
+class it is attached to, and its first argument will be the class itself
+(remember that classes are objects too).
 
 When to use this kind of methods? Well class methods are mostly useful for
 two types of methods:
@@ -225,9 +225,8 @@ class Pizza(object):
 
 * Static methods calling static methods: if you split a static methods in
 several static methods, you shouldn't hard-code the class name but use class
-methods. Using this way to declare ou method, the *Pizza* name is never
-directly
-referenced and inheritance and method overriding will work flawlessly
+methods. Using this way to declare our method, the *Pizza* name is never
+directly referenced and inheritance and method overriding will work flawlessly
 
 {% syntax python %}
 class Pizza(object):
@@ -310,7 +309,7 @@ When building classes and inheritances, the time will come where you will
 have to mix all these methods decorators. So here's some tips about it.
 
 Keep in mind that declaring a method as being abstract, doesn't freeze the
-prototype of that method. That means that it must be implemented, but i can be
+prototype of that method. That means that it must be implemented, but it can be
 implemented with any argument list.
 
 {% syntax python %}
