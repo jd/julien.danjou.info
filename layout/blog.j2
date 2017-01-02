@@ -48,11 +48,13 @@
       {% endmark %}
     </div>
 
-    {% for tag in resource.meta.tags if tag == "Python" %}
-    <script src="https://app.convertkit.com/landing_pages/40155.js"></script>
-    {% else %}
-    <script src="https://app.convertkit.com/landing_pages/40222.js"></script>
-    {% endfor %}
+    {% block subscribeform %}
+      {% for tag in resource.meta.tags if tag == "Python" %}
+        <script src="https://app.convertkit.com/landing_pages/40155.js"></script>
+      {% else %}
+        <script src="https://app.convertkit.com/landing_pages/40222.js"></script>
+      {% endfor %}
+    {% endblock %}
   </div>
 
   <div class="container" id="disqus_thread"></div>
