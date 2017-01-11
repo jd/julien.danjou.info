@@ -217,8 +217,8 @@ You can install it from **M-x list-packages** in Emacs 24.
 # muse-blog.el
 
 *muse-blog* is an extension to [Emacs
-Muse](http://mwolson.org/projects/EmacsMuse.html), a publishing environment
-for [Emacs](http://www.gnu.org/software/emacs/).
+Muse](https://www.gnu.org/software/emacs-muse/index.html), a publishing
+environment for [Emacs](http://www.gnu.org/software/emacs/).
 
 It allows you to maintain a blog within Emacs, and produce HTML pages and
 RSS 2.0 feeds.
