@@ -1,0 +1,288 @@
+---
+title: "Sending your collectd metrics to Gnocchi"
+created: !!timestamp '2017-02-16 08:53:12'
+image: /media/images/blog/2017/globes.jpg
+tags:
+    - Gnocchi
+    - collectd
+    - Grafana
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Knowing that [collectd](http://collectd.org/) is a daemon that collects system
+and applications metrics and that [Gnocchi](http://gnocchi.xyz) is a scalable
+timeseries database, it sounds like a good idea to combine them together.
+_Cheery on the cake_: you can easily draw charts using [Grafana](http://grafana.org).
+
+{% endmark %}
+{% endblock %}
+
+While it's true that Gnocchi is well integrated
+with [OpenStack](http://openstack.org), as it comes from this ecosystem, it
+actually works standalone by default. Starting with the 3.1 version, it is now
+easy to send metrics to _Gnocchi_ using _collectd_.
+
+# Installation
+
+What we'll need to install to accomplish this task is:
+
+- collectd
+- Gnocchi
+- collectd-gnocchi
+
+How you install them does not really matter. If they are packaged by your
+operating system, go ahead. For Gnocchi and collectd-gnocchi, you can also use
+_pip_:
+
+<pre>
+# pip install gnocchi[file,postgresql]
+[…]
+Successfully installed gnocchi-3.1.0
+# pip install collectd-gnocchi
+Collecting collectd-gnocchi
+  Using cached collectd-gnocchi-1.0.1.tar.gz
+[…]
+Installing collected packages: collectd-gnocchi
+  Running setup.py install for collectd-gnocchi ... done
+Successfully installed collectd-gnocchi-1.0.1
+</pre>
+
+The detailed installation procedure for Gnocchi
+is [detailed in the documentation](http://gnocchi.xyz/install.html#id1). It
+among other things explains which flavors are available – here I picked
+PostgreSQL and the file driver to store the metrics.
+
+# Configuration
+
+## Gnocchi
+
+Gnocchi is simple to configure and is
+again [documented](http://gnocchi.xyz/configuration.html). The default
+configuration file is `/etc/gnocchi/gnocchi.conf` – you can generate it with
+`gnocchi-config-generator` if needed. However, it also possible to specify
+another configuration file by appending the `--config-file` option to any
+command line
+
+In Gnocchi's configuration file, you need to set the `indexer.url`
+configuration option to point an existing PostgreSQL database and set
+`storage.file_basepath` to an existing directory to store your metrics (the
+default is `/var/lib/gnocchi`). That gives something like:
+
+{% syntax ini %}
+[indexer]
+url = postgresql://root:p4assw0rd@localhost/gnocchi
+
+[storage]
+file_basepath = /var/lib/gnocchi
+{% endsyntax %}
+
+Once done, just run the `gnocchi-upgrade` command to initialize the index and
+storage.
+
+## collectd
+
+Collectd provides a default configuration file that loads a bunch of plugin by
+default, that will meter all sort of metrics on your computer. You can check
+the [documentation](http://collectd.org/documentation.shtml) online to see how
+to disable or enable plugins.
+
+As the _collectd-gnocchi_ plugin is written in Python, you'll need to enable
+the Python plugin and load the _collectd-gnocchi_ module:
+
+{% syntax apacheconf %}
+LoadPlugin python
+
+<Plugin python>
+  Import "collectd_gnocchi"
+  <Module collectd_gnocchi>
+      endpoint "http://localhost:8041"
+  </Module>
+</Plugin>
+{% endsyntax %}
+
+That is enough to enable the storage of metrics in Gnocchi.
+
+# Running the daemons
+
+Once everything is configured, you can launch `gnocchi-metricd` and the
+`gnocchi-api` daemon:
+
+<pre>
+$ gnocchi-metricd
+2017-01-26 15:22:49.018 15971 INFO gnocchi.cli [-] 0 measurements bundles
+across 0 metrics wait to be processed.
+[…]
+# In another terminal
+$ gnocchi-api --port 8041
+[…]
+STARTING test server gnocchi.rest.app.build_wsgi_app
+Available at http://127.0.0.1:8041/
+[…]
+</pre>
+
+It's not recommended to run Gnocchi using Gnocchi API
+(as
+[written in the documentation](http://gnocchi.xyz/running.html#running-as-a-wsgi-application)):
+using [uwsgi](https://uwsgi-docs.readthedocs.io/) is a better option. However
+for rapid testing, the `gnocchi-api` daemon is good enough.
+
+Once that's done, you can start `collectd`:
+
+<pre>
+$ collectd
+# Or to run in foreground with a different configuration file:
+# $ collectd -C collectd.conf -f
+</pre>
+
+If you have any problem launchding _colllectd_, check syslog for more
+information: there might be an issue loading a module or plugin.
+
+If no error are printed, then everythin's working fine and you soon should see
+_gnocchi-api_ printing some requests such as:
+
+<pre>
+127.0.0.1 - - [26/Jan/2017 15:27:03] "POST /v1/resource/collectd HTTP/1.1" 409 113
+127.0.0.1 - - [26/Jan/2017 15:27:03] "POST /v1/batch/resources/metrics/measures?create_metrics=True HTTP/1.1" 400 91
+</pre>
+
+# Enjoying the result
+
+Once everything runs, you can access your newly created resources and metric by
+using the [gnocchiclient](http://pypi.python.org/pypi/gnocchiclient). It should
+have been installed as a dependency of _collectd_gnocchi_, but you can also
+install it manually using `pip install gnocchiclient`.
+
+If you need to specify a different endpoint you can use the `--endpoint` option
+(which default to http://localhost:8041). Do not hesitate to check the `--help`
+option for more information.
+
+<pre>
+$ gnocchi resource list --details
++---------------+----------+------------+---------+----------------------+---------------+----------+----------------+--------------+---------+-----------+
+| id            | type     | project_id | user_id | original_resource_id | started_at    | ended_at | revision_start | revision_end | creator | host      |
++---------------+----------+------------+---------+----------------------+---------------+----------+----------------+--------------+---------+-----------+
+| dd245138-00c7 | collectd | None       | None    | dd245138-00c7-5bdc-  | 2017-01-26T14 | None     | 2017-01-26T14: | None         | admin   | localhost |
+| -5bdc-94f8-26 |          |            |         | 94f8-263e236812f7    | :21:02.297466 |          | 21:02.297483+0 |              |         |           |
+| 3e236812f7    |          |            |         |                      | +00:00        |          | 0:00           |              |         |           |
++---------------+----------+------------+---------+----------------------+---------------+----------+----------------+--------------+---------+-----------+
+$ gnocchi resource show collectd:localhost
++-----------------------+-----------------------------------------------------------------------+
+| Field                 | Value                                                                 |
++-----------------------+-----------------------------------------------------------------------+
+| created_by_project_id |                                                                       |
+| created_by_user_id    | admin                                                                 |
+| creator               | admin                                                                 |
+| ended_at              | None                                                                  |
+| host                  | localhost                                                             |
+| id                    | dd245138-00c7-5bdc-94f8-263e236812f7                                  |
+| metrics               | interface-en0@if_errors-0: 5d60f224-2e9e-4247-b415-64d567cf5866       |
+|                       | interface-en0@if_errors-1: 1df8b08b-555a-4cab-9186-f9b79a814b03       |
+|                       | interface-en0@if_octets-0: 491b7517-7219-4a04-bdb6-934d3bacb482       |
+|                       | interface-en0@if_octets-1: 8b5264b8-03f3-4aba-a7f8-3cd4b559e162       |
+|                       | interface-en0@if_packets-0: 12efc12b-2538-45e7-aa66-f8b9960b5fa3      |
+|                       | interface-en0@if_packets-1: 39377ff7-06e8-454a-a22a-942c8f2bca56      |
+|                       | interface-en1@if_errors-0: c3c7e9fc-f486-4d0c-9d36-55cea855596a       |
+|                       | interface-en1@if_errors-1: a90f1bec-3a60-4f58-a1d1-b3c09dce4359       |
+|                       | interface-en1@if_octets-0: c1ee8c75-95bf-4096-8055-8c0c4ec8cd47       |
+|                       | interface-en1@if_octets-1: cbb90a94-e133-4deb-ac10-3f37770e32f0       |
+|                       | interface-en1@if_packets-0: ac93b1b9-da71-4876-96aa-76067b35c6c9      |
+|                       | interface-en1@if_packets-1: 2f8528b2-12ae-4c4d-bec7-8cc987e7487b      |
+|                       | interface-en2@if_errors-0: ddcf7203-4c49-400b-9320-9d3e0a63c6d5       |
+|                       | interface-en2@if_errors-1: b249ea42-01ad-4742-9452-2c834010df71       |
+|                       | interface-en2@if_octets-0: 8c23013a-604e-40bf-a07a-e2dc4fc5cbd7       |
+|                       | interface-en2@if_octets-1: 806c1452-0607-4b56-b184-c4ffd48f52c0       |
+|                       | interface-en2@if_packets-0: c5bc6103-6313-4b8b-997d-01930d1d8af4      |
+|                       | interface-en2@if_packets-1: 478ae87e-e56b-44e4-83b0-ed28d99ed280      |
+|                       | load@load-0: 5db2248d-2dca-401e-b2e2-bbaee23b623e                     |
+|                       | load@load-1: 6f74ac93-78fd-4a74-a47e-d2add487a30f                     |
+|                       | load@load-2: 1897aca1-356e-4791-907f-512e516992b5                     |
+|                       | memory@memory-active-0: 83944a85-9c84-4fe4-b471-1a6cf8dce858          |
+|                       | memory@memory-free-0: 0ccc7cfa-26a5-4441-a15f-9ebb2aa82c6d            |
+|                       | memory@memory-inactive-0: 63736026-94c4-47c5-8d6f-a9d89d65025b        |
+|                       | memory@memory-wired-0: b7217fd6-2cdc-4efd-b1a8-a1edd52eaa2e           |
+| original_resource_id  | dd245138-00c7-5bdc-94f8-263e236812f7                                  |
+| project_id            | None                                                                  |
+| revision_end          | None                                                                  |
+| revision_start        | 2017-01-26T14:21:02.297483+00:00                                      |
+| started_at            | 2017-01-26T14:21:02.297466+00:00                                      |
+| type                  | collectd                                                              |
+| user_id               | None                                                                  |
++-----------------------+-----------------------------------------------------------------------+
+% gnocchi metric show -r collectd:localhost load@load-0
++------------------------------------+-----------------------------------------------------------------------+
+| Field                              | Value                                                                 |
++------------------------------------+-----------------------------------------------------------------------+
+| archive_policy/aggregation_methods | min, std, sum, median, mean, 95pct, count, max                        |
+| archive_policy/back_window         | 0                                                                     |
+| archive_policy/definition          | - timespan: 1:00:00, granularity: 0:05:00, points: 12                 |
+|                                    | - timespan: 1 day, 0:00:00, granularity: 1:00:00, points: 24          |
+|                                    | - timespan: 30 days, 0:00:00, granularity: 1 day, 0:00:00, points: 30 |
+| archive_policy/name                | low                                                                   |
+| created_by_project_id              |                                                                       |
+| created_by_user_id                 | admin                                                                 |
+| creator                            | admin                                                                 |
+| id                                 | 5db2248d-2dca-401e-b2e2-bbaee23b623e                                  |
+| name                               | load@load-0                                                           |
+| resource/created_by_project_id     |                                                                       |
+| resource/created_by_user_id        | admin                                                                 |
+| resource/creator                   | admin                                                                 |
+| resource/ended_at                  | None                                                                  |
+| resource/id                        | dd245138-00c7-5bdc-94f8-263e236812f7                                  |
+| resource/original_resource_id      | dd245138-00c7-5bdc-94f8-263e236812f7                                  |
+| resource/project_id                | None                                                                  |
+| resource/revision_end              | None                                                                  |
+| resource/revision_start            | 2017-01-26T14:21:02.297483+00:00                                      |
+| resource/started_at                | 2017-01-26T14:21:02.297466+00:00                                      |
+| resource/type                      | collectd                                                              |
+| resource/user_id                   | None                                                                  |
+| unit                               | None                                                                  |
++------------------------------------+-----------------------------------------------------------------------+
+$ gnocchi measures show -r collectd:localhost load@load-0
++---------------------------+-------------+--------------------+
+| timestamp                 | granularity |              value |
++---------------------------+-------------+--------------------+
+| 2017-01-26T00:00:00+00:00 |     86400.0 | 3.2705004391254193 |
+| 2017-01-26T15:00:00+00:00 |      3600.0 | 3.2705004391254193 |
+| 2017-01-26T15:00:00+00:00 |       300.0 | 2.6022800611413044 |
+| 2017-01-26T15:05:00+00:00 |       300.0 |  3.561742940080275 |
+| 2017-01-26T15:10:00+00:00 |       300.0 | 2.5605337960379466 |
+| 2017-01-26T15:15:00+00:00 |       300.0 |  3.837517851142473 |
+| 2017-01-26T15:20:00+00:00 |       300.0 | 3.9625948392427883 |
+| 2017-01-26T15:25:00+00:00 |       300.0 | 3.2690042162698414 |
++---------------------------+-------------+--------------------+
+</pre>
+
+As you can see, the command line works smoothly and can show you any kind of
+metric reported by _collectd_. In this case, it was just running on my laptop,
+but you can imagine it's easy enough to poll thousands of hosts with _collectd_
+and _Gnocchi_.
+
+# Bonus: charting with Grafana
+
+[Grafana](http://grafana.org), a charting software, has a plugin for _Gnocchi_
+as [detailed in the documentation](http://gnocchi.xyz/grafana.html). Once
+installed, you can just configure _Grafana_ to point to _Gnocchi_ this way:
+
+<figure class="illustration center">
+  <img src="/media/images/blog/2017/grafana-config-screen-gnocchi.png">
+  </a>
+  <figcaption>Grafana configuration screen</figcaption>
+</figure>
+
+You can then create a new dashboard by filling the forms as you wish. See this
+other screenshot for a nice example:
+
+<figure class="illustration center">
+  <img src="/media/images/blog/2017/grafana-gnocchi-load.png">
+  </a>
+  <figcaption>Charts of my laptop's load average</figcaption>
+</figure>
+
+I hope everything is clear and easy enough. If you have any question, feel free
+to write something in the comment section!
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
