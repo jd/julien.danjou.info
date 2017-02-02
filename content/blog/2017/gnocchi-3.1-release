@@ -87,6 +87,10 @@ next
 present the results of our scalability and performance tests – hoping the
 session will be accepted.
 
+I will also be talking about
+Gnocchi
+[this Sunday at FOSDEM](https://fosdem.org/2017/schedule/event/storing_metrics_gnocchi/).
+
 We don't have a very determined roadmap for Gnocchi during the next weeks. Sure
 we do have a few ideas on what we want to implement, but we are also very
 easily influenced by the requests of our user: therefore feel free to ask for
