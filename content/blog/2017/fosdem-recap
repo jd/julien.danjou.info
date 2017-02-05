@@ -1,0 +1,50 @@
+---
+title: "FOSDEM 2017, recap"
+created: !!timestamp '2017-02-06 10:54:00'
+image: /media/images/blog/2017/fosdem-gnocchi-talk.jpg
+tags:
+    - FOSDEM
+    - Gnocchi
+    - Python
+---
+
+<img src="/media/images/fosdem.png"
+    class="illustration pull-right"
+    style="max-width: 20%;">
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Last week-end, I was in Brussels, Belgium for the 2017 edition of
+the [FOSDEM](http://fosdem.org), one of the greatest open source developer
+conference.
+
+{% endmark %}
+{% endblock %}
+
+This year, I decided to propose a talk about [Gnocchi](http://gnocchi.xyz)
+which was accepted in
+the [Python devroom](https://fosdem.org/2017/schedule/track/python/). The track
+was very wlell organized (thanks to [Stéphane Wirtel](https://wirtel.be/)) and
+I was able to present Gnocchi to a room full of Python developers!
+
+<img src="/media/images/blog/2017/fosdem-gnocchi-talk.jpg"
+    class="illustration center"
+    style="max-width: 75%;">
+
+I've explained why we created Gnocchi and how we did it, and finally briefly
+explained how to use it with the command-line interface or in a Python
+application using the [SDK](http://gnocchi.xyz/gnocchiclient).
+
+You can
+check
+[the slides](/talks/storing-metrics-at-scale-with-gnocchi-fosdem-2017.pdf)
+and [the video of the talk](https://video.fosdem.org/2017/UD2.120/storing_metrics_gnocchi.mp4).
+
+<video class="illustration" controls>
+<source src="https://video.fosdem.org/2017/UD2.120/storing_metrics_gnocchi.mp4">
+</video>
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
