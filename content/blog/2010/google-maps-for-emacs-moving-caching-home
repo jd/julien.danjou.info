@@ -10,7 +10,7 @@ tags:
 {% mark excerpt %}
 
 Last week, I worked on my
-[Google Maps for Emacs](http://julien.danjou.info/google-maps-el.html)
+[Google Maps for Emacs](http://julien.danjou.info/projects/emacs-packages#google-maps)
 extension. I've introduced a new format handling for locations which include
 the longitude and latitude. The initial format was just a string describing
 the location, which was obviously too limited.

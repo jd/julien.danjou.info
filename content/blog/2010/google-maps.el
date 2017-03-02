@@ -24,7 +24,9 @@ property from an entry, and then *browse-url* on [Google Maps](http://maps.googl
 But it is **too** easy for me, so once again I said: challenge accepted! I will
 bring Google Maps into Emacs!
 
-After several hours of work, the [google-maps.el project](http://julien.danjou.info/software/google-maps.el) shows a map!
+After several hours of work, the [google-maps.el
+project](http://julien.danjou.info/projects/emacs-packages#google-maps)
+shows a map!
 
 It fully implements the [Google Static Maps API](http://code.google.com/apis/maps/documentation/staticmaps/) and the
 [Google Maps Geocoding API](http://code.google.com/apis/maps/documentation/geocoding/).
