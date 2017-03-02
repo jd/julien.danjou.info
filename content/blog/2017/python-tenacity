@@ -12,7 +12,8 @@ tags:
 A couple of years ago,
 I
 [wrote about the Python _retrying_ library](https://julien.danjou.info/blog/2015/python-retrying).
-This library was designed to retry to execute come task when a failure occured.
+This library was designed to retry the execution of a task when a failure
+occurred.
 
 {% endmark %}
 {% endblock %}
