@@ -205,12 +205,12 @@ h2,
     color: lightblue;
 }
 
-.navbar-nav>li.active>a {
+#navbar>.navbar-nav>li.active>a {
     weight: bolder;
     color: white;
 }
 
-.nav>li>a:hover {
+#navbar>.nav>li>a:hover {
     color: white;
 }
 
