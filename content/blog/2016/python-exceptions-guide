@@ -282,7 +282,7 @@ another:
 {% syntax python %}
 class MylibError(Exception):
     """Generic exception for mylib"""
-    def __init__(self, msg, original_exception)
+    def __init__(self, msg, original_exception):
         super(MylibError, self).__init__(msg + (": %s" % original_exception))
         self.original_exception = original_exception
 
