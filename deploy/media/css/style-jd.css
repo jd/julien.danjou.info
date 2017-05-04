@@ -149,7 +149,7 @@ h2,
     float: none;
     width: auto;
     max-height: 200px;
-    max-width: 100%;
+    max-width: 90%;
     /* For vertical centering */
     position: absolute;
     top: 50%;

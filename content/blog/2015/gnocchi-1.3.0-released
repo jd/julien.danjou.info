@@ -18,7 +18,7 @@ schedule, that concludes the Liberty development cycle.
 {% endblock %}
 
 <figure class="pull-right illustration" style="width: 33%;">
-  <img src="/media/images/gnocchi-logo.jpg">
+  <img src="/media/images/gnocchi-logo-old.jpg">
 </figure>
 
 This release was supposed to be released a few weeks earlier, but our

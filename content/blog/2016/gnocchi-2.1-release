@@ -8,7 +8,7 @@ tags:
 ---
 
 <figure class="pull-right illustration" style="width: 30%;">
-  <img src="/media/images/gnocchi-logo.jpg">
+  <img src="/media/images/gnocchi-logo-old.jpg">
 </figure>
 
 {% block excerpt %}
