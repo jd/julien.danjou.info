@@ -1,0 +1,87 @@
+---
+title: "Gnocchi independence"
+created: !!timestamp '2017-05-06 14:30:00'
+image: /media/images/blog/2017/skyjump.jpg
+tags:
+    - Gnocchi
+    - OpenStack
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+Three years have passed since I started working
+on [Gnocchi](http://gnocchi.xyz). It's amazing to gaze at the path we wandered
+on.
+
+{% endmark %}
+{% endblock %}
+
+During all this time, Gnocchi has been "incubated" inside OpenStack. It has
+been created there and it grew with the rest of the ecosystem. But Gnocchi
+(developers) always stuck to some strange principles: autonomy and independence
+from the other OpenStack projects. This actually made the project a bit
+unpopular sometimes inside OpenStack, being stamped as some kind of _rebel_.
+
+I've spent the last years asserting that each project inside OpenStack should
+seek towards living its own life. It is a key success for any open source
+project to be able to be used in any context, not only the one it has been
+built for. Having to use large bundles of projects together is not a good user
+story. I wish OpenStack will be a set of more autonomous building blocks.
+
+One of the most used project by people not using an entire OpenStack
+installation has been [Swift](https://launchpad.net/swift). That was possible
+because Swift always tried to be autonomous and to not depend on any other
+service. It is able to leverage external services but it can also work without
+any. And I feel that Swift is the most successful project if you measure that
+success by being used by people having zero knowledge about OpenStack.
+
+With the move toward the _Big Tent_, it struck me that the OpenStack Foundation
+will end up as some sort of an Apache Foundation. And I am pretty sure nobody
+forces you to use the [Apache HTTP server](https://httpd.apache.org/) if you
+want to use e.g. [Lucene](http://lucene.apache.org//)
+or [HBase](http://hbase.apache.org/).
+
+Being part of OpenStack for Gnocchi has been a great advantage at the beginning
+of the project. The infrastructure provided is awesome. The support we had from
+the community was great. The Gerrit workflow suited us well.
+
+But unfortunately, now that the project is getting more and more mature, many
+of the requirements of being an OpenStack project has become a real burden. The
+various processes forced by OpenStack is hurting the development pace. The
+contribution workflow based around Gerrit
+and [Launchpad](https://launchpad.net) is too complicated for most external
+contributors and therefore prevents new users to participate to the
+development.
+Worse, the bad image or reputation that OpenStack carries in certain situation
+or communities is preventing Gnocchi to be evaluated and, maybe, used.
+
+I think that many of those negative aspects are finally taken into account by
+the OpenStack Technical Committee, as can be seen in
+the
+[proposed vision of 2 years from now for OpenStack](https://review.openstack.org/#/c/453262/).
+Better late than never.
+
+So after spending a lot of time weighing the pros and the cons, we, Gnocchi
+contributors,
+[finally decided to move Gnocchi out of OpenStack](http://lists.openstack.org/pipermail/openstack-dev/2017-March/114300.html).
+We started to move the project to a brand
+new [Gnocchi organization on GitHub](https://github.com/gnocchixyz). At the
+time of this writing, only the main gnocchi repository is missing and should be
+moved soon after the OpenStack Summit happening next week.
+
+We also used that opportunity to make usage of the new Gnocchi logo, courtesy
+of my friend Thierry Ung!
+
+<figure class="illustration" style="max-width: 50%;">
+  <img src="/media/images/gnocchi-logo.png">
+</figure>
+
+We'll see how everything will turn out and if the project will gain more
+traction, as we hope. This will not change the consumption of Gnocchi made by
+projects such as [Ceilometer](http://launchpad.net/ceilometer). and the project
+aims to remain a good friend of OpenStack. 😀
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
