@@ -19,6 +19,7 @@ DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/gnocchi-paris-meetup-monito
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/how-to-work-upstream-with-openstack.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/storing-metrics-at-scale-with-gnocchi.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/storing-metrics-at-scale-with-gnocchi-fosdem-2017.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/OpenStack_Telemetry_and_the_10000_Instances.png
 DYNAMIC_DEPLOY+=deploy/media/js/custom.min.js
 DYNAMIC_DEPLOY+=deploy/media/js/plugins.min.js
 DYNAMIC_DEPLOY+=deploy/media/css/animate.min.css
