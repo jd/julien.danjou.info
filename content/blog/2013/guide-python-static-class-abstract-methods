@@ -91,7 +91,7 @@ which the first argument will be the instance itself.
 
 As expected, we don't have to provide any argument to *get_size*, since
 it's bound, its *self* argument is automatically set to our *Pizza*
-instance. Here's a even better proof of that:
+instance. Here's an even better proof of that:
 
 {% syntax python %}
 >>> m = Pizza(42).get_size
@@ -151,12 +151,12 @@ class Pizza(object):
 {% endsyntax %}
 
 In such a case, writing *mix_ingredients* as a non-static method would work
-too, but it would provide it a *self* argument that would not be used. Here,
+too, but it would provide it with a *self* argument that would not be used. Here,
 the decorator *@staticmethod* buys us several things:
 
 
 * Python doesn't have to instantiate a bound-method for each *Pizza* object
-we instiantiate. Bound methods are objects too, and creating them has a
+we instantiate. Bound methods are objects too, and creating them has a
 cost. Having a static method avoids that:
 
 {% syntax python %}
@@ -170,7 +170,7 @@ True
 
 
 * It eases the readability of the code: seeing *@staticmethod*, we know that
-the method does not depend on the state of object itself;
+the method does not depend on the state of the object itself;
 
 * It allows us to override the *mix_ingredients* method in a subclass. If we
 used a function *mix_ingredients* defined at the top-level of our module, a
@@ -200,7 +200,7 @@ True
 42
 {% endsyntax %}
 
-Whatever the way you use to access this method, it will be always bound to the
+Whatever the way you use to access this method, it will always be bound to the
 class it is attached to, and its first argument will be the class itself
 (remember that classes are objects too).
 
@@ -223,7 +223,7 @@ class Pizza(object):
 {% endsyntax %}
 
 
-* Static methods calling static methods: if you split a static methods in
+* Static methods calling static methods: if you split a static method in
 several static methods, you shouldn't hard-code the class name but use class
 methods. Using this way to declare our method, the *Pizza* name is never
 directly referenced and inheritance and method overriding will work flawlessly
@@ -278,7 +278,7 @@ Traceback (most recent call last):
 NotImplementedError
 {% endsyntax %}
 
-There's a way to triggers this way earlier, when the object is being
+There's a way to trigger this way earlier, when the object is being
 instantiated, using the [abc](http://docs.python.org/2/library/abc.html)
 module that's provided with Python.
 
@@ -328,7 +328,7 @@ class Calzone(BasePizza):
         return self.ingredients + egg
 {% endsyntax %}
 
-This is valid, since *Calzone* fulfil the interface requirement we defined
+This is valid, since *Calzone* fulfills the interface requirement we defined
 for *BasePizza* objects. That means that we could also implement it as being
 a class or a static method, for example:
 
@@ -348,8 +348,8 @@ class DietPizza(BasePizza):
         return None
 {% endsyntax %}
 
-This is also correct and fulfil the contract we have with our abstract
-*BasePizza* class. The fact that the *get_ingredients* method don't need to know
+This is also correct and fulfills the contract we have with our abstract
+*BasePizza* class. The fact that the *get_ingredients* method doesn't need to know
 about the object to return result is an implementation detail, not a
 criteria to have our contract fulfilled.
 
@@ -374,7 +374,7 @@ class BasePizza(object):
          return cls.ingredients
 {% endsyntax %}
 
-Don't misread this: if you think this going to force your subclasses to
+Don't misread this: if you think this is going to force your subclasses to
 implement *get_ingredients* as a class method, you are wrong. This simply
 implies that your implementation of *get_ingredients* in the *BasePizza*
 class is a class method.
