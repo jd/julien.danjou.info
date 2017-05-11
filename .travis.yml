@@ -1,0 +1,18 @@
+language: python
+dist: trusty
+sudo: required
+python:
+    - 2.7
+# Hyde does not work with Python 3
+#    - 3.6
+
+before_install:
+  - sudo apt-get install ditaa graphviz pngcrush nodejs
+  - sudo npm install -g uglify-js
+  - sudo npm install -g uglifycss
+
+script:
+  - make
+
+notifications:
+  email: true
