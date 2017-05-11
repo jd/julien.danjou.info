@@ -66,20 +66,24 @@ deploy/media/images/blog/2012/openstack-swift-replication.png: deploy/blog/2012/
 
 deploy/media/images/blog/2016/python2-exceptions-graph.png: bin/generate-python-exceptions-graph.py
 	python2 bin/generate-python-exceptions-graph.py | dot -T png > $@
-	pngcrush -ow $@
+	pngcrush $@ $@.crushed
+	mv $@.crushed $@
 
 deploy/media/images/blog/2016/python3-exceptions-graph.png: bin/generate-python-exceptions-graph.py
 	python3 bin/generate-python-exceptions-graph.py | dot -T png > $@
-	pngcrush -ow $@
+	pngcrush $@ $@.crushed
+	mv $@.crushed $@
 
 %.dot.png: %.dot
 	dot -Tpng $< > $@
-	pngcrush -ow $@
+	pngcrush $@ $@.crushed
+	mv $@.crushed $@
 
 deploy/media/images/talks/thumbnails/%.png: deploy/talks/%.pdf
 	mkdir -p deploy/media/images/talks/thumbnails
 	convert $<[0] $@
-	pngcrush -ow $@
+	pngcrush $@ $@.crushed
+	mv $@.crushed $@
 
 deploy/media/js/%.min.js: deploy/media/js/%.js
 	uglifyjs $< > $@
