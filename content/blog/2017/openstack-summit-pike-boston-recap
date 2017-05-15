@@ -85,7 +85,9 @@ having 3 developers doing 80% of the work.
 I was also able to catch up with Nubeliu about their Gnocchi usage.
 They
 [presented a nice demo of the cloud monitoring solution](https://www.youtube.com/watch?v=Hlt3UwsvgjU) they
-build on top of Gnocchi, which is pretty amazing.
+build on top of Gnocchi. They completely understood how to use Gnocchi to store
+a large number of metrics at scale and how to leverage the API to render what's
+happening in your infrastructure. It is pretty amazing.
 
 <div class="illustration">
 <iframe width="560" height="315"
