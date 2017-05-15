@@ -1,0 +1,104 @@
+---
+title: "OpenStack Summit Boston 2017 recap"
+created: !!timestamp '2017-05-12 15:00:00'
+image: /media/images/blog/2017/boston.jpg
+tags:
+    - OpenStack
+    - Gnocchi
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+The
+[first OpenStack Summit of 2017](https://www.openstack.org/summit/boston-2017/)
+was last week, in Boston, MA, USA. I was able to attend as I've been selected
+to give 3 talks, to help for a hands-on and to animate an on-boarding session.
+This made sure I was a bit busy every day, which was good.
+
+{% endmark %}
+{% endblock %}
+
+This is the first summit to happen since the
+new [Project Team Gathering (PTG)](https://www.openstack.org/ptg/) happened
+last February. I was unable to attend this first PTG back then, as there was no
+way to justify my presence there. The OpenStack Telemetry team that I lead is
+pretty small. People don't really need to talk to each other face to face to
+discuss: therefore we decided to not ask to be present during the last PTG
+event.
+
+The Telemetry on-boarding session that I organized with my fellow developer
+Gordon Chung on Tuesday had only 3 people showing up to ask a few questions
+about Telemetry. The session lasted 15 minutes on 90 planned. We shared that
+session with [CloudKitty](https://wiki.openstack.org/wiki/CloudKitty), for
+which nobody showed up for. When you think about it, this was really
+disappointing but did not come as a surprise.
+
+First, the amount of company engaging developers into OpenStack has shrunk
+drastically during the last year. Secondly, since there's now another event
+(the PTG) twice a year, it seems pretty clear that every developer will not be
+able to attend all the 4 events every year, creating dispersion in the
+community.
+
+I personally was glad to attend the Summit rather than the PTG, as it is more
+valuable to meet operators and users than developers to gather feedback.
+However, meeting everyone at the same time would be great, especially for
+smaller teams. The PTG scattered some teams to a point that many of developers
+of those lineups won't go to either the PTG nor the OpenStack. As a
+consequence, I won't have any meeting point in the future with many of my
+fellow developers around OpenStack. I warned the Technical Committee last year
+about this when it was decided to reorganize the events. I'm glad to be right
+but I'm a bit sad that the Foundation did not listen.
+
+Though all the projects I work on tend to
+follow
+[the good practice I wrote last year](https://julien.danjou.info/blog/2016/foss-projects-management-bad-practice).
+Therefore I cannot say that it has huge consequences on the projects I work on.
+It's a loss as it makes it harder to reach users and operators for some of us.
+It also reduces our occasion for social interaction, which was a great benefit.
+But it will not prevent us from building great software anyway!
+
+The few other sessions of _[The Forum](https://wiki.openstack.org/wiki/Forum)_
+(the space dedicated to developers during the Summit) that I attended discussed
+various technical things, and some sessions were pretty empty. I wonder if it
+was a lack of interest of people or if people were unable to travel to discuss
+those items. Anyhow, at this stage I am not sure it would have really mattered:
+this has been my 9th OpenStack Summit and many of the subjects discussed
+already have been discussed multiple time with barely any change since. Talk is
+cheap. Furthermore, most of the discussion were not made by stakeholders of the
+various projects involved, but by people on the side, or by members of the
+Technical Committee. There is just unfortunately too much of wishful thinking.
+
+On the talk side, [my presentation with Alex Krzos](/talks) entitled _Telemetry
+and the 10,000 instances_ went pretty well. We demonstrated what how we tested
+the performance of the telemetry stack. Same goes for my hands-on with the
+CloudKitty developers, where we managed to explain how Ceilometer, Gnocchi, and
+CloudKitty were able to work with each other to create nice billing reports.
+The last day was concluded with my talk on [collectd and Gnocchi](/talks) with
+Emma, which was short and to the point.
+My
+[final talk was about the status and roadmap of the OpenStack Telemetry team](/talks) where
+I tried to explain how the Telemetry works and what we might do (or not) in the
+next cycles. It was pretty short as we barely have a roadmap, the project
+having 3 developers doing 80% of the work.
+
+I was also able to catch up with Nubeliu about their Gnocchi usage.
+They
+[presented a nice demo of the cloud monitoring solution](https://www.youtube.com/watch?v=Hlt3UwsvgjU) they
+build on top of Gnocchi, which is pretty amazing.
+
+<div class="illustration">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/Hlt3UwsvgjU" frameborder="0"
+allowfullscreen></iframe>
+</div>
+
+While I missed the energy and the drive that the design session used to have in
+the first summits, it has been a pretty good summit. I was especially happy to
+be able to discuss OpenStack Telemetry and Gnocchi. The feedback I gathered was
+tremendous and terrific and I'm looking forward to the work we'll achieve in
+the next months!
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
