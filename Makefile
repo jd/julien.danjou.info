@@ -41,7 +41,7 @@ clean-pub:
 pub: deploy
 	if [ "$(BRANCH)" = "master" ]; then \
 		if ! git status | egrep -q '^nothing to commit.*working .+ clean'; then echo Untracked files, not pushing && exit 1; fi; \
-		echo "==> RSYNC TO PROD"; \
+		echo "==> PUSHING TO PROD ENV"; \
 		aws s3 sync deploy --region eu-west-1 s3://julien.danjou.info --exclude 'blog/*' --exclude 'projects/*'; \
 		aws s3 sync deploy/projects --region eu-west-1 s3://julien.danjou.info/projects --content-type text/html; \
 		aws s3 sync deploy/blog/tags --region eu-west-1 s3://julien.danjou.info/blog --exclude '*.xml' --content-type text/html --cache-control max-age=3600; \
@@ -50,7 +50,7 @@ pub: deploy
 		aws s3 sync deploy/blog --region eu-west-1 s3://julien.danjou.info/blog --exclude '*' --include '*.xml' --cache-control max-age=3600; \
 		aws cloudfront create-invalidation --distribution-id E3VAGUK2EGPNCJ --paths / /blog/index.html /blog/index.xml; \
 	else \
-		echo "==> RSYNC TO DEV"; \
+		echo "==> PUSHING TO DEV ENV"; \
 		echo "no dev yet"; \
 	fi
 
