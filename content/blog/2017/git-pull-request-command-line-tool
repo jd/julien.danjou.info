@@ -4,7 +4,7 @@ created: !!timestamp '2017-05-24 16:00:12'
 image: /media/images/blog/2017/git-pull-requests.png
 tags:
     - GitHub
-    - git
+    - Git
 ---
 
 {% block excerpt %}
