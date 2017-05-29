@@ -30,7 +30,7 @@ colors with the color they represent as background.
 
 ## Download It is available from [GNU ELPA](http://git.savannah.gnu.org/cgit/emacs/elpa.git/tree/packages/rainbow-mode).
 
-You can install it from **M-x list-packages** in Emacs 24.
+You can install it from **M-x list-packages** in Emacs 24 and superior.
 
 ## Manual
 Type *M-x rainbow-mode*. *Rbow* should be added to the mode-line, indicating
@@ -209,7 +209,7 @@ can add the following to your **.emacs**:
 It is available from [GNU
 ELPA](http://git.savannah.gnu.org/cgit/emacs/elpa.git/tree/packages/oauth2).
 
-You can install it from **M-x list-packages** in Emacs 24.
+You can install it from **M-x list-packages** in Emacs 24 and superior.
 {% endmarkdown %}
 </div>
 <div class="tab-pane fade in" id="muse-blog">
