@@ -122,6 +122,11 @@
       {{ resource.meta.title }}
       {% endblock %}
           </h1>
+          {% if resource.meta.subtitle %}
+          <h2 class="subtitle">
+            {{ resource.meta.subtitle }}
+          </h2>
+          {% endif %}
         </div>
       </div>
 

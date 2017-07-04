@@ -260,3 +260,11 @@ input.gsc-input {
 .ck_form_content h3 {
   margin-bottom: 30px !important;
 }
+
+h2.subtitle {
+    margin-top: 25px;
+    margin-left: 20px;
+    color: #cfcfcf;
+    font-size: 100%;
+    margin-bottom: -25px;
+}
