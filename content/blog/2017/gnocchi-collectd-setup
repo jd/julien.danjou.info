@@ -14,7 +14,7 @@ tags:
 Knowing that [collectd](http://collectd.org/) is a daemon that collects system
 and applications metrics and that [Gnocchi](http://gnocchi.xyz) is a scalable
 timeseries database, it sounds like a good idea to combine them together.
-_Cheery on the cake_: you can easily draw charts using [Grafana](http://grafana.org).
+_Cherry on the cake_: you can easily draw charts using [Grafana](http://grafana.org).
 
 {% endmark %}
 {% endblock %}
