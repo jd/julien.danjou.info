@@ -1,0 +1,142 @@
+---
+title: "Gnocchi or Prometheus?"
+subtitle: "What if you had to choose"
+created: !!timestamp '2017-08-30 12:34:00'
+image: /media/images/blog/2017/boats.jpg
+tags:
+    - Gnocchi
+    - Prometheus
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+The realm of time series database keeps expanding those last years. Now and
+then a new contender appears from the fog. People keep asking me about the
+difference between [Gnocchi](http://gnocchi.xyz) and [Prometheus](http://prometheus.io). It's time to content them.
+
+{% endmark %}
+{% endblock %}
+
+Gnocchi and Prometheus are two open source projects evolving in the same
+expertise area, time series handling. They both are licensed under the **Apache
+2.0 license** (see [Gnocchi license file](https://github.com/gnocchixyz/gnocchi/blob/master/LICENSE) and [Prometheus license file](https://github.com/prometheus/prometheus/blob/master/LICENSE).
+And that's a good thing!
+
+Both Gnocchi and Prometheus offers a bunch of features. Here's a table summary
+of the differences between the features they both offer – or not.
+
+<table id="comparison" class="table table-striped table-bordered table-condensed margin-bottom"
+       style="width: 50%; margin-left: auto; margin-right: auto;">
+    <tr><th><strong>Feature</strong></th><th>Prometheus</th><th>Gnocchi</th></tr>
+    <tr><td>Multi-tenant</td><td>❌</td><td>✓</td></tr>
+    <tr><td>User auth & ACL</td><td>❌</td><td>✓</td></tr>
+    <tr><td>Resource history</td><td>❌</td><td>✓</td></tr>
+    <tr><td>Metric polling</td><td>✓</td><td>❌</td></tr>
+    <tr><td>Highly available</td><td>❌</td><td>✓</td></tr>
+    <tr><td>Horizontal scalability</td><td>❌</td><td>✓</td></tr>
+    <tr><td>Alerting engine</td><td>✓</td><td>❌</td></tr>
+    <tr><td>Data compression</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Grafana support</td><td>✓</td><td>✓</td></tr>
+    <tr><td>collectd support</td><td>✓</td><td>✓</td></tr>
+</table>
+
+<style>
+#comparison th, #comparison td + td {
+    text-align: center;
+}
+</style>
+
+There's a lot of overlap between the two projects, but there are also some
+major differences.
+
+First, Gnocchi does not try to solve the metric retrieval problem. Prometheus
+provides a pull mechanism and takes in charge of getting the measurements.
+Gnocchi developers estimate that they are plenty of tools already doing that
+and that work well, such as [collectd](http://collectd.org).
+
+<img class="illustration pull-right"
+     style="width: 10%;"
+     src="/media/images/blog/2017/icon_siren.png">
+
+Secondly, Prometheus offers an [alerting engine](https://prometheus.io/docs/alerting/overview/), statically configured with
+a YAML file. It is way better than Gnocchi which offers nothing in comparison –
+for now. Gnocchi developers [are discussing the feature](https://github.com/gnocchixyz/gnocchi/issues/71) and while it's not
+on the roadmap yet, it will happen. It will, however, leverage a REST API to be
+controlled, as it seems important to us to be able to define alerts
+programmatically.
+
+<img class="illustration pull-right"
+     style="width: 10%;"
+     src="/media/images/blog/2017/icon_storage.png">
+
+Then there is a bunch of features where Gnocchi shines compared to Prometheus,
+and it is the core of its function: storing metrics. Gnocchi has a great
+storage engine that supports many storage backends (plain
+files, [OpenStack Swift](https://docs.openstack.org/swift/latest/), [Ceph](http://ceph.org)…). It helps Gnocchi scaling horizontally
+and providing native high-availability, whereas Prometheus stays a single point
+of failure.
+
+Multi-tenant and authentication are also supported by Gnocchi, allowing a
+single instance to be shared by multiple accounts. System administrators do not
+commonly use this kind of feature, but applications developers usually need
+them.
+
+That brings me to the usage and querying of Prometheus and Gnocchi. Prometheus
+has its small DSL (referred to as [PromQL](https://prometheus.io/docs/querying/basics/)) whereas Gnocchi has
+a [fully featured REST API](http://gnocchi.xyz/rest.html) that tries to expose proper semantic. It does
+not seem there are major differences between the two in term of features.
+
+However, both projects handle time series computing differently. Prometheus
+supports aggregating values over time ranges on query time ("give me the
+minimum value for 5 minutes range over the last day"). This is something where
+Gnocchi differs with many time series database. Gnocchi aggregates metrics at
+writing time, and not at query time (like [continuous query in InfluxDB](https://docs.influxdata.com/influxdb/v0.9/query_language/continuous_queries/),
+except that it works reliably in Gnocchi 😅). This implies that Gnocchi needs a
+bit of CPU time at write time to pre-compute those aggregates, but it is
+blazingly fast at reading time as it has nothing to compute.
+
+<img class="illustration pull-right"
+     style="width: 10%;"
+     src="/media/images/blog/2017/icon_clock.png">
+
+Prometheus has some limitations inherent to time series database designed
+around the notion of "monitoring": they tend to compute everything relatively
+to `$NOW`. For example, it seems impossible to inject data from the past. The
+timestamp for a value is the timestamp where Prometheus read that value. If
+Prometheus misses values for a few hours, don't think about importing it back.
+
+I'm noting this here as it makes it harder to benchmark Prometheus for
+ingestion. You need tons of fake metrics to polls and build data. I did not
+find any reference of Prometheus performances online, though it is advertised
+to ingest "millions of measures from thousands of sources".
+
+Query performances seem to vary on Prometheus, and I did not find any benchmark
+on that neither. Gnocchi leverages standard RDBMS (MySQL or PostgreSQL is
+supported) to query indexed data and the metrics retrieval is always _O(1)_,
+making it **always fast**.
+
+# Conclusion
+
+If you look in different and older areas, there never has been only one HTTP
+server. Many people use Apache HTTP server, but you'll find plenty of users of
+nginx, Tomcat, HAProxy, Node.js or uwsgi which are also common options
+nowadays. Same goes for RDBMS if you look at PostgreSQL, MySQL and other
+databases solution, etc. There will never be a project winning all the market
+share.
+
+It seems to me that time series storage and management is also growing in this
+category. There will probably be various projects that will enjoy some
+popularity and growth. Every project addresses the time series problem space
+with a different view and different trade-offs. There might never be a single
+project solving all problems at once.
+
+Prometheus seems to be oriented toward monitoring of live systems. Gnocchi is
+oriented to highly available time series storage at massive scale. Not
+considering performances (I was not able to compare anyway), both have
+different tradeoffs in term of features, philosophy, and orientation. Depending
+on your use cases, one might be a better fit than the other.
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
