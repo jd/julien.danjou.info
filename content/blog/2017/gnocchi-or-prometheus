@@ -37,6 +37,7 @@ of the differences between the features they both offer – or not.
     <tr><td>Horizontal scalability</td><td>❌</td><td>✓</td></tr>
     <tr><td>Alerting engine</td><td>✓</td><td>❌</td></tr>
     <tr><td>Data compression</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Pre-computed aggregation</td><td>✓</td><td>✓</td></tr>
     <tr><td>Grafana support</td><td>✓</td><td>✓</td></tr>
     <tr><td>collectd support</td><td>✓</td><td>✓</td></tr>
 </table>
@@ -87,14 +88,13 @@ has its small DSL (referred to as [PromQL](https://prometheus.io/docs/querying/b
 a [fully featured REST API](http://gnocchi.xyz/rest.html) that tries to expose proper semantic. It does
 not seem there are major differences between the two in term of features.
 
-However, both projects handle time series computing differently. Prometheus
-supports aggregating values over time ranges on query time ("give me the
-minimum value for 5 minutes range over the last day"). This is something where
-Gnocchi differs with many time series database. Gnocchi aggregates metrics at
-writing time, and not at query time (like [continuous query in InfluxDB](https://docs.influxdata.com/influxdb/v0.9/query_language/continuous_queries/),
-except that it works reliably in Gnocchi 😅). This implies that Gnocchi needs a
-bit of CPU time at write time to pre-compute those aggregates, but it is
-blazingly fast at reading time as it has nothing to compute.
+Both Prometheus and Gnocchi support aggregating values over time ranges on
+query time ("give me the minimum value for every 5 minutes range over the last
+day"). Gnocchi always aggregates metrics at writing time, and never at query
+time (unless doing it cross-metrics). This implies that Gnocchi needs a bit of
+CPU time at write time to pre-compute those aggregates, but it is blazingly
+fast at reading time as it has nothing to compute. Prometheus can do the same
+thing using [recording rules](https://prometheus.io/docs/querying/rules/).
 
 <img class="illustration pull-right"
      style="width: 10%;"
