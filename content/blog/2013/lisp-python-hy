@@ -6,6 +6,7 @@ tags:
     - Python
     - Hy
     - Lisp
+    - PyConFR
 ---
 
 {% block excerpt %}
