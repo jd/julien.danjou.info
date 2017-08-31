@@ -57,11 +57,13 @@ nav.navbar.container {
 .illustration.pull-left {
   margin-right: 20px;
   margin-bottom: 20px;
+  clear: left;
 }
 
 .illustration.pull-right {
   margin-left: 20px;
   margin-bottom: 20px;
+  clear: right;
 }
 
 .illustration.icon {
