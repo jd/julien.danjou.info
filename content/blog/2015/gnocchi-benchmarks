@@ -359,7 +359,10 @@ var data = {
   };
 
 var ctx = $("#metric_crud").get(0).getContext("2d");
-var metric_crud = new Chart(ctx).Bar(data, {});
+var metric_crud = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+});
 
 var data = {
     labels: ["Push 5k", "Push 4k", "Push 3k", "Push 2k", "Push 1k", "Push 500", "Push 100", "Push 10", "Push 1", "Get"],
@@ -376,7 +379,10 @@ var data = {
   };
 
 var ctx = $("#measures_push").get(0).getContext("2d");
-var measures_push = new Chart(ctx).Bar(data, {});
+var measures_push = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+});
 
 var data = {
     labels: ["Read SQL", "Read MongoDB", "Read Gnocchi"],
@@ -393,7 +399,10 @@ var data = {
   };
 
 var ctx = $("#measures_get").get(0).getContext("2d");
-var measures_get = new Chart(ctx).Bar(data, {});
+var measures_get = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+});
 
 });
 </script>
