@@ -1,0 +1,356 @@
+---
+title: "Gnocchi 4 performances"
+subtitle: "Fast and furious."
+created: !!timestamp '2017-09-11 11:58:00'
+image: /media/images/blog/2017/bus-speed.jpg
+default_block: None
+tags:
+    - Gnocchi
+---
+
+{% block article %}
+
+{% block excerpt %}
+{% mark excerpt %}
+
+It has been a long time since I have tested [Gnocchi](http://gnocchi.xyz)
+performances. [Last time was two years ago, on version 2](/blog/2015/gnocchi-benchmarks). The current
+version for Gnocch is 4.0, [released a couple of months ago](/blog/2017/gnocchi-4-release). It adds a lot
+of new features, such as a [Redis](http://redis.org) incoming driver and a new job
+distribution method.
+
+Many of those features and improvement implemented over the last couple of
+years were made with performance in mind. It is time to check if this lives up
+to our expectation.
+
+
+{% endmark %}
+{% endblock %}
+
+## Test protocol
+
+I have pulled the servers I used a couple of years ago out of the dust, updated
+them with latest RHEL 7 and installed Gnocchi 4.0.1 and Redis 4.0.1 on one of
+them. I used the other server as the benchmark client, in charge of generating
+a bunch of loads.
+
+The hardware configuration for each server is:
+
+* 2 × Intel(R) Xeon(R) CPU E5-2609 v3 @ 1.90GHz (6 cores each)
+
+* 32 GB RAM
+
+* SanDisk Extreme Pro 240GB SSD
+
+I have installed Gnocchi using `pip install gnocchi[postgresql,file,redis]`,
+created a PostgreSQL database and wrote the following configuration file:
+
+{% syntax ini %}
+[indexer]
+url = postgresql://root:@localhost/gnocchi
+
+# Uncomment when testing with Redis
+# [incoming]
+# driver = redis
+
+[storage]
+file_basepath = /root/gnocchi-venv/data
+{% endsyntax %}
+
+The perk of having good default values: you only to write a couple of
+configuration lines to get it working.
+
+I have used uWSGI as the Web server, using the configuration
+file [provided Gnocchi's documentation](http://gnocchi.xyz/operating.html#running-api-as-a-wsgi-application) and configured it with 64 processes
+and 16 threads.
+
+Since the hardware configurations are identical, I allow myself in this article
+to compare the performances of Gnocchi 2 and Gnocchi 4 directly.
+
+## Benchmark tools
+
+For generating loads, I have reused the code that I wrote and merged
+in [python-gnocchiclient](http://pypi.python.org/gnocchiclient). It is still not that easy to generate a lot of
+parallel loads in Python, though it is still the best tool I find available
+that was not too complicated to setup for things like CRUD operations.
+
+To benchmark measures, I needed something very fast to generate requests on the
+client side to be sure to be able to overload the server. I have
+leveraged [wrk](https://github.com/wg/wrk), which is written in C++ and is fast. It is scriptable using
+Lua, so it made it easy to generate fake batches of data.
+
+## Metric CRUD operations
+
+The first step is to benchmarks the CRUD operations for metrics. Here are the
+results, compared to the benchmarks I did against Gnocchi 2.
+
+<div style="width: 75%; margin-bottom: 40px; height: 400px;" class="illustration">
+    <canvas id="metric_crud"></canvas>
+</div>
+
+Without surprises (but with great pleasure), everything is between 13% and 26%
+faster. Those operations mostly consist of SQL operations for the backend and
+serialization on the API – nothing heavy.
+
+## Sending and getting measures
+
+Writing measures is still the hottest topic! How fast can you push things into
+that time series database and how efficient it is at retrieving those?
+
+Gnocchi has been supporting various batching methods for a while, and here the
+tested one is the simplest case, i.e., batching for one metric at a time.
+
+<div style="width: 75%; margin-bottom: 40px; height: 400px;" class="illustration">
+    <canvas id="metric_measures"></canvas>
+</div>
+
+I think the chart talks for itself. With Redis as a driver, I attained almost
+**1 million measures per second**. I did not find a suitable tool to report
+performances with a payload bigger than 5000 points, so I stopped at that.
+Those results are inline with
+what [Gordon Chung measured recently on Gnocchi 4](https://medium.com/@gord.chung/gnocchi-4-introspective-a83055e99776) – though he achieved
+**1.3 million measures per second** with his bigger hardware!
+
+These are performances using HTTP as a protocol – with all its overhead and
+JSON serialization going on. Gnocchi does not implement any custom protocol so
+far because we never had any requirement for more performances. However, that
+would certainly be a good path to follow for anyone wanting to go even faster.
+
+<div style="width: 75%; margin-bottom: 40px; height: 400px;" class="illustration">
+    <canvas id="metric_measures_get"></canvas>
+</div>
+
+Reading metrics is 54% faster here again. You can retrieve up to 400 000
+measures per second (around 150 Mbit/s of data). That means you can retrieve a
+metric with a whole year of measures with a one-minute aggregate in 1.3
+seconds. More realistically, you can retrieve the last 24 hours of data with a
+one minute precision for 280 metrics in just one second. That is more data you
+could ever fit on your graph dashboard!
+
+Most of the time is spent serializing points in JSON – again, a different
+retrieving mechanism could be envisioned to achieve even higher performances.
+
+## _Metricd_ speed
+
+I did not benchmark myself metricd speed,
+as [Gordon wrote a complete report in the meantime](https://medium.com/@gord.chung/gnocchi-4-introspective-a83055e99776). Gnocchi 4 multiplies
+The processing speed from Gnocchi 2 by a factor of 2.
+
+<img src="/media/images/blog/2017/gnocchi-metricd-speed.png"
+    class="illustration center"
+    style="max-width: 75%;">
+
+This speed is quite impressive and allows Gnocchi to ingest and pre-compute
+considerable amount of data in a short time span. Some of the changes Gordon
+tested here are not yet released and will be part of the next minor release
+(4.1).
+
+
+Being that efficient means that with only 1 CPU, Gnocchi can process (data
+aggregation) roughly 700 measures per second. If you have 70 servers and gather
+10 metrics per server every second, Gnocchi can process them without any delay.
+
+If you scale back your polling to one minute instead of one second (the most
+common scenario) and use a single computer with 12 cores, that means Gnocchi
+can **aggregate the metrics from 50 400 servers with only one server**.
+
+Not that bad.
+
+## Conclusion
+
+Our processing engine is getting now really mature. Hundreds of deployments are
+now using it for production purpose of gathering metrics. The recent
+improvements made for Gnocchi 4 are a compelling argument for users to upgrade,
+and we are pretty proud of our work! We still have a few ideas on how to
+improve some corner cases, but the general use case is getting well covered.
+Adding to that the native horizontal capability that Gnocchi provides since day
+one, it is getting hard to find a time series database that has those features
+with this level of performance (but of course I'm biased, haha).
+
+And if you have any questions, feel free to shoot them in the comment section.
+😉
+
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+
+<script src="/media/js/Chart.min.js"></script>
+<script type="text/javascript">
+$(function () {
+var chartColors = {
+	red: 'rgb(234, 18, 51)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(46, 106, 234)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+};
+var color = Chart.helpers.color;
+
+var ctx = $("#metric_crud").get(0).getContext("2d");
+var metric_crud = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Create", "Read", "Delete"],
+        datasets: [
+            {
+                label: "Gnocchi 2",
+                backgroundColor: color(chartColors.blue).alpha(0.6).rgbString(),
+                borderColor: chartColors.blue,
+                borderWidth: 1,
+                data: [1300, 670, 524]
+            },
+            {
+                label: "Gnocchi 4",
+                backgroundColor: color(chartColors.red).alpha(0.6).rgbString(),
+                borderColor: chartColors.red,
+                borderWidth: 1,
+                data: [1473, 843, 708]
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        scales: {
+            yAxes: [ {
+                ticks: {
+                    beginAtZero: true
+                }
+            } ]
+        },
+        title: {
+           display: true,
+           text: 'CRUD operations'
+        }
+    }});
+
+
+var ctx = $("#metric_measures").get(0).getContext("2d");
+var metric_measures = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["1", "10", "100", "500", "1000", "2000", "3000", "4000", "5000"],
+        datasets: [
+            {
+                label: "Gnocchi 2 (file)",
+                backgroundColor: color(chartColors.blue).alpha(0.6).rgbString(),
+                borderColor: chartColors.blue,
+                borderWidth: 1,
+                data: [624, 6000, 45000, 98000, 113000, 121000, 123000, 125000, 122000]
+            },
+            {
+                label: "Gnocchi 4 (file)",
+                backgroundColor: color(chartColors.red).alpha(0.6).rgbString(),
+                borderColor: chartColors.red,
+                borderWidth: 1,
+                data: [1 * 754.26,
+                       10 * 770.16,
+                       100 * 583.53,
+                       500 * 522.88,
+                       1000 * 406.38,
+                       2000 * 273.03,
+                       3000 * 215.11,
+                       4000 * 185.08,
+                       5000 * 176.11]
+            },
+            {
+                label: "Gnocchi 4 (Redis)",
+                backgroundColor: color(chartColors.purple).alpha(0.6).rgbString(),
+                borderColor: chartColors.purple,
+                borderWidth: 1,
+                data: [1 * 674,
+                       10 * 782.34,
+                       100 * 600,
+                       500 * 533.66,
+                       1000 * 405.38,
+                       2000 * 282,
+                       3000 * 223,
+                       4000 * 195,
+                       5000 * 185.41]
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        scales: {
+            yAxes: [ {
+                scaleLabel: {
+                    display: true,
+                    labelString: "Measures per second"
+                },
+                ticks: {
+                    beginAtZero: true
+                }
+            } ],
+           xAxes: [ {
+                scaleLabel: {
+                    display: true,
+                    labelString: "Measures per request"
+                },
+            } ]
+        },
+        title: {
+           display: true,
+           text: 'Measures writing'
+        }
+    }});
+    
+var ctx = $("#metric_measures_get").get(0).getContext("2d");
+var metric_measures_get = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Get measures for metric"],
+        datasets: [
+            {
+                label: "Gnocchi 2 (file)",
+                backgroundColor: color(chartColors.blue).alpha(0.6).rgbString(),
+                borderColor: chartColors.blue,
+                borderWidth: 1,
+                data: [260000]
+            },
+            {
+                label: "Gnocchi 4 (file)",
+                backgroundColor: color(chartColors.red).alpha(0.6).rgbString(),
+                borderColor: chartColors.red,
+                borderWidth: 1,
+                data: [46.43 * 8640]
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        scales: {
+            yAxes: [ {
+                scaleLabel: {
+                    display: true,
+                    labelString: "Measures per second"
+                },
+                ticks: {
+                    beginAtZero: true
+                }
+            } ]
+        },
+        title: {
+           display: true,
+           text: 'Measures reading'
+        }
+    }});
+});
+</script>
+
+{% endblock js %}
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
