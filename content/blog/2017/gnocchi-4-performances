@@ -15,7 +15,7 @@ tags:
 
 It has been a long time since I have tested [Gnocchi](http://gnocchi.xyz)
 performances. [Last time was two years ago, on version 2](/blog/2015/gnocchi-benchmarks). The current
-version for Gnocch is 4.0, [released a couple of months ago](/blog/2017/gnocchi-4-release). It adds a lot
+version for Gnocchi is 4.0, [released a couple of months ago](/blog/2017/gnocchi-4-release). It adds a lot
 of new features, such as a [Redis](http://redis.org) incoming driver and a new job
 distribution method.
 
