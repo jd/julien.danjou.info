@@ -23,6 +23,7 @@ DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/OpenStack_Telemetry_and_the
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/OpenStack_Telemetry_Project_Update_Boston_Summit_2017.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/Gnocchi_and_collectd.png
 DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/scalable-and-distributed-applications-in-python-pyconfr-2017.png
+DYNAMIC_DEPLOY+=deploy/media/images/talks/thumbnails/storing-metrics-at-scale-with-gnocchi-openstack-days-uk-2017.png
 DYNAMIC_DEPLOY+=deploy/media/js/custom.min.js
 DYNAMIC_DEPLOY+=deploy/media/js/plugins.min.js
 DYNAMIC_DEPLOY+=deploy/media/css/animate.min.css
