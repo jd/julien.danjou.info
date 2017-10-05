@@ -58,6 +58,7 @@ pub: deploy
 
 clean:
 	git clean -xdf deploy content
+	rm -f .hyde_deps
 
 web: deploy
 	hyde -x serve -p 8080
