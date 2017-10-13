@@ -17,7 +17,7 @@
 
 {% macro render_blog_listing(walker) %}
   {% for res in walker %}
-    <div class="container post format-image">
+    <div class="container post format-image margin-bottom">
       <div class="entry">
 	<header class="entry-header">
 	  <h2><a href="{{ res.full_url }}">{{ res.meta.title }}</a></h2>
