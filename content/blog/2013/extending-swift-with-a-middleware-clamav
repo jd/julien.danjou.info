@@ -36,7 +36,7 @@ some middleware.</figcaption>
 To do our content analysis, the best place to hook in the Swift architecture
 is at the beginning of every request, on **swift-proxy**, before the file is
 actually stored on the cluster. Swift proxy uses, like many other OpenStack
-projects, [paste](http://pythonpaste.org/) to build his HTTP architecture.
+projects, [paste](https://pypi.python.org/pypi/Paste) to build his HTTP architecture.
 
 Paste uses WSGI and provides an architecture based on a pipeline. The
 pipeline is composed of a succession of middleware, ending with one
