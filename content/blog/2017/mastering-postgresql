@@ -1,0 +1,302 @@
+---
+title: "Mastering PostgreSQL"
+subtitle: "Learn to replace thousands of lines of code with one SQL query"
+created: !!timestamp '2017-11-07 11:54:00'
+image: /media/images/blog/2017/elephant.jpg
+tags:
+    - PostgreSQL
+    - Books
+---
+
+{% block excerpt %}
+{% mark excerpt %}
+
+A few months ago, my friend [Dimitri Fontaine](http://tapoueh.org) and I discussed writing books
+and sharing our knowledge. If you do not know Dimitri yet, he is an old-time
+PostgreSQL Major Contributor – meaning he writes code for the PostgreSQL
+software itself!
+
+{% endmark %}
+{% endblock %}
+
+I interviewed Dimitri a few years ago in [The Hacker's Guide to
+Python](https://thehackerguidetopython.com), where he shared his insight about
+writing proper Python application code with relational database management
+system.
+
+All of this gave Dimitri the idea of writing its own book about PostgreSQL. And
+he released his book this week! If like me, you can't wait to read it, just
+click on the button below and grab a package with a **15% discount**.
+
+<p class="text-center">
+  <a href="#packages" class="btn btn-default white">Buy the book</a></span>
+</p>
+
+To celebrate the event, I went ahead and decided to ask him a few questions.
+
+<img src="/media/images/blog/2017/dim-rounded.png"
+    class="illustration pull-right"
+    style="max-width: 25%;">
+
+#### Hey Dimitri! So what made you start writing this book in the first place?
+
+*Dimitri*: As a PostgreSQL consultant, I've met with many developers for whom
+SQL just didn't click. They then tend to consider SQL much as they would
+consider HTML: some string you need to build dynamically then send over to an
+external part of the system, either the browser or the database server.
+
+As soon as you start on this path, SQL is more and more of a problem in your
+daily life and developer workflow. It doesn't integrate well with the usual
+testing and continuous integration tools, not to mention it's hard to review
+(as in code review) and hard to maintain.
+
+> At the end of the day, when using a relational database system, you have to
+know your SQL.
+
+As a developer, you need to be fluent in SQL and master window functions,
+common table expressions, recursive queries, time zone handling and advanced
+string and regexp processing functions, transaction behaviors and also how to
+build a query result set in JSON. And so much more.
+
+For most developers, it's a daunting task. Just too much to learn when they
+have so many other things to take care of. So many lines of code to write to
+implement that new product idea. Well, as Dijkstra put it, lines of code are
+“spent” on writing a new feature. When you master SQL, you spend much less of
+those lines of code.
+
+So I wrote **Mastering PostgreSQL in Application Development** to teach SQL to
+developers. Focusing on real use cases and authentic data set, so that it's
+easier to grasp all those advanced features. The book also addresses the
+tooling you need to integrate SQL as another programming language with a decent
+worfklow, from code review to unit testing, including regression testing and
+production debugging.
+
+#### Who should read this book? What are the prerequisites to get the most of it?
+
+*Dimitri*: The pre-requisites are quite easy to reach.
+
+> If you ever deployed an application that embeds SQL queries and talks to a
+database server, you're in the target audience, the book is for you.
+
+If you've never used PostgreSQL before, reading **Mastering PostgreSQL in
+Application Development** may convince you to have a look at that awesome piece
+of technology. My bet is on you switching to PostgreSQL and finding it much
+better at helping you in your daily work and challenges.
+
+Even if you've been using MySQL all your life, you will learn about standard
+SQL features and how to use them in a way that applies to more than just
+PostgreSQL, so the book is going to help you in your daily life.
+
+#### What's your next adventure now that this book is out?
+
+*Dimitri*: There are more things that I want to do that a lifetime allows, and
+I am in the process of choosing what is going to be my next adventure. I feel
+so lucky to be able to have that problem to solve… and it still isn't the
+easiest one for me.
+
+What I can tell you is that I have much more PostgreSQL knowledge to share
+after having been using, promoting, and contributing to this database server
+technology for about 20 years now. So if that first book sells well, I will get
+back to filling empty pages and deliver more contents to help developers making
+the best of SQL, to help developers on their road to Mastering PostgreSQL!
+
+#### Thanks Dimitri!
+
+I've just read the book and found it fantastic. It contains tons of tips on how
+to use PostgreSQL correctly, and I discovered SQL features I had no clue about.
+The book uses real data that you can fetch and play with. It provides the data
+and a Docker container with everything included so you can edit the query
+yourself and try it out. There is no better way to learn things than to play
+with the examples that are included, in just a few clicks!
+
+The book also features a few interviews with SQL experts from the PostgreSQL
+community and from the development community, which gives great insight about
+how to use the software.
+
+<span id="packages"><span>
+
+Dimitri is offering **15% off for my readers** during the next 48 hours for any
+of the edition of the book. Just use the **PYTHON-LOVES-POSTGRESQL** coupon
+code in any of the following package:
+
+<br>
+<div class="container products inforow">
+  <div class="product clearfix">
+    <div class="col-sm-3">
+      <a href="https://gumroad.com/a/623817843/szoX">
+        <img src="/media/images/blog/2017/MasteringPostgreSQLinAppDev-Cover.png"
+             alt="Mastering PostgreSQL – Enterprise Edition">
+      </a>
+    </div>
+    <div class="col-sm-9 description">
+      <h3><a href="https://gumroad.com/a/623817843/szoX"></a>Mastering PostgreSQL – Enterprise Edition</h3>
+      <span class="price">
+        <span class="amount"><strike>$179</strike> <strong>$152</strong>
+          <br><small> with coupon code
+            <strong>PYTHON-LOVES-POSTGRESQL</strong></small></span>
+      </span>
+      <br>
+      <p>
+        The Enterprise Edition includes:
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/ebook_reader.png">
+          </div>
+          <div class="col-sm-11">
+            The book in PDF, EPUB and MOBI formats.
+          </div>
+        </div>
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/icon_mic.png">
+          </div>
+          <div class="col-sm-11">
+            Interviews from industry veterans who began building web
+            application in the previous century. They’ve been there and have
+            opinions to share about how to approach SQL.
+          </div>
+        </div>
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/icon_database.png">
+          </div>
+          <div class="col-sm-11">
+            The PostgreSQL database dump that you need to run the queries
+            against, with a script to restore it easily. The database includes
+            all the 12 datasets used in the book.
+          </div>
+        </div>
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/docker-logo.png">
+          </div>
+          <div class="col-sm-11">
+            A Docker container image of an already loaded PostgreSQL database
+            with the whole 12 datasets in 56 tables, and the 265 SQL queries
+            each in their own .sql file and a Web-based application for
+            easily running and editing the SQL queries.
+          </div>
+        </div>
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/certificate.png">
+          </div>
+          <div class="col-sm-11">
+            Licence for you to share the book and the Docker set-up with up
+            to 50 people, including you. That's everything you need for your
+            whole team to master SQL!
+          </div>
+        </div>
+        <span style="float: right;"><a href="https://gumroad.com/a/623817843/szoX" class="btn btn-default white">Buy the Enterprise Edition</a></span>
+      </p>
+    </div>
+  </div>
+</div>
+<hr>
+
+<div class="container products inforow">
+  <div class="product clearfix">
+    <div class="col-sm-3">
+      <a href="https://gumroad.com/a/623817843/koprL">
+        <img src="/media/images/blog/2017/MasteringPostgreSQLinAppDev-Cover.png"
+             alt="Mastering PostgreSQL – Full Edition">
+      </a>
+    </div>
+    <div class="col-sm-9 description">
+      <h3><a href="https://gumroad.com/a/623817843/koprL"></a>Mastering PostgreSQL – Full Edition</h3>
+      <span class="price">
+        <span class="amount"><strike>$89</strike> <strong>$75</strong>
+          <br><small> with coupon code <strong>PYTHON-LOVES-POSTGRESQL</strong></small></span>
+      </span>
+      <br>
+      <p>
+        The Full Edition includes:
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/ebook_reader.png">
+          </div>
+          <div class="col-sm-11">
+            The book in PDF, EPUB and MOBI formats.
+          </div>
+        </div>
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/icon_mic.png">
+          </div>
+          <div class="col-sm-11">
+            Interviews from industry veterans who began building web
+            application in the previous century. They’ve been there and have
+            opinions to share about how to approach SQL.
+          </div>
+        </div>
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/icon_database.png">
+          </div>
+          <div class="col-sm-11">
+            The PostgreSQL database dump that you need to run the queries
+            against, with a script to restore it easily. The database includes
+            all the 12 datasets used in the book.
+          </div>
+        </div>
+        <span style="float: right;"><a href="https://gumroad.com/a/623817843/koprL" class="btn btn-default white">Buy the Full Edition</a></span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="container products inforow">
+  <div class="product clearfix">
+    <div class="col-sm-3">
+      <a href="https://gumroad.com/a/623817843/WhNVv">
+        <img src="/media/images/blog/2017/MasteringPostgreSQLinAppDev-Cover.png"
+             alt="Mastering PostgreSQL">
+      </a>
+    </div>
+    <div class="col-sm-9 description">
+      <h3><a href="https://gumroad.com/a/623817843/WhNVv"></a>Mastering PostgreSQL</h3>
+      <span class="price">
+        <span class="amount"><strike>$39</strike> <strong>$33</strong>
+          <br><small> with coupon code <strong>PYTHON-LOVES-POSTGRESQL</strong></small></span>
+      </span>
+      <br>
+      <p>
+        The Standard Edition includes:
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/ebook_reader.png">
+          </div>
+          <div class="col-sm-11">
+            The book in PDF, EPUB and MOBI formats.
+          </div>
+        </div>
+        <div class="row" style="margin: 15px;">
+          <div class="col-sm-1">
+            <img src="/media/images/blog/2017/icon_mic.png">
+          </div>
+          <div class="col-sm-11">
+            Interviews from industry veterans who began building web
+            application in the previous century. They’ve been there and have
+            opinions to share about how to approach SQL.
+          </div>
+        </div>
+        <span style="float: right;"><a href="https://gumroad.com/a/623817843/WhNVv" class="btn btn-default white">Buy the book</a></span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+If you have any question, feel free to reach [Dimitri](mailto:dim@tapoueh.org) directly and he will
+be happy to reply. Or write in the comment section below!
+
+And don't worry: if the book is not what you expect it to be and has no value
+to you, then just say so and Dimitri will refund you, no questions asked.
+
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
