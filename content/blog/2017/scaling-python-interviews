@@ -1,0 +1,197 @@
+---
+title: "Scaling Python: the interviewees"
+created: !!timestamp '2017-11-28 16:00:00'
+image: /media/images/blog/2017/scapy-title.jpg
+default_block: None
+tags:
+    - Python
+    - Books
+---
+
+{% block article %}
+{% block excerpt %}
+{% mark excerpt %}
+
+The release date for [Scaling Python](http://scaling-python.com) is now very close! Today, I'd like to
+talk a bit about the interviews that I've run those last months that are
+featured in the book.
+
+{% endmark %}
+{% endblock %}
+
+I'm glad that during those long weeks work, I have managed to find a Python
+expert on each of the major topic covered in the book. They will provide
+hindsight on the different subject covered and share their experience so you
+can benefit from it!
+
+Without further delay, ladies and gentlemen, here they are:
+
+
+<div class="row">
+<div class="col-sm-1"></div>
+
+<div class="col-sm-10">
+
+<h2>Mehdi Abaakouk</h2>
+
+<div class="row margin-bottom">
+<div class="col-sm-2">
+<figure class="illustration">
+  <img style="border-radius: 100px; border: 2px solid grey;" src="/media/images/blog/2017/mabaakouk.png">
+  </a>
+</figure>
+</div>
+<div class="col-sm-10" style="text-align: justify;">
+Mehdi is a French free software hacker, working at Red Hat, who has been using
+Linux for almost twenty years now. He works daily on OpenStack, the largest
+open source project using Python. He also regularly builds and contribute to
+distributed applications and is responsible for several widely used Python
+libraries – <em>Cotyledon</em>, <em>oslo.messaging</em>, etc.
+<br>
+In the book, Mehdi gives excellent tips on how to build distributed daemons.
+</div>
+</div>
+
+<h2>Naoki Inada</h2>
+
+<div class="row">
+<div class="col-sm-10" style="text-align: justify;">
+Naoki is a Japanese software engineer, who happens to also be one of the
+CPython developers. He worked on several significant features in CPython, such as
+<em>asyncio</em>.
+<br>
+You'll be able to read Naoki opinion on Python and other programming languages
+when it comes to asynchronous workflows.
+</div>
+<div class="col-sm-2">
+
+<figure class="illustration">
+  <img style="border-radius: 100px; border: 2px solid grey;" src="/media/images/blog/2017/ninada.png">
+  </a>
+</figure>
+</div>
+</div>
+
+## Chris Dent
+
+<div class="row margin-bottom">
+<div class="col-sm-2">
+<figure class="illustration">
+  <img style="border-radius: 100px; border: 2px solid grey;" src="/media/images/blog/2017/cdent.png">
+  </a>
+</figure>
+</div>
+<div class="col-sm-10" style="text-align: justify;">
+Chris Dent has been using Python for more than 15 years now and is an expert on
+WSGI. He has an extensive knowledge about REST API – he is one of the early
+organizers of the <a href="https://specs.openstack.org/openstack/api-wg/">
+OpenStack API working group</a>.
+
+Chris has, among other things, created Gabbi, a fabulous Python testing tool
+for. In <em>Scaling Python</em>, he provides best practice on building REST API.
+</div>
+</div>
+
+## Joshua Harlow
+
+<div class="row margin-bottom">
+<div class="col-sm-10" style="text-align: justify;">
+Joshua is a highly experienced engineer in distributed systems. He maintains a
+few Python libraries, such as <em>Kazoo</em> (ZooKeeper client) or
+<em>TaskFlow</em> (distributed tasks).
+<br>
+
+In the book, Joshua lays down principles that make Python application
+resilient and fault tolerant.
+
+</div>
+<div class="col-sm-2">
+<figure class="illustration">
+  <img style="border-radius: 100px; border: 2px solid grey;" src="/media/images/blog/2017/harlowja.png">
+  </a>
+</figure>
+</div>
+</div>
+
+## Alexys Jacob-Monier
+
+<div class="row margin-bottom">
+<div class="col-sm-2">
+<figure class="illustration">
+<img style="border-radius: 100px; border: 2px solid grey;"
+     src="/media/images/blog/2017/ajacobmonier.png"> </a> </figure> </div>
+<div class="col-sm-10" style="text-align: justify;">
+Alexys is the CTO of 1000mercis and is part of the open-source software
+community for a few years now. He regularly gives speeches at Python conferences
+and talks about how to leverage Python when distributing applications.
+<br>
+Alexys talks about advanced techniques, e.g. using consistent hash rings, and
+how they should be applied.
+</div>
+</div>
+
+## Victor Stinner
+
+<div class="row margin-bottom">
+<div class="col-sm-10" style="text-align: justify;">
+Victor is a long time CPython core developer, working on the language itself
+for several years now. He is well known in the community for working on making
+CPython faster and leads several performance-oriented projects.
+<br>
+In <em>Scaling Python</em>, Victor talks about optimizations, profiling, and
+performance when using Python, and how to make the right decisions.
+</div>
+<div class="col-sm-2">
+<figure class="illustration">
+  <img style="border-radius: 100px; border: 2px solid grey;" src="/media/images/blog/2017/vstinner.png">
+  </a>
+</figure>
+</div>
+</div>
+
+## Jason Myers
+
+<div class="row margin-bottom">
+<div class="col-sm-2">
+<figure class="illustration">
+  <img style="border-radius: 100px; border: 2px solid grey;" src="/media/images/blog/2017/jmyers.png">
+  </a>
+</figure>
+</div>
+<div class="col-sm-10" style="text-align: justify;">
+Jason is a Python developer and an author – he wrote an entire book on
+SQLAlchemy, the famous Python SQL library. He worked on cloud computing
+platforms, as a Web developer, and as a data engineer.
+<br>
+In the book, we discuss with Jason about caching and RDBMS usage.
+</div>
+</div>
+
+</div>
+<div class="col-sm-1"></div>
+</div>
+
+<figure class="illustration pull-right" style="width: 20%;">
+  <a href="https://scaling-python.com">
+  <img src="https://scaling-python.com/img/the-hacker-guide-to-scaling-python.png">
+  </a>
+</figure>
+
+It was marvelous to have a chat with all those developers and pick their brain
+about different subjects. These contents broaden the scope and expand the view
+of the themes covered through the chapters. I can't thank them all enough!
+
+If you want to be informed of the release of the book, subscribe in the
+following form! You'll be the first to be notified and to enjoy an exclusive
+offer. ;-)
+
+<script async id="_ck_119473" src="https://forms.convertkit.com/119473?v=6"></script>
+
+{% endblock %}
+
+{% block subscribeform %}
+{% endblock  %}
+
+{# Local Variables: #}
+{# mode: markdown #}
+{# End: #}
