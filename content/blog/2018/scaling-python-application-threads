@@ -173,7 +173,7 @@ that you can implement using Python. There are a few other options available on
 top of this mechanism – I've covered those in my book [Scaling
 Python](https://scaling-python.com), if you're interested in learning more!
 
-Until then, stay tuned for the next article of this series!
+If you're curious, go read [the next article of this series](scaling-python-application-asyncio)!
 
 {# Local Variables: #}
 {# mode: markdown #}
