@@ -216,11 +216,6 @@ a template so they don’t forget any details: how to reproduce the bugs, what
 they expected, etc. The worst thing is to have users reporting “That does not
 work.” with no details. It’s a waste of time.
 
-What you want is to have a place where your users can feel safe reporting bugs.
-Include a template so they don’t forget any details: how to reproduce the bugs,
-what they expected, etc. The worst thing is to have users reporting “That does
-not work.” with no details. It’s a waste of time.
-
 What tool to use to log all of that really depends on the team size and
 culture.
 
