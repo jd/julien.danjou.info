@@ -1,8 +1,0 @@
----
-title: Naquadah theme for Emacs
-created: !!timestamp '2011-01-31 16:31:00'
-tags:
-    - Emacs
----
-I often post Emacs screenshots on this blog, and consequently receive a
-bunch of request for my Emacs theme. Therefore I decided to [publish it](https://github.com/jd/naquadah-theme).

@@ -1,3 +1,0 @@
-[submodule "deploy/media/js/reveal.js"]
-	path = deploy/media/js/reveal.js
-	url = https://github.com/hakimel/reveal.js.git

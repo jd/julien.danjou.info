@@ -1,8 +1,0 @@
-digraph G {
-        txt -> HTML;
-        txt -> ePub;
-        ePub -> MOBI;
-        txt -> DocBook;
-        DocBook -> LaTeX;
-        LaTeX -> PDF;
-}

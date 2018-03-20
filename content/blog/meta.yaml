@@ -1,4 +1,0 @@
-title: Blog
-extends: blog.j2
-default_block: article
-icon: pencil
