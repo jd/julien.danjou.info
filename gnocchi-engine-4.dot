@@ -1,0 +1,74 @@
+digraph {
+        rankdir=TB;
+        graph [fontname = "courier", fontsize = 20];
+        node [fontname = "courier", fontsize = 20, style=filled, fillcolor=grey, shape=rect];
+        edge [fontname = "courier", fontsize = 20];
+
+        subgraph cluster_01 {
+                graph [fontname = "helvetica", fontsize = 24];
+                node [fontname = "helvetica"];
+
+                label = "Legend";
+
+                "I/O operation" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "CPU operation";
+
+                {rank=source; "I/O operation";}
+        }
+
+        subgraph cluster_workflow {
+                color=white;
+
+                metricd [shape=invhouse, style=filled, fillcolor=yellow];
+
+                metricd -> "list metrics with measures to process";
+
+                "list metrics with measures to process" -> "get measures for those metrics";
+
+                "get measures for those metrics" -> "process measures for metric abc";
+                "get measures for those metrics" -> "process measures for metric bcd";
+                "get measures for those metrics" -> "process measures for metric cde";
+
+                "list metrics with measures to process" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "get measures for those metrics" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "get unaggregated timeseries metric for abc" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "list split keys for abc" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "get splits for abc" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "update and delete splits for abc" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "store new unaggregated timeseries for abc" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+
+                "get unaggregated timeseries metric for bcd" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "list split keys for bcd" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "get splits for bcd" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "update and delete splits for bcd" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "store new unaggregated timeseries for bcd" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+
+                "get unaggregated timeseries metric for cde" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "list split keys for cde" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "get splits for cde" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "update and delete splits for cde" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+                "store new unaggregated timeseries for cde" [shape=cylinder, style=filled, fontcolor=white, fillcolor=red];
+
+                "process measures for metric abc" -> "get unaggregated timeseries metric for abc";
+                "get unaggregated timeseries metric for abc" -> "compute new aggregations for abc";
+                "compute new aggregations for abc" -> "list split keys for abc";
+                "list split keys for abc" -> "get splits for abc";
+                "get splits for abc" -> "update and delete splits for abc";
+                "update and delete splits for abc" -> "store new unaggregated timeseries for abc";
+
+                "process measures for metric bcd" -> "get unaggregated timeseries metric for bcd";
+                "get unaggregated timeseries metric for bcd" -> "compute new aggregations for bcd";
+                "compute new aggregations for bcd" -> "list split keys for bcd";
+                "list split keys for bcd" -> "get splits for bcd";
+                "get splits for bcd" -> "update and delete splits for bcd";
+                "update and delete splits for bcd" -> "store new unaggregated timeseries for bcd";
+
+                "process measures for metric cde" -> "get unaggregated timeseries metric for cde";
+                "get unaggregated timeseries metric for cde" -> "compute new aggregations for cde";
+                "compute new aggregations for cde" -> "list split keys for cde";
+                "list split keys for cde" -> "get splits for cde";
+                "get splits for cde" -> "update and delete splits for cde";
+                "update and delete splits for cde" -> "store new unaggregated timeseries for cde";
+        }
+}
+
