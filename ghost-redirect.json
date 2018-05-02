@@ -12,11 +12,11 @@
         "to": "/fosdem-2017-recap"
     },
     {
-        "from": "^/blog/tags/(.+).xml",
+        "from": "^/blog/tag/(.+).xml",
         "to": "/tags/$1/rss"
     },
     {
-        "from": "^/blog/tags/(.+).html",
+        "from": "^/blog/tag/(.+).html",
         "to": "/tags/$1"
     },
     {
